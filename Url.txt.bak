@@ -1,0 +1,30 @@
+http://191.237.253.158/dhis-web-commons/security/login.action#/edit/ExternalImportDataApp/ExternalImportDataApp
+http://191.237.253.158/dhis-web-datastore/index.html#/edit/ExternalImportDataApp/ExternalImportDataApp
+http://191.237.253.158/dhis-web-commons/security/login.action#/?program=Hh5bklmdAw7
+http://191.237.253.158/api/trackedEntityInstances/yfKAT0IEKQD.json?program=Hh5bklmdAw7&fields=*
+https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-237/tracker.html#webapi_events
+http://191.237.253.158/api/36/dataStore/ExternalImportDataApp/ExternalImportDataApp?access_token=SsQqzMYoYhfrTiiYYRKQKeZthmE
+
+http://191.237.253.158/api/events.json?orgUnit=ME59zsycp2B
+http://191.237.253.158/api/events.json?event=xthhWdOlt1W
+http://191.237.253.158/api/events.json?orgUnit=ME59zsycp2B&event=xthhWdOlt1W
+
+
+498 765 282/srvimagenes/administrador
+
+SanJos3.21
+
+
+SRVIMAGENES	192.168.10.37	Administrador	SanJos3.21	Windows Server 2019		Rack	Pacs Imagenes Diagnosticas			
+
+PM> Add-Migration 05-05-2022
+PM> Update-Database   
+
+Remplazar formato fecha en notepad ++
+
+Burar y remplazar
+
+Buscar: ([0-9]+)/+([0-9]+)/+([0-9]+)
+Remplazar con : \3-\2-\1
+
+MArcar el chek: Expresion Regular

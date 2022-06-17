@@ -1,0 +1,677 @@
+{
+    "datasets": [],
+    "programs": [{
+            "attribute": [{
+                    "column": "Address",
+                    "id": "KVmhApZNh5I",
+                    "name": "Address"
+                }, {
+                    "column": "Address coordinates",
+                    "id": "j7TAtmVfFFg",
+                    "name": "Address coordinates"
+                }, {
+                    "column": "AgeinmonthsAtOnset",
+                    "id": "WelU0kd868C",
+                    "name": "Age (months)  rash at Onset"
+                }, {
+                    "column": "AgeYearAtOnset",
+                    "id": "uiI2pR0ia32",
+                    "name": "Age (years) rash at Onset"
+                }, {
+                    "column": "CaseNum",
+                    "id": "kR6TpjXjMP7",
+                    "name": "CaseNum"
+                }, {
+                    "column": "dtBirth",
+                    "id": "ACeWiOj15cU",
+                    "name": "Date of birth"
+                }, {
+                    "column": "dtRashOnset",
+                    "id": "P9D9Kno5h5M",
+                    "name": "Date of rash onset"
+                }, {
+                    "displayName": "Detected by",
+                    "id": "QZXLhuljOMU"
+                }, {
+                    "column": "EpiWeekNotification",
+                    "id": "x48FoeDRMV8",
+                    "name": "Epi week notification"
+                }, {
+                    "column": "EpiWeekOnSet",
+                    "id": "BJOIp2AWzaD",
+                    "name": "Epi week onset"
+                }, {
+                    "column": "EpiYearNotification",
+                    "id": "ozzQiwrDfYC",
+                    "name": "Epi year notification"
+                }, {
+                    "column": "EpiYearOnSet",
+                    "id": "MPZ1QsldiKH",
+                    "name": "Epi year onset"
+                }, {
+                    "displayName": "Health service name",
+                    "id": "fogdujfI9yt"
+                }, {
+                    "column": "ID number",
+                    "id": "eH1Ny6FmGN0",
+                    "name": "ID number"
+                }, {
+                    "column": "Initial Diagnosis",
+                    "id": "drwcNUY0XWb",
+                    "name": "Initial Diagnosis"
+                }, {
+                    "column": "dtInvestigation",
+                    "id": "cpu4Y9A1KZp",
+                    "name": "dtInvestigation"
+                }, {
+                    "column": "dtBirth",
+                    "id": "I1bgG0PWXQw",
+                    "name": "Is date of birth known"
+                }, {
+                    "displayName": "MEA - Notification date",
+                    "id": "Jgm1InRYvvc"
+                }, {
+                    "column": "Name of mother, father or guardian",
+                    "id": "T7XiKgX38US",
+                    "name": "Name of mother, father or guardian"
+                }, {
+                    "column": "case_ID",
+                    "id": "mxKJ869xJOd",
+                    "name": "CASE_ID"
+                }, {
+                    "column": "",
+                    "id": "LlrXM4KlRwY",
+                    "name": "Patience Residence Municipality"
+                }, {
+                    "column": "Second Last Name",
+                    "id": "VaG0ZzCCHsR",
+                    "name": "Patient last name (maternal)"
+                }, {
+                    "column": "First Last Name",
+                    "id": "gE9Z5IijE5J",
+                    "name": "Patient last name (paternal)"
+                }, {
+                    "column": "First Name",
+                    "id": "sLfTm5aHAAy",
+                    "name": "Patient's first name"
+                }, {
+                    "column": "patientFullName",
+                    "id": "YTP1455M5EF",
+                    "name": "Patient's middle name"
+                }, {
+                    "column": "Registration code",
+                    "id": "vjj5cyugYyx",
+                    "name": "Registration code"
+                }, {
+                    "column": "Sex Id",
+                    "id": "zk2BaGzXyC4",
+                    "name": "Sex"
+                }, {
+                    "column": "Type of ID of patient",
+                    "id": "chWhFpIEjOq",
+                    "name": "Type of ID of patient"
+                }, {
+                    "displayName": "Type of institutional sector that reports",
+                    "id": "v1YvkJ4UI2e"
+                }, {
+                    "column": "WEA - Clasificación final",
+                    "id": "rpvYHYHPZXN",
+                    "name": "WEA - Clasificación final"
+                }
+            ],
+            "caseNum": "kR6TpjXjMP7",
+            "enrollmentDatecolumm": "dtReportedLocal",
+            "incidentDatecolumm": "dtReportedLocal",
+            "orgunitcolumm": "OU_Code",
+            "orgunitid": "bs5OAWHvedW",
+            "programStages": [{
+                    "id": "N95IXBS7OQk",
+                    "name": "Clinical and Vaccination",
+                    "programStageDataElements": [{
+                            "dataElement": {
+                                "column": "",
+                                "id": "VHSBsjxXbnQ",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "xfU4kXnN4wE",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "qKAvSKoIKvb",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "JzkzN7lDU0j",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "cgqgJgFhN9H",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "sogfznWO9If",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "cPtkmEwZJ1j",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "xlZlInapFra",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "HPQxWwxipgn",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "GITy9eJVojF",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "HhlARJUiEiK",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "DyBqieZyjvw",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "SXxMMGPpEAC",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "pcqRH1PMtyV",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "Hospitalized",
+                                "id": "Lz4gsXQAJxP",
+                                "name": "Hospitalized"
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "Vrbox4dQnzY",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "HKaRsPJjcdt",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "elDZVAJjSCU",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "VNyVDOno8BK",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "VaccineMeaslesRubellaType",
+                                "id": "CD4oHwbW9Sy",
+                                "name": "VaccineMeaslesRubellaType"
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "dtLastDoseMeaslesRubella",
+                                "id": "w2GWdKFVkVk",
+                                "name": "dtLastDoseMeaslesRubella"
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "VacSource",
+                                "id": "WaZDJCVch0I",
+                                "name": "VacSource"
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "NumDosesMeaslesRubella",
+                                "id": "BdP7QZ907tz",
+                                "name": "NumDosesMeaslesRubella"
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "mbTiP4BNUk9",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "g0kjjA0AZjq",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "MLZZP7pFcmf",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "sUM5i1kUEmQ",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "VaccinatedAgainstMeaslesRubella",
+                                "id": "GsiWGKdAtRj",
+                                "name": "VaccinatedAgainstMeaslesRubella"
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "KSihrH7Q1D1",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "kJ0SsmouwtS",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "AuqrbwZPsQB",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "Gow0YovmagV",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "vuvQpfUaRKC",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "rvkrDE7SL5i",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "gflC8NWokyA",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "A1J5xrRedFw",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "QI4cjl0hUAJ",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "haQzAp3TLee",
+                                "name": ""
+                            }
+                        }
+                    ]
+                }, {
+                    "id": "sNQqHHN5gi3",
+                    "name": "Laboratory",
+                    "programStageDataElements": [{
+                            "dataElement": {
+                                "column": "SampleID",
+                                "id": "RNaBky7SY1S",
+                                "name": "SampleID"
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "SampleType",
+                                "id": "M2VqHQyb2mY",
+                                "name": "SampleType"
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "dtTaken",
+                                "id": "ugmyjBJvuSF",
+                                "name": "dtTaken"
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "x5mpdot9oOI",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "dtReceived",
+                                "id": "RtEQBiKrxAP",
+                                "name": "dtReceived"
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "dtResult",
+                                "id": "aufOFqfJej4",
+                                "name": "dtResult"
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "TestType",
+                                "id": "JLMjJQ4hyQQ",
+                                "name": "TestType"
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "result",
+                                "id": "PxyQ76H4gco",
+                                "name": "result"
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "genotype",
+                                "id": "yNpp8uXzAGP",
+                                "name": "genotype"
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "LabCode",
+                                "id": "CyZyXazs9OD",
+                                "name": "LabCode"
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "Antigen",
+                                "id": "UrnhPkMRx3H",
+                                "name": "Antigen"
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "woEDPxqfA81",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "kGPKzFeF9kD",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "IfJ9ei90Aj8",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "JzkzN7lDU0j",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "SK6FQOaUlwX",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "dtSent",
+                                "id": "MmA8DCPxwLz",
+                                "name": "dtSent"
+                            }
+                        }
+                    ]
+                }, {
+                    "id": "cjq7fSjgq5N",
+                    "name": "Investigation",
+                    "programStageDataElements": [{
+                            "dataElement": {
+                                "column": "ActiveSearches",
+                                "id": "oCgjW7NU9W2",
+                                "name": "ActiveSearches"
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "oeq2tDCDKXo",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "A4QmT2XF3Xz",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "P6tzkfvDYiN",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "Traveled",
+                                "id": "uE5ItwW5ofG",
+                                "name": "Traveled"
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "UpJ7d2xsKLm",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "IyD9ACHajt4",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "OwOaidRPyZf",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "LzEyCL6mhLl",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "FinalClass",
+                                "id": "xTGrfBCYogl",
+                                "name": "FinalClass"
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "beEELCmsqow",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "XcGK3ZLRvtV",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "OL4Nq1DdBFN",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "EVKvfZSC7TF",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "SettingWhereInfected",
+                                "id": "aThAJIqpKiG",
+                                "name": "SettingWhereInfected"
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "t7dnp7RbUZ3",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "tOtrGkg71HD",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "MgsBpNpBQeT",
+                                "name": ""
+                            }
+                        }
+                    ]
+                }, {
+                    "id": "okXkga3RhRG",
+                    "name": "Clasification",
+                    "programStageDataElements": [{
+                            "dataElement": {
+                                "column": "FinalClass",
+                                "id": "kLcqAIy8Erz",
+                                "name": "FinalClass"
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "rgL9mVmuWmq",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "SourceOfInfection",
+                                "id": "A3kanDhA8uD",
+                                "name": "SourceOfInfection"
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "BasisForConfirming",
+                                "id": "nfGDetIAFzi",
+                                "name": "BasisForConfirming"
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "BasisForDiscarding",
+                                "id": "YUx8E0OwD4w",
+                                "name": "BasisForDiscarding"
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "ggGtQe6vNOx",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "vLTc2pvko35",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "OtherDiagnosis",
+                                "id": "Fh9XSyHPhYZ",
+                                "name": "OtherDiagnosis"
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "gN9vE4L4lPS",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "JbWJLD6sS4M",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "qXsbYcFAvxR",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "zhVWHEfPnMO",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "o02tGoh4Erj",
+                                "name": ""
+                            }
+                        }, {
+                            "dataElement": {
+                                "column": "",
+                                "id": "THJVQFnn9Oc",
+                                "name": ""
+                            }
+                        }
+                    ]
+                }
+            ],
+            "programid": "Hh5bklmdAw7",
+            "programname": "Measles/Rubella",
+            "status": "enabled",
+            "trackedEntityType": "Hb3HvqaWl2u"
+        }
+    ]
+}
