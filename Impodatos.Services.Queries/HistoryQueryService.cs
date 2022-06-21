@@ -13,6 +13,8 @@ namespace Impodatos.Services.Queries
     {
         Task<IEnumerable<historyDto>> GetAllAsync();
         Task<IEnumerable<historyDto>> GethistoryUserAsync(string correo);
+        //Task<IEnumerable<historyDto>> GetAllAsync01();
+        //Task<IEnumerable<historyDto>> GethistoryUserAsync01(string correo);
     }
     public  class historyQueryService : IhistoryQueryService
     {
@@ -24,7 +26,6 @@ namespace Impodatos.Services.Queries
             _context = context;
         _mapper = mapper;
         }
-
         public async Task<IEnumerable<historyDto>> GetAllAsync()
         {
             var result = await _context.history.ToListAsync();
@@ -52,7 +53,32 @@ namespace Impodatos.Services.Queries
 
             return _mapper.Map<IEnumerable<historyDto>>(result);
         }
+        //public async Task<IEnumerable<historyDto>> GetAllAsync01()
+        //{
+        //    var result = await _context.history.ToListAsync();
 
+        //    return _mapper.Map<IEnumerable<historyDto>>(result);
+        //}
+        //public async Task<IEnumerable<historyDto>> GethistoryUserAsync01(string correo)
+        //{
+        //    var result = await (from c in _context.history
+        //                        where c.userlogin == correo
+        //                        select new history
+        //                        {
+        //                            id = c.id,
+        //                            uploads = c.uploads,
+        //                            deleted = c.deleted,
+        //                            programsid = c.programsid,
+        //                            jsonset = c.jsonset,
+        //                            jsonresponse = c.jsonresponse,
+        //                            state = c.state,
+        //                            userlogin = c.userlogin,
+        //                            fecha = c.fecha,
+        //                            file = c.file
 
+        //                        }).ToListAsync();
+
+        //    return _mapper.Map<IEnumerable<historyDto>>(result);
+        //}
     }
 }

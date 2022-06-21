@@ -14,6 +14,7 @@ namespace Impodatos.Services.Queries
     public interface IDhisQueryService
     {
         void SetMaintenanceAsync(string token);
+        //Task<DhisProgramDto> StartDryRunAsync(string token);
         Task<DhisProgramDto> GetAllProgramAsync(string token);
         Task<OrganisationUnitsDto> GetAllOrganisation(string token);
         Task<UidGeneratedDto> GetUidGenerated(string quantity, string token);
@@ -28,6 +29,11 @@ namespace Impodatos.Services.Queries
     }
     public class DhisQueryService : IDhisQueryService
     {
+        //public async Task<DhisProgramDto> StartDryRunAsync(string token)
+        //{
+        //    var result = await RequestHttp.CallMethod("dhis", "program", token);
+        //    return JsonConvert.DeserializeObject<DhisProgramDto>(result);
+        //}
         public async Task<DhisProgramDto> GetAllProgramAsync(string token )
         {
             var result = await RequestHttp.CallMethod("dhis", "program", token);           

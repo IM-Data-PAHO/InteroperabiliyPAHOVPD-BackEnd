@@ -32,6 +32,16 @@ namespace Impodatos.Api.Controllers
         {
             return await _historyQueryService1.GethistoryUserAsync(user);
         }
+        //[HttpGet]
+        //public async Task<IEnumerable<historyDto>> GetAll01()
+        //{
+        //    return await _historyQueryService1.GetAllAsync01();
+        //}
+        //[HttpGet("user")]
+        //public async Task<IEnumerable<historyDto>> GetAll01(string user)
+        //{
+        //    return await _historyQueryService1.GethistoryUserAsync01(user);
+        //}
         [HttpPost]
         public async Task<IActionResult> Add([FromForm]historyCreateCommand command)
         {

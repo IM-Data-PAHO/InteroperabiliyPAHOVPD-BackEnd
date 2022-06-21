@@ -36,6 +36,7 @@ namespace Impodatos.Services.EventHandlers
             int contupload = 0;
             int contdelete = 0;
             List<string> jsonResponse = new List<string>();
+            Program objprogram = new Program();
             //leemos el archivo y guardamos en memoria
             //if
             historyCreateCommand cmd = new historyCreateCommand();
@@ -74,7 +75,7 @@ namespace Impodatos.Services.EventHandlers
                 int codes = 0;
                 //var TrackeduidGeneratedDto = await _dhis.GetUidGenerated("10000", command.token);
                 var ExternalImportDataApp = await _dhis.GetAllProgramAsync(command.token);
-                Program objprogram = new Program();
+
                 objprogram = ExternalImportDataApp.Programs.Where(a => a.Programid.Equals(command.Programsid)).FirstOrDefault();
                 OrganisationUnitsDto Organisation = new OrganisationUnitsDto();
                 Organisation = await _dhis.GetAllOrganisation(command.token); //crear el objeto de tipo AddEventDto
@@ -84,7 +85,9 @@ namespace Impodatos.Services.EventHandlers
                 while (!reader.EndOfStream)
                 {
                     var valores = reader.ReadLine().Split(';');
-
+                    int cic = 0;
+                    Console.Write("Ciclos: " + cic.ToString() );
+                    cic++;
                     int dtRashOn = Array.IndexOf(propiedades, "dtRashOnset");
                     string dtRashOnval = valores[dtRashOn];
                     int dty = Convert.ToInt32(Convert.ToDateTime(dtRashOnval).Year);
@@ -118,7 +121,7 @@ namespace Impodatos.Services.EventHandlers
                                     var setClean = await _dhis.SetCleanEvent(oupath, startDate, endDate, command.token);
                                     if (setClean.events.Count > 0)
                                     {
-                                        var dropEvens = await _dhis.AddEventClear(setClean, command.token, "?strategy=DELETE&includeDeleted=true");
+                                        var dropEvens = await _dhis.AddEventClear(setClean, command.token, "?strategy=DELETE&includeDeleted=true&async=true");
                                         contdelete = Convert.ToInt32(dropEvens.response.total);
                                         _dhis.SetMaintenanceAsync(command.token);
                                     }
@@ -127,7 +130,7 @@ namespace Impodatos.Services.EventHandlers
                             }
                         int caseid = Array.IndexOf(propiedades, "CASE_ID");
                         string caseidvalue = valores[caseid];
-                        //Validamos si el tracked ya existe
+                        //Validamos si el tracked ya existe:  verificar por que se estan creando repetidos
                         string ouid = ounits.id;
                         var validatetraked = await _dhis.GetTracket(caseidvalue, ouid, command.token);
                         if (validatetraked.trackedEntityInstances.Count > 0)
@@ -350,6 +353,7 @@ namespace Impodatos.Services.EventHandlers
                         try
                         {
                             var eventsResultDto = await _dhis.AddEvent(eventDto, command.token);
+                            Console.Write("AddEvent: "+ eventsResultDto.Status);
                             eventDto = new AddEventsDto();
                             contupload = contupload + 1;
                             total = cont;
@@ -393,14 +397,15 @@ namespace Impodatos.Services.EventHandlers
             data = fileByte.ReadBytes(i);
             //agregamos al contexto la informacion aguardar
 
+
             await _context.AddAsync(new history
             {
-                programsid = command.Programsid,
+                programsid = objprogram.Programname,
                 uploads = contupload,
                 deleted = contdelete,
                 jsonset = JsonConvert.SerializeObject(jsonResponse),
                 jsonresponse = "Procesado",
-                state = false,
+                state = true,
                 userlogin = command.UserLogin,
                 fecha = DateTime.Now,
                 file = data

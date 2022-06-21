@@ -19,7 +19,12 @@ namespace Impodatos.Api.Controllers
             _dhisQueryService = dhisQueryService;
             _mediator = mediator;
         }
-
+        //[HttpGet]
+        //[Route("startDryRun/{token}")]
+        //public async Task<DhisProgramDto> StartDryRun(string token)
+        //{
+        //    return await _dhisQueryService.StartDryRunAsync(token);
+        //}
 
         [HttpGet]
         [Route("getAllProgram/{token}")]
