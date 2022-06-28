@@ -28,3 +28,5 @@ Buscar: ([0-9]+)/+([0-9]+)/+([0-9]+)
 Remplazar con : \3-\2-\1
 
 MArcar el chek: Expresion Regular
+
+https://labs.sogeti.com/deploy-net-core-web-api-to-linux-ubuntu/

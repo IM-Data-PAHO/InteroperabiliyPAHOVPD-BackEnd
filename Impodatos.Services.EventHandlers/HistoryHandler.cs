@@ -65,6 +65,7 @@ namespace Impodatos.Services.EventHandlers
 
             //con el metodo ReadLine leemos la primera linea y guardamos el array en la variable
             var propiedades = reader.ReadLine().Split(';');
+            propiedades = propiedades.Select(s => s.ToUpperInvariant()).ToArray();
             //var propiedades01 = reader01.ReadLine().Split(';');
 
             //recorremos archivo hasta el final
@@ -88,9 +89,14 @@ namespace Impodatos.Services.EventHandlers
                     int cic = 0;
                     Console.Write("Ciclos: " + cic.ToString() );
                     cic++;
-                    int dtRashOn = Array.IndexOf(propiedades, "dtRashOnset");
+                    int dtRashOn = Array.IndexOf(propiedades, "DTRASHONSET"); //error
                     string dtRashOnval = valores[dtRashOn];
-                    int dty = Convert.ToInt32(Convert.ToDateTime(dtRashOnval).Year);
+                    int dty = 0;
+                    try
+                    {
+                        dty = Convert.ToInt32(Convert.ToDateTime(dtRashOnval).Year);
+                    }
+                    catch (Exception e) { Console.WriteLine("{0} Exception caught.", e); }
                     if (dty == command.startdate || dty == command.enddate)
                     {
                         List<TrackedEntityInstances> listtrackedInstDto = new List<TrackedEntityInstances>();
@@ -108,7 +114,7 @@ namespace Impodatos.Services.EventHandlers
                         TrackedEntityInstances trackedInstDto = new TrackedEntityInstances();
 
                         OrganisationUnit ounits = new OrganisationUnit();
-                        int colounits = Array.IndexOf(propiedades, objprogram.Orgunitcolumm);
+                        int colounits = Array.IndexOf(propiedades, objprogram.Orgunitcolumm.ToUpperInvariant());
                         string ounitvalue = valores[colounits];
                         foreach (OrganisationUnit ou in Organisation.OrganisationUnits)
                             if (ou.code == ounitvalue)
@@ -139,17 +145,17 @@ namespace Impodatos.Services.EventHandlers
                             trackedInstDto.trackedEntityInstance = TrackeduidGeneratedDto.Codes[0].ToString();
 
                         trackedInstDto.trackedEntityType = objprogram.Trackedentitytype;
-                        int ideventdate = Array.IndexOf(propiedades, objprogram.Incidentdatecolumm);
+                        int ideventdate = Array.IndexOf(propiedades, objprogram.Incidentdatecolumm.ToUpperInvariant());
                         string eventdate = valores[ideventdate];
                         trackedInstDto.orgUnit = ounits.id;
 
                         List<Attribut> listAttribut = new List<Attribut>();
                         string enrollmentDatecolumm = "";
                         string incidentDatecolumm = "";
-                        var id = Array.IndexOf(propiedades, objprogram.Enrollmentdatecolumm);
+                        var id = Array.IndexOf(propiedades, objprogram.Enrollmentdatecolumm.ToUpperInvariant());
                         enrollmentDatecolumm = valores[id];
                         //enrollmentDatecolumm = valores[id].Split('/')[2].PadLeft(2, '0') + "-" + valores[id].Split('/')[1] + "-" + valores[id].Split('/')[0].PadLeft(2, '0');
-                        var idi = Array.IndexOf(propiedades, objprogram.Incidentdatecolumm);
+                        var idi = Array.IndexOf(propiedades, objprogram.Incidentdatecolumm.ToUpperInvariant());
                         incidentDatecolumm = valores[idi];
                         //incidentDatecolumm = valores[idi].Split('/')[2].PadLeft(2, '0') + "-" + valores[idi].Split('/')[1] + "-" + valores[idi].Split('/')[0].PadLeft(2, '0');
                         foreach (Queries.DTOs.Attribute at in objprogram.Attribute)
@@ -157,7 +163,7 @@ namespace Impodatos.Services.EventHandlers
                             try
                             {
                                 Attribut attribut = new Attribut();
-                                var idval = Array.IndexOf(propiedades, at.Column);
+                                var idval = Array.IndexOf(propiedades, at.Column.ToUpperInvariant());
                                 attribut.attribute = at.Id;
                                 if (idval >= 0)
                                 {
@@ -187,13 +193,21 @@ namespace Impodatos.Services.EventHandlers
                         Attribut attributSq = new Attribut();
                         attributSq.attribute = "mxKJ869xJOd";
                         attributSq.value = SequentialDto[0].value;
+                        Attribut attributRcode = new Attribut();
+                        attributRcode.attribute = "vjj5cyugYyx";
+                        attributRcode.value = "22--MR-" + SequentialDto[0].value;
                         listAttribut.Add(attributSq);
+                        listAttribut.Add(attributRcode);
                         trackedInstDto.attributes = listAttribut;
                         listtrackedInstDto.Add(trackedInstDto);
                         trackedDto.trackedEntityInstances = listtrackedInstDto;
                         AddTracketResultDto trakedResultDto = new AddTracketResultDto();
                         AddEnrollmentResultDto enrollResultDto = new AddEnrollmentResultDto();
-                        trakedResultDto = await _dhis.AddTracked(trackedDto, command.token); //crear el objeto de tipo AddTrackedDto
+                        try
+                        {
+                            trakedResultDto = await _dhis.AddTracked(trackedDto, command.token); //crear el objeto de tipo AddTrackedDto
+                        }
+                        catch (Exception e) {  }
                         if (trakedResultDto.Status == "OK")
                         {
                             //validamos el enrollment
@@ -297,7 +311,7 @@ namespace Impodatos.Services.EventHandlers
                                         try
                                         {
                                             DataValue datavalue = new DataValue();
-                                            int idval = Array.IndexOf(propiedades, dte.dataElement.column);
+                                            int idval = Array.IndexOf(propiedades, dte.dataElement.column.ToUpperInvariant());
                                             if (idval >= 0)
                                             {
                                                 datavalue.dataElement = dte.dataElement.id;
@@ -353,7 +367,7 @@ namespace Impodatos.Services.EventHandlers
                         try
                         {
                             var eventsResultDto = await _dhis.AddEvent(eventDto, command.token);
-                            Console.Write("AddEvent: "+ eventsResultDto.Status);
+                            Console.Write("AddEvent: " + eventsResultDto.Status);
                             eventDto = new AddEventsDto();
                             contupload = contupload + 1;
                             total = cont;
@@ -372,7 +386,7 @@ namespace Impodatos.Services.EventHandlers
                             jsonResponse.Add(val); //+ jsonDto);
                         }
                     }
-                }
+                    }
                 total = cont;
             }
             catch (Exception e) { Console.WriteLine("{0} Exception caught.", e); }

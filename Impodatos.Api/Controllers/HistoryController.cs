@@ -16,7 +16,7 @@ namespace Impodatos.Api.Controllers
         private readonly IhistoryQueryService _historyQueryService1;
         private readonly IMediator _mediator;
         private readonly IValidator<historyCreateCommand> _historyValidator;
-       public historyController(IhistoryQueryService historyQueryService, IMediator mediator, IValidator<historyCreateCommand> historyValidator)
+        public historyController(IhistoryQueryService historyQueryService, IMediator mediator, IValidator<historyCreateCommand> historyValidator)
         {
             _historyQueryService1 = historyQueryService;
             _mediator = mediator;
