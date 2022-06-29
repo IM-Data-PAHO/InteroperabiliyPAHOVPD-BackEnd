@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 using Z.Expressions;
 namespace Impodatos.Services.EventHandlers
 {
-    public class historyHandler : 
+    public class historyHandler :
         INotificationHandler<historyCreateCommand>,
         INotificationHandler<historyUpdateCommand>
     {
@@ -24,7 +24,7 @@ namespace Impodatos.Services.EventHandlers
 
         public historyHandler(ApplicationDbContext context, IDhisQueryService dhis)
         {
-            _context = context;  
+            _context = context;
             _dhis = dhis;
         }
 
@@ -76,18 +76,18 @@ namespace Impodatos.Services.EventHandlers
                 int codes = 0;
                 //var TrackeduidGeneratedDto = await _dhis.GetUidGenerated("10000", command.token);
                 var ExternalImportDataApp = await _dhis.GetAllProgramAsync(command.token);
-
                 objprogram = ExternalImportDataApp.Programs.Where(a => a.Programid.Equals(command.Programsid)).FirstOrDefault();
                 OrganisationUnitsDto Organisation = new OrganisationUnitsDto();
                 Organisation = await _dhis.GetAllOrganisation(command.token); //crear el objeto de tipo AddEventDto
                 var contentOrg = JsonConvert.SerializeObject(Organisation);
                 string oupath = null;
 
-                while (!reader.EndOfStream)
+                string line;
+                while ((line = reader.ReadLine()) != null)
                 {
-                    var valores = reader.ReadLine().Split(';');
+                    var valores = line.Split(';');
                     int cic = 0;
-                    Console.Write("Ciclos: " + cic.ToString() );
+                    Console.Write("Ciclos: " + cic.ToString());
                     cic++;
                     int dtRashOn = Array.IndexOf(propiedades, "DTRASHONSET"); //error
                     string dtRashOnval = valores[dtRashOn];
@@ -116,10 +116,13 @@ namespace Impodatos.Services.EventHandlers
                         OrganisationUnit ounits = new OrganisationUnit();
                         int colounits = Array.IndexOf(propiedades, objprogram.Orgunitcolumm.ToUpperInvariant());
                         string ounitvalue = valores[colounits];
+                        bool okou = false;
                         foreach (OrganisationUnit ou in Organisation.OrganisationUnits)
+                        {
                             if (ou.code == ounitvalue)
                             {
                                 ounits = ou;
+                                okou = true;
                                 if (oupath == null)
                                 {
                                     oupath = ou.path.Split("/")[2];
@@ -132,8 +135,9 @@ namespace Impodatos.Services.EventHandlers
                                         _dhis.SetMaintenanceAsync(command.token);
                                     }
                                 }
-                                break;
                             }
+                            if (okou == true) break;
+                        }
                         int caseid = Array.IndexOf(propiedades, "CASE_ID");
                         string caseidvalue = valores[caseid];
                         //Validamos si el tracked ya existe:  verificar por que se estan creando repetidos
@@ -160,44 +164,43 @@ namespace Impodatos.Services.EventHandlers
                         //incidentDatecolumm = valores[idi].Split('/')[2].PadLeft(2, '0') + "-" + valores[idi].Split('/')[1] + "-" + valores[idi].Split('/')[0].PadLeft(2, '0');
                         foreach (Queries.DTOs.Attribute at in objprogram.Attribute)
                         {
-                            try
+                            if (at.Column != null)
                             {
-                                Attribut attribut = new Attribut();
-                                var idval = Array.IndexOf(propiedades, at.Column.ToUpperInvariant());
-                                attribut.attribute = at.Id;
-                                if (idval >= 0)
+                                try
                                 {
-                                    if (at.Id.Equals(objprogram.caseNum) && listtrackedInstDto.Count > 0)
+                                    Attribut attribut = new Attribut();
+                                    var idval = Array.IndexOf(propiedades, at.Column.ToUpperInvariant());
+                                    attribut.attribute = at.Id;
+                                    if (idval >= 0)
                                     {
-                                        foreach (TrackedEntityInstances tki in listtrackedInstDto)
-                                            foreach (Attribut att in tki.attributes)
-                                                if (att.value.Equals(valores[idval]))
-                                                    trackedEntityInstance = tki.trackedEntityInstance;
-                                    }
+                                        if (at.Id.Equals(objprogram.caseNum) && listtrackedInstDto.Count > 0)
+                                        {
+                                            foreach (TrackedEntityInstances tki in listtrackedInstDto)
+                                                foreach (Attribut att in tki.attributes)
+                                                    if (att.value.Equals(valores[idval]))
+                                                        trackedEntityInstance = tki.trackedEntityInstance;
+                                        }
 
-                                    if (at.Name.Equals("Date of birth") || at.Name.Equals("Date of rash onset") || at.Name.Equals("WEA - Clasificación final"))
-                                        attribut.value = valores[idval];// valores[idval].Split('/')[2].PadLeft(2, '0') + "-" + valores[idval].Split('/')[1] + "-" + valores[idval].Split('/')[0].PadLeft(2, '0');
-                                    else
-                                        attribut.value = valores[idval];
-                                    if (at.Name.Equals("Is date of birth known"))
-                                        attribut.value = valores[idval] == null ? "false" : "true";
-                                    if (attribut != null)
-                                    {
-                                        listAttribut.Add(attribut);
+                                        if (at.Name.Equals("Date of birth") || at.Name.Equals("Date of rash onset") || at.Name.Equals("WEA - Clasificación final"))
+                                            attribut.value = valores[idval];// valores[idval].Split('/')[2].PadLeft(2, '0') + "-" + valores[idval].Split('/')[1] + "-" + valores[idval].Split('/')[0].PadLeft(2, '0');
+                                        else
+                                            attribut.value = valores[idval];
+                                        if (at.Name.Equals("Is date of birth known"))
+                                            attribut.value = valores[idval] == null ? "false" : "true";
+                                        if (attribut != null)
+                                        {
+                                            listAttribut.Add(attribut);
+                                        }
                                     }
                                 }
+                                catch (Exception e) { }
                             }
-                            catch (Exception e) { }
                         }
                         var SequentialDto = await _dhis.GetSequential("1", command.token);
                         Attribut attributSq = new Attribut();
                         attributSq.attribute = "mxKJ869xJOd";
                         attributSq.value = SequentialDto[0].value;
-                        Attribut attributRcode = new Attribut();
-                        attributRcode.attribute = "vjj5cyugYyx";
-                        attributRcode.value = "22--MR-" + SequentialDto[0].value;
                         listAttribut.Add(attributSq);
-                        listAttribut.Add(attributRcode);
                         trackedInstDto.attributes = listAttribut;
                         listtrackedInstDto.Add(trackedInstDto);
                         trackedDto.trackedEntityInstances = listtrackedInstDto;
@@ -207,7 +210,7 @@ namespace Impodatos.Services.EventHandlers
                         {
                             trakedResultDto = await _dhis.AddTracked(trackedDto, command.token); //crear el objeto de tipo AddTrackedDto
                         }
-                        catch (Exception e) {  }
+                        catch (Exception e) { }
                         if (trakedResultDto.Status == "OK")
                         {
                             //validamos el enrollment
@@ -226,10 +229,15 @@ namespace Impodatos.Services.EventHandlers
                                 enrollment.enrollments = listEnrollment;
                                 enrollResultDto = await _dhis.AddEnrollment(enrollment, command.token);
                             }
+                            else
+                            {
+                                enrollResultDto.Status = validateenrollment.enrollments[0].status;
+                            }
+
                         }
                         //Event
                         AddEventsDto eventDto = new AddEventsDto();
-                        if (trakedResultDto.Status == "OK" && enrollResultDto.Status == "OK")
+                        if (trakedResultDto.Status == "OK" && enrollResultDto.Status == "ACTIVE")
                         {
                             List<ProgramStageDataElement> dteObjarray = new List<ProgramStageDataElement>();
 
@@ -316,6 +324,7 @@ namespace Impodatos.Services.EventHandlers
                                             {
                                                 datavalue.dataElement = dte.dataElement.id;
                                                 datavalue.value = valores[idval];
+                                                //if(datavalue.dataElement == "w2GWdKFVkVk")  Validar que el formato de esta fecha sea yyyy-mm-dd
                                                 listDataValue.Add(datavalue);
                                                 cont = cont + 1;
                                             }
@@ -353,8 +362,8 @@ namespace Impodatos.Services.EventHandlers
                                             event_ = code,
                                             dataValues = listDataValue
                                         };
-
-                                        listEvent.Add(objEventDto);
+                                        if (objEventDto.eventDate.Trim().Length > 0)
+                                            listEvent.Add(objEventDto);
 
                                     }
                                 }
@@ -367,6 +376,7 @@ namespace Impodatos.Services.EventHandlers
                         try
                         {
                             var eventsResultDto = await _dhis.AddEvent(eventDto, command.token);
+                            string rrr = Convert.ToString(JsonConvert.SerializeObject(eventsResultDto));
                             Console.Write("AddEvent: " + eventsResultDto.Status);
                             eventDto = new AddEventsDto();
                             contupload = contupload + 1;
@@ -386,7 +396,7 @@ namespace Impodatos.Services.EventHandlers
                             jsonResponse.Add(val); //+ jsonDto);
                         }
                     }
-                    }
+                }
                 total = cont;
             }
             catch (Exception e) { Console.WriteLine("{0} Exception caught.", e); }
