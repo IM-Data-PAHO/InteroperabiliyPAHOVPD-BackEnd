@@ -26,5 +26,13 @@ namespace Impodatos.Api.Controllers
             return await _loginQueryService.GetLogin(command.username, command.password);
 
         }
+
+        [HttpGet]
+        [Route("getUserSetting/{token}")]
+        public async Task<UserSettingDto> getUserSetting(string token)
+        {
+            return await _loginQueryService.GetUserSetting(token);
+        }     
+
     }
 }

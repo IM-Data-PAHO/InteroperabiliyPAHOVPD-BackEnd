@@ -12,6 +12,7 @@ namespace Impodatos.Services.Queries
     public interface ILoginQueryService
     {
         Task<LoginResponseDto> GetLogin(string user, string password);
+        Task<UserSettingDto> GetUserSetting(string token);  
 
     }
     public class LoginQueryService : ILoginQueryService
@@ -22,6 +23,12 @@ namespace Impodatos.Services.Queries
             var result = await RequestHttp.CallMethodLogin("dhis", "login" ,  user,  password);           
 
             return JsonConvert.DeserializeObject<LoginResponseDto>(JsonConvert.DeserializeObject<string>(result));
+        }     
+
+        public async Task<UserSettingDto> GetUserSetting(string token)
+        {
+            var result = await RequestHttp.CallMethodGetUserSetting("dhis",  token);
+            return JsonConvert.DeserializeObject<UserSettingDto>(result);
         }
     }
 }

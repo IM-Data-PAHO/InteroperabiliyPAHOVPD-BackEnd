@@ -202,5 +202,33 @@ namespace Impodatos.Services.Common.Security
             }
         }
 
+        public async static Task<string> CallMethodGetUserSetting(string service,  string token)
+        {
+            try
+            {
+                var _set = _integration;
+                var _service = _set.Services.Where(s => s.Name.Equals(service)).ToList().FirstOrDefault();
+                string URL = string.Format($"{_service.URL}/me");
+                using (var client = new HttpClient())
+                using (var request = new HttpRequestMessage(HttpMethod.Get, URL))
+                {
+                    if (_service.Authentication.User != null)
+                        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                    request.Headers.Add("Accept", "application/json");
+                    using (var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false))
+                    {
+                        response.EnsureSuccessStatusCode();
+                        var result = await response.Content.ReadAsStringAsync();
+                        return result;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }
