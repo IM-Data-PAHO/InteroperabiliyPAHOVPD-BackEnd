@@ -2,6 +2,13 @@
 
 namespace Impodatos.Services.Queries.DTOs
 {
+    public class dryrunDto
+    {
+        public int Uploads { get; set; }
+        public int Deleted { get; set; }
+        public string Response { get; set; }
+        public string State { get; set; }
+    }
     public class historyDto
     {
         public int Id { get; set; }

@@ -8,12 +8,14 @@ using System.Threading.Tasks;
 using System.Text.Json;
 using Newtonsoft.Json;
 using static Impodatos.Services.Queries.DTOs.ResponseDhisDto;
+using System.IO;
 
 namespace Impodatos.Services.Queries
 {
     public interface IDhisQueryService
     {
         void SetMaintenanceAsync(string token);
+        Task<dryrunDto> StartDryRunAsync(HistoryCreateCommandDto request);
         //Task<DhisProgramDto> StartDryRunAsync(string token);
         Task<DhisProgramDto> GetAllProgramAsync(string token);
         Task<OrganisationUnitsDto> GetAllOrganisation(string token);
@@ -29,11 +31,87 @@ namespace Impodatos.Services.Queries
     }
     public class DhisQueryService : IDhisQueryService
     {
-        //public async Task<DhisProgramDto> StartDryRunAsync(string token)
-        //{
-        //    var result = await RequestHttp.CallMethod("dhis", "program", token);
-        //    return JsonConvert.DeserializeObject<DhisProgramDto>(result);
-        //}
+        public async Task<dryrunDto> StartDryRunAsync(HistoryCreateCommandDto request)
+        {
+            dryrunDto objdryrunDto = new dryrunDto();
+            string oupath = null;
+            int contupload = 0;
+            int contdelete = 0;
+            string status = "";
+            string response = "";
+            List<string> jsonResponse = new List<string>();
+            Program objprogram = new Program();
+
+            byte[] data = null;
+            var fileByte = new BinaryReader(request.CsvFile.OpenReadStream());
+            int i = (int)request.CsvFile.Length;
+            data = fileByte.ReadBytes(i);
+
+            var reader = new StreamReader(request.CsvFile.OpenReadStream());
+            var lstDate = new List<Int32>();
+            var propiedades = reader.ReadLine().Split(';');
+            propiedades = propiedades.Select(s => s.ToUpperInvariant()).ToArray();
+            string startDate = request.startdate + "-01-01";
+            string endDate = (request.enddate + 1) + "-01-01";
+
+            try
+            {
+                var ExternalImportDataApp = await GetAllProgramAsync(request.token);
+                objprogram = ExternalImportDataApp.Programs.Where(a => a.Programid.Equals(request.Programsid)).FirstOrDefault();
+                int colounits = Array.IndexOf(propiedades, objprogram.Orgunitcolumm.ToUpperInvariant());
+                OrganisationUnitsDto Organisation = new OrganisationUnitsDto();
+                Organisation = await GetAllOrganisation(request.token);
+                var contentOrg = JsonConvert.SerializeObject(Organisation);
+
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    var valores = line.Split(';');
+                    int dtRashOn = Array.IndexOf(propiedades, "DTRASHONSET"); //error
+                    string dtRashOnval = valores[dtRashOn];
+                    int dty = 0;
+                    try
+                    {
+                        dty = Convert.ToInt32(Convert.ToDateTime(dtRashOnval).Year);
+                    }
+                    catch (Exception e) { Console.WriteLine("{0} Exception caught.", e); }
+                    if (dty == request.startdate || dty == request.enddate)
+                    {
+                        contupload++;
+                    }
+                    if (oupath == null)
+                    {
+                        string ounitvalue = valores[colounits].ToUpper().Trim();
+                        foreach (OrganisationUnit ou in Organisation.OrganisationUnits)
+                        {
+                            if (ou.code == ounitvalue)
+                            {
+                                oupath = ou.path.Split("/")[2];
+                                var setClean = await SetCleanEvent(oupath, startDate, endDate, request.token);
+                                contdelete = Convert.ToInt32(setClean.events.Count);
+                                oupath = "OK";
+
+                            }
+                            if (oupath != null)
+                                break;
+                        }
+
+                    }
+                }
+                status = "200";
+                response = "Procesado correctamente";
+            }
+            catch (Exception e)
+            {
+                status = e.Message;
+
+            }
+            objdryrunDto.Uploads = contupload;
+            objdryrunDto.Deleted = contdelete;
+            objdryrunDto.Response = response;
+            objdryrunDto.State = status;
+            return objdryrunDto;
+        }
         public async Task<DhisProgramDto> GetAllProgramAsync(string token )
         {
             var result = await RequestHttp.CallMethod("dhis", "program", token);           

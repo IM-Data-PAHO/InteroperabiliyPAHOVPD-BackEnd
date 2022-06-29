@@ -1,7 +1,10 @@
-﻿using Impodatos.Services.Queries;
+﻿using FluentValidation;
+using Impodatos.Services.EventHandlers.Commands;
+using Impodatos.Services.Queries;
 using Impodatos.Services.Queries.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -64,7 +67,24 @@ namespace Impodatos.Api.Controllers
         {
             return await _dhisQueryService.GetSequential(quantity, token);
         }
-
+        [HttpPost]
+        [Route("startDryRun")]
+        public async Task<dryrunDto> StartDryRun([FromForm] HistoryCreateCommandDto request)
+        {
+            //var validation = _historyValidator.Validate(request);
+            //if (validation.IsValid)
+            //{
+            //    return await _dhisQueryService.StartDryRunAsync(request);
+            //}
+            //return (new dryrunDto
+            //{
+            //    Response = "Error en datos",
+            //    State = "400",
+            //    Uploads = 0,
+            //    Deleted =0
+            //});
+            return await _dhisQueryService.StartDryRunAsync(request);
+        }
         [HttpPost]
         [Route("addTracket/{token}")]
         public async Task<AddTracketResultDto> AddTracket(AddTrackedDto request, string token)
