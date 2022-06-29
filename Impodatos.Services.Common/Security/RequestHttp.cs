@@ -72,8 +72,16 @@ namespace Impodatos.Services.Common.Security
                     client.Timeout = TimeSpan.FromMinutes(15);
                     using (var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false))
                     {
-                        response.EnsureSuccessStatusCode();
-                        var result = await response.Content.ReadAsStringAsync();
+                        var result = "";
+                        try
+                        {
+                            response.EnsureSuccessStatusCode();
+                            result = await response.Content.ReadAsStringAsync();
+                        }
+                        catch (Exception e) {
+                            ResponseDto resp = new ResponseDto();
+                            resp.Status = "404";
+                            return resp.ToString(); }
                         return result;
                     }
                 }
