@@ -22,13 +22,6 @@ namespace Impodatos.Api.Controllers
             _dhisQueryService = dhisQueryService;
             _mediator = mediator;
         }
-        //[HttpGet]
-        //[Route("startDryRun/{token}")]
-        //public async Task<DhisProgramDto> StartDryRun(string token)
-        //{
-        //    return await _dhisQueryService.StartDryRunAsync(token);
-        //}
-
         [HttpGet]
         [Route("getAllProgram/{token}")]
         public async Task<DhisProgramDto> GetAllProgram(string token)
@@ -76,14 +69,14 @@ namespace Impodatos.Api.Controllers
             //{
             //    return await _dhisQueryService.StartDryRunAsync(request);
             //}
-            //return (new dryrunDto
-            //{
-            //    Response = "Error en datos",
-            //    State = "400",
-            //    Uploads = 0,
-            //    Deleted =0
-            //});
-            return await _dhisQueryService.StartDryRunAsync(request);
+            return (new dryrunDto
+            {
+                Response = "Error en datos",
+                State = "400",
+                Uploads = 10,
+                Deleted = 5
+            });
+            //return await _dhisQueryService.StartDryRunAsync(request);
         }
         [HttpPost]
         [Route("addTracket/{token}")]
