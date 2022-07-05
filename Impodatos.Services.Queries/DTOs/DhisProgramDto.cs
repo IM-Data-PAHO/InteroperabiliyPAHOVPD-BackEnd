@@ -52,10 +52,12 @@ namespace Impodatos.Services.Queries.DTOs
         public string column { get; set; }
         public string id { get; set; }
         public string name { get; set; }
+        public string valueType { get; set; }
+        public OptionSet optionSet { get; set; }
     }
-
     public class ProgramStageDataElement
     {
+        public string compulsory { get; set; }
         public DataElement dataElement { get; set; }
     }
     public class Attribute
@@ -63,5 +65,19 @@ namespace Impodatos.Services.Queries.DTOs
         public string Id { get; set; }
         public string Name { get; set; }
         public string Column { get; set; }
+        public OptionSet optionSet { get; set; }
+        public string mandatory { get; set; }
+        public string displayName { get; set; }
     }
+    public class Option
+    {
+        public string code { get; set; }
+        public string name { get; set; }
+    }
+
+    public class OptionSet
+    {
+        public List<Option> options { get; set; }
+    }
+}
 }
