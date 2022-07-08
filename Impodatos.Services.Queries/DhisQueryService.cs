@@ -81,6 +81,7 @@ namespace Impodatos.Services.Queries
                     }
                     if (oupath == null)
                     {
+
                         string ounitvalue = valores[colounits].ToUpper().Trim();
                         foreach (OrganisationUnit ou in Organisation.OrganisationUnits)
                         {
@@ -96,6 +97,56 @@ namespace Impodatos.Services.Queries
                                 break;
                         }
 
+                    }
+                    int ideventdate = Array.IndexOf(propiedades, objprogram.Incidentdatecolumm.ToUpperInvariant());
+                    string eventdate = valores[ideventdate]; //validar que no este null
+                    List<Attribut> listAttribut = new List<Attribut>();
+                    foreach (Queries.DTOs.Attribute at in objprogram.Attribute)//Validamos atributos
+                    {
+                        if (at.Column != null)
+                        {
+                            try
+                            {
+                                Attribut attribut = new Attribut();
+                                var idval = Array.IndexOf(propiedades, at.Column.ToUpperInvariant());
+                                attribut.attribute = at.Id;
+                                if (idval >= 0)
+                                {
+                                    var valid = valores[idval]; //validamos si es mandatory y el tipo de datos que sea correcto
+                                }
+                            }
+                            catch (Exception e) { }
+                        }
+                    }
+                    foreach (ProgramStage ps in objprogram.programStages) // validamos los dataelement
+
+                    {
+                        List<DataValue> listDataValue = new List<DataValue>();
+
+                        try
+                        {
+                            foreach (ProgramStageDataElement dte in ps.programStageDataElements)
+                            {
+
+                                try
+                                {
+                                    DataValue datavalue = new DataValue();
+                                    int idval = Array.IndexOf(propiedades, dte.dataElement.column.ToUpperInvariant());
+                                    if (idval >= 0)
+                                    {
+                                        datavalue.dataElement = dte.dataElement.id;
+                                        datavalue.value = valores[idval];
+                                        //if(datavalue.dataElement == "w2GWdKFVkVk")  Validar que el formato de esta fecha sea yyyy-mm-dd
+                                        listDataValue.Add(datavalue);
+                                        //cont = cont + 1;
+                                    }
+                                }
+                                catch (Exception e) { }//contbad = contbad + 1; }
+
+                            }
+
+                        }
+                        catch (Exception e) { }
                     }
                 }
                 status = "200";

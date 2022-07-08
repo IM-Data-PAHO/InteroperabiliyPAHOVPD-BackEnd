@@ -67,7 +67,7 @@ namespace Impodatos.Services.Queries.DTOs
         public string Column { get; set; }
         public OptionSet optionSet { get; set; }
         public string mandatory { get; set; }
-        public string displayName { get; set; }
+        public string valueType { get; set; }
     }
     public class Option
     {
@@ -80,4 +80,4 @@ namespace Impodatos.Services.Queries.DTOs
         public List<Option> options { get; set; }
     }
 }
-}
+

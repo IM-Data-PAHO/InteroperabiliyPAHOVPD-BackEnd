@@ -149,6 +149,7 @@ namespace Impodatos.Services.EventHandlers
                             trackedInstDto.trackedEntityInstance = TrackeduidGeneratedDto.Codes[0].ToString();
 
                         trackedInstDto.trackedEntityType = objprogram.Trackedentitytype;
+                        
                         int ideventdate = Array.IndexOf(propiedades, objprogram.Incidentdatecolumm.ToUpperInvariant());
                         string eventdate = valores[ideventdate];
                         trackedInstDto.orgUnit = ounits.id;
