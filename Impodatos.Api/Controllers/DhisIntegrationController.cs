@@ -64,18 +64,18 @@ namespace Impodatos.Api.Controllers
         [Route("startDryRun")]
         public async Task<dryrunDto> StartDryRun([FromForm] HistoryCreateCommandDto request)
         {
+
+            //objprogram = ExternalImportDataApp.Programs.Where(a => a.Programid.Equals(request.Programsid)).FirstOrDefault();
             //var validation = _historyValidator.Validate(request);
-            //if (validation.IsValid)
+
+            return await _dhisQueryService.StartDryRunAsync(request);
+            //return (new dryrunDto
             //{
-            //    return await _dhisQueryService.StartDryRunAsync(request);
-            //}
-            return (new dryrunDto
-            {
-                Response = "Error en datos",
-                State = "400",
-                Uploads = 10,
-                Deleted = 5
-            });
+            //    Response = "Error en datos",
+            //    State = "400",
+            //    Uploads = 10,
+            //    Deleted = 5
+            //});
             //return await _dhisQueryService.StartDryRunAsync(request);
         }
         [HttpPost]

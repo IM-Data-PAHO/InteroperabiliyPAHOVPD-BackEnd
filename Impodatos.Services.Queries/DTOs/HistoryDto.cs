@@ -9,6 +9,13 @@ namespace Impodatos.Services.Queries.DTOs
         public string Response { get; set; }
         public string State { get; set; }
     }
+    public class validateDto
+    {
+        public int ln { get; set; }
+        public int cl { get; set; }
+        public string ms { get; set; }
+        public string value { get; set; }
+    }
     public class historyDto
     {
         public int Id { get; set; }

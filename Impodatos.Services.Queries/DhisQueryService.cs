@@ -31,7 +31,7 @@ namespace Impodatos.Services.Queries
     }
     public class DhisQueryService : IDhisQueryService
     {
-        public async Task<dryrunDto> StartDryRunAsync(HistoryCreateCommandDto request)
+       public async Task<dryrunDto> StartDryRunAsync(HistoryCreateCommandDto request)
         {
             dryrunDto objdryrunDto = new dryrunDto();
             string oupath = null;
@@ -53,7 +53,7 @@ namespace Impodatos.Services.Queries
             propiedades = propiedades.Select(s => s.ToUpperInvariant()).ToArray();
             string startDate = request.startdate + "-01-01";
             string endDate = (request.enddate + 1) + "-01-01";
-
+            List<validateDto> lv = new List<validateDto>();
             try
             {
                 var ExternalImportDataApp = await GetAllProgramAsync(request.token);
@@ -64,23 +64,42 @@ namespace Impodatos.Services.Queries
                 var contentOrg = JsonConvert.SerializeObject(Organisation);
 
                 string line;
+                int ln = 1;
+
                 while ((line = reader.ReadLine()) != null)
                 {
+                    ln++;
                     var valores = line.Split(';');
                     int dtRashOn = Array.IndexOf(propiedades, "DTRASHONSET"); //error
                     string dtRashOnval = valores[dtRashOn];
-                    int dty = 0;
-                    try
+                    DateTime fecha;
+                    if(!DateTime.TryParseExact(dtRashOnval, "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out fecha))
                     {
-                        dty = Convert.ToInt32(Convert.ToDateTime(dtRashOnval).Year);
+                        var v = new validateDto
+                        {
+                            ln = ln,
+                            cl = dtRashOn,
+                            ms = "DTRASHONSET INVALID",
+                            value = valores[dtRashOn]
+                        };
+                        lv.Add(v);
                     }
-                    catch (Exception e) { Console.WriteLine("{0} Exception caught.", e); }
-                    if (dty == request.startdate || dty == request.enddate)
-                    {
-                        contupload++;
-                    }
+                    //else { 
+
+                    //int dty = 0;
+                    //try
+                    //{
+                    //    dty = Convert.ToInt32(Convert.ToDateTime(dtRashOnval).Year);
+                    //}
+                    //catch (Exception e) { Console.WriteLine("{0} Exception caught.", e); }
+                    //if (dty == request.startdate || dty == request.enddate)
+                    //{
+                    //    contupload++;
+                    //}
+                    //}
                     if (oupath == null)
                     {
+
                         string ounitvalue = valores[colounits].ToUpper().Trim();
                         foreach (OrganisationUnit ou in Organisation.OrganisationUnits)
                         {
@@ -88,7 +107,7 @@ namespace Impodatos.Services.Queries
                             {
                                 oupath = ou.path.Split("/")[2];
                                 var setClean = await SetCleanEvent(oupath, startDate, endDate, request.token);
-                                contdelete = Convert.ToInt32(setClean.events.Count);
+                                objdryrunDto.Deleted = Convert.ToInt32(setClean.events.Count);
                                 oupath = "OK";
 
                             }
@@ -97,7 +116,141 @@ namespace Impodatos.Services.Queries
                         }
 
                     }
+                    int ideventdate = Array.IndexOf(propiedades, objprogram.Incidentdatecolumm.ToUpperInvariant());
+                    string eventdate = valores[ideventdate]; //validar que no este null
+                    List<Attribut> listAttribut = new List<Attribut>();
+
+                    foreach (Queries.DTOs.Attribute at in objprogram.Attribute)//Validamos atributos
+                    {
+                        if (at.Column != null)
+                        {
+                            try
+                            {
+                                Attribut attribut = new Attribut();
+                                var idval = Array.IndexOf(propiedades, at.Column.ToUpperInvariant());
+                                attribut.attribute = at.Id;
+                                if (idval >= 0)
+                                {
+                                    if (at.mandatory.ToUpper().Trim() == "TRUE" && valores[idval] == null)
+                                    {
+                                        var v = new validateDto
+                                        {
+                                            ln = ln,
+                                            cl = idval,
+                                            ms = at.Column.ToUpper() + " INVALID",
+                                            value = valores[idval]
+                                        };
+                                        lv.Add(v);
+                                   }
+                                    if (at.mandatory == "true" && at.valueType.ToUpper().Trim() == "DATE")
+                                    {
+
+                                        DateTime atdate;
+                                        if (!DateTime.TryParseExact(valores[idval], "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out atdate) && at.Column.Trim().ToUpper() != "DTRASHONSET")
+                                        {
+                                            var v = new validateDto
+                                            {
+                                                ln = ln,
+                                                cl = idval,
+                                                ms = at.Column.ToUpper() + " INVALID",
+                                                value = valores[idval]
+                                            };
+                                            lv.Add(v);
+                                        }
+                                    }
+                                }
+                            }
+                            catch (Exception e) { }
+                        }
+                    }
+                    foreach (ProgramStage ps in objprogram.programStages) // validamos los dataelement
+                    {
+                        List<DataValue> listDataValue = new List<DataValue>();
+
+                        try
+                        {
+                            foreach (ProgramStageDataElement dte in ps.programStageDataElements)
+                            {
+
+                                try
+                                {
+                                    DataValue datavalue = new DataValue();
+                                    int idval = Array.IndexOf(propiedades, dte.dataElement.column.ToUpperInvariant());
+                                    if (idval >= 0)
+                                    {
+                                        if (dte.compulsory.ToUpper().Trim() == "TRUE" && valores[idval] == null)
+                                        {
+                                            var v = new validateDto
+                                            {
+                                                ln = ln,
+                                                cl = idval,
+                                                ms = dte.dataElement.name.ToUpper() + " INVALID",
+                                                value = valores[idval]
+                                            };
+                                            lv.Add(v);
+                                        }
+
+                                        if (dte.compulsory.ToUpper().Trim() == "TRUE" && dte.dataElement.valueType.ToUpper().Trim() == "TEXT" && valores[idval].Trim().Length == 0)
+                                        {
+                                            var v = new validateDto
+                                            {
+                                                ln = ln,
+                                                cl = idval,
+                                                ms = dte.dataElement.name.ToUpper() + " INVALID",
+                                                value = valores[idval]
+                                            };
+                                            lv.Add(v);
+                                        }
+                                        if (dte.compulsory.ToUpper().Trim() == "TRUE" && dte.dataElement.optionSet.options.Count > 0 && valores[idval].Trim().Length > 0)
+                                        {
+                                            Boolean isok = false;
+
+                                            foreach (Option opt in dte.dataElement.optionSet.options) {
+                                                if (valores[idval] == opt.code)
+                                                {
+                                                    isok = true;
+                                                    break;
+                                                }
+                                            }
+                                            if (isok == false)
+                                            {
+                                                var v = new validateDto
+                                                {
+                                                    ln = ln,
+                                                    cl = idval,
+                                                    ms = dte.dataElement.name.ToUpper() + " OPTION INVALID",
+                                                    value = valores[idval]
+                                                };
+                                                lv.Add(v);
+                                            }                                       
+                                        }
+                                        if (dte.compulsory == "true" && dte.dataElement.valueType.ToUpper().Trim() == "DATE")
+                                        {
+
+                                            DateTime atdate;
+                                            if (!DateTime.TryParseExact(valores[idval], "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out atdate))
+                                            {
+                                                var v = new validateDto
+                                                {
+                                                    ln = ln,
+                                                    cl = idval,
+                                                    ms = dte.dataElement.name.ToUpper() + " INVALID",
+                                                    value = valores[idval]
+                                                };
+                                                lv.Add(v);
+                                            }
+                                        }
+                                    }
+                                }
+                                catch (Exception e) { }//contbad = contbad + 1; }
+
+                            }
+
+                        }
+                        catch (Exception e) { }
+                    }
                 }
+
                 status = "200";
                 response = "Procesado correctamente";
             }
@@ -107,10 +260,9 @@ namespace Impodatos.Services.Queries
 
             }
             objdryrunDto.Uploads = contupload;
-            objdryrunDto.Deleted = contdelete;
-            objdryrunDto.Response = response;
+            objdryrunDto.Response = JsonConvert.SerializeObject(lv); 
             objdryrunDto.State = status;
-            return objdryrunDto;
+           return objdryrunDto;
         }
         public async Task<DhisProgramDto> GetAllProgramAsync(string token )
         {
