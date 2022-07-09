@@ -280,7 +280,7 @@ namespace Impodatos.Services.Queries
         }
         public async Task<AddTracketResultDto> AddTracked(AddTrackedDto request, string token)
         {
-            var content = JsonConvert.SerializeObject(request);
+            var content = JsonConvert.SerializeObject(request).Replace("Eenr", "enrollments").Replace("Eev", "events");
             var result = await RequestHttp.CallMethod("dhis", "addTracked", content, token);
             return JsonConvert.DeserializeObject<AddTracketResultDto>(result);
         }

@@ -47,6 +47,30 @@ namespace Impodatos.Services.Common.Security
                     }).ToList()
                 };
             }
+        }       
+
+        private static ImportSettings _importSettings
+        {
+            get
+            {
+                var configuration = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                    .AddJsonFile($"appsettings.Development.json", optional: true, reloadOnChange: true)
+                    .Build();
+
+                return new ImportSettings
+                {
+                    Services = configuration.GetSection("ImportSettings:setting").GetChildren().Select(s => new ImportInt
+                    {
+                        Async = Convert.ToBoolean(s.GetSection("async").Value),
+                        SizeUpload = Convert.ToInt32(s.GetSection("sizeUpload").Value),
+                        Individual = Convert.ToBoolean(s.GetSection("individual").Value),
+                        Block = Convert.ToBoolean(s.GetSection("individual").Value)
+                    }).ToList()
+
+                };
+            }
         }
 
         public async static Task<string> CallMethod(string service, string method, string content, string token, string strategy ="")
@@ -54,13 +78,16 @@ namespace Impodatos.Services.Common.Security
             try
             {
                 var _set = _integration;
+                var _imp = _importSettings;
                 var _service = _set.Services.Where(s => s.Name.Equals(service)).ToList().FirstOrDefault();
                 var _method = _service.Methods.Where(m => m.Method.Equals(method)).FirstOrDefault().Value;
                 _method = !string.IsNullOrEmpty(_method) ? string.Format($"/{_method}") : null;
-                string URL = string.Format($"{_service.URL}{_method}");
+                string URL = string.Format($"{_service.URL}{_method}" );
                 if (strategy.Length > 0)
                     URL = URL + strategy;
-
+                else {
+                    URL = URL + "?async=" + _imp.Services[0].Async + "&strategy=CREATE_AND_UPDATE";
+                }  
                 using (var client = new HttpClient())
                 using (var request = new HttpRequestMessage(HttpMethod.Post, URL))
                 using (var stringContent = new StringContent(content, Encoding.UTF8, "application/json"))

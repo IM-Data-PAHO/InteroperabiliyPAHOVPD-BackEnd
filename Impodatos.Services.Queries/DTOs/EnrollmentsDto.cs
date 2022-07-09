@@ -19,6 +19,7 @@ namespace Impodatos.Services.Queries.DTOs
         public string enrollmentDate { get; set; }
         public string incidentDate { get; set; }
         //public string enrollment { get; set; }
+        public List<AddEventDto> Eev { get; set; }
     }
     public partial class AddEnrollmentResultDto
     {

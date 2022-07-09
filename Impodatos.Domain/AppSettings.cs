@@ -111,4 +111,17 @@ namespace Impodatos.Domain
         public string AccountSid { get; set; }
         public string AuthToken { get; set; }
     }
+
+    public class ImportSettings
+    {
+        public List<ImportInt> Services { get; set; }
+    }
+
+    public class ImportInt
+    {
+        public bool Async { get; set; }
+        public int SizeUpload { get; set; }
+        public bool Individual { get; set; }
+        public bool Block { get; set; }
+    }
 }
