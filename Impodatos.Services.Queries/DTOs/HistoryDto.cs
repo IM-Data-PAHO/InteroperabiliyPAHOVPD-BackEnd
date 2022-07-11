@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Impodatos.Services.Queries.DTOs
 {
@@ -6,7 +7,7 @@ namespace Impodatos.Services.Queries.DTOs
     {
         public int Uploads { get; set; }
         public int Deleted { get; set; }
-        public string Response { get; set; }
+        public List<validateDto> Response { get; set; }
         public string State { get; set; }
     }
     public class validateDto

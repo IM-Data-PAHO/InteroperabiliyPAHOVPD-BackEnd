@@ -260,7 +260,7 @@ namespace Impodatos.Services.Queries
 
             }
             objdryrunDto.Uploads = contupload;
-            objdryrunDto.Response = JsonConvert.SerializeObject(lv); 
+            objdryrunDto.Response = lv; 
             objdryrunDto.State = status;
            return objdryrunDto;
         }
