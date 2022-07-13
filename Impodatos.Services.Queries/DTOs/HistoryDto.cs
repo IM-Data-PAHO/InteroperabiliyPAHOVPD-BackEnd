@@ -12,6 +12,7 @@ namespace Impodatos.Services.Queries.DTOs
     }
     public class validateDto
     {
+        public string detail { get; set; }
         public int ln { get; set; }
         public int cl { get; set; }
         public string ms { get; set; }

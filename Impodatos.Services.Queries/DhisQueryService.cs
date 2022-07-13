@@ -72,11 +72,14 @@ namespace Impodatos.Services.Queries
                     var valores = line.Split(';');
                     int dtRashOn = Array.IndexOf(propiedades, "DTRASHONSET"); //error
                     string dtRashOnval = valores[dtRashOn];
+                    int caseid = Array.IndexOf(propiedades, "CASE_ID");
+                    string caseidvalue = valores[caseid];
                     DateTime fecha;
                     if(!DateTime.TryParseExact(dtRashOnval, "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out fecha))
                     {
                         var v = new validateDto
                         {
+                            detail = caseidvalue,
                             ln = ln,
                             cl = dtRashOn,
                             ms = "DTRASHONSET INVALID",
@@ -135,9 +138,10 @@ namespace Impodatos.Services.Queries
                                     {
                                         var v = new validateDto
                                         {
+                                            detail = caseidvalue,
                                             ln = ln,
-                                            cl = idval,
-                                            ms = at.Column.ToUpper() + " INVALID",
+                                            cl = idval+1,
+                                            ms = at.Column.ToUpper() + " {{INVALID}}",
                                             value = valores[idval]
                                         };
                                         lv.Add(v);
@@ -150,9 +154,10 @@ namespace Impodatos.Services.Queries
                                         {
                                             var v = new validateDto
                                             {
+                                                detail = caseidvalue,
                                                 ln = ln,
-                                                cl = idval,
-                                                ms = at.Column.ToUpper() + " INVALID",
+                                                cl = idval+1,
+                                                ms = at.Column.ToUpper() + " {{INVALID}}",
                                                 value = valores[idval]
                                             };
                                             lv.Add(v);
@@ -182,9 +187,10 @@ namespace Impodatos.Services.Queries
                                         {
                                             var v = new validateDto
                                             {
+                                                detail = caseidvalue,
                                                 ln = ln,
-                                                cl = idval,
-                                                ms = dte.dataElement.name.ToUpper() + " INVALID",
+                                                cl = idval+1,
+                                                ms = dte.dataElement.name.ToUpper() + " {{INVALID}}",
                                                 value = valores[idval]
                                             };
                                             lv.Add(v);
@@ -194,9 +200,10 @@ namespace Impodatos.Services.Queries
                                         {
                                             var v = new validateDto
                                             {
+                                                detail = caseidvalue,
                                                 ln = ln,
-                                                cl = idval,
-                                                ms = dte.dataElement.name.ToUpper() + " INVALID",
+                                                cl = idval+1,
+                                                ms = dte.dataElement.name.ToUpper() + " {{INVALID}}",
                                                 value = valores[idval]
                                             };
                                             lv.Add(v);
@@ -216,9 +223,10 @@ namespace Impodatos.Services.Queries
                                             {
                                                 var v = new validateDto
                                                 {
+                                                    detail = caseidvalue,
                                                     ln = ln,
-                                                    cl = idval,
-                                                    ms = dte.dataElement.name.ToUpper() + " OPTION INVALID",
+                                                    cl = idval+1,
+                                                    ms = dte.dataElement.name.ToUpper() + " {{OPTION INVALID}}",
                                                     value = valores[idval]
                                                 };
                                                 lv.Add(v);
@@ -232,9 +240,10 @@ namespace Impodatos.Services.Queries
                                             {
                                                 var v = new validateDto
                                                 {
+                                                    detail = caseidvalue,
                                                     ln = ln,
-                                                    cl = idval,
-                                                    ms = dte.dataElement.name.ToUpper() + " INVALID",
+                                                    cl = idval+1,
+                                                    ms = dte.dataElement.name.ToUpper() + " {{INVALID}}",
                                                     value = valores[idval]
                                                 };
                                                 lv.Add(v);
