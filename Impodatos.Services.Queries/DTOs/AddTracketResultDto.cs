@@ -37,9 +37,22 @@ namespace Impodatos.Services.Queries.DTOs
             public ImportOptions ImportOptions { get; set; }
             public List<ImportSummary> ImportSummaries { get; set; }
             public long Total { get; set; }
+            public string relativeNotifierEndpoint { get; set; }
         }
 
-        public partial class Conflict
+        public partial class RelativeNotifierEndpoint
+    {
+        public string uid { get; set; }
+        public string level { get; set; }
+        public string category { get; set; }
+        public string time { get; set; }
+        public string message { get; set; }
+        public bool completed { get; set; }
+        public string id { get; set; }
+    }
+
+
+    public partial class Conflict
         {
             public string Object { get; set; }
             public string Value { get; set; }

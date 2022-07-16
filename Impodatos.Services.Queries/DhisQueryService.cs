@@ -21,13 +21,17 @@ namespace Impodatos.Services.Queries
         Task<OrganisationUnitsDto> GetAllOrganisation(string token);
         Task<UidGeneratedDto> GetUidGenerated(string quantity, string token);
         Task<AddTrackedDto> GetTracket(string caseid, string ou, string token);
-        Task<AddEnrollmentDto> GetEnrollment(string tracked, string ou, string token);
+        Task<AddEnrollmentsClearDto> GetEnrollment(string tracked, string ou, string token);
         Task<AddTracketResultDto> AddTracked(AddTrackedDto request, string token);
         Task<AddEnrollmentResultDto> AddEnrollment(AddEnrollmentDto request, string token);
         Task<ResponseDhis> AddEventClear(AddEventsClearDto request, string token, string strategy = "");
+        Task<ResponseDhis> AddEnrollmentClear(AddEnrollmentsClearDto request, string token, string strategy = "");
         Task<AddEventResultDto> AddEvent(AddEventsDto request, string token);
         Task<List<SequentialDto>> GetSequential(string quantity, string token);
         Task<AddEventsClearDto> SetCleanEvent(string oupath, string startDate, string endDate, string token);
+        Task<AddEnrollmentsClearDto> SetCleanEnrollment(string oupath, string tracked, string token);
+        Task<ResultTaskDto> GetStateTask(string task, string token);
+       
     }
     public class DhisQueryService : IDhisQueryService
     {
@@ -311,6 +315,13 @@ namespace Impodatos.Services.Queries
             var result = await RequestHttp.CallMethod("dhis", "events", content, token, strategy);
             return JsonConvert.DeserializeObject<ResponseDhis>(result);
         }
+        public async Task<ResponseDhis> AddEnrollmentClear(AddEnrollmentsClearDto request, string token, string strategy = "")
+        {
+            var content = JsonConvert.SerializeObject(request);
+            content = content.Replace("enrollment_", "enrollment");
+            var result = await RequestHttp.CallMethod("dhis", "enrollments", content, token, strategy);
+            return JsonConvert.DeserializeObject<ResponseDhis>(result);
+        }
         public async Task<AddEventResultDto> AddEvent (AddEventsDto request, string token)
         {
             var content = JsonConvert.SerializeObject(request);
@@ -333,10 +344,10 @@ namespace Impodatos.Services.Queries
             var result = await RequestHttp.CallGetMethod("dhis", "validatetrak", caseid, ou, token);
             return JsonConvert.DeserializeObject<AddTrackedDto>(result);
         }
-        public async Task<AddEnrollmentDto> GetEnrollment(string tracked, string ou, string token)
+        public async Task<AddEnrollmentsClearDto> GetEnrollment(string program, string ou, string token)
         {
-            var result = await RequestHttp.CallGetMethod("dhis", "validateenroll", tracked, ou, token);
-            return JsonConvert.DeserializeObject<AddEnrollmentDto>(result);
+            var result = await RequestHttp.CallMethodClearEnrollments("dhis", "validateenroll", ou, program, token);
+            return JsonConvert.DeserializeObject<AddEnrollmentsClearDto>(result);
         }
         public async Task<AddEventsClearDto> SetCleanEvent(string oupath, string startDate, string endDate, string token)
         {
@@ -344,6 +355,21 @@ namespace Impodatos.Services.Queries
             result = result.Replace("event", "event_");
             result = result.Replace("event_s", "events");
             return JsonConvert.DeserializeObject<AddEventsClearDto>(result);
+        }
+        public async Task<AddEnrollmentsClearDto> SetCleanEnrollment(string oupath, string tracked, string token)
+        {
+            var result = await RequestHttp.CallMethodClearEnrollments("dhis", "enrollments", oupath, tracked, token);
+            result = result.Replace("enrollment", "enrollment_");
+            result = result.Replace("enrollment_s", "enrollments");
+            return JsonConvert.DeserializeObject<AddEnrollmentsClearDto>(result);
+        }
+        public async Task<ResultTaskDto> GetStateTask(string task, string token)
+        {
+            var result = await RequestHttp.CallMethodTask("dhis", "program", task, token);
+
+            string resp = result.Replace("[", "{resultTasks: [").Replace("]", "]}");
+            var j = JsonConvert.DeserializeObject<ResultTaskDto>(resp);
+            return j;
         }
     }
 }

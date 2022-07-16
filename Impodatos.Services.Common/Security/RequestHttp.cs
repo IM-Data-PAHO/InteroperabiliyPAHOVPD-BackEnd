@@ -150,6 +150,38 @@ namespace Impodatos.Services.Common.Security
                 throw ex;
             }
         }
+
+        public async static Task<string> CallMethodTask(string service, string program, string task, string token)
+        {
+            try
+            {
+                var _set = _integration;
+                var _service = _set.Services.Where(s => s.Name.Equals(service)).ToList().FirstOrDefault();
+                //var _method = _service.Methods.Where(m => m.Method.Equals(method)).FirstOrDefault().Value;
+                //_method = !string.IsNullOrEmpty(_method) ? string.Format($"/{_method}") : null;
+                string URL = string.Format($"{_service.URL}{task}");
+
+                using (var client = new HttpClient())
+                using (var request = new HttpRequestMessage(HttpMethod.Get, URL))
+                {
+                    if (_service.Authentication.User != null)
+                        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                    request.Headers.Add("Accept", "application/json");
+                    using (var response = await client
+                        .SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
+                        .ConfigureAwait(false))
+                    {
+                        response.EnsureSuccessStatusCode();
+                        var result = await response.Content.ReadAsStringAsync();
+                        return result;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public async static Task<string> CallGetMethod(string service, string method, string content, string ou,string token)
         {
             try
@@ -205,7 +237,39 @@ namespace Impodatos.Services.Common.Security
                         return result;
                     }
                 }
-                    
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async static Task<string> CallMethodClearEnrollments(string service, string method, string oupath, string program, string token)
+        {
+            try
+            {
+                var _set = _integration;
+                var _service = _set.Services.Where(s => s.Name.Equals(service)).ToList().FirstOrDefault();
+                var _method = _service.Methods.Where(m => m.Method.Equals(method)).FirstOrDefault().Value;
+                _method = !string.IsNullOrEmpty(_method) ? string.Format($"/{_method}") : null;
+               
+                string URL = string.Format($"{_service.URL}{_method}{oupath}&ouMode=DESCENDANTS&program={program}&paging=false");
+                
+                using (var client = new HttpClient())
+                using (var request = new HttpRequestMessage(HttpMethod.Get, URL))
+                {
+                    if (_service.Authentication.User != null)
+                        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                    request.Headers.Add("Accept", "application/json");
+                    using (var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false))
+                    {
+                        response.EnsureSuccessStatusCode();
+                        var result = await response.Content.ReadAsStringAsync();
+                        return result;
+                    }
+                }
+
             }
             catch (Exception ex)
             {

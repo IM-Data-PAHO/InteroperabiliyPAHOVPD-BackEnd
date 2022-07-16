@@ -17,8 +17,8 @@ namespace Impodatos.Services.Queries.DTOs
         public string status { get; set; }
         public string orgUnit { get; set; }
         public string enrollmentDate { get; set; }
-        public string incidentDate { get; set; }
-        //public string enrollment { get; set; }
+        public string incidentDate { get; set; }        
+        public string enrollment { get; set; }
         public List<AddEventDto> Eev { get; set; }
     }
     public partial class AddEnrollmentResultDto
@@ -28,5 +28,14 @@ namespace Impodatos.Services.Queries.DTOs
         public string Status { get; set; }
         public string Message { get; set; }
         public Response Response { get; set; }
+    }
+
+    public class AddEnrollmentsClearDto
+    {
+        public List<AddEnrollmentClearDto> enrollments { get; set; }
+    }
+    public partial class AddEnrollmentClearDto
+    {
+        public string enrollment { get; set; }
     }
 }

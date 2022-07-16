@@ -50,7 +50,7 @@ namespace Impodatos.Api.Controllers
         }
         [HttpGet]
         [Route("getEnrollment/{caseid}/{ou}/{token}")]
-        public async Task<AddEnrollmentDto> GetEnrollment(string tracked, string ou, string token)
+        public async Task<AddEnrollmentsClearDto> GetEnrollment(string tracked, string ou, string token)
         {
             return await _dhisQueryService.GetEnrollment(tracked, ou, token);
         }

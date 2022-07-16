@@ -79,5 +79,25 @@ namespace Impodatos.Services.Queries.DTOs
     {
         public List<Option> options { get; set; }
     }
+
+    public class ResultTaskDto
+    {
+        public List<ResultTask> resultTasks { get; set; }
+    }
+
+    public partial class ResultTask
+    {
+        public string uid { get; set; }
+        public string level { get; set; }
+        public string category { get; set; }
+        public string time { get; set; }
+        public string message { get; set; }
+        public bool completed { get; set; }
+        public string id { get; set; }     
+    }
+
+    
+
+
 }
 

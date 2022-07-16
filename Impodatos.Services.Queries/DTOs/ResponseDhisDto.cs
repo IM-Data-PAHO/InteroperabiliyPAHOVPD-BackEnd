@@ -66,6 +66,7 @@ namespace Impodatos.Services.Queries.DTOs
             public ImportOptions importOptions { get; set; }
             public List<ImportSummary> importSummaries { get; set; }
             public int total { get; set; }
+            public string relativeNotifierEndpoint { get; set; }
         }
 
         public class ResponseDhis
