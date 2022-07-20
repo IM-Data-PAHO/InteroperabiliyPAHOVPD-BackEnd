@@ -37,12 +37,8 @@ namespace Impodatos.Services.EventHandlers
         public historyCreateCommand commandGeneral;
         public int contFiles = 0;
         public int blockSuccess = 0;
-
-        public bool endWhile = false;
-
-        public List<ResultTask> ResponsesImport = new List<ResultTask>();
-
-
+        public List<string> summaryImport = new List<string>();
+        public bool endWhile = false; 
 
         public string[] propiedades;
         public Program objprogram = new Program();
@@ -89,11 +85,11 @@ namespace Impodatos.Services.EventHandlers
                 switch (state) {
                     case 1:
                         step = 1;
-                        TaskResult = await CleanEventsAsync(oupath, startDate, endDate, token);
+                        TaskResult = await CleanEventsAsync(oupath,program, startDate, endDate, token);
                         break;
                     case 2:
                         step = 2;
-                        await CleanEnrollmentsAsync(program, oupath, token);
+                        await CleanEnrollmentsAsync(program, oupath,  startDate,  endDate, token);
                         break;
                     case 3:
                         step = 3;
@@ -144,14 +140,12 @@ namespace Impodatos.Services.EventHandlers
             //var tasktimer = Task.Run(async () => await CheckImportStateAsync(caseNum, task, token, numImport));
             //tasktimer.Wait(TimeSpan.FromSeconds(1000));
             //}            
-        }
+        }       
 
-        
-
-        public async Task<string> CleanEventsAsync(string oupath, string startDate, string endDate, string token)
+        public async Task<string> CleanEventsAsync(string oupath, string program ,string startDate, string endDate, string token)
         {
             int contdelete = 0;
-            var setClean = await _dhis.SetCleanEvent(oupath, startDate, endDate, token);
+            var setClean = await _dhis.SetCleanEvent(oupath, program, startDate, endDate, token);
             if (setClean.events.Count > 0)
             {
                 var dropEvens = await _dhis.AddEventClear(setClean, token, "?strategy=DELETE&includeDeleted=true&async=true");
@@ -166,10 +160,11 @@ namespace Impodatos.Services.EventHandlers
         }
 
 
-        public async Task CleanEnrollmentsAsync(string program, string oupath, string token)
+        public async Task CleanEnrollmentsAsync(string program, string oupath,  string startDate, string endDate, string token)
         {
             int contdelete = 0;
-            var setCleanEnrolloment = await _dhis.GetEnrollment(program, oupath, token);
+            //var setCleanEnrolloment = await _dhis.GetEnrollment(program, oupath,  token);
+            var setCleanEnrolloment = await _dhis.SetCleanEnrollment(oupath, program, startDate,  endDate, token);
             if (setCleanEnrolloment.enrollments.Count > 0)
             {
                 var dropEnrrollments = await _dhis.AddEnrollmentClear(setCleanEnrolloment, token, "?strategy=DELETE");
@@ -350,7 +345,6 @@ namespace Impodatos.Services.EventHandlers
                             {
                                 try
                                 {
-
                                     if (trackedEntityInstance.Trim().Length == 0)
                                         tkins = trackedInstDto.trackedEntityInstance;
                                     else
@@ -384,16 +378,14 @@ namespace Impodatos.Services.EventHandlers
                         //}
                     }
                     eventDto.events = listEvent;
-                    //************************************************************///************************************************************
                     // Importante para envio en bloques de 100 o como se ajuste la configuracion
                     if (uploadBlock)
                     {
                         enrollmentFullDto.Eev = listEvent;
                         trackedInstDto.Eenr = listEnrollment;
                         var preuba = JsonConvert.SerializeObject(trackedIndDto).Replace("Eenr", "enrollments").Replace("Eev", "events");
-                    }
-                    //************************************************************///************************************************************                           
-                    //}
+                    }                           
+
                     try
                     {
                         contupload = contupload + 1;
@@ -416,14 +408,8 @@ namespace Impodatos.Services.EventHandlers
                     try
                     {
                         contBlock = contBlock + 1;
-                        //trakedResultDto = await _dhis.AddTracked(trackedIndDto, commandGeneral.token);
                         var resultDto = await _dhis.AddTracked(trackedIndDto, commandGeneral.token);
-                        //var resp = await _dhis.GetStateTask(task, commandGeneral.token);
-                        //ResponsesImport.Add(resp.resultTasks[0]);
-                        var res = await CheckImportTraketAsync(resultDto.Response.relativeNotifierEndpoint, commandGeneral.token);
-                        if (res) {
-                            blockSuccess = blockSuccess + 1;
-                        }                
+                        var res = await CheckImportTrackedAsync(resultDto.Response.relativeNotifierEndpoint, commandGeneral.token);
                     }
                     catch (Exception e) { }
 
@@ -464,13 +450,8 @@ namespace Impodatos.Services.EventHandlers
                 try
                 {
                     var resultDto = await _dhis.AddTracked(trackedIndDto, commandGeneral.token);
-                    //var resp = await _dhis.GetStateTask(task, commandGeneral.token);
-                    //ResponsesImport.Add(resp.resultTasks[0]);
-                    var res = await CheckImportTraketAsync(resultDto.Response.relativeNotifierEndpoint, commandGeneral.token);
-                    if (res)
-                    {
-                        blockSuccess = blockSuccess + 1;
-                    }
+                    var res = await CheckImportTrackedAsync(resultDto.Response.relativeNotifierEndpoint, commandGeneral.token);
+                   
                 }
                 catch (Exception e) { }
             }
@@ -478,18 +459,22 @@ namespace Impodatos.Services.EventHandlers
 
         }
 
-        public async Task<bool> CheckImportTraketAsync(string task,string token)
+        public async Task<bool> CheckImportTrackedAsync(string task,string token)
         {
             var response = await _dhis.GetStateTask(task.Replace("/api", ""), token);
+            
             var completed = response.resultTasks[0].completed;
             if (!completed)
             {
-                await CheckImportTraketAsync(task, token);
+                await CheckImportTrackedAsync(task, token);
                 return false;
             }
             else
-            {             
-                return true;
+            {
+                var summary = await _dhis.GetSummaryImport(response.resultTasks[0].category, response.resultTasks[0].uid, token);
+                summaryImport.Add(summary);
+                blockSuccess = blockSuccess + 1;
+                return true;                
             }
         }
 
@@ -577,14 +562,12 @@ namespace Impodatos.Services.EventHandlers
             int i = (int)command.CsvFile.Length;
             data = fileByte.ReadBytes(i);
             //agregamos al contexto la informacion aguardar
-
-
             await _context.AddAsync(new history
             {
                 programsid = objprogram.Programname,
                 uploads = contupload,
                 //deleted = contdelete,
-                jsonset = JsonConvert.SerializeObject(jsonResponse),
+                jsonset = JsonConvert.SerializeObject(summaryImport),
                 jsonresponse = "Procesado",
                 state = true,
                 userlogin = command.UserLogin,

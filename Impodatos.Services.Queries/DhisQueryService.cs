@@ -21,17 +21,19 @@ namespace Impodatos.Services.Queries
         Task<OrganisationUnitsDto> GetAllOrganisation(string token);
         Task<UidGeneratedDto> GetUidGenerated(string quantity, string token);
         Task<AddTrackedDto> GetTracket(string caseid, string ou, string token);
-        Task<AddEnrollmentsClearDto> GetEnrollment(string tracked, string ou, string token);
+        Task<AddEnrollmentsClearDto> GetEnrollment(string program, string oupath,  string token);
         Task<AddTracketResultDto> AddTracked(AddTrackedDto request, string token);
         Task<AddEnrollmentResultDto> AddEnrollment(AddEnrollmentDto request, string token);
         Task<ResponseDhis> AddEventClear(AddEventsClearDto request, string token, string strategy = "");
         Task<ResponseDhis> AddEnrollmentClear(AddEnrollmentsClearDto request, string token, string strategy = "");
         Task<AddEventResultDto> AddEvent(AddEventsDto request, string token);
         Task<List<SequentialDto>> GetSequential(string quantity, string token);
-        Task<AddEventsClearDto> SetCleanEvent(string oupath, string startDate, string endDate, string token);
-        Task<AddEnrollmentsClearDto> SetCleanEnrollment(string oupath, string tracked, string token);
+        Task<AddEventsClearDto> SetCleanEvent(string oupath, string program ,string startDate, string endDate, string token);
+        Task<AddEnrollmentsClearDto> SetCleanEnrollment(string oupath, string tracked, string startDate, string endDate, string token);
         Task<ResultTaskDto> GetStateTask(string task, string token);
-       
+        Task<string> GetSummaryImport(string category,string uid, string token);
+
+
     }
     public class DhisQueryService : IDhisQueryService
     {
@@ -124,7 +126,7 @@ namespace Impodatos.Services.Queries
                             if (ou.code == ounitvalue)
                             {
                                 oupath = ou.path.Split("/")[2];
-                                var setClean = await SetCleanEvent(oupath, startDate, endDate, request.token);
+                                var setClean = await SetCleanEvent(oupath, objprogram.Programid,startDate, endDate, request.token);
                                 objdryrunDto.Deleted = Convert.ToInt32(setClean.events.Count);
                                 oupath = "OK";
 
@@ -366,32 +368,39 @@ namespace Impodatos.Services.Queries
             var result = await RequestHttp.CallGetMethod("dhis", "validatetrak", caseid, ou, token);
             return JsonConvert.DeserializeObject<AddTrackedDto>(result);
         }
-        public async Task<AddEnrollmentsClearDto> GetEnrollment(string program, string ou, string token)
+        public async Task<AddEnrollmentsClearDto> GetEnrollment(string program, string oupath,  string token)
         {
-            var result = await RequestHttp.CallMethodClearEnrollments("dhis", "validateenroll", ou, program, token);
+            var result = await RequestHttp.CallMethodClearEnrollments("dhis", "validateenroll", oupath, "", "" ,program,token);
             return JsonConvert.DeserializeObject<AddEnrollmentsClearDto>(result);
         }
-        public async Task<AddEventsClearDto> SetCleanEvent(string oupath, string startDate, string endDate, string token)
+        public async Task<AddEventsClearDto> SetCleanEvent(string oupath, string program, string startDate, string endDate, string token)
         {
-            var result = await RequestHttp.CallMethodClear("dhis", "events", oupath, startDate, endDate, token);
+            var result = await RequestHttp.CallMethodClear("dhis", "events", oupath,program, startDate, endDate, token);
             result = result.Replace("event", "event_");
             result = result.Replace("event_s", "events");
             return JsonConvert.DeserializeObject<AddEventsClearDto>(result);
         }
-        public async Task<AddEnrollmentsClearDto> SetCleanEnrollment(string oupath, string tracked, string token)
+        public async Task<AddEnrollmentsClearDto> SetCleanEnrollment(string oupath, string program, string startDate, string endDate, string token)
         {
-            var result = await RequestHttp.CallMethodClearEnrollments("dhis", "enrollments", oupath, tracked, token);
-            result = result.Replace("enrollment", "enrollment_");
-            result = result.Replace("enrollment_s", "enrollments");
+            var result = await RequestHttp.CallMethodClearEnrollments("dhis", "validateenroll", oupath, program,startDate, endDate, token);
+            //result = result.Replace("enrollment", "enrollment_");
+            //result = result.Replace("enrollment_s", "enrollments");
             return JsonConvert.DeserializeObject<AddEnrollmentsClearDto>(result);
         }
         public async Task<ResultTaskDto> GetStateTask(string task, string token)
         {
             var result = await RequestHttp.CallMethodTask("dhis", "program", task, token);
-
             string resp = result.Replace("[", "{resultTasks: [").Replace("]", "]}");
             var j = JsonConvert.DeserializeObject<ResultTaskDto>(resp);
             return j;
+        }
+
+        public async Task<string> GetSummaryImport(string category,string uid, string token)
+        {
+            var result = await RequestHttp.CallMethodSummary("dhis", "program", uid, category, token);
+            //string resp = result.Replace("[", "{resultTasks: [").Replace("]", "]}");
+            //var x = JsonConvert.DeserializeObject<string>(result);
+            return result;
         }
     }
 }
