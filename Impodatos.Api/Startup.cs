@@ -1,5 +1,6 @@
 using FluentValidation;
 using Impodatos.Persistence.Database;
+using Impodatos.Services.EventHandlers;
 using Impodatos.Services.EventHandlers.Commands;
 using Impodatos.Services.EventHandlers.Validators;
 using Impodatos.Services.Queries;
@@ -56,6 +57,9 @@ namespace Impodatos.Api
             services.AddTransient<IValidator<historyCreateCommand>, historyCreateValidator>();
             services.AddTransient<IDhisQueryService, DhisQueryService>();
             services.AddTransient<ILoginQueryService, LoginQueryService>();
+
+            services.AddHostedService<BackgroundTask>();
+
 
         }
 

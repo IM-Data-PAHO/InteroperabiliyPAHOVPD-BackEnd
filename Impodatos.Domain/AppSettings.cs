@@ -123,5 +123,25 @@ namespace Impodatos.Domain
         public int SizeUpload { get; set; }
         public bool Individual { get; set; }
         public bool Block { get; set; }
+        public string Server { get; set; }
+        public string EmailTo { get; set; }
+        public string EmailFrom { get; set; }
+        public string Subject { get; set; }
+        public string Body { get; set; }
+
+        public string Pass { get; set; }
+        public string Port { get; set; }
     }
+
+    public class ConexionImportSettings
+    {
+        public ConexionInt Services { get; set; }
+    }
+
+    public class ConexionInt
+    {    
+        public string ConexionDatabase { get; set; }
+   
+    }
+
 }

@@ -59,6 +59,7 @@ namespace Impodatos.Api.Controllers
         {
             await _mediator.Publish(command);
             return Ok();
+            //var result = await _mediator.Publish(command);
         }
 
 
