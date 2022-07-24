@@ -60,6 +60,7 @@ namespace Impodatos.Services.Queries
             string startDate = request.startdate + "-01-01";
             string endDate = (request.enddate + 1) + "-01-01";
             List<validateDto> lv = new List<validateDto>();
+            List<sumaryerrorDto> le = new List<sumaryerrorDto>();
             try
             {
                 var ExternalImportDataApp = await GetAllProgramAsync(request.token);
@@ -71,7 +72,9 @@ namespace Impodatos.Services.Queries
 
                 string line;
                 int ln = 1;
+                int iderror = 1;
 
+                sumaryerrorDto sumerrorobj = new sumaryerrorDto();
                 while ((line = reader.ReadLine()) != null)
                 {
                     ln++;
@@ -86,14 +89,15 @@ namespace Impodatos.Services.Queries
                     string snvalue = valores[snid];
                     int fnid = Array.IndexOf(propiedades, "FIRST NAME");
                     string fnvalue = valores[fnid];
-                    
 
+                    
 
                     DateTime fecha;
                     if(!DateTime.TryParseExact(dtRashOnval, "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out fecha))
                     {
                         var v = new validateDto
                         {
+                            indexpreload = iderror++,
                             id = caseidvalue,
                             detail = flnvalue.Trim()+" "+snvalue.Trim() + " "+ fnvalue.Trim(),
                             ln = ln,
@@ -103,6 +107,7 @@ namespace Impodatos.Services.Queries
                             value = valores[dtRashOn]
                         };
                         lv.Add(v);
+                        sumerrorobj.date = sumerrorobj.date + 1;
                     }
                     //else { 
 
@@ -155,6 +160,7 @@ namespace Impodatos.Services.Queries
                                     {
                                         var v = new validateDto
                                         {
+                                             indexpreload = iderror++,
                                             id = caseidvalue,
                                             detail = flnvalue.Trim() + " " + snvalue.Trim() + " " + fnvalue.Trim(),
                                             ln = ln,
@@ -164,7 +170,8 @@ namespace Impodatos.Services.Queries
                                             value = valores[idval]
                                         };
                                         lv.Add(v);
-                                   }
+                                        sumerrorobj.mandatory = sumerrorobj.mandatory + 1;
+                                    }
                                     if (at.mandatory == "true" && at.valueType.ToUpper().Trim() == "DATE")
                                     {
 
@@ -173,6 +180,7 @@ namespace Impodatos.Services.Queries
                                         {
                                             var v = new validateDto
                                             {
+                                                 indexpreload = iderror++,
                                                 id = caseidvalue,
                                                 detail = flnvalue.Trim() + " " + snvalue.Trim() + " " + fnvalue.Trim(),
                                                 ln = ln,
@@ -182,6 +190,7 @@ namespace Impodatos.Services.Queries
                                                 value = valores[idval]
                                             };
                                             lv.Add(v);
+                                            sumerrorobj.date = sumerrorobj.date + 1;
                                         }
                                     }
                                 }
@@ -208,21 +217,24 @@ namespace Impodatos.Services.Queries
                                         {
                                             var v = new validateDto
                                             {
+                                                indexpreload = iderror++,
                                                 id = caseidvalue,
                                                 detail = flnvalue.Trim() + " " + snvalue.Trim() + " " + fnvalue.Trim(),
                                                 ln = ln,
-                                                cl = idval+1,
+                                                cl = idval + 1,
                                                 ms = dte.dataElement.name.ToUpper(),
                                                 errortype = "compulsory",
                                                 value = valores[idval]
                                             };
                                             lv.Add(v);
+                                            sumerrorobj.compulsory = sumerrorobj.compulsory + 1;
                                         }
 
                                         if (dte.compulsory.ToUpper().Trim() == "TRUE" && dte.dataElement.valueType.ToUpper().Trim() == "TEXT" && valores[idval].Trim().Length == 0)
                                         {
                                             var v = new validateDto
                                             {
+                                                 indexpreload = iderror++,
                                                 id = caseidvalue,
                                                 detail = flnvalue.Trim() + " " + snvalue.Trim() + " " + fnvalue.Trim(),
                                                 ln = ln,
@@ -232,6 +244,7 @@ namespace Impodatos.Services.Queries
                                                 value = valores[idval]
                                             };
                                             lv.Add(v);
+                                            sumerrorobj.compulsory = sumerrorobj.compulsory + 1;
                                         }
                                         if (dte.compulsory.ToUpper().Trim() == "TRUE" && dte.dataElement.optionSet.options.Count > 0 && valores[idval].Trim().Length > 0)
                                         {
@@ -247,6 +260,7 @@ namespace Impodatos.Services.Queries
                                             {
                                                 var v = new validateDto
                                                 {
+                                                    indexpreload = iderror++,
                                                     id = caseidvalue,
                                                     detail = flnvalue.Trim() + " " + snvalue.Trim() + " " + fnvalue.Trim(),
                                                     ln = ln,
@@ -256,6 +270,7 @@ namespace Impodatos.Services.Queries
                                                     value = valores[idval]
                                                 };
                                                 lv.Add(v);
+                                                sumerrorobj.option = sumerrorobj.option + 1;
                                             }                                       
                                         }
                                         if (dte.compulsory == "true" && dte.dataElement.valueType.ToUpper().Trim() == "DATE")
@@ -275,6 +290,7 @@ namespace Impodatos.Services.Queries
                                                     value = valores[idval]
                                                 };
                                                 lv.Add(v);
+                                                sumerrorobj.date = sumerrorobj.date + 1;
                                             }
                                         }
                                     }
@@ -286,8 +302,9 @@ namespace Impodatos.Services.Queries
                         }
                         catch (Exception e) { }
                     }
-                }
 
+                }
+                le.Add(sumerrorobj);
                 status = "200";
                 response = "Procesado correctamente";
             }
@@ -299,6 +316,7 @@ namespace Impodatos.Services.Queries
             objdryrunDto.Uploads = contupload;
             objdryrunDto.Response = lv; 
             objdryrunDto.State = status;
+            objdryrunDto.Sumary = le;
            return objdryrunDto;
         }
         public async Task<DhisProgramDto> GetAllProgramAsync(string token )

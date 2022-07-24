@@ -52,7 +52,7 @@ namespace Impodatos.Services.Queries.DTOs
     }
 
 
-    public partial class Conflict
+        public partial class Conflict
         {
             public string Object { get; set; }
             public string Value { get; set; }
