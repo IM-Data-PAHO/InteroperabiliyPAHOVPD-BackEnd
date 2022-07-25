@@ -123,8 +123,7 @@ namespace Impodatos.Domain
         public int SizeUpload { get; set; }
         public bool Individual { get; set; }
         public bool Block { get; set; }
-        public string Server { get; set; }
-        public string EmailTo { get; set; }
+        public string Server { get; set; }  
         public string EmailFrom { get; set; }
         public string Subject { get; set; }
         public string Body { get; set; }

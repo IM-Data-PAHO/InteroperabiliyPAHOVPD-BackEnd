@@ -25,6 +25,7 @@ namespace Impodatos.Services.EventHandlers
     {
         private readonly ApplicationDbContext _context;
         private readonly IDhisQueryService _dhis;
+        public  LoginQueryService loginQueyService = new LoginQueryService ();
         public int state = 1;
         public string oupath;
         public string startDate;
@@ -40,7 +41,8 @@ namespace Impodatos.Services.EventHandlers
         public int blockSuccess = 0;
         public List<string> summaryImport = new List<string>();
         public bool endWhile = false;
-
+        public UserSettingDto userSetting;
+        public string nameFile;
 
         public string[] headers;
         public Program objprogram = new Program();
@@ -81,7 +83,6 @@ namespace Impodatos.Services.EventHandlers
                         Individual = Convert.ToBoolean(s.GetSection("individual").Value),
                         Block = Convert.ToBoolean(s.GetSection("block").Value),
                         Server = Convert.ToString( s.GetSection("server").Value),
-                        EmailTo = Convert.ToString(s.GetSection("emailTo").Value),
                         EmailFrom = Convert.ToString(s.GetSection("emailFrom").Value),
                         Subject = Convert.ToString(s.GetSection("subject").Value),
                         Body = Convert.ToString(s.GetSection("body").Value),
@@ -90,6 +91,25 @@ namespace Impodatos.Services.EventHandlers
                     }).ToList()                    
                 };
                  
+            }
+        }
+
+        private static ConexionInt _conexionInt
+        {
+            get
+            {
+                var configuration = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                    .AddJsonFile($"appsettings.Development.json", optional: true, reloadOnChange: true)
+                    .Build();
+
+                return new ConexionInt
+                {
+                    ConexionDatabase = configuration.GetSection("ConnectionStrings:ConexionDatabase").Value
+                    
+                };        
+
             }
         }
 
@@ -130,8 +150,8 @@ namespace Impodatos.Services.EventHandlers
                             break;
 
                         case 5:
-                            string usu = commandGeneral.email;
-                            sendMailObj.SenEmailImport(_importSettings.Services[0].Server, _importSettings.Services[0].Subject, _importSettings.Services[0].Body, _importSettings.Services[0].EmailTo, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port);
+                            sendMailObj.SenEmailImport(_importSettings.Services[0].Server, _importSettings.Services[0].Subject, _importSettings.Services[0].Body, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
+                            state = 6;
                             break;
                     }
                     if (TaskResult != "")
@@ -210,7 +230,7 @@ namespace Impodatos.Services.EventHandlers
         }
 
         public async Task ImportDataAsync(List<ArrayList> RowFile){
-            
+
             var _set = _importSettings;
             int cont = 0;
             int contbad = 0;
@@ -483,9 +503,10 @@ namespace Impodatos.Services.EventHandlers
 
         public async Task Handle(historyCreateCommand command, CancellationToken cancellation)
         {
-            try {
-                var con = _ConexionInt;
-                 commandGeneral = command;
+            try {               
+                commandGeneral = command;
+
+                userSetting = await loginQueyService.GetUserSetting(commandGeneral.token);               
                 var ExternalImportDataApp = await _dhis.GetAllProgramAsync(commandGeneral.token);
                 objprogram = ExternalImportDataApp.Programs.Where(a => a.Programid.Equals(commandGeneral.Programsid)).FirstOrDefault();
                 OrganisationUnitsDto Organisation = new OrganisationUnitsDto();
@@ -508,8 +529,8 @@ namespace Impodatos.Services.EventHandlers
                 endDate = (command.enddate + 1) + "-01-01";
 
                 reader = new StreamReader(command.CsvFile.OpenReadStream());
+                nameFile = command.CsvFile.FileName;
 
-                
                 //new BinaryReader(commandGeneral.CsvFile.OpenReadStream());
                 headers = reader.ReadLine().Split(';');
                 headers = headers.Select(s => s.ToUpperInvariant()).ToArray();
@@ -559,8 +580,9 @@ namespace Impodatos.Services.EventHandlers
         {
             try
             {
-                //string cnx = _conexionImportSettings.Services[0].ConexionDatabase;
-                using (var cn = new NpgsqlConnection("Server= 190.146.87.131; Database=appimpodatos; Port=5432;User Id=pahovpdapp;Password=fR4n.5a3FF3e;"))
+              
+                var _cnx = _conexionInt;
+                using (var cn = new NpgsqlConnection(_cnx.ConexionDatabase))
                 {
                     cn.Open();  
                     

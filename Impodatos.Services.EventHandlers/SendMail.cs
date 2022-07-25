@@ -11,9 +11,9 @@ namespace Impodatos.Services.EventHandlers.Commands
     public class SendMail
     {
 
-        public void SenEmailImport(string serverC, string subjectC, string bodyC, string toC, string fromC, string passC, string portC)
+        public void SenEmailImport(string serverC, string subjectC, string bodyC, string toC, string fromC, string passC, string portC, string DocName)
         {
-            var fromAddress = new MailAddress(fromC, "From Name");
+            var fromAddress = new MailAddress(fromC, subjectC);
             var toAddress = new MailAddress(toC, "To Name");
              string fromPassword = passC;
              string subject = subjectC;
@@ -31,7 +31,7 @@ namespace Impodatos.Services.EventHandlers.Commands
             using (var message = new MailMessage(fromAddress, toAddress)
             {
                 Subject = subject,
-                Body = body
+                Body = DocName+  body  
             })
             {
                 smtp.Send(message);
