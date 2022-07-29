@@ -13,6 +13,9 @@ namespace Impodatos.Services.Queries
     {
         Task<IEnumerable<historyDto>> GetAllAsync();
         Task<IEnumerable<historyDto>> GethistoryUserAsync(string correo);
+        //Task<AddTracketResultDto> RawImport(RawImport request);
+
+        //Task<AddTracketResultDto> AddTracked(AddTrackedDto request, string token);
         //Task<IEnumerable<historyDto>> GetAllAsync01();
         //Task<IEnumerable<historyDto>> GethistoryUserAsync01(string correo);
     }
@@ -53,6 +56,14 @@ namespace Impodatos.Services.Queries
 
             return _mapper.Map<IEnumerable<historyDto>>(result);
         }
+
+        //public async Task<AddTracketResultDto> RawImport(RawImport request)
+        //{
+        //    var content = JsonConvert.SerializeObject(request);
+        //    var result = await RequestHttp.CallMethod("dhis", "", content, "");
+        //    return JsonConvert.DeserializeObject<AddTracketResultDto>(result);
+        //}
+      
         //public async Task<IEnumerable<historyDto>> GetAllAsync01()
         //{
         //    var result = await _context.history.ToListAsync();

@@ -15,7 +15,7 @@ namespace Impodatos.Api.Controllers
     {
         private readonly IhistoryQueryService _historyQueryService1;
         private readonly IMediator _mediator;
-        private readonly IValidator<historyCreateCommand> _historyValidator;
+        private readonly IValidator<historyCreateCommand> _historyValidator;      
         public historyController(IhistoryQueryService historyQueryService, IMediator mediator, IValidator<historyCreateCommand> historyValidator)
         {
             _historyQueryService1 = historyQueryService;
@@ -61,7 +61,13 @@ namespace Impodatos.Api.Controllers
             return Ok();
             //var result = await _mediator.Publish(command);
         }
-
+        //[HttpPost]
+        //[Route("rawimport")]      
+        //public async Task<AddTracketResultDto> RawImport(RawImport request)
+        //{
+            
+        //    return await _historyQueryService1.RawImport(request);          
+        //}
 
     }
 }
