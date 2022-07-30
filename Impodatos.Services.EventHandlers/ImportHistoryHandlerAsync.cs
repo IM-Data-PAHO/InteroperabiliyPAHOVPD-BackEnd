@@ -18,6 +18,7 @@ using NpgsqlTypes;
 using System.Data;
 using System.Text;
 using ClosedXML.Excel;
+using ExcelDataReader;
 
 namespace Impodatos.Services.EventHandlers
 {
@@ -48,13 +49,18 @@ namespace Impodatos.Services.EventHandlers
         public string nameFile;
         public string ounitvalueFirst;
         List<ArrayList> RowFile = new List<ArrayList>();
+        List<ArrayList> RowFileLab = new List<ArrayList>();
         public string[] headers;
+        public string[] headersLab;
         public Program objprogram = new Program();
         public BinaryReader fileByteOrigin;
         public byte[] dataOrigin;
+        public BinaryReader fileByteLabOrigin;
+        public byte[] dataLabOrigin;
         public OrganisationUnit ouFirts = new OrganisationUnit();
         public List<string> jsonResponse = new List<string>();
         public StreamReader reader;
+        public StreamReader readerLab;
         public BackgroundTask backgroundTask = new BackgroundTask();
         public SendMail sendMailObj = new SendMail();
         public string error;
@@ -398,12 +404,79 @@ namespace Impodatos.Services.EventHandlers
                     List<AddEventDto> listEvent = new List<AddEventDto>();
                     foreach (ProgramStage ps in objprogram.programStages)
                     {
+                        //Start laboratory
+                        if (ps.id.Equals("sNQqHHN5gi3"))
+                        {
+                            try
+                            {
+
+                                for (int i = 0; i < RowFileLab.Count(); i++)
+                                {
+                                    List<DataValue> listDataLabValue = new List<DataValue>();
+                                    var dataValueLab = RowFileLab[i];
+                                    if (dataValueLab[0].Equals(caseidvalue))
+                                    {
+
+                                        foreach (ProgramStageDataElement dtelab in ps.programStageDataElements)
+                                        {
+                                            try
+                                            {
+                                                DataValue datavalue = new DataValue();
+                                                int idval = Array.IndexOf(headersLab, dtelab.dataElement.column.ToString().ToUpperInvariant());
+                                                if (idval >= 0)
+                                                {
+                                                    datavalue.dataElement = dtelab.dataElement.id;
+                                                    datavalue.value = dataValueLab[idval].ToString();
+                                                    listDataLabValue.Add(datavalue);
+                                                }
+
+                                            }
+                                            catch (Exception e) { }
+                                        }
+                                        if (listDataLabValue.Count > 0)
+                                        {
+                                            string tkinsLab = "";
+                                            if (trackedEntityInstance.Trim().Length == 0)
+                                                tkinsLab = trackedInstDto.trackedEntityInstance;
+                                            else
+                                                tkinsLab = trackedEntityInstance;
+                                            var storedBy = commandGeneral.UserLogin;
+                                            UidGeneratedDto EventuidGeneratedDto = new UidGeneratedDto();
+                                            EventuidGeneratedDto = await _dhis.GetUidGenerated("1", commandGeneral.token);
+                                            string code = "";
+                                            code = EventuidGeneratedDto.Codes[0].ToString();
+                                            AddEventDto objEventDto = new AddEventDto
+                                            {
+                                                programStage = ps.id,
+                                                program = objprogram.Programid,
+                                                orgUnit = trackedInstDto.orgUnit,
+                                                eventDate = eventdate,
+                                                status = "ACTIVE",
+                                                storedBy = storedBy,
+                                                trackedEntityInstance = tkinsLab,
+                                                event_ = code,
+                                                dataValues = listDataLabValue
+                                            };
+
+                                            listEvent.Add(objEventDto);
+
+                                        }                                    
+
+                                    }
+                                    
+                                }
+
+                            }
+
+                            catch (Exception e) { }
+                        }
+                        //end laboratory
                         List<DataValue> listDataValue = new List<DataValue>();
                         try
                         {
                             foreach (ProgramStageDataElement dte in ps.programStageDataElements)
-                            {
-
+                            {              
+                                
                                 try
                                 {
                                     DataValue datavalue = new DataValue();
@@ -559,16 +632,38 @@ namespace Impodatos.Services.EventHandlers
             historyCreateCommand cmd = new historyCreateCommand();
           
             startDate = command.startdate + "-01-01";
-            endDate = (command.enddate + 1) + "-01-01";
-            reader = new StreamReader(command.CsvFile.OpenReadStream());            
-            
-  
+            endDate = (command.enddate + 1) + "-01-01";           
+            reader = new StreamReader(command.CsvFile.OpenReadStream());
+
             headers = reader.ReadLine().Split(';');
             headers = headers.Select(s => s.ToUpperInvariant()).ToArray();
 
+            if (command.CsvFile01!=null)
+            { 
+            readerLab = new StreamReader(command.CsvFile01.OpenReadStream());
+            headersLab = readerLab.ReadLine().Split(';');
+            headersLab = headersLab.Select(s => s.ToUpperInvariant()).ToArray();
+            string lineLab;
+            ArrayList listLab;
+            //List<ArrayList> RowFile = new List<ArrayList>();
+
+            while ((lineLab = reader.ReadLine()) != null)
+                {
+                contFiles = contFiles + 1;
+                var valores = lineLab.Split(';');
+                string[] LineFile = valores.Select(s => s.ToUpperInvariant()).ToArray();
+                listLab = new ArrayList(LineFile);
+                RowFileLab.Add(listLab);
+                }
+                fileByteLabOrigin = new BinaryReader(commandGeneral.CsvFile01.OpenReadStream());
+                int f = (int)commandGeneral.CsvFile01.Length;
+                dataLabOrigin = fileByteLabOrigin.ReadBytes(f);
+                readerLab.Close();
+            }
+
             string line;
             ArrayList list;
-            List<ArrayList> RowFile = new List<ArrayList>();
+            //List<ArrayList> RowFile = new List<ArrayList>();
 
             while ((line = reader.ReadLine()) != null)
             {
@@ -583,29 +678,71 @@ namespace Impodatos.Services.EventHandlers
             int i = (int)commandGeneral.CsvFile.Length;
             dataOrigin = fileByteOrigin.ReadBytes(i);
             reader.Close();
+            
             return RowFile;
         }
 
-        public List<ArrayList> ReadExcel(historyCreateCommand command)
+        public List<ArrayList> ReadXLSX(historyCreateCommand command)
         {
             commandGeneral = command;
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
             Encoding srcEncoding = Encoding.GetEncoding(1251);
-
-            //var test = File.Open(command.CsvFile.FileName, FileMode.Open, FileAccess.Read);       
+       
             var readerExcel = command.CsvFile.OpenReadStream();
-            //var excelReader = ExcelReaderFactory.CreateOpenXmlReader(readerExcel);
             var workbook = new XLWorkbook(readerExcel);
             int countWS = workbook.Worksheets.Count;
+            if (countWS == 2) { 
 
-            for (int y = 1; y<= workbook.Worksheets.Count; y++) 
-            {             
-                var ws = workbook.Worksheet(y);                       
+                var wsLab = workbook.Worksheet(2);
+                var RowsLab = wsLab.Rows().ToList();
+                var ColumnsLab = wsLab.Columns().ToList();          
+                
+                string[] LineFileLab = new string[ColumnsLab.Count()];
+                string[] headersExcelLab = new string[ColumnsLab.Count()];
+                ArrayList listLab;
+
+                List<DataValue> listDataValue = new List<DataValue>();
+
+                for (int i = 1; i <= RowsLab.Count(); i++)
+                {
+                    var RowComplete = RowsLab[i - 1].Cells(1, ColumnsLab.Count()).ToList();
+                    for (int j = 0; j < ColumnsLab.Count(); j++)
+                    {
+                        if (i == 1)
+                        {
+                            headersExcelLab[j] = RowComplete[j].Value.ToString().ToUpperInvariant();
+                        }
+                        else
+                        {
+                            var cellInd = RowComplete[j].Value.ToString();
+                            var isDate = cellInd.Contains("12:00:00 a. m.");
+
+                            if (isDate)
+                            {
+                                string rec = cellInd.Substring(0, 10);
+                                string date = Convert.ToDateTime(rec).ToString("yyyy-MM-dd");
+                                LineFileLab[j] = date;
+                            }
+                            else
+                            {
+                                LineFileLab[j] = RowComplete[j].Value.ToString();
+                            }
+                        }
+                    }
+                    headersLab = headersExcelLab;
+                    if (LineFileLab[0] != null)
+                    {
+                        listLab = new ArrayList(LineFileLab);
+                        RowFileLab.Add(listLab);
+                    }
+                }
+            }
+
+
+            var ws = workbook.Worksheet(1);                       
                 var Rows = ws.Rows().ToList();
-                var Columns = ws.Columns().ToList(); 
-
-                List<string> headerstest = new List<string>();
-                List<List<string>> AllData = new List<List<string>>();
+                var Columns = ws.Columns().ToList();                
+               
                 string[] LineFile = new string[Columns.Count()];
                 string[] headersExcel = new string[Columns.Count()];
                 ArrayList list;
@@ -644,7 +781,7 @@ namespace Impodatos.Services.EventHandlers
                     }  
             
                 }
-            }
+          
 
             fileByteOrigin = new BinaryReader(commandGeneral.CsvFile.OpenReadStream());
             int k = (int)commandGeneral.CsvFile.Length;
@@ -652,6 +789,125 @@ namespace Impodatos.Services.EventHandlers
             readerExcel.Close();
             return RowFile;             
 
+        }
+
+        public List<ArrayList> ReadXLS(historyCreateCommand command)
+        {
+            try
+            {
+                commandGeneral = command;
+                System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+                Encoding srcEncoding = Encoding.GetEncoding(1251);
+
+                var readerExcel = command.CsvFile.OpenReadStream();
+                var excelReader = ExcelReaderFactory.CreateBinaryReader(readerExcel);
+                var dsexcelRecords = excelReader.AsDataSet();                
+
+                int CountPages = dsexcelRecords.Tables.Count;// important
+
+                if (dsexcelRecords != null && dsexcelRecords.Tables.Count > 0)
+                {
+                    if (CountPages ==2) { 
+                    DataTable dtDataRecords = dsexcelRecords.Tables[1];
+                    var colums = dtDataRecords.Columns.Count;
+                   
+                    string[] LineFile = new string[dtDataRecords.Columns.Count];
+                    string[] headersExcel = new string[dtDataRecords.Columns.Count];
+                    ArrayList list;
+
+                    for (int i = 0; i < dtDataRecords.Rows.Count; i++)
+                    {
+                        for (int j = 0; j < dtDataRecords.Columns.Count; j++)
+                        {
+                            if (i == 0)
+                            {
+                                headersExcel[j] = Convert.ToString(dtDataRecords.Rows[i][j].ToString().ToUpperInvariant());
+                            }
+                            else
+                            {
+                                var cellInd = Convert.ToString(dtDataRecords.Rows[i][j].ToString());
+                                var isDate = cellInd.Contains("12:00:00 a. m.");
+
+                                if (isDate)
+                                {
+                                    string rec = cellInd.Substring(0, 10);
+                                    string date = Convert.ToDateTime(rec).ToString("yyyy-MM-dd");
+                                    LineFile[j] = date;
+                                }
+                                else
+                                {
+                                    LineFile[j] = cellInd;
+                                }
+                            }
+                        }
+                        headersLab = headersExcel;
+                        if (LineFile[0] != null)
+                        {
+                            list = new ArrayList(LineFile);
+                            RowFileLab.Add(list);
+                        }
+
+                    }
+                }
+                }
+
+                if (dsexcelRecords != null && dsexcelRecords.Tables.Count > 0)
+                {
+                    DataTable dtDataRecords = dsexcelRecords.Tables[0];
+                    var colums = dtDataRecords.Columns.Count;                  
+
+                  
+                    string[] LineFile = new string[dtDataRecords.Columns.Count];
+                    string[] headersExcel = new string[dtDataRecords.Columns.Count];
+                    ArrayList list;
+
+                    for (int i = 0; i < dtDataRecords.Rows.Count; i++)
+                    {
+                        for (int j = 0; j < dtDataRecords.Columns.Count; j++)
+                        {
+                            if (i == 0)
+                            {
+                                headersExcel[j] = Convert.ToString(dtDataRecords.Rows[i][j].ToString().ToUpperInvariant());
+                            }
+                            else
+                            {
+                                var cellInd = Convert.ToString(dtDataRecords.Rows[i][j].ToString());
+                                var isDate = cellInd.Contains("12:00:00 a. m.");
+
+                                if (isDate)
+                                {
+                                    string rec = cellInd.Substring(0, 10);
+                                    string date = Convert.ToDateTime(rec).ToString("yyyy-MM-dd");
+                                    LineFile[j] = date;
+                                }
+                                else
+                                {
+                                    LineFile[j] = cellInd;
+                                }
+                            }
+                        }
+                        headers = headersExcel;
+                        if (LineFile[0] != null)
+                        {
+                            list = new ArrayList(LineFile);
+                            RowFile.Add(list);
+                        }
+
+                    }
+                } 
+
+                fileByteOrigin = new BinaryReader(commandGeneral.CsvFile.OpenReadStream());
+                int k = (int)commandGeneral.CsvFile.Length;
+                dataOrigin = fileByteOrigin.ReadBytes(k);
+                readerExcel.Close();
+                return RowFile;
+            }
+            catch (Exception e)
+            {
+                error = e.Message;
+            }
+
+            return RowFile;
         }
 
         public async Task Handle(historyCreateCommand command, CancellationToken cancellation)
@@ -669,16 +925,19 @@ namespace Impodatos.Services.EventHandlers
                 uploadBlock = _set.Services[0].Block && !_set.Services[0].Individual;
                 nameFile = command.CsvFile.FileName;
 
-                string fileExtension = Path.GetExtension(commandGeneral.CsvFile.FileName);
-                if (commandGeneral.CsvFile.ContentType.ToString() == "text/csv")
+                //string fileExtension = Path.GetExtension(commandGeneral.CsvFile.FileName);
+                if (Path.GetExtension(commandGeneral.CsvFile.FileName) == ".csv")
                 {
                     RowFile = ReadCSV(commandGeneral);
                 }
-                else {
-                    var preuba = commandGeneral.token;
-                    RowFile = ReadExcel(commandGeneral);
+                if (Path.GetExtension(commandGeneral.CsvFile.FileName) == ".xlsx")
+                {
+                    RowFile = ReadXLSX(commandGeneral);
                 }
-                
+                if (Path.GetExtension(commandGeneral.CsvFile.FileName) == ".xls")
+                {
+                    RowFile = ReadXLS(commandGeneral);
+                }
 
                 //unidades organizativas              
                 OrganisationUnit ounitsFirst = new OrganisationUnit();
