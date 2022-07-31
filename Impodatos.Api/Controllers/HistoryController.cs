@@ -28,9 +28,9 @@ namespace Impodatos.Api.Controllers
             return await _historyQueryService1.GetAllAsync();
         }
         [HttpGet("user")]
-        public async Task<IEnumerable<historyDto>> GetAll(string user)
+        public async Task<IEnumerable<historyDto>> GetAll(string user,string token)
         {
-            return await _historyQueryService1.GethistoryUserAsync(user);
+            return await _historyQueryService1.GethistoryUserAsync(user, token);
         }
         //[HttpGet]
         //public async Task<IEnumerable<historyDto>> GetAll01()

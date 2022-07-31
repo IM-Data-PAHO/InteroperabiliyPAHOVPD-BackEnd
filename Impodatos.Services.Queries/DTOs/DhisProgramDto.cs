@@ -15,6 +15,11 @@ namespace Impodatos.Services.Queries.DTOs
 
     }
 
+    public class infodhis
+    {
+        public string info { get; set; }
+    }
+
 
     public partial class DhisProgramDto
     {
@@ -96,8 +101,35 @@ namespace Impodatos.Services.Queries.DTOs
         public string id { get; set; }     
     }
 
-    
 
+    public class AttributeReference
+    {
+        public DateTime lastUpdated { get; set; }
+        public string storedBy { get; set; }
+        public string displayName { get; set; }
+        public DateTime created { get; set; }
+        public string valueType { get; set; }
+        public string attribute { get; set; }
+        public string value { get; set; }
+    }
+
+    public class TrackedreferenceResponse
+    {
+        public DateTime created { get; set; }
+        public string orgUnit { get; set; }
+        public DateTime createdAtClient { get; set; }
+        public string trackedEntityInstance { get; set; }
+        public DateTime lastUpdated { get; set; }
+        public string trackedEntityType { get; set; }
+        public DateTime lastUpdatedAtClient { get; set; }
+        public string storedBy { get; set; }
+        public bool deleted { get; set; }
+        public string featureType { get; set; }
+        public List<object> programOwners { get; set; }
+        public List<object> enrollments { get; set; }
+        public List<object> relationships { get; set; }
+        public List<AttributeReference> attributes { get; set; }
+    }
 
 }
 
