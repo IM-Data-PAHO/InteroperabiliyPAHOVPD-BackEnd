@@ -47,6 +47,7 @@ namespace Impodatos.Services.EventHandlers
         public bool endWhile = false;
         public UserSettingDto userSetting;
         public string nameFile;
+        public string nameFileLab = "";
         public string ounitvalueFirst;
         List<ArrayList> RowFile = new List<ArrayList>();
         List<ArrayList> RowFileLab = new List<ArrayList>();
@@ -56,7 +57,7 @@ namespace Impodatos.Services.EventHandlers
         public BinaryReader fileByteOrigin;
         public byte[] dataOrigin;
         public BinaryReader fileByteLabOrigin;
-        public byte[] dataLabOrigin;
+        public byte[] dataLabOrigin = null;
         public OrganisationUnit ouFirts = new OrganisationUnit();
         public List<string> jsonResponse = new List<string>();
         public StreamReader reader;
@@ -64,6 +65,7 @@ namespace Impodatos.Services.EventHandlers
         public BackgroundTask backgroundTask = new BackgroundTask();
         public SendMail sendMailObj = new SendMail();
         public string error;
+        public string country;
 
         public ImportHistoryHandlerAsync(ApplicationDbContext context, IDhisQueryService dhis)
         {
@@ -157,7 +159,7 @@ namespace Impodatos.Services.EventHandlers
 
                         case 5:
                             sendMailObj.SenEmailImport(_importSettings.Services[0].Server, _importSettings.Services[0].Subject, _importSettings.Services[0].Body, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, "El archivo: " + nameFile);
-                            state = 6;
+                            state = 6;                            
                             break;
                     }
                     if (TaskResult != "")
@@ -540,61 +542,79 @@ namespace Impodatos.Services.EventHandlers
                     }
                 }
 
-                if (trackedDtos.trackedEntityInstances.Count >= SizeUpload)
+                if (trackedDtos.trackedEntityInstances != null)
+                {
+
+                    if (trackedDtos.trackedEntityInstances.Count >= SizeUpload)
+                    {
+                        AddTracketResultDto trakedResultDto = new AddTracketResultDto();
+                        try
+                        {
+                            contBlock = contBlock + 1;
+                            var resultDto = await _dhis.AddTracked(trackedDtos, commandGeneral.token);
+                            var res = await CheckImportTrackedAsync(resultDto.Response.relativeNotifierEndpoint, commandGeneral.token);
+                        }
+                        catch (Exception e) { }
+
+                        if (!uploadBlock)
+                        {
+                            AddEnrollmentResultDto enrollResultDto = new AddEnrollmentResultDto();
+                            if (trakedResultDto.Status == "OK")
+                            {
+                                try
+                                {
+                                    enrollResultDto = await _dhis.AddEnrollment(enrollments, commandGeneral.token);
+                                }
+                                catch (Exception e) { }
+
+                            }
+                            if (trakedResultDto.Status == "OK" && enrollResultDto.Status == "ACTIVE")
+                            {
+                                try
+                                {
+                                    var eventsResultDto = await _dhis.AddEvent(eventDto, commandGeneral.token);
+
+                                }
+                                catch (Exception e) { }
+                            }
+                        }
+                        trackedDtos.trackedEntityInstances.Clear();
+                    }
+                }
+
+                else
+                {
+                    sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Sin datos para Importación", " El archivo no se pudo importar porque no existe Información para el rango de periodos seleccionados, favor revisar ", userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
+                }
+            
+
+
+
+        }//cierre de while
+            endWhile = true;
+            if (trackedDtos.trackedEntityInstances != null)
+            {
+                // Temporal para los archivos restantes de los bloques
+                if (trackedDtos.trackedEntityInstances.Count > 0)
                 {
                     AddTracketResultDto trakedResultDto = new AddTracketResultDto();
                     try
                     {
-                        contBlock = contBlock + 1;
                         var resultDto = await _dhis.AddTracked(trackedDtos, commandGeneral.token);
                         var res = await CheckImportTrackedAsync(resultDto.Response.relativeNotifierEndpoint, commandGeneral.token);
-                    }
-                    catch (Exception e) { }
 
-                    if (!uploadBlock)
+                    }
+                    catch (Exception e)
                     {
-                        AddEnrollmentResultDto enrollResultDto = new AddEnrollmentResultDto();
-                        if (trakedResultDto.Status == "OK")
-                        {
-                            try
-                            {
-                                enrollResultDto = await _dhis.AddEnrollment(enrollments, commandGeneral.token);
-                            }
-                            catch (Exception e) { }
+                        error = e.Message;
+                        sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", " El archivo no se pudo importar  (paso 1: cargue del archivo, paso 2: borrado de events, paso 3: borrado de Enrollments , paso 4: importación de la data (tacked= registro de la persona, , Enrollment= registro de la persona al progama y Events= los datos del registro), paso 5: guardado del resumen de la importación, paso 6: notificación por email de la importación), a continuación, el error en detalle: " + error + " paso con error: " + state, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
 
-                        }
-                        if (trakedResultDto.Status == "OK" && enrollResultDto.Status == "ACTIVE")
-                        {
-                            try
-                            {
-                                var eventsResultDto = await _dhis.AddEvent(eventDto, commandGeneral.token);
-
-                            }
-                            catch (Exception e) { }
-                        }
                     }
-                    trackedDtos.trackedEntityInstances.Clear();
-                }
-
-            }//cierre de while
-            endWhile = true;
-            // Temporal para los archivos restantes de los bloques
-            if (trackedDtos.trackedEntityInstances.Count > 0)
-            {
-                AddTracketResultDto trakedResultDto = new AddTracketResultDto();
-                try
-                {
-                    var resultDto = await _dhis.AddTracked(trackedDtos, commandGeneral.token);
-                    var res = await CheckImportTrackedAsync(resultDto.Response.relativeNotifierEndpoint, commandGeneral.token);
-
-                }
-                catch (Exception e)
-                {
-                    error = e.Message;
-                    sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", " El archivo no se pudo importar  (paso 1: cargue del archivo, paso 2: borrado de events, paso 3: borrado de Enrollments , paso 4: importación de la data (tacked= registro de la persona, , Enrollment= registro de la persona al progama y Events= los datos del registro), paso 5: guardado del resumen de la importación, paso 6: notificación por email de la importación), a continuación, el error en detalle: " + error + " paso con error: " + state, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
-
                 }
             }
+
+            else {
+                sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Sin datos para Importación", " El archivo no se pudo importar porque no existe Información para el rango de periodos seleccionados, favor revisar " , userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);}
         }
 
         public async Task<bool> CheckImportTrackedAsync(string task, string token)
@@ -630,14 +650,9 @@ namespace Impodatos.Services.EventHandlers
             commandGeneral = command;
 
             historyCreateCommand cmd = new historyCreateCommand();
-          
             startDate = command.startdate + "-01-01";
             endDate = (command.enddate + 1) + "-01-01";           
-            reader = new StreamReader(command.CsvFile.OpenReadStream());
-
-            headers = reader.ReadLine().Split(';');
-            headers = headers.Select(s => s.ToUpperInvariant()).ToArray();
-
+            
             if (command.CsvFile01!=null)
             { 
             readerLab = new StreamReader(command.CsvFile01.OpenReadStream());
@@ -647,7 +662,7 @@ namespace Impodatos.Services.EventHandlers
             ArrayList listLab;
             //List<ArrayList> RowFile = new List<ArrayList>();
 
-            while ((lineLab = reader.ReadLine()) != null)
+            while ((lineLab = readerLab.ReadLine()) != null)
                 {
                 contFiles = contFiles + 1;
                 var valores = lineLab.Split(';');
@@ -655,6 +670,7 @@ namespace Impodatos.Services.EventHandlers
                 listLab = new ArrayList(LineFile);
                 RowFileLab.Add(listLab);
                 }
+                nameFileLab = commandGeneral.CsvFile01.FileName;
                 fileByteLabOrigin = new BinaryReader(commandGeneral.CsvFile01.OpenReadStream());
                 int f = (int)commandGeneral.CsvFile01.Length;
                 dataLabOrigin = fileByteLabOrigin.ReadBytes(f);
@@ -664,7 +680,10 @@ namespace Impodatos.Services.EventHandlers
             string line;
             ArrayList list;
             //List<ArrayList> RowFile = new List<ArrayList>();
+            reader = new StreamReader(command.CsvFile.OpenReadStream());
 
+            headers = reader.ReadLine().Split(';');
+            headers = headers.Select(s => s.ToUpperInvariant()).ToArray();
             while ((line = reader.ReadLine()) != null)
             {
                 contFiles = contFiles + 1;
@@ -677,6 +696,10 @@ namespace Impodatos.Services.EventHandlers
             fileByteOrigin = new BinaryReader(commandGeneral.CsvFile.OpenReadStream());
             int i = (int)commandGeneral.CsvFile.Length;
             dataOrigin = fileByteOrigin.ReadBytes(i);
+            if (dataLabOrigin == null)
+            {
+                dataLabOrigin = dataOrigin;
+            }
             reader.Close();
             
             return RowFile;
@@ -786,6 +809,7 @@ namespace Impodatos.Services.EventHandlers
             fileByteOrigin = new BinaryReader(commandGeneral.CsvFile.OpenReadStream());
             int k = (int)commandGeneral.CsvFile.Length;
             dataOrigin = fileByteOrigin.ReadBytes(k);
+            dataLabOrigin = dataOrigin;
             readerExcel.Close();
             return RowFile;             
 
@@ -899,6 +923,7 @@ namespace Impodatos.Services.EventHandlers
                 fileByteOrigin = new BinaryReader(commandGeneral.CsvFile.OpenReadStream());
                 int k = (int)commandGeneral.CsvFile.Length;
                 dataOrigin = fileByteOrigin.ReadBytes(k);
+                dataLabOrigin = dataOrigin;
                 readerExcel.Close();
                 return RowFile;
             }
@@ -944,9 +969,11 @@ namespace Impodatos.Services.EventHandlers
                 int colounitsFirst = Array.IndexOf(headers, objprogram.Orgunitcolumm.ToUpperInvariant());
                 var Firtsline = RowFile[0];
                 ounitvalueFirst = Firtsline[colounitsFirst].ToString();
-                ouFirts = Organisation.OrganisationUnits.Find(x => x.code == Firtsline[colounitsFirst].ToString());
-                oupath = ouFirts.path.Split("/")[2];               
 
+                ouFirts = Organisation.OrganisationUnits.Find(x => x.code == Firtsline[colounitsFirst].ToString());
+                oupath = ouFirts.path.Split("/")[2];
+                var oupathFull = await _dhis.GetOrganisationUnit(commandGeneral.token, oupath); //crear el objeto de tipo AddEventDto
+                country = oupathFull.name;               
                 backgroundTask.StartAsync(OrchestratorAsync(oupath, startDate, endDate, objprogram.Programid, command.token, RowFile));
                 //return "start";               
             }
@@ -966,7 +993,7 @@ namespace Impodatos.Services.EventHandlers
                 {
                     cn.Open();
 
-                    using (var cmd = new NpgsqlCommand("INSERT INTO history (programsid, jsonset, jsonresponse, state, userlogin, fecha, file, deleted, uploads) VALUES( @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9,@p10 )", cn))
+                    using (var cmd = new NpgsqlCommand("INSERT INTO history (programsid, jsonset, jsonresponse, state, userlogin, fecha, file, deleted, uploads, namefile, country, file1, namefile1) VALUES( @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9,@p10, @p11,@p12,@p13,@p14  )", cn))
                     {
 
                         cmd.Parameters.Clear();
@@ -979,6 +1006,10 @@ namespace Impodatos.Services.EventHandlers
                         cmd.Parameters.Add("@p8", NpgsqlDbType.Bytea).Value = dataOrigin;
                         cmd.Parameters.Add("@p9", NpgsqlDbType.Integer).Value = 0;
                         cmd.Parameters.Add("@p10", NpgsqlDbType.Integer).Value = 0;
+                        cmd.Parameters.Add("@p11", NpgsqlDbType.Varchar).Value = nameFile;
+                        cmd.Parameters.Add("@p12", NpgsqlDbType.Varchar).Value = country;
+                        cmd.Parameters.Add("@p13", NpgsqlDbType.Bytea).Value = dataLabOrigin;                        
+                        cmd.Parameters.Add("@p14", NpgsqlDbType.Text).Value = nameFileLab;
 
                         var result = cmd.ExecuteNonQuery();
                         state = 5;

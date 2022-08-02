@@ -73,7 +73,7 @@ namespace Impodatos.Services.Common.Security
             }
         }
 
-        public async static Task<string> CallMethod(string service, string method, string content, string token, string strategy ="")
+        public async static Task<string> CallMethodSave(string service, string method, string content, string token, string strategy ="")
         {
             try
             {
@@ -159,7 +159,7 @@ namespace Impodatos.Services.Common.Security
                 var _method = _service.Methods.Where(m => m.Method.Equals(method)).FirstOrDefault().Value;
                 _method = !string.IsNullOrEmpty(_method) ? string.Format($"/{_method}") : null;
                 string URL = string.Format($"{_service.URL}{_method}{reference}");
-
+                
                 using (var client = new HttpClient())
                 using (var request = new HttpRequestMessage(HttpMethod.Get, URL))
                 {
@@ -368,7 +368,7 @@ namespace Impodatos.Services.Common.Security
             {
                 var _set = _integration;
                 var _service = _set.Services.Where(s => s.Name.Equals(service)).ToList().FirstOrDefault();
-                string URL = string.Format($"{_service.URL}/me");
+                string URL = string.Format($"{_service.URL}/me?fields=settings[keyUiLocale],id,name,displayName,surname,firstName,email,userCredentials[userRoles[id,name]],path&paging=false");
                 using (var client = new HttpClient())
                 using (var request = new HttpRequestMessage(HttpMethod.Get, URL))
                 {
@@ -382,7 +382,36 @@ namespace Impodatos.Services.Common.Security
                         return result;
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
+        public async static Task<string> CallMethodOUCountry(string service, string method, string token)
+        {
+            try
+            {
+                var _set = _integration;
+                var _service = _set.Services.Where(s => s.Name.Equals(service)).ToList().FirstOrDefault();
+                string URL = string.Format($"{_service.URL}/{method}?fields=id,name,code,path&paging=false");
+
+                using (var client = new HttpClient())
+                using (var request = new HttpRequestMessage(HttpMethod.Get, URL))
+                {
+                    if (_service.Authentication.User != null)
+                        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                    request.Headers.Add("Accept", "application/json");
+                    using (var response = await client
+                        .SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
+                        .ConfigureAwait(false))
+                    {
+                        response.EnsureSuccessStatusCode();
+                        var result = await response.Content.ReadAsStringAsync();
+                        return result;
+                    }
+                }
             }
             catch (Exception ex)
             {
