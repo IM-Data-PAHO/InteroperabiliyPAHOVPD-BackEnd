@@ -64,13 +64,14 @@ namespace Impodatos.Services.Queries
             Program objprogram = new Program();
             var ExternalImportDataApp = await GetAllProgramAsync(token);
             objprogram = ExternalImportDataApp.Programs.Where(a => a.Programname.Equals(result[0].programsid.Trim())).FirstOrDefault();
-                int idresult = 0;
+            int idresult = 0;
             foreach (history dto in result)
                 {
-                    List<infodhis> error = new List<infodhis>();
-                    history objdto = new history();
+                List<infodhis> error = new List<infodhis>();
+                history objdto = new history();
                 objdto = result[idresult];
                 var json = objdto.jsonset;
+                string ResponseError = "";
                 var jsonpars = json.Remove(0, 1);
                 int lg = json.Length - 2;
                 jsonpars = jsonpars.Remove(lg, 1);
@@ -93,9 +94,10 @@ namespace Impodatos.Services.Queries
                                                         if (dtele.dataElement.id == conflict.@object)
                                                         {
                                                             var Case_ID = await GetTrackedreferenceAsync(token, itemsum.reference);
-                                                            infodhis inf = new infodhis();
-                                                            inf.info = "Case_Id " + Case_ID.attributes[0].value + " : " + dtele.dataElement.name + "," + conflict.value;
-                                                            error.Add(inf);
+                                                            //infodhis inf = new infodhis();
+                                                            //inf.info = "Case_Id " + Case_ID.attributes[0].value + " : " + dtele.dataElement.name + "," + conflict.value;
+                                                            //error.Add(inf);
+                                                            ResponseError = "Case_Id " + Case_ID.attributes[0].value + " : " + dtele.dataElement.name + "," + conflict.value+";"+ ResponseError;
                                                         }                                                          
                                         }
 
@@ -106,11 +108,12 @@ namespace Impodatos.Services.Queries
 
                 }
                 catch (Exception e) {
-                        infodhis inf = new infodhis();
-                        inf.info = "Error al serializar respuesta";
-                        error.Add(inf);
+                        //infodhis inf = new infodhis();
+                        //inf.info = "Error al serializar respuesta";
+                        //error.Add(inf);
+                        ResponseError = "CORRECTO";
                     }
-                    result[idresult].jsonset = JsonConvert.SerializeObject(error); 
+                    result[idresult].jsonset = ResponseError;//JsonConvert.SerializeObject(error); 
 
                     idresult++;
             }
