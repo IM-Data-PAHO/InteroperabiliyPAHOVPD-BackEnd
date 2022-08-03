@@ -27,7 +27,7 @@ namespace Impodatos.Services.Queries
 
         public async Task<UserSettingDto> GetUserSetting(string token)
         {
-            var result = await RequestHttp.CallMethodGetUserSetting("dhis",  token);
+            var result = await RequestHttp.CallMethodGetUserSetting("dhis",  token);            
             return JsonConvert.DeserializeObject<UserSettingDto>(result);
         }
     }
