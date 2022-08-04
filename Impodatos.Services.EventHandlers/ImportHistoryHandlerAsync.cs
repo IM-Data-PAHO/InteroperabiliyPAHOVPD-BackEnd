@@ -66,6 +66,7 @@ namespace Impodatos.Services.EventHandlers
         public SendMail sendMailObj = new SendMail();
         public string error;
         public string country;
+        public string response = "";
 
         public ImportHistoryHandlerAsync(ApplicationDbContext context, IDhisQueryService dhis)
         {
@@ -174,7 +175,7 @@ namespace Impodatos.Services.EventHandlers
             {
                 error = e.Message;
                 sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", " El archivo no se pudo importar  (paso 1: cargue del archivo, paso 2: borrado de events, paso 3: borrado de Enrollments , paso 4: importación de la data (tacked= registro de la persona, , Enrollment= registro de la persona al progama y Events= los datos del registro), paso 5: guardado del resumen de la importación, paso 6: notificación por email de la importación), a continuación, el error en detalle: " + error + " paso con error: " + state, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
-
+                commandGeneral.reponse = e.Message;
                 Console.WriteLine("{0} Exception caught.", e);
 
             }
@@ -275,346 +276,354 @@ namespace Impodatos.Services.EventHandlers
 
         public async Task ImportDataAsync(List<ArrayList> RowFile)
         {
+            try {
+                var _set = _importSettings;
+                int cont = 0;
+                int contbad = 0;
+                int SizeUpload = _set.Services[0].SizeUpload;
 
-            var _set = _importSettings;
-            int cont = 0;
-            int contbad = 0;
-            int SizeUpload = _set.Services[0].SizeUpload;
+                AddTrackedDto trackedDto = new AddTrackedDto();
+                AddTrackedDto trackedDtos = new AddTrackedDto();
 
-            AddTrackedDto trackedDto = new AddTrackedDto();
-            AddTrackedDto trackedDtos = new AddTrackedDto();
+                List<TrackedEntityInstances> listtrackedInstDtoFull = new List<TrackedEntityInstances>();
+                List<Enrollment> listEnrollmentFull = new List<Enrollment>();
 
-            List<TrackedEntityInstances> listtrackedInstDtoFull = new List<TrackedEntityInstances>();
-            List<Enrollment> listEnrollmentFull = new List<Enrollment>();
+                AddEnrollmentDto enrollments = new AddEnrollmentDto();
+                AddEventsDto eventDto = new AddEventsDto();
 
-            AddEnrollmentDto enrollments = new AddEnrollmentDto();
-            AddEventsDto eventDto = new AddEventsDto();
-
-            int cic = 0;
-            while (cic < RowFile.Count)
-            {
-                contFiles = contFiles + 1;
-                var valores = RowFile[cic];
-
-                Console.Write("Ciclos: " + cic.ToString());
-                cic++;
-                int dtRashOn = Array.IndexOf(headers, "DTRASHONSET"); //error
-                string dtRashOnval = valores[dtRashOn].ToString();
-                int dty = 0;
-                try
+                int cic = 0;
+                while (cic < RowFile.Count)
                 {
-                    dty = Convert.ToInt32(Convert.ToDateTime(dtRashOnval).Year);
-                }
-                catch (Exception e) { Console.WriteLine("{0} Exception caught.", e); }
-                if (dty == commandGeneral.startdate || dty == commandGeneral.enddate)
-                {
-                    List<TrackedEntityInstances> listtrackedInstDto = new List<TrackedEntityInstances>();
-                    List<Enrollment> listEnrollment = new List<Enrollment>();
+                    contFiles = contFiles + 1;
+                    var valores = RowFile[cic];
 
-                    AddEnrollmentDto enrollment = new AddEnrollmentDto();
-                    string trackedEntityInstance = "";
-                    //if(codes == 9998) { TrackeduidGeneratedDto = await _dhis.GetUidGenerated("10000", command.token); codes = 0; }
-                    //Genero un uid 
-                    var TrackeduidGeneratedDto = await _dhis.GetUidGenerated("1", commandGeneral.token);
-                    //leemos cada una de las lineas a partir de la linea dos con el metodo ReadLine, el cual va iterando cada linea
-
-                    cont = cont + 1;
-                    //cargar las unidades organizativas en un array para recorrerlo localmente y friltrar para crear el tracked
-                    TrackedEntityInstances trackedInstDto = new TrackedEntityInstances();
-
-                    int caseid = Array.IndexOf(headers, "CASE_ID");
-                    string caseidvalue = valores[caseid].ToString();
-                    //Validamos si el tracked ya existe:  verificar por que se estan creando repetidos
-                    var validatetraked = await _dhis.GetTracket(caseidvalue, ouFirts.id, commandGeneral.token);
-                    if (validatetraked.trackedEntityInstances.Count > 0)
-                        trackedInstDto.trackedEntityInstance = validatetraked.trackedEntityInstances[0].trackedEntityInstance;
-                    else
-                        trackedInstDto.trackedEntityInstance = TrackeduidGeneratedDto.Codes[0].ToString();
-
-                    trackedInstDto.trackedEntityType = objprogram.Trackedentitytype;
-                    int ideventdate = Array.IndexOf(headers, objprogram.Incidentdatecolumm.ToUpperInvariant());
-                    string eventdate = valores[ideventdate].ToString();
-                    trackedInstDto.orgUnit = ouFirts.id;
-
-                    List<Attribut> listAttribut = new List<Attribut>();
-                    string enrollmentDatecolumm = "";
-                    string incidentDatecolumm = "";
-                    var id = Array.IndexOf(headers, objprogram.Enrollmentdatecolumm.ToUpperInvariant());
-                    enrollmentDatecolumm = valores[id].ToString();
-                    //enrollmentDatecolumm = valores[id].Split('/')[2].PadLeft(2, '0') + "-" + valores[id].Split('/')[1] + "-" + valores[id].Split('/')[0].PadLeft(2, '0');
-                    var idi = Array.IndexOf(headers, objprogram.Incidentdatecolumm.ToUpperInvariant());
-                    incidentDatecolumm = valores[idi].ToString();
-                    //incidentDatecolumm = valores[idi].Split('/')[2].PadLeft(2, '0') + "-" + valores[idi].Split('/')[1] + "-" + valores[idi].Split('/')[0].PadLeft(2, '0');
-
-                    foreach (Queries.DTOs.Attribute at in objprogram.Attribute)
+                    Console.Write("Ciclos: " + cic.ToString());
+                    cic++;
+                    int dtRashOn = Array.IndexOf(headers, "DTRASHONSET"); //error
+                    string dtRashOnval = valores[dtRashOn].ToString();
+                    int dty = 0;
+                    try
                     {
-                        if (at.Column != null)
-                        {
-                            try
-                            {
-                                Attribut attribut = new Attribut();
-                                var idval = Array.IndexOf(headers, at.Column.ToUpperInvariant());
-                                attribut.attribute = at.Id;
-                                if (idval >= 0)
-                                {
-                                    if (at.Id.Equals(objprogram.caseNum) && listtrackedInstDto.Count > 0)
-                                    {
-                                        foreach (TrackedEntityInstances tki in listtrackedInstDto)
-                                            foreach (Attribut att in tki.attributes)
-                                                if (att.value.Equals(valores[idval]))
-                                                    trackedEntityInstance = tki.trackedEntityInstance;
-                                    }
-
-                                    if (at.Name.Equals("Date of birth") || at.Name.Equals("Date of rash onset") || at.Name.Equals("WEA - Clasificación final"))
-                                        attribut.value = valores[idval].ToString();// valores[idval].Split('/')[2].PadLeft(2, '0') + "-" + valores[idval].Split('/')[1] + "-" + valores[idval].Split('/')[0].PadLeft(2, '0');
-                                    else
-                                        attribut.value = valores[idval].ToString();
-                                    if (at.Name.Equals("Is date of birth known"))
-                                        attribut.value = valores[idval] == null ? "false" : "true";
-                                    if (attribut != null)
-                                    {
-                                        listAttribut.Add(attribut);
-                                    }
-                                }
-                            }
-                            catch (Exception e) { }
-                        }
+                        dty = Convert.ToInt32(Convert.ToDateTime(dtRashOnval).Year);
                     }
-                    var SequentialDto = await _dhis.GetSequential("1", commandGeneral.token);
-                    trackedInstDto.attributes = listAttribut;
-                    listtrackedInstDto.Add(trackedInstDto);
-                    listtrackedInstDtoFull.Add(trackedInstDto);
-                    trackedDto.trackedEntityInstances = listtrackedInstDto;
-                    trackedDtos.trackedEntityInstances = listtrackedInstDtoFull;
-
-                    Enrollment enrollmentDto = new Enrollment();
-                    Enrollment enrollmentFullDto = new Enrollment();
-                    enrollmentDto.trackedEntityInstance = trackedInstDto.trackedEntityInstance;
-                    enrollmentDto.program = objprogram.Programid;
-                    enrollmentDto.status = "ACTIVE";
-                    enrollmentDto.orgUnit = trackedInstDto.orgUnit;
-                    enrollmentDto.enrollmentDate = enrollmentDatecolumm;
-                    enrollmentDto.incidentDate = incidentDatecolumm;
-                    enrollmentFullDto = enrollmentDto;
-                    listEnrollment.Add(enrollmentDto);
-                    listEnrollmentFull.Add(enrollmentDto);
-                    enrollment.enrollments = listEnrollment;
-                    enrollments.enrollments = listEnrollmentFull;
-
-                    List<ProgramStageDataElement> dteObjarray = new List<ProgramStageDataElement>();
-
-                    List<AddEventDto> listEvent = new List<AddEventDto>();
-                    foreach (ProgramStage ps in objprogram.programStages)
+                    catch (Exception e) { Console.WriteLine("{0} Exception caught.", e); }
+                    if (dty == commandGeneral.startdate || dty == commandGeneral.enddate)
                     {
-                        //Start laboratory
-                        if (ps.id.Equals("sNQqHHN5gi3"))
+                        List<TrackedEntityInstances> listtrackedInstDto = new List<TrackedEntityInstances>();
+                        List<Enrollment> listEnrollment = new List<Enrollment>();
+
+                        AddEnrollmentDto enrollment = new AddEnrollmentDto();
+                        string trackedEntityInstance = "";
+                        //if(codes == 9998) { TrackeduidGeneratedDto = await _dhis.GetUidGenerated("10000", command.token); codes = 0; }
+                        //Genero un uid 
+                        var TrackeduidGeneratedDto = await _dhis.GetUidGenerated("1", commandGeneral.token);
+                        //leemos cada una de las lineas a partir de la linea dos con el metodo ReadLine, el cual va iterando cada linea
+
+                        cont = cont + 1;
+                        //cargar las unidades organizativas en un array para recorrerlo localmente y friltrar para crear el tracked
+                        TrackedEntityInstances trackedInstDto = new TrackedEntityInstances();
+
+                        int caseid = Array.IndexOf(headers, "CASE_ID");
+                        string caseidvalue = valores[caseid].ToString();
+                        //Validamos si el tracked ya existe:  verificar por que se estan creando repetidos
+                        var validatetraked = await _dhis.GetTracket(caseidvalue, ouFirts.id, commandGeneral.token);
+                        if (validatetraked.trackedEntityInstances.Count > 0)
+                            trackedInstDto.trackedEntityInstance = validatetraked.trackedEntityInstances[0].trackedEntityInstance;
+                        else
+                            trackedInstDto.trackedEntityInstance = TrackeduidGeneratedDto.Codes[0].ToString();
+
+                        trackedInstDto.trackedEntityType = objprogram.Trackedentitytype;
+                        int ideventdate = Array.IndexOf(headers, objprogram.Incidentdatecolumm.ToUpperInvariant());
+                        string eventdate = valores[ideventdate].ToString();
+                        trackedInstDto.orgUnit = ouFirts.id;
+
+                        List<Attribut> listAttribut = new List<Attribut>();
+                        string enrollmentDatecolumm = "";
+                        string incidentDatecolumm = "";
+                        var id = Array.IndexOf(headers, objprogram.Enrollmentdatecolumm.ToUpperInvariant());
+                        enrollmentDatecolumm = valores[id].ToString();
+                        //enrollmentDatecolumm = valores[id].Split('/')[2].PadLeft(2, '0') + "-" + valores[id].Split('/')[1] + "-" + valores[id].Split('/')[0].PadLeft(2, '0');
+                        var idi = Array.IndexOf(headers, objprogram.Incidentdatecolumm.ToUpperInvariant());
+                        incidentDatecolumm = valores[idi].ToString();
+                        //incidentDatecolumm = valores[idi].Split('/')[2].PadLeft(2, '0') + "-" + valores[idi].Split('/')[1] + "-" + valores[idi].Split('/')[0].PadLeft(2, '0');
+
+                        foreach (Queries.DTOs.Attribute at in objprogram.Attribute)
                         {
-                            try
+                            if (at.Column != null)
                             {
-
-                                for (int i = 0; i < RowFileLab.Count(); i++)
-                                {
-                                    List<DataValue> listDataLabValue = new List<DataValue>();
-                                    var dataValueLab = RowFileLab[i];
-                                    if (dataValueLab[0].Equals(caseidvalue))
-                                    {
-
-                                        foreach (ProgramStageDataElement dtelab in ps.programStageDataElements)
-                                        {
-                                            try
-                                            {
-                                                DataValue datavalue = new DataValue();
-                                                int idval = Array.IndexOf(headersLab, dtelab.dataElement.column.ToString().ToUpperInvariant());
-                                                if (idval >= 0)
-                                                {
-                                                    datavalue.dataElement = dtelab.dataElement.id;
-                                                    datavalue.value = dataValueLab[idval].ToString();
-                                                    listDataLabValue.Add(datavalue);
-                                                }
-
-                                            }
-                                            catch (Exception e) { }
-                                        }
-                                        if (listDataLabValue.Count > 0)
-                                        {
-                                            string tkinsLab = "";
-                                            if (trackedEntityInstance.Trim().Length == 0)
-                                                tkinsLab = trackedInstDto.trackedEntityInstance;
-                                            else
-                                                tkinsLab = trackedEntityInstance;
-                                            var storedBy = commandGeneral.UserLogin;
-                                            UidGeneratedDto EventuidGeneratedDto = new UidGeneratedDto();
-                                            EventuidGeneratedDto = await _dhis.GetUidGenerated("1", commandGeneral.token);
-                                            string code = "";
-                                            code = EventuidGeneratedDto.Codes[0].ToString();
-                                            AddEventDto objEventDto = new AddEventDto
-                                            {
-                                                programStage = ps.id,
-                                                program = objprogram.Programid,
-                                                orgUnit = trackedInstDto.orgUnit,
-                                                eventDate = eventdate,
-                                                status = "ACTIVE",
-                                                storedBy = storedBy,
-                                                trackedEntityInstance = tkinsLab,
-                                                event_ = code,
-                                                dataValues = listDataLabValue
-                                            };
-
-                                            listEvent.Add(objEventDto);
-
-                                        }                                    
-
-                                    }
-                                    
-                                }
-
-                            }
-
-                            catch (Exception e) { }
-                        }
-                        //end laboratory
-                        List<DataValue> listDataValue = new List<DataValue>();
-                        try
-                        {
-                            foreach (ProgramStageDataElement dte in ps.programStageDataElements)
-                            {              
-                                
                                 try
                                 {
-                                    DataValue datavalue = new DataValue();
-                                    int idval = Array.IndexOf(headers, dte.dataElement.column.ToUpperInvariant());
+                                    Attribut attribut = new Attribut();
+                                    var idval = Array.IndexOf(headers, at.Column.ToUpperInvariant());
+                                    attribut.attribute = at.Id;
                                     if (idval >= 0)
                                     {
-                                        datavalue.dataElement = dte.dataElement.id;
-                                        datavalue.value = valores[idval].ToString();
-                                        //if(datavalue.dataElement == "w2GWdKFVkVk")  Validar que el formato de esta fecha sea yyyy-mm-dd
-                                        listDataValue.Add(datavalue);
-                                        cont = cont + 1;
+                                        if (at.Id.Equals(objprogram.caseNum) && listtrackedInstDto.Count > 0)
+                                        {
+                                            foreach (TrackedEntityInstances tki in listtrackedInstDto)
+                                                foreach (Attribut att in tki.attributes)
+                                                    if (att.value.Equals(valores[idval]))
+                                                        trackedEntityInstance = tki.trackedEntityInstance;
+                                        }
+
+                                        if (at.Name.Equals("Date of birth") || at.Name.Equals("Date of rash onset") || at.Name.Equals("WEA - Clasificación final"))
+                                            attribut.value = valores[idval].ToString();// valores[idval].Split('/')[2].PadLeft(2, '0') + "-" + valores[idval].Split('/')[1] + "-" + valores[idval].Split('/')[0].PadLeft(2, '0');
+                                        else
+                                            attribut.value = valores[idval].ToString();
+                                        if (at.Name.Equals("Is date of birth known"))
+                                            attribut.value = valores[idval] == null ? "false" : "true";
+                                        if (attribut != null)
+                                        {
+                                            listAttribut.Add(attribut);
+                                        }
                                     }
                                 }
-                                catch (Exception e) { contbad = contbad + 1; }
-
+                                catch (Exception e) { }
                             }
-                            string tkins = "";
-                            if (listDataValue.Count > 0)
+                        }
+                        var SequentialDto = await _dhis.GetSequential("1", commandGeneral.token);
+                        trackedInstDto.attributes = listAttribut;
+                        listtrackedInstDto.Add(trackedInstDto);
+                        listtrackedInstDtoFull.Add(trackedInstDto);
+                        trackedDto.trackedEntityInstances = listtrackedInstDto;
+                        trackedDtos.trackedEntityInstances = listtrackedInstDtoFull;
+
+                        Enrollment enrollmentDto = new Enrollment();
+                        Enrollment enrollmentFullDto = new Enrollment();
+                        enrollmentDto.trackedEntityInstance = trackedInstDto.trackedEntityInstance;
+                        enrollmentDto.program = objprogram.Programid;
+                        enrollmentDto.status = "ACTIVE";
+                        enrollmentDto.orgUnit = trackedInstDto.orgUnit;
+                        enrollmentDto.enrollmentDate = enrollmentDatecolumm;
+                        enrollmentDto.incidentDate = incidentDatecolumm;
+                        enrollmentFullDto = enrollmentDto;
+                        listEnrollment.Add(enrollmentDto);
+                        listEnrollmentFull.Add(enrollmentDto);
+                        enrollment.enrollments = listEnrollment;
+                        enrollments.enrollments = listEnrollmentFull;
+
+                        List<ProgramStageDataElement> dteObjarray = new List<ProgramStageDataElement>();
+
+                        List<AddEventDto> listEvent = new List<AddEventDto>();
+                        foreach (ProgramStage ps in objprogram.programStages)
+                        {
+                            //Start laboratory
+                            if (ps.id.Equals("sNQqHHN5gi3"))
                             {
                                 try
                                 {
-                                    if (trackedEntityInstance.Trim().Length == 0)
-                                        tkins = trackedInstDto.trackedEntityInstance;
-                                    else
-                                        tkins = trackedEntityInstance;
+
+                                    for (int i = 0; i < RowFileLab.Count(); i++)
+                                    {
+                                        List<DataValue> listDataLabValue = new List<DataValue>();
+                                        var dataValueLab = RowFileLab[i];
+                                        if (dataValueLab[0].Equals(caseidvalue))
+                                        {
+
+                                            foreach (ProgramStageDataElement dtelab in ps.programStageDataElements)
+                                            {
+                                                try
+                                                {
+                                                    DataValue datavalue = new DataValue();
+                                                    int idval = Array.IndexOf(headersLab, dtelab.dataElement.column.ToString().ToUpperInvariant());
+                                                    if (idval >= 0)
+                                                    {
+                                                        datavalue.dataElement = dtelab.dataElement.id;
+                                                        datavalue.value = dataValueLab[idval].ToString();
+                                                        listDataLabValue.Add(datavalue);
+                                                    }
+
+                                                }
+                                                catch (Exception e) { }
+                                            }
+                                            if (listDataLabValue.Count > 0)
+                                            {
+                                                string tkinsLab = "";
+                                                if (trackedEntityInstance.Trim().Length == 0)
+                                                    tkinsLab = trackedInstDto.trackedEntityInstance;
+                                                else
+                                                    tkinsLab = trackedEntityInstance;
+                                                var storedBy = commandGeneral.UserLogin;
+                                                UidGeneratedDto EventuidGeneratedDto = new UidGeneratedDto();
+                                                EventuidGeneratedDto = await _dhis.GetUidGenerated("1", commandGeneral.token);
+                                                string code = "";
+                                                code = EventuidGeneratedDto.Codes[0].ToString();
+                                                AddEventDto objEventDto = new AddEventDto
+                                                {
+                                                    programStage = ps.id,
+                                                    program = objprogram.Programid,
+                                                    orgUnit = trackedInstDto.orgUnit,
+                                                    eventDate = eventdate,
+                                                    status = "ACTIVE",
+                                                    storedBy = storedBy,
+                                                    trackedEntityInstance = tkinsLab,
+                                                    event_ = code,
+                                                    dataValues = listDataLabValue
+                                                };
+
+                                                listEvent.Add(objEventDto);
+
+                                            }
+
+                                        }
+
+                                    }
+
                                 }
+
                                 catch (Exception e) { }
-
-                                var storedBy = commandGeneral.UserLogin;
-                                UidGeneratedDto EventuidGeneratedDto = new UidGeneratedDto();
-                                EventuidGeneratedDto = await _dhis.GetUidGenerated("1", commandGeneral.token);
-                                string code = "";
-                                code = EventuidGeneratedDto.Codes[0].ToString();
-                                AddEventDto objEventDto = new AddEventDto
-                                {
-                                    programStage = ps.id,
-                                    program = objprogram.Programid,
-                                    orgUnit = trackedInstDto.orgUnit,
-                                    eventDate = eventdate,
-                                    status = "ACTIVE",
-                                    storedBy = storedBy,
-                                    trackedEntityInstance = tkins,
-                                    event_ = code,
-                                    dataValues = listDataValue
-                                };
-                                if (objEventDto.eventDate.Trim().Length > 0)
-                                    listEvent.Add(objEventDto);
-
                             }
-                        }
-                        catch (Exception e) { }
-                        //}
-                    }
-                    eventDto.events = listEvent;
-                    // Importante para envio en bloques de 100 o como se ajuste la configuracion
-                    if (uploadBlock)
-                    {
-                        enrollmentFullDto.Eev = listEvent;
-                        trackedInstDto.Eenr = listEnrollment;
-                        var preuba = JsonConvert.SerializeObject(trackedDtos).Replace("Eenr", "enrollments").Replace("Eev", "events");
-                    }
-                }
+                            //end laboratory
+                            List<DataValue> listDataValue = new List<DataValue>();
+                            try
+                            {
+                                foreach (ProgramStageDataElement dte in ps.programStageDataElements)
+                                {
 
+                                    try
+                                    {
+                                        DataValue datavalue = new DataValue();
+                                        int idval = Array.IndexOf(headers, dte.dataElement.column.ToUpperInvariant());
+                                        if (idval >= 0)
+                                        {
+                                            datavalue.dataElement = dte.dataElement.id;
+                                            datavalue.value = valores[idval].ToString();
+                                            //if(datavalue.dataElement == "w2GWdKFVkVk")  Validar que el formato de esta fecha sea yyyy-mm-dd
+                                            listDataValue.Add(datavalue);
+                                            cont = cont + 1;
+                                        }
+                                    }
+                                    catch (Exception e) { contbad = contbad + 1; }
+
+                                }
+                                string tkins = "";
+                                if (listDataValue.Count > 0)
+                                {
+                                    try
+                                    {
+                                        if (trackedEntityInstance.Trim().Length == 0)
+                                            tkins = trackedInstDto.trackedEntityInstance;
+                                        else
+                                            tkins = trackedEntityInstance;
+                                    }
+                                    catch (Exception e) { }
+
+                                    var storedBy = commandGeneral.UserLogin;
+                                    UidGeneratedDto EventuidGeneratedDto = new UidGeneratedDto();
+                                    EventuidGeneratedDto = await _dhis.GetUidGenerated("1", commandGeneral.token);
+                                    string code = "";
+                                    code = EventuidGeneratedDto.Codes[0].ToString();
+                                    AddEventDto objEventDto = new AddEventDto
+                                    {
+                                        programStage = ps.id,
+                                        program = objprogram.Programid,
+                                        orgUnit = trackedInstDto.orgUnit,
+                                        eventDate = eventdate,
+                                        status = "ACTIVE",
+                                        storedBy = storedBy,
+                                        trackedEntityInstance = tkins,
+                                        event_ = code,
+                                        dataValues = listDataValue
+                                    };
+                                    if (objEventDto.eventDate.Trim().Length > 0)
+                                        listEvent.Add(objEventDto);
+
+                                }
+                            }
+                            catch (Exception e) { }
+                            //}
+                        }
+                        eventDto.events = listEvent;
+                        // Importante para envio en bloques de 100 o como se ajuste la configuracion
+                        if (uploadBlock)
+                        {
+                            enrollmentFullDto.Eev = listEvent;
+                            trackedInstDto.Eenr = listEnrollment;
+                            var preuba = JsonConvert.SerializeObject(trackedDtos).Replace("Eenr", "enrollments").Replace("Eev", "events");
+                        }
+                    }
+
+                    if (trackedDtos.trackedEntityInstances != null)
+                    {
+
+                        if (trackedDtos.trackedEntityInstances.Count >= SizeUpload)
+                        {
+                            AddTracketResultDto trakedResultDto = new AddTracketResultDto();
+                            try
+                            {
+                                contBlock = contBlock + 1;
+                                var resultDto = await _dhis.AddTracked(trackedDtos, commandGeneral.token);
+                                var res = await CheckImportTrackedAsync(resultDto.Response.relativeNotifierEndpoint, commandGeneral.token);
+                            }
+                            catch (Exception e) { }
+
+                            if (!uploadBlock)
+                            {
+                                AddEnrollmentResultDto enrollResultDto = new AddEnrollmentResultDto();
+                                if (trakedResultDto.Status == "OK")
+                                {
+                                    try
+                                    {
+                                        enrollResultDto = await _dhis.AddEnrollment(enrollments, commandGeneral.token);
+                                    }
+                                    catch (Exception e) { }
+
+                                }
+                                if (trakedResultDto.Status == "OK" && enrollResultDto.Status == "ACTIVE")
+                                {
+                                    try
+                                    {
+                                        var eventsResultDto = await _dhis.AddEvent(eventDto, commandGeneral.token);
+
+                                    }
+                                    catch (Exception e) { }
+                                }
+                            }
+                            trackedDtos.trackedEntityInstances.Clear();
+                        }
+                    }
+
+                    else
+                    {
+                        sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Sin datos para Importación", " El archivo no se pudo importar porque no existe Información para el rango de periodos seleccionados, favor revisar ", userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
+                    }
+
+
+
+
+                }//cierre de while
+                endWhile = true;
                 if (trackedDtos.trackedEntityInstances != null)
                 {
-
-                    if (trackedDtos.trackedEntityInstances.Count >= SizeUpload)
+                    // Temporal para los archivos restantes de los bloques
+                    if (trackedDtos.trackedEntityInstances.Count > 0)
                     {
                         AddTracketResultDto trakedResultDto = new AddTracketResultDto();
                         try
                         {
-                            contBlock = contBlock + 1;
                             var resultDto = await _dhis.AddTracked(trackedDtos, commandGeneral.token);
                             var res = await CheckImportTrackedAsync(resultDto.Response.relativeNotifierEndpoint, commandGeneral.token);
-                        }
-                        catch (Exception e) { }
 
-                        if (!uploadBlock)
+                        }
+                        catch (Exception e)
                         {
-                            AddEnrollmentResultDto enrollResultDto = new AddEnrollmentResultDto();
-                            if (trakedResultDto.Status == "OK")
-                            {
-                                try
-                                {
-                                    enrollResultDto = await _dhis.AddEnrollment(enrollments, commandGeneral.token);
-                                }
-                                catch (Exception e) { }
+                            error = e.Message;
+                            sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", " El archivo no se pudo importar  (paso 1: cargue del archivo, paso 2: borrado de events, paso 3: borrado de Enrollments , paso 4: importación de la data (tacked= registro de la persona, , Enrollment= registro de la persona al progama y Events= los datos del registro), paso 5: guardado del resumen de la importación, paso 6: notificación por email de la importación), a continuación, el error en detalle: " + error + " paso con error: " + state, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
 
-                            }
-                            if (trakedResultDto.Status == "OK" && enrollResultDto.Status == "ACTIVE")
-                            {
-                                try
-                                {
-                                    var eventsResultDto = await _dhis.AddEvent(eventDto, commandGeneral.token);
-
-                                }
-                                catch (Exception e) { }
-                            }
                         }
-                        trackedDtos.trackedEntityInstances.Clear();
                     }
                 }
 
-                else
-                {
-                    sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Sin datos para Importación", " El archivo no se pudo importar porque no existe Información para el rango de periodos seleccionados, favor revisar ", userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
-                }
-            
-
-
-
-        }//cierre de while
-            endWhile = true;
-            if (trackedDtos.trackedEntityInstances != null)
-            {
-                // Temporal para los archivos restantes de los bloques
-                if (trackedDtos.trackedEntityInstances.Count > 0)
-                {
-                    AddTracketResultDto trakedResultDto = new AddTracketResultDto();
-                    try
-                    {
-                        var resultDto = await _dhis.AddTracked(trackedDtos, commandGeneral.token);
-                        var res = await CheckImportTrackedAsync(resultDto.Response.relativeNotifierEndpoint, commandGeneral.token);
-
-                    }
-                    catch (Exception e)
-                    {
-                        error = e.Message;
-                        sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", " El archivo no se pudo importar  (paso 1: cargue del archivo, paso 2: borrado de events, paso 3: borrado de Enrollments , paso 4: importación de la data (tacked= registro de la persona, , Enrollment= registro de la persona al progama y Events= los datos del registro), paso 5: guardado del resumen de la importación, paso 6: notificación por email de la importación), a continuación, el error en detalle: " + error + " paso con error: " + state, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
-
-                    }
-                }
+                else {
+                    sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Sin datos para Importación", " El archivo no se pudo importar porque no existe Información para el rango de periodos seleccionados, favor revisar ", userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile); }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine("{0} Exception caught.", e);
+                error = e.Message;
+                sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", " El archivo no se pudo importar  (paso 1: cargue del archivo, paso 2: borrado de events, paso 3: borrado de Enrollments , paso 4: importación de la data (tacked= registro de la persona, , Enrollment= registro de la persona al progama y Events= los datos del registro), paso 5: guardado del resumen de la importación, paso 6: notificación por email de la importación), a continuación, el error en detalle: " + error + " paso con error: " + state, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
 
-            else {
-                sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Sin datos para Importación", " El archivo no se pudo importar porque no existe Información para el rango de periodos seleccionados, favor revisar " , userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);}
+            }
         }
 
         public async Task<bool> CheckImportTrackedAsync(string task, string token)
@@ -647,125 +656,135 @@ namespace Impodatos.Services.EventHandlers
 
 
         public List<ArrayList> ReadCSV(historyCreateCommand command) {
-            commandGeneral = command;
+            try
+            {
+                commandGeneral = command;
 
-            historyCreateCommand cmd = new historyCreateCommand();
-            startDate = command.startdate + "-01-01";
-            endDate = (command.enddate + 1) + "-01-01";           
-            
-            if (command.CsvFile01!=null)
-            { 
-            readerLab = new StreamReader(command.CsvFile01.OpenReadStream());
-            headersLab = readerLab.ReadLine().Split(';');
-            headersLab = headersLab.Select(s => s.ToUpperInvariant()).ToArray();
-            string lineLab;
-            ArrayList listLab;
-            //List<ArrayList> RowFile = new List<ArrayList>();
+                historyCreateCommand cmd = new historyCreateCommand();
+                startDate = command.startdate + "-01-01";
+                endDate = (command.enddate + 1) + "-01-01";
 
-            while ((lineLab = readerLab.ReadLine()) != null)
+                if (command.CsvFile01 != null)
                 {
-                contFiles = contFiles + 1;
-                var valores = lineLab.Split(';');
-                string[] LineFile = valores.Select(s => s.ToUpperInvariant()).ToArray();
-                listLab = new ArrayList(LineFile);
-                RowFileLab.Add(listLab);
+                    readerLab = new StreamReader(command.CsvFile01.OpenReadStream());
+                    headersLab = readerLab.ReadLine().Split(';');
+                    headersLab = headersLab.Select(s => s.ToUpperInvariant()).ToArray();
+                    string lineLab;
+                    ArrayList listLab;
+                    //List<ArrayList> RowFile = new List<ArrayList>();
+
+                    while ((lineLab = readerLab.ReadLine()) != null)
+                    {
+                        contFiles = contFiles + 1;
+                        var valores = lineLab.Split(';');
+                        string[] LineFile = valores.Select(s => s.ToUpperInvariant()).ToArray();
+                        listLab = new ArrayList(LineFile);
+                        RowFileLab.Add(listLab);
+                    }
+                    nameFileLab = commandGeneral.CsvFile01.FileName;
+                    fileByteLabOrigin = new BinaryReader(commandGeneral.CsvFile01.OpenReadStream());
+                    int f = (int)commandGeneral.CsvFile01.Length;
+                    dataLabOrigin = fileByteLabOrigin.ReadBytes(f);
+                    readerLab.Close();
                 }
-                nameFileLab = commandGeneral.CsvFile01.FileName;
-                fileByteLabOrigin = new BinaryReader(commandGeneral.CsvFile01.OpenReadStream());
-                int f = (int)commandGeneral.CsvFile01.Length;
-                dataLabOrigin = fileByteLabOrigin.ReadBytes(f);
-                readerLab.Close();
+
+                string line;
+                ArrayList list;
+                //List<ArrayList> RowFile = new List<ArrayList>();
+                reader = new StreamReader(command.CsvFile.OpenReadStream());
+
+                headers = reader.ReadLine().Split(';');
+                headers = headers.Select(s => s.ToUpperInvariant()).ToArray();
+                while ((line = reader.ReadLine()) != null)
+                {
+                    contFiles = contFiles + 1;
+                    var valores = line.Split(';');
+                    string[] LineFile = valores.Select(s => s.ToUpperInvariant()).ToArray();
+                    list = new ArrayList(LineFile);
+                    RowFile.Add(list);
+                }
+
+                fileByteOrigin = new BinaryReader(commandGeneral.CsvFile.OpenReadStream());
+                int i = (int)commandGeneral.CsvFile.Length;
+                dataOrigin = fileByteOrigin.ReadBytes(i);
+                if (dataLabOrigin == null)
+                {
+                    dataLabOrigin = dataOrigin;
+                }
+                reader.Close();
             }
-
-            string line;
-            ArrayList list;
-            //List<ArrayList> RowFile = new List<ArrayList>();
-            reader = new StreamReader(command.CsvFile.OpenReadStream());
-
-            headers = reader.ReadLine().Split(';');
-            headers = headers.Select(s => s.ToUpperInvariant()).ToArray();
-            while ((line = reader.ReadLine()) != null)
+            catch (Exception e)
             {
-                contFiles = contFiles + 1;
-                var valores = line.Split(';');
-                string[]  LineFile = valores.Select(s => s.ToUpperInvariant()).ToArray();
-                list = new ArrayList(LineFile);
-                RowFile.Add(list);
+                Console.WriteLine("{0} Exception caught.", e);
+                error = e.Message;
             }
-
-            fileByteOrigin = new BinaryReader(commandGeneral.CsvFile.OpenReadStream());
-            int i = (int)commandGeneral.CsvFile.Length;
-            dataOrigin = fileByteOrigin.ReadBytes(i);
-            if (dataLabOrigin == null)
-            {
-                dataLabOrigin = dataOrigin;
-            }
-            reader.Close();
-            
             return RowFile;
         }
 
         public List<ArrayList> ReadXLSX(historyCreateCommand command)
         {
-            commandGeneral = command;
-            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-            Encoding srcEncoding = Encoding.GetEncoding(1251);
-       
-            var readerExcel = command.CsvFile.OpenReadStream();
-            var workbook = new XLWorkbook(readerExcel);
-            int countWS = workbook.Worksheets.Count;
-            if (countWS == 2) { 
+            try
+            {
+                commandGeneral = command;
+                System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+                Encoding srcEncoding = Encoding.GetEncoding(1251);
 
-                var wsLab = workbook.Worksheet(2);
-                var RowsLab = wsLab.Rows().ToList();
-                var ColumnsLab = wsLab.Columns().ToList();          
-                
-                string[] LineFileLab = new string[ColumnsLab.Count()];
-                string[] headersExcelLab = new string[ColumnsLab.Count()];
-                ArrayList listLab;
-
-                List<DataValue> listDataValue = new List<DataValue>();
-
-                for (int i = 1; i <= RowsLab.Count(); i++)
+                var readerExcel = command.CsvFile.OpenReadStream();
+                var workbook = new XLWorkbook(readerExcel);
+                int countWS = workbook.Worksheets.Count;
+                if (countWS == 2)
                 {
-                    var RowComplete = RowsLab[i - 1].Cells(1, ColumnsLab.Count()).ToList();
-                    for (int j = 0; j < ColumnsLab.Count(); j++)
-                    {
-                        if (i == 1)
-                        {
-                            headersExcelLab[j] = RowComplete[j].Value.ToString().ToUpperInvariant();
-                        }
-                        else
-                        {
-                            var cellInd = RowComplete[j].Value.ToString();
-                            var isDate = cellInd.Contains("12:00:00 a. m.");
 
-                            if (isDate)
+                    var wsLab = workbook.Worksheet(2);
+                    var RowsLab = wsLab.Rows().ToList();
+                    var ColumnsLab = wsLab.Columns().ToList();
+
+                    string[] LineFileLab = new string[ColumnsLab.Count()];
+                    string[] headersExcelLab = new string[ColumnsLab.Count()];
+                    ArrayList listLab;
+
+                    List<DataValue> listDataValue = new List<DataValue>();
+
+                    for (int i = 1; i <= RowsLab.Count(); i++)
+                    {
+                        var RowComplete = RowsLab[i - 1].Cells(1, ColumnsLab.Count()).ToList();
+                        for (int j = 0; j < ColumnsLab.Count(); j++)
+                        {
+                            if (i == 1)
                             {
-                                string rec = cellInd.Substring(0, 10);
-                                string date = Convert.ToDateTime(rec).ToString("yyyy-MM-dd");
-                                LineFileLab[j] = date;
+                                headersExcelLab[j] = RowComplete[j].Value.ToString().ToUpperInvariant();
                             }
                             else
                             {
-                                LineFileLab[j] = RowComplete[j].Value.ToString();
+                                var cellInd = RowComplete[j].Value.ToString();
+                                var isDate = cellInd.Contains("12:00:00 a. m.");
+
+                                if (isDate)
+                                {
+                                    string rec = cellInd.Substring(0, 10);
+                                    string date = Convert.ToDateTime(rec).ToString("yyyy-MM-dd");
+                                    LineFileLab[j] = date;
+                                }
+                                else
+                                {
+                                    LineFileLab[j] = RowComplete[j].Value.ToString();
+                                }
                             }
                         }
-                    }
-                    headersLab = headersExcelLab;
-                    if (LineFileLab[0] != null)
-                    {
-                        listLab = new ArrayList(LineFileLab);
-                        RowFileLab.Add(listLab);
+                        headersLab = headersExcelLab;
+                        if (LineFileLab[0] != null)
+                        {
+                            listLab = new ArrayList(LineFileLab);
+                            RowFileLab.Add(listLab);
+                        }
                     }
                 }
-            }
 
 
-            var ws = workbook.Worksheet(1);                       
+                var ws = workbook.Worksheet(1);
                 var Rows = ws.Rows().ToList();
-                var Columns = ws.Columns().ToList();                
-               
+                var Columns = ws.Columns().ToList();
+
                 string[] LineFile = new string[Columns.Count()];
                 string[] headersExcel = new string[Columns.Count()];
                 ArrayList list;
@@ -780,7 +799,7 @@ namespace Impodatos.Services.EventHandlers
                             headersExcel[j] = RowComplete[j].Value.ToString().ToUpperInvariant();
                         }
                         else
-                        {     
+                        {
                             var cellInd = RowComplete[j].Value.ToString();
                             var isDate = cellInd.Contains("12:00:00 a. m.");
 
@@ -790,27 +809,34 @@ namespace Impodatos.Services.EventHandlers
                                 string date = Convert.ToDateTime(rec).ToString("yyyy-MM-dd");
                                 LineFile[j] = date;
                             }
-                            else {
+                            else
+                            {
                                 LineFile[j] = RowComplete[j].Value.ToString();
                             }
-                       
-                        }   
+
+                        }
                     }
                     headers = headersExcel;
-                    if (LineFile[0] != null) 
+                    if (LineFile[0] != null)
                     {
                         list = new ArrayList(LineFile);
                         RowFile.Add(list);
-                    }  
-            
-                }
-          
+                    }
 
-            fileByteOrigin = new BinaryReader(commandGeneral.CsvFile.OpenReadStream());
-            int k = (int)commandGeneral.CsvFile.Length;
-            dataOrigin = fileByteOrigin.ReadBytes(k);
-            dataLabOrigin = dataOrigin;
-            readerExcel.Close();
+                }
+
+
+                fileByteOrigin = new BinaryReader(commandGeneral.CsvFile.OpenReadStream());
+                int k = (int)commandGeneral.CsvFile.Length;
+                dataOrigin = fileByteOrigin.ReadBytes(k);
+                dataLabOrigin = dataOrigin;
+                readerExcel.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("{0} Exception caught.", e);
+                error = e.Message;
+            }
             return RowFile;             
 
         }
@@ -940,6 +966,7 @@ namespace Impodatos.Services.EventHandlers
             try
             {
                 commandGeneral = command;
+                command.reponse = response;
                 userSetting = await loginQueyService.GetUserSetting(commandGeneral.token);
                 var ExternalImportDataApp = await _dhis.GetAllProgramAsync(commandGeneral.token);
                 objprogram = ExternalImportDataApp.Programs.Where(a => a.Programid.Equals(commandGeneral.Programsid)).FirstOrDefault();
@@ -967,6 +994,9 @@ namespace Impodatos.Services.EventHandlers
                 //unidades organizativas              
                 OrganisationUnit ounitsFirst = new OrganisationUnit();
                 int colounitsFirst = Array.IndexOf(headers, objprogram.Orgunitcolumm.ToUpperInvariant());
+                if (colounitsFirst ==-1) {
+                    error = "El archivo no tiene la estructura correcta, posiblemente no tiene la Unidad Organizativa";
+                }
                 var Firtsline = RowFile[0];
                 ounitvalueFirst = Firtsline[colounitsFirst].ToString();
 
@@ -980,7 +1010,13 @@ namespace Impodatos.Services.EventHandlers
             catch (Exception e)
             {
                 Console.WriteLine("{0} Exception caught.", e);
-                error = e.Message;
+                if (String.IsNullOrEmpty(error)) {
+                    error = e.Message;
+                }               
+                command.reponse = e.Message;
+                sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", " El archivo no se pudo importar  (paso 1: cargue del archivo, paso 2: borrado de events, paso 3: borrado de Enrollments , paso 4: importación de la data (tacked= registro de la persona, , Enrollment= registro de la persona al progama y Events= los datos del registro), paso 5: guardado del resumen de la importación, paso 6: notificación por email de la importación), a continuación, el error en detalle: " + error + " paso con error: " + state, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
+
+
             }
         }
 

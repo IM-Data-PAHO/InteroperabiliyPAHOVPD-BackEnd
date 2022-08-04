@@ -49,9 +49,10 @@ namespace Impodatos.Api.Controllers
             if (validation.IsValid)
             {
                 await _mediator.Publish(command);
-            return Ok();
-        }
-            return Ok(validation.Errors);
+                return Ok(command.reponse.ToString());
+               // return Ok();
+            }
+            return BadRequest(validation.Errors);
 
     }
         [HttpPut]
