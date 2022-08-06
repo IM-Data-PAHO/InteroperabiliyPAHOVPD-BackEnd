@@ -41,6 +41,10 @@ namespace Impodatos.Services.Queries.DTOs
         public string UserLogin { get; set; }
         public DateTime Fecha { get; set; }
         public byte [] File { get; set; }
+        public string namefile { get; set; }
+        public string country { get; set; }
+        public string namefile1 { get; set; }
+        public byte[] file1 { get; set; }
     }
     //public class TrackedhistoryDto
     //{

@@ -31,7 +31,7 @@ namespace Impodatos.Services.EventHandlers.Commands
             using (var message = new MailMessage(fromAddress, toAddress)
             {
                 Subject = subject,
-                Body = DocName+  body  
+                Body = DocName +  body  
             })
             {
                 smtp.Send(message);

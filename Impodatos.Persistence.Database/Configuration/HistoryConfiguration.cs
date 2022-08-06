@@ -16,6 +16,10 @@ namespace Impodatos.Persistence.Database.Configuration
             entityBuilder.Property(x => x.userlogin).IsRequired().HasMaxLength(300);
             entityBuilder.Property(x => x.fecha).IsRequired();
             entityBuilder.Property(x => x.file).IsRequired();
+            entityBuilder.Property(x => x.country).IsRequired();
+            entityBuilder.Property(x => x.namefile).IsRequired();
+            entityBuilder.Property(x => x.file1).IsRequired();
+            entityBuilder.Property(x => x.namefile1).IsRequired();
         }
     }
 }

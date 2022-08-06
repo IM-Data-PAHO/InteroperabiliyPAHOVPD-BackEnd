@@ -15,7 +15,7 @@ namespace Impodatos.Api.Controllers
     {
         private readonly IhistoryQueryService _historyQueryService1;
         private readonly IMediator _mediator;
-        private readonly IValidator<historyCreateCommand> _historyValidator;
+        private readonly IValidator<historyCreateCommand> _historyValidator;      
         public historyController(IhistoryQueryService historyQueryService, IMediator mediator, IValidator<historyCreateCommand> historyValidator)
         {
             _historyQueryService1 = historyQueryService;
@@ -28,9 +28,9 @@ namespace Impodatos.Api.Controllers
             return await _historyQueryService1.GetAllAsync();
         }
         [HttpGet("user")]
-        public async Task<IEnumerable<historyDto>> GetAll(string user)
+        public async Task<IEnumerable<historyDto>> GetAll(string user,string token)
         {
-            return await _historyQueryService1.GethistoryUserAsync(user);
+            return await _historyQueryService1.GethistoryUserAsync(user, token);
         }
         //[HttpGet]
         //public async Task<IEnumerable<historyDto>> GetAll01()
@@ -49,11 +49,11 @@ namespace Impodatos.Api.Controllers
             if (validation.IsValid)
             {
                 await _mediator.Publish(command);
-            return Ok();
+                return Ok(command.reponse.ToString()); ;
         }
-            return Ok(validation.Errors);
+            return BadRequest(validation.Errors);
 
-    }
+        }
         [HttpPut]
         public async Task<IActionResult> Update(historyUpdateCommand command)
         {
@@ -61,7 +61,13 @@ namespace Impodatos.Api.Controllers
             return Ok();
             //var result = await _mediator.Publish(command);
         }
-
+        //[HttpPost]
+        //[Route("rawimport")]      
+        //public async Task<AddTracketResultDto> RawImport(RawImport request)
+        //{
+            
+        //    return await _historyQueryService1.RawImport(request);          
+        //}
 
     }
 }

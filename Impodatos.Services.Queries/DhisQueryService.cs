@@ -19,6 +19,7 @@ namespace Impodatos.Services.Queries
         //Task<DhisProgramDto> StartDryRunAsync(string token);
         Task<DhisProgramDto> GetAllProgramAsync(string token);
         Task<OrganisationUnitsDto> GetAllOrganisation(string token);
+        Task<OrganisationUnit> GetOrganisationUnit(string token, string uid);
         Task<UidGeneratedDto> GetUidGenerated(string quantity, string token);
         Task<AddTrackedDto> GetTracket(string caseid, string ou, string token);
         Task<AddEnrollmentsClearDto> GetEnrollment(string program, string oupath,  string token);
@@ -336,7 +337,7 @@ namespace Impodatos.Services.Queries
         public async Task<AddTracketResultDto> AddTracked(AddTrackedDto request, string token)
         {
             var content = JsonConvert.SerializeObject(request).Replace("Eenr", "enrollments").Replace("Eev", "events");
-            var result = await RequestHttp.CallMethod("dhis", "addTracked", content, token);
+            var result = await RequestHttp.CallMethodSave("dhis", "addTracked", content, token);
             return JsonConvert.DeserializeObject<AddTracketResultDto>(result);
         }
         public async Task<AddEnrollmentResultDto> AddEnrollment(AddEnrollmentDto request, string token)
@@ -345,7 +346,7 @@ namespace Impodatos.Services.Queries
             try
             {
                 var content = JsonConvert.SerializeObject(request);
-                result = await RequestHttp.CallMethod("dhis", "enrollments", content, token);
+                result = await RequestHttp.CallMethodSave("dhis", "enrollments", content, token);
             }
             catch (Exception e) { }
             return JsonConvert.DeserializeObject<AddEnrollmentResultDto>(result);
@@ -354,27 +355,32 @@ namespace Impodatos.Services.Queries
         {
             var content = JsonConvert.SerializeObject(request);
             content = content.Replace("event_", "event");
-            var result = await RequestHttp.CallMethod("dhis", "events", content, token, strategy);
+            var result = await RequestHttp.CallMethodSave("dhis", "events", content, token, strategy);
             return JsonConvert.DeserializeObject<ResponseDhis>(result);
         }
         public async Task<ResponseDhis> AddEnrollmentClear(AddEnrollmentsClearDto request, string token, string strategy = "")
         {
             var content = JsonConvert.SerializeObject(request);
             content = content.Replace("enrollment_", "enrollment");
-            var result = await RequestHttp.CallMethod("dhis", "enrollments", content, token, strategy);
+            var result = await RequestHttp.CallMethodSave("dhis", "enrollments", content, token, strategy);
             return JsonConvert.DeserializeObject<ResponseDhis>(result);
         }
         public async Task<AddEventResultDto> AddEvent (AddEventsDto request, string token)
         {
             var content = JsonConvert.SerializeObject(request);
             content = content.Replace("event_","event");
-            var result = await RequestHttp.CallMethod("dhis", "events", content, token);
+            var result = await RequestHttp.CallMethodSave("dhis", "events", content, token);
             return JsonConvert.DeserializeObject<AddEventResultDto>(result);
         }
         public async Task<OrganisationUnitsDto> GetAllOrganisation(string token)
         {
             var result = await RequestHttp.CallMethod("dhis", "organisationUnits", token);
             return JsonConvert.DeserializeObject<OrganisationUnitsDto>(result);
+        }
+        public async Task<OrganisationUnit> GetOrganisationUnit(string token, string uid)
+        {
+            var result = await RequestHttp.CallMethodOUCountry("dhis", "organisationUnits/" + uid, token);
+            return JsonConvert.DeserializeObject<OrganisationUnit>(result);
         }
         public async Task<List<SequentialDto>> GetSequential(string quantity, string token)
         {

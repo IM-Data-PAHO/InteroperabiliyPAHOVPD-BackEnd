@@ -18,84 +18,74 @@ namespace Impodatos.Domain
         public string userlogin { get; set; }
         public DateTime fecha { get; set; }
         public byte[] file { get; set; }
+        public string namefile { get; set; }
+        public string country { get; set; }
+        public string namefile1 { get; set; }
+        public byte[] file1 { get; set; }                   
     }
-    //public class DehisResponse
-    //{
-    //    public string responseType { get; set; }
-    //    public string status { get; set; }
-    //    public int imported { get; set; }
-    //    public int updated { get; set; }
-    //    public int deleted { get; set; }
-    //    public int ignored { get; set; }
-    //    public List<ImportSummary> importSummaries { get; set; }
-    //    public int total { get; set; }
-    //}
-    //public partial class ImportSummary
-    //{
-    //    public string ResponseType { get; set; }
-    //    public string Status { get; set; }
-    //    public ImportOptions ImportOptions { get; set; }
-    //    public ImportCount ImportCount { get; set; }
-    //    public List<Conflict> Conflicts { get; set; }
-    //    public string Reference { get; set; }
-    //    public Response Enrollments { get; set; }
-    //}
-    //public partial class Conflict
-    //{
-    //    public string Object { get; set; }
-    //    public string Value { get; set; }
-    //}
-    //public partial class Response
-    //{
-    //    public string ResponseType { get; set; }
-    //    public string Status { get; set; }
-    //    public long Imported { get; set; }
-    //    public long Updated { get; set; }
-    //    public long Deleted { get; set; }
-    //    public long Ignored { get; set; }
-    //    public ImportOptions ImportOptions { get; set; }
-    //    public List<ImportSummary> ImportSummaries { get; set; }
-    //    public long Total { get; set; }
-    //    public string relativeNotifierEndpoint { get; set; }
-    //}
-    //public partial class ImportCount
-    //{
-    //    public long Imported { get; set; }
-    //    public long Updated { get; set; }
-    //    public long Ignored { get; set; }
-    //    public long Deleted { get; set; }
-    //}
-    //public partial class IdSchemes
-    //{
-    //}
-    //public partial class ImportOptions
-    //{
-    //    public IdSchemes IdSchemes { get; set; }
-    //    public bool DryRun { get; set; }
-    //    public bool Async { get; set; }
-    //    public string ImportStrategy { get; set; }
-    //    public string MergeMode { get; set; }
-    //    public string ReportMode { get; set; }
-    //    public bool SkipExistingCheck { get; set; }
-    //    public bool Sharing { get; set; }
-    //    public bool SkipNotifications { get; set; }
-    //    public bool SkipAudit { get; set; }
-    //    public bool DatasetAllowsPeriods { get; set; }
-    //    public bool StrictPeriods { get; set; }
-    //    public bool StrictDataElements { get; set; }
-    //    public bool StrictCategoryOptionCombos { get; set; }
-    //    public bool StrictAttributeOptionCombos { get; set; }
-    //    public bool StrictOrganisationUnits { get; set; }
-    //    public bool RequireCategoryOptionCombo { get; set; }
-    //    public bool RequireAttributeOptionCombo { get; set; }
-    //    public bool SkipPatternValidation { get; set; }
-    //    public bool IgnoreEmptyCollection { get; set; }
-    //    public bool Force { get; set; }
-    //    public bool FirstRowIsHeader { get; set; }
-    //    public bool SkipLastUpdated { get; set; }
-    //    public bool MergeDataValues { get; set; }
-    //    public bool SkipCache { get; set; }
-    //}
+    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
+    public class ConflictDhis
+    {
+        public string @object { get; set; }
+        public string value { get; set; }
+    }
+
+    public class EnrollmentsDhis
+    {
+        public string responseType { get; set; }
+        public string status { get; set; }
+        public int imported { get; set; }
+        public int updated { get; set; }
+        public int deleted { get; set; }
+        public int ignored { get; set; }
+        public List<ImportSummaryDhis> importSummaries { get; set; }
+        public int total { get; set; }
+    }
+
+    public class Events
+    {
+        public string responseType { get; set; }
+        public string status { get; set; }
+        public int imported { get; set; }
+        public int updated { get; set; }
+        public int deleted { get; set; }
+        public int ignored { get; set; }
+        public List<ImportSummaryDhis> importSummaries { get; set; }
+        public int total { get; set; }
+    }
+
+    public class ImportCount
+    {
+        public int imported { get; set; }
+        public int updated { get; set; }
+        public int ignored { get; set; }
+        public int deleted { get; set; }
+    }
+
+    public class ImportSummaryDhis
+    {
+        public string responseType { get; set; }
+        public string status { get; set; }
+        public ImportCount importCount { get; set; }
+        public List<ConflictDhis> conflicts { get; set; }
+        public string reference { get; set; }
+        public EnrollmentsDhis enrollments { get; set; }
+        public Events events { get; set; }
+    }
+
+    public class Root
+    {
+        public string responseType { get; set; }
+        public string status { get; set; }
+        public int imported { get; set; }
+        public int updated { get; set; }
+        public int deleted { get; set; }
+        public int ignored { get; set; }
+        public List<ImportSummaryDhis> importSummaries { get; set; }
+        public int total { get; set; }
+    }
+
+
 
 
 }

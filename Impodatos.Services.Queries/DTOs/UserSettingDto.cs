@@ -15,12 +15,24 @@ namespace Impodatos.Services.Queries.DTOs
         public string firstName { get; set; }
         public string email { get; set; }   
         public Response settings { get; set; }
+        public UserRoles userCredentials { get; set; }
+
 
     }
 
     public partial class Response
     {    
         public string keyUiLocale { get; set; }        
+    }
+
+    public partial class UserRoles
+    {
+        public List<UserRole> userRoles { get; set; }
+    }
+    public partial class UserRole
+    {
+        public string id { get; set; }
+        public string name { get; set; }
     }
 
 

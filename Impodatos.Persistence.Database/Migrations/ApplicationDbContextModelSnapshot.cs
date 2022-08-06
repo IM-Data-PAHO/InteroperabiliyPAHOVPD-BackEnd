@@ -26,6 +26,10 @@ namespace Impodatos.Persistence.Database.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<string>("country")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int>("deleted")
                         .HasColumnType("integer");
 
@@ -36,10 +40,22 @@ namespace Impodatos.Persistence.Database.Migrations
                         .IsRequired()
                         .HasColumnType("bytea");
 
+                    b.Property<byte[]>("file1")
+                        .IsRequired()
+                        .HasColumnType("bytea");
+
                     b.Property<string>("jsonresponse")
                         .HasColumnType("text");
 
                     b.Property<string>("jsonset")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("namefile")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("namefile1")
                         .IsRequired()
                         .HasColumnType("text");
 
