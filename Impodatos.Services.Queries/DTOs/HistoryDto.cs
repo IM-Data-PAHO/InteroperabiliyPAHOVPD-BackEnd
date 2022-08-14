@@ -17,6 +17,8 @@ namespace Impodatos.Services.Queries.DTOs
         public int mandatory { get; set; }
         public int compulsory { get; set; }
         public int option { get; set; }
+
+        public int extensionfile { get; set; }
     }
     public class validateDto
     {
