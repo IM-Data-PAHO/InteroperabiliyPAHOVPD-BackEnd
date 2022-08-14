@@ -67,6 +67,7 @@ namespace Impodatos.Services.EventHandlers
         public string error;
         public string country;
         public string response = "";
+        public OrganisationUnitsDto Organisation = new OrganisationUnitsDto();
 
         public ImportHistoryHandlerAsync(ApplicationDbContext context, IDhisQueryService dhis)
         {
@@ -281,7 +282,7 @@ namespace Impodatos.Services.EventHandlers
                 var _set = _importSettings;
                 int cont = 0;
                 int contbad = 0;
-                int SizeUpload = _set.Services[0].SizeUpload;
+                int SizeUpload = _set.Services[0].SizeUpload;               
 
                 AddTrackedDto trackedDto = new AddTrackedDto();
                 AddTrackedDto trackedDtos = new AddTrackedDto();
@@ -336,7 +337,10 @@ namespace Impodatos.Services.EventHandlers
                         trackedInstDto.trackedEntityType = objprogram.Trackedentitytype;
                         int ideventdate = Array.IndexOf(headers, objprogram.Incidentdatecolumm.ToUpperInvariant());
                         string eventdate = valores[ideventdate].ToString();
-                        trackedInstDto.orgUnit = ouFirts.id;
+                        //trackedInstDto.orgUnit = ouFirts.id;
+                        int ou = Array.IndexOf(headers, "OU_CODE");
+                        var ouLine = Organisation.OrganisationUnits.Find(x => x.code == valores[ou].ToString());                                          
+                        trackedInstDto.orgUnit = ouLine.id;
 
                         List<Attribut> listAttribut = new List<Attribut>();
                         string enrollmentDatecolumm = "";
@@ -394,7 +398,7 @@ namespace Impodatos.Services.EventHandlers
                         enrollmentDto.trackedEntityInstance = trackedInstDto.trackedEntityInstance;
                         enrollmentDto.program = objprogram.Programid;
                         enrollmentDto.status = "ACTIVE";
-                        enrollmentDto.orgUnit = trackedInstDto.orgUnit;
+                        enrollmentDto.orgUnit = trackedInstDto.orgUnit;                        
                         enrollmentDto.enrollmentDate = enrollmentDatecolumm;
                         enrollmentDto.incidentDate = incidentDatecolumm;
                         enrollmentFullDto = enrollmentDto;
@@ -671,7 +675,7 @@ namespace Impodatos.Services.EventHandlers
                 if (command.CsvFile01 != null)
                 {
                     readerLab = new StreamReader(command.CsvFile01.OpenReadStream());
-                    headersLab = readerLab.ReadLine().Split(';');
+                    headersLab = readerLab.ReadLine().Split(command.separator.ToString());
                     headersLab = headersLab.Select(s => s.ToUpperInvariant()).ToArray();
                     string lineLab;
                     ArrayList listLab;
@@ -680,7 +684,7 @@ namespace Impodatos.Services.EventHandlers
                     while ((lineLab = readerLab.ReadLine()) != null)
                     {
                         contFiles = contFiles + 1;
-                        var valores = lineLab.Split(';');
+                        var valores = lineLab.Split(command.separator.ToString());
                         string[] LineFile = valores.Select(s => s.ToUpperInvariant()).ToArray();
                         listLab = new ArrayList(LineFile);
                         RowFileLab.Add(listLab);
@@ -697,12 +701,15 @@ namespace Impodatos.Services.EventHandlers
                 //List<ArrayList> RowFile = new List<ArrayList>();
                 reader = new StreamReader(command.CsvFile.OpenReadStream());
 
-                headers = reader.ReadLine().Split(';');
+                headers = reader.ReadLine().Split(command.separator.ToString());
                 headers = headers.Select(s => s.ToUpperInvariant()).ToArray();
+                if (headers.Length <= 1) {
+                    error = "El arhivo no tiene el formato solicitado, separacion por (,) ó (;)";
+                }
                 while ((line = reader.ReadLine()) != null)
                 {
                     contFiles = contFiles + 1;
-                    var valores = line.Split(';');
+                    var valores = line.Split(command.separator.ToString());
                     string[] LineFile = valores.Select(s => s.ToUpperInvariant()).ToArray();
                     list = new ArrayList(LineFile);
                     RowFile.Add(list);
@@ -974,26 +981,28 @@ namespace Impodatos.Services.EventHandlers
                 command.reponse = response;
                 userSetting = await loginQueyService.GetUserSetting(commandGeneral.token);
                 var ExternalImportDataApp = await _dhis.GetAllProgramAsync(commandGeneral.token);
-                objprogram = ExternalImportDataApp.Programs.Where(a => a.Programid.Equals(commandGeneral.Programsid)).FirstOrDefault();
-                OrganisationUnitsDto Organisation = new OrganisationUnitsDto();
+                objprogram = ExternalImportDataApp.Programs.Where(a => a.Programid.Equals(commandGeneral.Programsid)).FirstOrDefault();                
                 Organisation = await _dhis.GetAllOrganisation(commandGeneral.token); //crear el objeto de tipo AddEventDto
                 var contentOrg = JsonConvert.SerializeObject(Organisation);
                 var _set = _importSettings;
                 uploadBlock = _set.Services[0].Block && !_set.Services[0].Individual;
                 nameFile = command.CsvFile.FileName;
 
-                //string fileExtension = Path.GetExtension(commandGeneral.CsvFile.FileName);
-                if (Path.GetExtension(commandGeneral.CsvFile.FileName) == ".csv")
+                string fileExtension = Path.GetExtension(commandGeneral.CsvFile.FileName);
+                if (fileExtension == ".csv")
                 {
                     RowFile = ReadCSV(commandGeneral);
                 }
-                if (Path.GetExtension(commandGeneral.CsvFile.FileName) == ".xlsx")
+                if (fileExtension == ".xlsx")
                 {
                     RowFile = ReadXLSX(commandGeneral);
                 }
-                if (Path.GetExtension(commandGeneral.CsvFile.FileName) == ".xls")
+                if (fileExtension == ".xls")
                 {
                     RowFile = ReadXLS(commandGeneral);
+                }
+                if (fileExtension != ".csv" || fileExtension != ".xlsx" || fileExtension != ".xls") {
+                    error = "El tipo de archivo" + Path.GetExtension(commandGeneral.CsvFile.FileName) +"  no es compatible con los archivos aceptados (*.csv (separado por , ó ;), *.xls y *.xlsx)" ;
                 }
 
                 //unidades organizativas              
@@ -1001,7 +1010,8 @@ namespace Impodatos.Services.EventHandlers
                 int colounitsFirst = Array.IndexOf(headers, objprogram.Orgunitcolumm.ToUpperInvariant());
                 if (colounitsFirst == -1)
                 {
-                    error = "El archivo no tiene la estructura correcta, posiblemente no tiene la Unidad Organizativa";
+                    if(String.IsNullOrEmpty(error))
+                        error = "El archivo no tiene la estructura correcta, posiblemente no tiene la Unidad Organizativa";
                 }
                 var Firtsline = RowFile[0];
                 ounitvalueFirst = Firtsline[colounitsFirst].ToString();
@@ -1020,7 +1030,7 @@ namespace Impodatos.Services.EventHandlers
                 {
                     error = e.Message;
                 }
-                command.reponse = e.Message;
+                command.reponse = error;                
                 sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", " El archivo no se pudo importar  (paso 1: cargue del archivo, paso 2: borrado de events, paso 3: borrado de Enrollments , paso 4: importación de la data (tacked= registro de la persona, , Enrollment= registro de la persona al progama y Events= los datos del registro), paso 5: guardado del resumen de la importación, paso 6: notificación por email de la importación), a continuación, el error en detalle: " + error + " paso con error: " + state, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
 
 

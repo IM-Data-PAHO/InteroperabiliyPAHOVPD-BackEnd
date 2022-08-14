@@ -14,5 +14,6 @@ namespace Impodatos.Services.EventHandlers.Commands
         public int enddate { get; set; }
         public string token { get; set; }
         public string reponse { get; set; }
+        public string separator { get; set; }
     }
 }
