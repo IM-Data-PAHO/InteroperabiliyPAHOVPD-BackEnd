@@ -98,7 +98,7 @@ namespace Impodatos.Services.Queries
             {
                 RowFile = ReadXLS(request);
             }
-            if (fileExtension != ".csv" || fileExtension != ".xlsx" || fileExtension != ".xls")
+            if (fileExtension != ".csv" && fileExtension != ".xlsx" && fileExtension != ".xls")
             {
                 error = "El tipo de archivo" + Path.GetExtension(request.CsvFile.FileName) + "  no es compatible con los archivos aceptados (*.csv (separado por , ó ;), *.xls y *.xlsx)";
                 response = error;
@@ -210,9 +210,6 @@ namespace Impodatos.Services.Queries
                         var setClean = await SetCleanEvent(oupath, objprogram.Programid, startDate, endDate, request.token);
                         objdryrunDto.Deleted = Convert.ToInt32(setClean.events.Count);
                         oupath = "OK";
-                        if (oupath != null)
-                            break;
-
                         //string ounitvalue = valores[colounits].ToString().ToUpper().Trim();
                         //foreach (OrganisationUnit ou in Organisation.OrganisationUnits)
                         //{
