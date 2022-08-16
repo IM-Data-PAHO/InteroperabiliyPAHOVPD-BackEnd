@@ -1055,7 +1055,7 @@ namespace Impodatos.Services.EventHandlers
                         cmd.Parameters.Add("@p4", NpgsqlDbType.Text).Value = "Procesado";
                         cmd.Parameters.Add("@p5", NpgsqlDbType.Boolean).Value = true;
                         cmd.Parameters.Add("@p6", NpgsqlDbType.Varchar).Value = userLogin;
-                        cmd.Parameters.Add("@p7", NpgsqlDbType.Date).Value = DateTime.Now;
+                        cmd.Parameters.Add("@p7", NpgsqlDbType.Timestamp).Value = DateTime.Now;
                         cmd.Parameters.Add("@p8", NpgsqlDbType.Bytea).Value = dataOrigin;
                         cmd.Parameters.Add("@p9", NpgsqlDbType.Integer).Value = 0;
                         cmd.Parameters.Add("@p10", NpgsqlDbType.Integer).Value = 0;
