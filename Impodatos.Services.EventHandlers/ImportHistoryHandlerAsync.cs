@@ -335,7 +335,7 @@ namespace Impodatos.Services.EventHandlers
 
                         int caseid = Array.IndexOf(headers, "CASE_ID");
                         string caseidvalue = valores[caseid].ToString();
-                        Console.Write("CASE_ID: " + caseidvalue.ToString());
+                        Console.Write(" CASE ID: " + caseidvalue.ToString());
                         //Validamos si el tracked ya existe:  verificar por que se estan creando repetidos
                         var validatetraked = await _dhis.GetTracket(caseidvalue, ouFirts.id, commandGeneral.token);
                         if (validatetraked.trackedEntityInstances.Count > 0)
@@ -350,7 +350,7 @@ namespace Impodatos.Services.EventHandlers
                         int ou = Array.IndexOf(headers, "OU_CODE");
                         var ouLine = Organisation.OrganisationUnits.Find(x => x.code == valores[ou].ToString());                                          
                         trackedInstDto.orgUnit = ouLine.id;
-                        Console.Write("OU_CODE: " + ou.ToString());
+                        Console.Write(" OU_CODE: " + ouLine.code.ToString());
                         List<Attribut> listAttribut = new List<Attribut>();
                         string enrollmentDatecolumm = "";
                         string incidentDatecolumm = "";
@@ -394,7 +394,7 @@ namespace Impodatos.Services.EventHandlers
                                 }
                                 catch (Exception e) {
                                     error = e.Message;
-                                    Console.Write("Error importación: " + error);
+                                    Console.Write(" Error importación: " + error);
                                     sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", " El archivo no se pudo importar  (paso 1: cargue del archivo, paso 2: borrado de events, paso 3: borrado de Enrollments , paso 4: importación de la data (tacked= registro de la persona, , Enrollment= registro de la persona al progama y Events= los datos del registro), paso 5: guardado del resumen de la importación, paso 6: notificación por email de la importación), a continuación, el error en detalle: " + error + " paso con error: " + state, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
 
                                 }
@@ -406,7 +406,7 @@ namespace Impodatos.Services.EventHandlers
                         listtrackedInstDtoFull.Add(trackedInstDto);
                         trackedDto.trackedEntityInstances = listtrackedInstDto;
                         trackedDtos.trackedEntityInstances = listtrackedInstDtoFull;                        
-                        Console.Write("Creando Tracked: " + trackedInstDto.attributes[11].value.ToString());
+                        Console.Write(" Creando Tracked: " + trackedInstDto.attributes[11].value.ToString());
                         Enrollment enrollmentDto = new Enrollment();
                         Enrollment enrollmentFullDto = new Enrollment();
                         enrollmentDto.trackedEntityInstance = trackedInstDto.trackedEntityInstance;
@@ -420,7 +420,7 @@ namespace Impodatos.Services.EventHandlers
                         listEnrollmentFull.Add(enrollmentDto);
                         enrollment.enrollments = listEnrollment;
                         enrollments.enrollments = listEnrollmentFull;
-                        Console.Write("Creando Enrollment: " + enrollment.enrollments[0].status.ToString());
+                        Console.Write(" Creando Enrollment: " + enrollment.enrollments[0].status.ToString());
                         List<ProgramStageDataElement> dteObjarray = new List<ProgramStageDataElement>();
 
                         List<AddEventDto> listEvent = new List<AddEventDto>();
@@ -592,8 +592,9 @@ namespace Impodatos.Services.EventHandlers
                             {
                                 contBlock = contBlock + 1;
                                 var resultDto = await _dhis.AddTracked(trackedDtos, commandGeneral.token);
+                                Console.Write(" Importacion Resultado Async:" + resultDto.Response.relativeNotifierEndpoint.ToString());
                                 var res = await CheckImportTrackedAsync(resultDto.Response.relativeNotifierEndpoint, commandGeneral.token);
-                                Console.Write("Fin de Importacion en Bloque");
+                                Console.Write(" Fin de Importacion en Bloque");
                             }
                             catch (Exception e) {                       
                                 error = e.Message;
@@ -655,6 +656,7 @@ namespace Impodatos.Services.EventHandlers
                         try
                         {
                             var resultDto = await _dhis.AddTracked(trackedDtos, commandGeneral.token);
+                            Console.Write("Importacion Resultado Async:" + resultDto.Response.relativeNotifierEndpoint.ToString());
                             var res = await CheckImportTrackedAsync(resultDto.Response.relativeNotifierEndpoint, commandGeneral.token);
                             Console.Write("Fin de Importacion");
                         }
@@ -687,8 +689,9 @@ namespace Impodatos.Services.EventHandlers
         {
             try
             {
+                Console.Write("Task Tracked : " + task.ToString().Replace("/api", ""));
                 var response = await _dhis.GetStateTask(task.Replace("/api", ""), token);
-                Console.Write("Estado de guardado Tracked : ", response.resultTasks[0]);
+                Console.Write("Estado de guardado Tracked : " + response.resultTasks[0].completed.ToString() + " detalles: " + response.resultTasks[0].message.ToString() );
                 var completed = response.resultTasks[0].completed;
                 if (!completed)
                 {

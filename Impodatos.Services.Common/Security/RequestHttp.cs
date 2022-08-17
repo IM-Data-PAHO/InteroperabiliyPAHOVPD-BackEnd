@@ -77,6 +77,7 @@ namespace Impodatos.Services.Common.Security
         {
             try
             {
+                Console.Write(" Inicio CallMethodSave ");
                 var _set = _integration;
                 var _imp = _importSettings;
                 var _service = _set.Services.Where(s => s.Name.Equals(service)).ToList().FirstOrDefault();
@@ -108,13 +109,17 @@ namespace Impodatos.Services.Common.Security
                         catch (Exception e) {
                             ResponseDto resp = new ResponseDto();
                             resp.Status = "404";
-                            return resp.ToString(); }
+                            Console.Write(" Error CallMethodSave: 404 " + e.Message.ToString());
+                            return resp.ToString();
+                        }
+                        Console.Write(" Fin CallMethodSave: " + result.ToString());
                         return result;
                     }
                 }
             }
             catch (Exception ex)
             {
+                Console.Write(" Error CallMethodSave: " + ex.Message.ToString());
                 throw ex;
             }
         }
@@ -186,12 +191,13 @@ namespace Impodatos.Services.Common.Security
         {
             try
             {
+                Console.Write(" Inicio CallMethodTask");
                 var _set = _integration;
                 var _service = _set.Services.Where(s => s.Name.Equals(service)).ToList().FirstOrDefault();
                 //var _method = _service.Methods.Where(m => m.Method.Equals(method)).FirstOrDefault().Value;
                 //_method = !string.IsNullOrEmpty(_method) ? string.Format($"/{_method}") : null;
                 string URL = string.Format($"{_service.URL}{task}");
-
+                Console.Write(" URL CallMethodTask" + URL.ToString());
                 using (var client = new HttpClient())
                 using (var request = new HttpRequestMessage(HttpMethod.Get, URL))
                 {
@@ -204,12 +210,14 @@ namespace Impodatos.Services.Common.Security
                     {
                         response.EnsureSuccessStatusCode();
                         var result = await response.Content.ReadAsStringAsync();
+                        Console.Write(" Response CallMethodTask" + result.ToString());
                         return result;
                     }
                 }
             }
             catch (Exception ex)
             {
+                Console.Write(" Error CallMethodTask" + ex.Message.ToString());
                 throw ex;
             }
         }
@@ -217,6 +225,7 @@ namespace Impodatos.Services.Common.Security
         {
             try
             {
+                Console.Write(" Inicio CallMethodSummary");
                 var _set = _integration;
                 var _service = _set.Services.Where(s => s.Name.Equals(service)).ToList().FirstOrDefault();      
                
@@ -234,12 +243,14 @@ namespace Impodatos.Services.Common.Security
                     {
                         response.EnsureSuccessStatusCode();
                         var result = await response.Content.ReadAsStringAsync();
+                        Console.Write(" Result CallMethodSummary; " + result.ToString());
                         return result;
                     }
                 }
             }
             catch (Exception ex)
             {
+                Console.Write(" Error CallMethodSummary; " + ex.Message.ToString());
                 throw ex;
             }
         }
