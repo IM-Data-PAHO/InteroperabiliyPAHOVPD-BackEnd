@@ -68,6 +68,8 @@ namespace Impodatos.Services.EventHandlers
         public string country;
         public string response = "";
         public OrganisationUnitsDto Organisation = new OrganisationUnitsDto();
+        public string level;
+        public bool completed= false;
 
         public ImportHistoryHandlerAsync(ApplicationDbContext context, IDhisQueryService dhis)
         {
@@ -160,9 +162,13 @@ namespace Impodatos.Services.EventHandlers
                             break;
 
                         case 5:
-                            sendMailObj.SenEmailImport(_importSettings.Services[0].Server, _importSettings.Services[0].Subject, _importSettings.Services[0].Body, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, "El archivo: " + nameFile);
-                            state = 6;
-                            break;
+                            if (level != "ERROR")
+                            {
+                                sendMailObj.SenEmailImport(_importSettings.Services[0].Server, _importSettings.Services[0].Subject, _importSettings.Services[0].Body, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, "El archivo: " + nameFile);
+                                state = 6;
+                                break;
+                            }
+                            break;                            
                     }
                     if (TaskResult != "")
                     {
@@ -175,7 +181,7 @@ namespace Impodatos.Services.EventHandlers
             catch (Exception e)
             {
                 error = e.Message;
-                sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", " El archivo no se pudo importar  (paso 1: cargue del archivo, paso 2: borrado de events, paso 3: borrado de Enrollments , paso 4: importación de la data (tacked= registro de la persona, , Enrollment= registro de la persona al progama y Events= los datos del registro), paso 5: guardado del resumen de la importación, paso 6: notificación por email de la importación), a continuación, el error en detalle: " + error + " paso con error: " + state, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
+                EmailErrorImport();
                 commandGeneral.reponse = e.Message;
                 Console.WriteLine("{0} Exception caught.", e);
 
@@ -186,9 +192,9 @@ namespace Impodatos.Services.EventHandlers
         {
             try
             {
-                //await Task.Run(async ()=> { 
                 var response = await _dhis.GetStateTask(task.Replace("/api", ""), token);
                 var completed = response.resultTasks[0].completed;
+                var level = response.resultTasks[0].level;
                 if (!completed)
                 {
                     await CheckImportStateAsync(state, step, task, token, numImport);
@@ -196,11 +202,16 @@ namespace Impodatos.Services.EventHandlers
                 }
                 else
                 {
+                    if (level == "ERROR") {
+                        error = response.resultTasks[0].message;                       
+                        Console.Write("\nError Eliminación de Eventos : " + error.ToString());
+                        EmailErrorImport();
+                    }
                     switch (step)
                     {
                         case 1:
                             state = 2;
-                            Console.Write("Fin Eliminación de Eventos");
+                            Console.Write("\nFin Eliminación de Eventos");
                             break;
                         case 2:
                             state = 3;
@@ -224,7 +235,7 @@ namespace Impodatos.Services.EventHandlers
             try
             {
                 int contdelete = 0;
-                Console.Write("Inicio de Eliminación de Eventos ");
+                Console.Write("\nInicio de Eliminación de Eventos ");
                 var setClean = await _dhis.SetCleanEvent(oupath, program, startDate, endDate, token);
                 if (setClean.events.Count > 0)
                 {
@@ -236,15 +247,15 @@ namespace Impodatos.Services.EventHandlers
                 else
                 {
                     state = 2;
-                    Console.Write("Sin Eliminación de Eventos ");
+                    Console.Write("\nSin Eliminación de Eventos ");
                 }
                 return "";
             }
             catch (Exception e)
             {
                 error = e.Message;
-                Console.Write("Error de Eliminación de Eventos; ", error);
-                sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", " El archivo no se pudo importar  (paso 1: cargue del archivo, paso 2: borrado de events, paso 3: borrado de Enrollments , paso 4: importación de la data (tacked= registro de la persona, , Enrollment= registro de la persona al progama y Events= los datos del registro), paso 5: guardado del resumen de la importación, paso 6: notificación por email de la importación), a continuación, el error en detalle: " + error + " paso con error: " + state, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
+                Console.Write("\nError de Eliminación de Eventos; ", error);
+                EmailErrorImport();
                 return "";
             }
         }
@@ -254,7 +265,7 @@ namespace Impodatos.Services.EventHandlers
             try
             {
                 int contdelete = 0;
-                Console.Write("Inicio de Eliminación de Enrollments");
+                Console.Write("\nInicio de Eliminación de Enrollments");
                 //var setCleanEnrolloment = await _dhis.GetEnrollment(program, oupath,  token);
                 var setCleanEnrolloment = await _dhis.SetCleanEnrollment(oupath, program, startDate, endDate, token);
                 if (setCleanEnrolloment.enrollments.Count > 0)
@@ -265,21 +276,25 @@ namespace Impodatos.Services.EventHandlers
                     if (contdelete > 0)
                     {
                         state = 3;
-                        Console.Write("Fin de Eliminación de Enrollments");
+                        Console.Write("\nFin de Eliminación de Enrollments");
+                    }
+                    else {
+                        error = dropEnrrollments.message;
+                        Console.Write("\nError de Eliminación de Enrollments" + error.ToString());
+                        EmailErrorImport();
                     }
                 }
                 else
                 {
                     state = 3;
-                    Console.Write("Sin Eliminación de Enrollments");
+                    Console.Write("\nSin Eliminación de Enrollments");
                 }
             }
             catch (Exception e)
             {
                 error = e.Message;
-                Console.Write("Error Eliminación de Enrollments: ", error);
-                sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", " El archivo no se pudo importar  (paso 1: cargue del archivo, paso 2: borrado de events, paso 3: borrado de Enrollments , paso 4: importación de la data (tacked= registro de la persona, , Enrollment= registro de la persona al progama y Events= los datos del registro), paso 5: guardado del resumen de la importación, paso 6: notificación por email de la importación), a continuación, el error en detalle: " + error + " paso con error: " + state, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
-
+                Console.Write("\nError Eliminación de Enrollments: ", error);
+                EmailErrorImport();
             }
         }
 
@@ -300,7 +315,7 @@ namespace Impodatos.Services.EventHandlers
 
                 AddEnrollmentDto enrollments = new AddEnrollmentDto();
                 AddEventsDto eventDto = new AddEventsDto();
-                Console.Write("Inicio importación de data, cantidad de registros: ", RowFile.Count);
+                Console.Write("\nInicio importación de data, cantidad de registros: ", RowFile.Count);
                 int cic = 0;
                 while (cic < RowFile.Count)
                 {
@@ -335,7 +350,7 @@ namespace Impodatos.Services.EventHandlers
 
                         int caseid = Array.IndexOf(headers, "CASE_ID");
                         string caseidvalue = valores[caseid].ToString();
-                        Console.Write(" CASE ID: " + caseidvalue.ToString());
+                        Console.Write("\nCASE ID: " + caseidvalue.ToString());
                         //Validamos si el tracked ya existe:  verificar por que se estan creando repetidos
                         var validatetraked = await _dhis.GetTracket(caseidvalue, ouFirts.id, commandGeneral.token);
                         if (validatetraked.trackedEntityInstances.Count > 0)
@@ -350,7 +365,7 @@ namespace Impodatos.Services.EventHandlers
                         int ou = Array.IndexOf(headers, "OU_CODE");
                         var ouLine = Organisation.OrganisationUnits.Find(x => x.code == valores[ou].ToString());                                          
                         trackedInstDto.orgUnit = ouLine.id;
-                        Console.Write(" OU_CODE: " + ouLine.code.ToString());
+                        Console.Write("\nOU_CODE: " + ouLine.code.ToString());
                         List<Attribut> listAttribut = new List<Attribut>();
                         string enrollmentDatecolumm = "";
                         string incidentDatecolumm = "";
@@ -394,9 +409,8 @@ namespace Impodatos.Services.EventHandlers
                                 }
                                 catch (Exception e) {
                                     error = e.Message;
-                                    Console.Write(" Error importación: " + error);
-                                    sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", " El archivo no se pudo importar  (paso 1: cargue del archivo, paso 2: borrado de events, paso 3: borrado de Enrollments , paso 4: importación de la data (tacked= registro de la persona, , Enrollment= registro de la persona al progama y Events= los datos del registro), paso 5: guardado del resumen de la importación, paso 6: notificación por email de la importación), a continuación, el error en detalle: " + error + " paso con error: " + state, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
-
+                                    Console.Write("\nError importación: " + error);
+                                    EmailErrorImport();
                                 }
                             }
                         }
@@ -406,7 +420,7 @@ namespace Impodatos.Services.EventHandlers
                         listtrackedInstDtoFull.Add(trackedInstDto);
                         trackedDto.trackedEntityInstances = listtrackedInstDto;
                         trackedDtos.trackedEntityInstances = listtrackedInstDtoFull;                        
-                        Console.Write(" Creando Tracked: " + trackedInstDto.attributes[11].value.ToString());
+                        Console.Write("\nCreando Tracked: " + trackedInstDto.attributes[11].value.ToString());
                         Enrollment enrollmentDto = new Enrollment();
                         Enrollment enrollmentFullDto = new Enrollment();
                         enrollmentDto.trackedEntityInstance = trackedInstDto.trackedEntityInstance;
@@ -420,7 +434,7 @@ namespace Impodatos.Services.EventHandlers
                         listEnrollmentFull.Add(enrollmentDto);
                         enrollment.enrollments = listEnrollment;
                         enrollments.enrollments = listEnrollmentFull;
-                        Console.Write(" Creando Enrollment: " + enrollment.enrollments[0].status.ToString());
+                        Console.Write("\nCreando Enrollment: " + enrollment.enrollments[0].status.ToString());
                         List<ProgramStageDataElement> dteObjarray = new List<ProgramStageDataElement>();
 
                         List<AddEventDto> listEvent = new List<AddEventDto>();
@@ -492,9 +506,8 @@ namespace Impodatos.Services.EventHandlers
 
                                 catch (Exception e) {
                                     error = e.Message;
-                                    Console.Write("Error importación (Laboratorio): " +  error.ToString());
-                                    sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", " El archivo no se pudo importar  (paso 1: cargue del archivo, paso 2: borrado de events, paso 3: borrado de Enrollments , paso 4: importación de la data (tacked= registro de la persona, , Enrollment= registro de la persona al progama y Events= los datos del registro), paso 5: guardado del resumen de la importación, paso 6: notificación por email de la importación), a continuación, el error en detalle: " + error + " paso con error: " + state, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
-
+                                    Console.Write("\nError importación (Laboratorio): " +  error.ToString());
+                                    EmailErrorImport();
                                 }
                             }
                             //end laboratory
@@ -520,9 +533,9 @@ namespace Impodatos.Services.EventHandlers
                                     catch (Exception e) {
                                         contbad = contbad + 1;
                                         error = e.Message;
-                                        Console.Write("Error importación (Eventos): " + error.ToString());
-                                        sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", " El archivo no se pudo importar  (paso 1: cargue del archivo, paso 2: borrado de events, paso 3: borrado de Enrollments , paso 4: importación de la data (tacked= registro de la persona, , Enrollment= registro de la persona al progama y Events= los datos del registro), paso 5: guardado del resumen de la importación, paso 6: notificación por email de la importación), a continuación, el error en detalle: " + error + " paso con error: " + state, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);                                 
-                                         }
+                                        Console.Write("\nError importación (Eventos): " + error.ToString());
+                                        EmailErrorImport();
+                                    }
 
                                 }
                                 string tkins = "";
@@ -537,8 +550,8 @@ namespace Impodatos.Services.EventHandlers
                                     }
                                     catch (Exception e) {      
                                         error = e.Message;
-                                        Console.Write("Error importación (Eventos): " + error.ToString());
-                                        sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", " El archivo no se pudo importar  (paso 1: cargue del archivo, paso 2: borrado de events, paso 3: borrado de Enrollments , paso 4: importación de la data (tacked= registro de la persona, , Enrollment= registro de la persona al progama y Events= los datos del registro), paso 5: guardado del resumen de la importación, paso 6: notificación por email de la importación), a continuación, el error en detalle: " + error + " paso con error: " + state, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
+                                        Console.Write("\nError importación (Eventos): " + error.ToString());
+                                        EmailErrorImport();
                                     }
 
                                     var storedBy = commandGeneral.UserLogin;
@@ -566,13 +579,13 @@ namespace Impodatos.Services.EventHandlers
                             }
                             catch (Exception e) {                               
                                 error = e.Message;
-                                Console.Write("Error importación (Eventos): " + error.ToString());
-                                sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", " El archivo no se pudo importar  (paso 1: cargue del archivo, paso 2: borrado de events, paso 3: borrado de Enrollments , paso 4: importación de la data (tacked= registro de la persona, , Enrollment= registro de la persona al progama y Events= los datos del registro), paso 5: guardado del resumen de la importación, paso 6: notificación por email de la importación), a continuación, el error en detalle: " + error + " paso con error: " + state, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
+                                Console.Write("\nError importación (Eventos): " + error.ToString());
+                                EmailErrorImport();
                             }
                             //}
                         }
                         eventDto.events = listEvent;
-                        Console.Write("Creando Events: " + listEvent.Count);
+                        Console.Write("\nCreando Events: " + listEvent.Count);
                         // Importante para envio en bloques de 100 o como se ajuste la configuracion
                         if (uploadBlock)
                         {
@@ -592,15 +605,14 @@ namespace Impodatos.Services.EventHandlers
                             {
                                 contBlock = contBlock + 1;
                                 var resultDto = await _dhis.AddTracked(trackedDtos, commandGeneral.token);
-                                Console.Write(" Importacion Resultado Async:" + resultDto.Response.relativeNotifierEndpoint.ToString());
+                                Console.Write("\nImportacion Resultado Async:" + resultDto.Response.relativeNotifierEndpoint.ToString());
                                 var res = await CheckImportTrackedAsync(resultDto.Response.relativeNotifierEndpoint, commandGeneral.token);
-                                Console.Write(" Fin de Importacion en Bloque");
+                                Console.Write("\nFin de Importacion en Bloque");
                             }
                             catch (Exception e) {                       
                                 error = e.Message;
-                                Console.Write("Error importación (Guardado de Tracked): " +  error.ToString());
-                                sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", " El archivo no se pudo importar  (paso 1: cargue del archivo, paso 2: borrado de events, paso 3: borrado de Enrollments , paso 4: importación de la data (tacked= registro de la persona, , Enrollment= registro de la persona al progama y Events= los datos del registro), paso 5: guardado del resumen de la importación, paso 6: notificación por email de la importación), a continuación, el error en detalle: " + error + " paso con error: " + state, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
-
+                                Console.Write("\nError importación (Guardado de Tracked): " +  error.ToString());
+                                EmailErrorImport();
                             }
 
                             if (!uploadBlock)
@@ -614,8 +626,8 @@ namespace Impodatos.Services.EventHandlers
                                     }
                                     catch (Exception e) {
                                         error = e.Message;
-                                        Console.Write("Error importación (Guardado de Enrollments): " + error.ToString());
-                                        sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", " El archivo no se pudo importar  (paso 1: cargue del archivo, paso 2: borrado de events, paso 3: borrado de Enrollments , paso 4: importación de la data (tacked= registro de la persona, , Enrollment= registro de la persona al progama y Events= los datos del registro), paso 5: guardado del resumen de la importación, paso 6: notificación por email de la importación), a continuación, el error en detalle: " + error + " paso con error: " + state, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
+                                        Console.Write("\nError importación (Guardado de Enrollments): " + error.ToString());
+                                        EmailErrorImport();
                                     }
 
                                 }
@@ -628,8 +640,8 @@ namespace Impodatos.Services.EventHandlers
                                     }
                                     catch (Exception e) {
                                         error = e.Message;
-                                        Console.Write("Error importación (Guardado de Eventos): " + error.ToString());
-                                        sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", " El archivo no se pudo importar  (paso 1: cargue del archivo, paso 2: borrado de events, paso 3: borrado de Enrollments , paso 4: importación de la data (tacked= registro de la persona, , Enrollment= registro de la persona al progama y Events= los datos del registro), paso 5: guardado del resumen de la importación, paso 6: notificación por email de la importación), a continuación, el error en detalle: " + error + " paso con error: " + state, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);                         
+                                        Console.Write("\nError importación (Guardado de Eventos): " + error.ToString());
+                                        EmailErrorImport();
                                     }
                                 }
                             }
@@ -639,7 +651,7 @@ namespace Impodatos.Services.EventHandlers
 
                     else
                     {
-                        sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Sin datos para Importación", " El archivo no se pudo importar porque no existe Información para el rango de periodos seleccionados, favor revisar ", userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
+                        sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Sin datos para Importación", " No se pudo importar porque no existe Información para el rango de periodos seleccionados, favor revisar ", userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
                     }
 
 
@@ -656,32 +668,30 @@ namespace Impodatos.Services.EventHandlers
                         try
                         {
                             var resultDto = await _dhis.AddTracked(trackedDtos, commandGeneral.token);
-                            Console.Write("Importacion Resultado Async:" + resultDto.Response.relativeNotifierEndpoint.ToString());
+                            Console.Write("\nImportacion Resultado Async:" + resultDto.Response.relativeNotifierEndpoint.ToString());
                             var res = await CheckImportTrackedAsync(resultDto.Response.relativeNotifierEndpoint, commandGeneral.token);
-                            Console.Write("Fin de Importacion");
+                            Console.Write("\nFin de Importacion");
                         }
                         catch (Exception e)
                         {
                             error = e.Message;
-                            Console.Write("Error importación: " +  error.ToString());
-                            sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", " El archivo no se pudo importar  (paso 1: cargue del archivo, paso 2: borrado de events, paso 3: borrado de Enrollments , paso 4: importación de la data (tacked= registro de la persona, , Enrollment= registro de la persona al progama y Events= los datos del registro), paso 5: guardado del resumen de la importación, paso 6: notificación por email de la importación), a continuación, el error en detalle: " + error + " paso con error: " + state, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
-
+                            Console.Write("\nError importación: " +  error.ToString());
+                            EmailErrorImport();
                         }
                     }
                 }
 
                 else
                 {
-                    sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Sin datos para Importación", " El archivo no se pudo importar porque no existe Información para el rango de periodos seleccionados, favor revisar ", userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
+                    sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Sin datos para Importación", " No se pudo importar porque no existe Información para el rango de periodos seleccionados, favor revisar ", userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine("{0} Exception caught.", e);
                 error = e.Message;
-                Console.Write("Error importación: " +  error.ToString());
-                sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", " El archivo no se pudo importar  (paso 1: cargue del archivo, paso 2: borrado de events, paso 3: borrado de Enrollments , paso 4: importación de la data (tacked= registro de la persona, , Enrollment= registro de la persona al progama y Events= los datos del registro), paso 5: guardado del resumen de la importación, paso 6: notificación por email de la importación), a continuación, el error en detalle: " + error + " paso con error: " + state, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
-
+                Console.Write("\nError importación: " +  error.ToString());
+                EmailErrorImport();
             }
         }
 
@@ -689,28 +699,41 @@ namespace Impodatos.Services.EventHandlers
         {
             try
             {
-                Console.Write("Task Tracked : " + task.ToString().Replace("/api", ""));
+                Console.Write("\nInicio CheckImportTrackedAsync ");
                 var response = await _dhis.GetStateTask(task.Replace("/api", ""), token);
-                Console.Write("Estado de guardado Tracked : " + response.resultTasks[0].completed.ToString() + " detalles: " + response.resultTasks[0].message.ToString() );
-                var completed = response.resultTasks[0].completed;
-                if (!completed)
-                {
+                Console.Write("\nEstado de guardado Tracked : " + response.resultTasks[0].completed.ToString() + " detalles: " + response.resultTasks[0].message.ToString() );
+                completed = response.resultTasks[0].completed;
+                level = response.resultTasks[0].level;
+                if (!completed )   
+                {                   
                     await CheckImportTrackedAsync(task, token);
                     return false;
                 }
                 else
                 {
-                    var summary = await _dhis.GetSummaryImport(response.resultTasks[0].category, response.resultTasks[0].uid, token);
-                    Console.Write("Resultado de Importación : "+ summary.ToString());
+                    var summary = await _dhis.GetSummaryImport(response.resultTasks[0].category, response.resultTasks[0].uid, token);                  
+                    if (level == "ERROR")
+                    {
+                        error = response.resultTasks[0].message;
+                        if (summary=="null")
+                        {
+                            summary = error;
+                        }
+                        Console.Write("\nError resultado de Importación : " + summary.ToString());
+                        EmailErrorImport();
+                    }
+                    Console.Write("\nResultado de Importación : " + summary.ToString());
                     summaryImport.Add(summary);
                     blockSuccess = blockSuccess + 1;
+                    Console.Write("\nFin CheckImportTrackedAsync ");
                     return true;
                 }
+                
             }
             catch (Exception e)
             {
                 error = e.Message;
-                Console.Write("Error de resultado de Importación : " +  error.ToString());
+                Console.Write("\nError de resultado de Importación : " +  error.ToString());
                 return false;
             }
         }
@@ -721,7 +744,7 @@ namespace Impodatos.Services.EventHandlers
         {
             try
             {
-                Console.Write("Inicio de ReadCSV");
+                Console.Write("\nInicio de ReadCSV");
                 commandGeneral = command;
 
                 historyCreateCommand cmd = new historyCreateCommand();
@@ -761,7 +784,7 @@ namespace Impodatos.Services.EventHandlers
                 headers = headers.Select(s => s.ToUpperInvariant()).ToArray();
                 if (headers.Length <= 1) {
                     error = "El arhivo no tiene el formato solicitado, separacion por (,) ó (;)";
-                    Console.Write("Error de ReadCSV" + error.ToString());
+                    Console.Write("\nError de ReadCSV" + error.ToString());
                 }
                 while ((line = reader.ReadLine()) != null)
                 {
@@ -780,13 +803,14 @@ namespace Impodatos.Services.EventHandlers
                     dataLabOrigin = dataOrigin;
                 }
                 reader.Close();
-                Console.Write("Fin de ReadCSV");
+                Console.Write("\nFin de ReadCSV");
             }
             catch (Exception e)
             {
                 Console.WriteLine("{0} Exception caught.", e);
                 error = e.Message;
-                Console.Write("Error de ReadCSV : "+  error.ToString());
+                Console.Write("\nError de ReadCSV : " +  error.ToString());
+                EmailErrorImport();
             }
             return RowFile;
         }
@@ -795,7 +819,7 @@ namespace Impodatos.Services.EventHandlers
         {
             try
             {
-                Console.Write("Inicio de ReadXLSX");
+                Console.Write("\nInicio de ReadXLSX");
                 commandGeneral = command;
                 System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
                 Encoding srcEncoding = Encoding.GetEncoding(1251);
@@ -828,7 +852,7 @@ namespace Impodatos.Services.EventHandlers
                             else
                             {
                                 var cellInd = RowComplete[j].Value.ToString();
-                                var isDate = cellInd.Contains("12:00:00 a. m.");
+                                var isDate = cellInd.Contains("12:00:00");
 
                                 if (isDate)
                                 {
@@ -872,7 +896,7 @@ namespace Impodatos.Services.EventHandlers
                         else
                         {
                             var cellInd = RowComplete[j].Value.ToString();
-                            var isDate = cellInd.Contains("12:00:00 a. m.");
+                            var isDate = cellInd.Contains("12:00:00");
 
                             if (isDate)
                             {
@@ -902,13 +926,14 @@ namespace Impodatos.Services.EventHandlers
                 dataOrigin = fileByteOrigin.ReadBytes(k);
                 dataLabOrigin = dataOrigin;
                 readerExcel.Close();
-                Console.Write("Fin de ReadXLSX");
+                Console.Write("\nFin de ReadXLSX");
             }
             catch (Exception e)
             {
                 Console.WriteLine("{0} Exception caught.", e);
                 error = e.Message;
-                Console.Write("Error de ReadXLSX : " + error.ToString());
+                Console.Write("\nError de ReadXLSX : " + error.ToString());
+                EmailErrorImport();
             }
             return RowFile;
 
@@ -918,7 +943,7 @@ namespace Impodatos.Services.EventHandlers
         {
             try
             {
-                Console.Write("Inicio de ReadXLS");
+                Console.Write("\nInicio de ReadXLS");
                 commandGeneral = command;
                 System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
                 Encoding srcEncoding = Encoding.GetEncoding(1251);
@@ -951,7 +976,7 @@ namespace Impodatos.Services.EventHandlers
                                 else
                                 {
                                     var cellInd = Convert.ToString(dtDataRecords.Rows[i][j].ToString());
-                                    var isDate = cellInd.Contains("12:00:00 a. m.");
+                                    var isDate = cellInd.Contains("12:00:00");
 
                                     if (isDate)
                                     {
@@ -997,7 +1022,7 @@ namespace Impodatos.Services.EventHandlers
                             else
                             {
                                 var cellInd = Convert.ToString(dtDataRecords.Rows[i][j].ToString());
-                                var isDate = cellInd.Contains("12:00:00 a. m.");
+                                var isDate = cellInd.Contains("12:00:00");
 
                                 if (isDate)
                                 {
@@ -1026,13 +1051,14 @@ namespace Impodatos.Services.EventHandlers
                 dataOrigin = fileByteOrigin.ReadBytes(k);
                 dataLabOrigin = dataOrigin;
                 readerExcel.Close();
-                Console.Write("Fin de ReadXLS");
+                Console.Write("\nFin de ReadXLS");
                 return RowFile;
             }
             catch (Exception e)
             {
                 error = e.Message;
-                Console.Write("Error de ReadXLS: " + error.ToString());
+                Console.Write("\nError de ReadXLS: " + error.ToString());
+                EmailErrorImport();
             }
 
             return RowFile;
@@ -1095,11 +1121,9 @@ namespace Impodatos.Services.EventHandlers
                 {
                     error = e.Message;
                 }
-                Console.Write("Error Handle : " +  error.ToString());
-                command.reponse = error;                
-                sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", " El archivo no se pudo importar  (paso 1: cargue del archivo, paso 2: borrado de events, paso 3: borrado de Enrollments , paso 4: importación de la data (tacked= registro de la persona, , Enrollment= registro de la persona al progama y Events= los datos del registro), paso 5: guardado del resumen de la importación, paso 6: notificación por email de la importación), a continuación, el error en detalle: " + error + " paso con error: " + state, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
-
-
+                Console.Write("\nError Handle : " +  error.ToString());
+                command.reponse = error;
+                EmailErrorImport();
             }
         }
 
@@ -1107,7 +1131,7 @@ namespace Impodatos.Services.EventHandlers
         {
             try
             {
-                Console.Write("Inicio de guardado Sumamary DB ");
+                Console.Write("\nInicio de guardado Sumamry DB ");
                 var _cnx = _conexionInt;
                 using (var cn = new NpgsqlConnection(_cnx.ConexionDatabase))
                 {
@@ -1133,7 +1157,7 @@ namespace Impodatos.Services.EventHandlers
 
                         var result = cmd.ExecuteNonQuery();
                         state = 5;
-                        Console.Write("Fin de guardado Sumamary DB ");
+                        Console.Write("Fin de guardado Summary DB");
                     }
                     cn.Close();
                 }
@@ -1141,10 +1165,13 @@ namespace Impodatos.Services.EventHandlers
             catch (Exception e)
             {
                 error = e.Message;
-                Console.Write("Error Guardado Summry DB : "+  error.ToString());
+                Console.Write("\nError Guardado Summry DB : " +  error.ToString());
+                EmailErrorImport();
             }
         }
-
+        public void EmailErrorImport() {
+            sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", ": No se logro Importar  \n *** Importante ***\nPaso 1: Cargue del Archivo \nPaso 2: Borrado de Events  \nPaso 3: Borrado de Enrollments \nPaso 4: Importación de la Data (Tracked= Registro de la persona,  Enrollment= Registro de la persona al progama y Events= Datos del registro) \nPaso 5: Guardado del Resumen de la Importación \nPaso 6: Notificación por Email de la Importación \n\nA continuación, el error en detalle: " + error + "\n El paso donde ocurrio el error: " + state, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
+        }
         public async Task Handle(historyUpdateCommand command, CancellationToken cancellation)
         {
             await Task.Run(async () =>

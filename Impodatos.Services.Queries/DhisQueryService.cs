@@ -420,10 +420,10 @@ namespace Impodatos.Services.Queries
         }
         public async Task<AddTracketResultDto> AddTracked(AddTrackedDto request, string token)
         {
-            Console.Write(" Inicio AddTracked ");
+            Console.Write("\nInicio AddTracked ");
             var content = JsonConvert.SerializeObject(request).Replace("Eenr", "enrollments").Replace("Eev", "events");
             var result = await RequestHttp.CallMethodSave("dhis", "addTracked", content, token);
-            Console.Write(" Fin AddTracked " + result.ToString());
+            Console.Write("\nFin AddTracked " + result.ToString());
             return JsonConvert.DeserializeObject<AddTracketResultDto>(result);
         }
         public async Task<AddEnrollmentResultDto> AddEnrollment(AddEnrollmentDto request, string token)
@@ -499,21 +499,21 @@ namespace Impodatos.Services.Queries
         }
         public async Task<ResultTaskDto> GetStateTask(string task, string token)
         {
-            Console.Write(" Inicio GetStateTask ");
+            Console.Write("\nInicio GetStateTask ");
             var result = await RequestHttp.CallMethodTask("dhis", "program", task, token);
             string resp = result.Replace("[", "{resultTasks: [").Replace("]", "]}");
             var j = JsonConvert.DeserializeObject<ResultTaskDto>(resp);
-            Console.Write(" Fin GetStateTask : " + j.resultTasks[0].message.ToString() + " estado: " + j.resultTasks[0].completed.ToString());
+            Console.Write("\nFin GetStateTask : " + j.resultTasks[0].message.ToString() + " estado: " + j.resultTasks[0].completed.ToString());
             return j;
         }
 
         public async Task<string> GetSummaryImport(string category,string uid, string token)
         {
-            Console.Write(" Inicio GetSummaryImport ");
+            Console.Write("\nInicio GetSummaryImport ");
             var result = await RequestHttp.CallMethodSummary("dhis", "program", uid, category, token);
             //string resp = result.Replace("[", "{resultTasks: [").Replace("]", "]}");
             //var x = JsonConvert.DeserializeObject<string>(result);
-            Console.Write(" Fin GetSummaryImport: ", result.ToString());
+            Console.Write("\nFin GetSummaryImport: ", result.ToString());
             return result;
         }
 
@@ -621,7 +621,7 @@ namespace Impodatos.Services.Queries
                             else
                             {
                                 var cellInd = RowComplete[j].Value.ToString();
-                                var isDate = cellInd.Contains("12:00:00 a. m.");
+                                var isDate = cellInd.Contains("12:00:00");
 
                                 if (isDate)
                                 {
@@ -665,7 +665,7 @@ namespace Impodatos.Services.Queries
                         else
                         {
                             var cellInd = RowComplete[j].Value.ToString();
-                            var isDate = cellInd.Contains("12:00:00 a. m.");
+                            var isDate = cellInd.Contains("12:00:00");
 
                             if (isDate)
                             {
@@ -740,7 +740,7 @@ namespace Impodatos.Services.Queries
                                 else
                                 {
                                     var cellInd = Convert.ToString(dtDataRecords.Rows[i][j].ToString());
-                                    var isDate = cellInd.Contains("12:00:00 a. m.");
+                                    var isDate = cellInd.Contains("12:00:00");
 
                                     if (isDate)
                                     {
@@ -786,7 +786,7 @@ namespace Impodatos.Services.Queries
                             else
                             {
                                 var cellInd = Convert.ToString(dtDataRecords.Rows[i][j].ToString());
-                                var isDate = cellInd.Contains("12:00:00 a. m.");
+                                var isDate = cellInd.Contains("12:00:00");
 
                                 if (isDate)
                                 {
