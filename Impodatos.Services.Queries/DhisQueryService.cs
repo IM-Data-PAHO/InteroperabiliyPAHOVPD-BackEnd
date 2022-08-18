@@ -625,8 +625,8 @@ namespace Impodatos.Services.Queries
 
                                 if (isDate)
                                 {
-                                    string rec = cellInd.Substring(0, 10);
-                                    string date = Convert.ToDateTime(rec).ToString("yyyy-MM-dd");
+                                    //string rec = cellInd.Substring(0, 10);
+                                    string date = Convert.ToDateTime(cellInd).ToString("yyyy-MM-dd");
                                     LineFileLab[j] = date;
                                 }
                                 else
@@ -669,8 +669,8 @@ namespace Impodatos.Services.Queries
 
                             if (isDate)
                             {
-                                string rec = cellInd.Substring(0, 10);
-                                string date = Convert.ToDateTime(rec).ToString("yyyy-MM-dd");
+                                //string rec = cellInd.Substring(0, 10);
+                                string date = Convert.ToDateTime(cellInd).ToString("yyyy-MM-dd");
                                 LineFile[j] = date;
                             }
                             else
@@ -744,8 +744,8 @@ namespace Impodatos.Services.Queries
 
                                     if (isDate)
                                     {
-                                        string rec = cellInd.Substring(0, 10);
-                                        string date = Convert.ToDateTime(rec).ToString("yyyy-MM-dd");
+                                        //string rec = cellInd.Substring(0, 10);
+                                        string date = Convert.ToDateTime(cellInd).ToString("yyyy-MM-dd");
                                         LineFile[j] = date;
                                     }
                                     else
@@ -790,8 +790,8 @@ namespace Impodatos.Services.Queries
 
                                 if (isDate)
                                 {
-                                    string rec = cellInd.Substring(0, 10);
-                                    string date = Convert.ToDateTime(rec).ToString("yyyy-MM-dd");
+                                    //string rec = cellInd.Substring(0, 10);
+                                    string date = Convert.ToDateTime(cellInd).ToString("yyyy-MM-dd");
                                     LineFile[j] = date;
                                 }
                                 else

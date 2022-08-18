@@ -856,8 +856,8 @@ namespace Impodatos.Services.EventHandlers
 
                                 if (isDate)
                                 {
-                                    string rec = cellInd.Substring(0, 10);
-                                    string date = Convert.ToDateTime(rec).ToString("yyyy-MM-dd");
+                                    //string rec = cellInd.Substring(0, 10);
+                                    string date = Convert.ToDateTime(cellInd).ToString("yyyy-MM-dd");
                                     LineFileLab[j] = date;
                                 }
                                 else
@@ -900,8 +900,8 @@ namespace Impodatos.Services.EventHandlers
 
                             if (isDate)
                             {
-                                string rec = cellInd.Substring(0, 10);
-                                string date = Convert.ToDateTime(rec).ToString("yyyy-MM-dd");
+                                //string rec = cellInd.Substring(0, 10);
+                                string date = Convert.ToDateTime(cellInd).ToString("yyyy-MM-dd");
                                 LineFile[j] = date;
                             }
                             else
@@ -980,8 +980,8 @@ namespace Impodatos.Services.EventHandlers
 
                                     if (isDate)
                                     {
-                                        string rec = cellInd.Substring(0, 10);
-                                        string date = Convert.ToDateTime(rec).ToString("yyyy-MM-dd");
+                                        //string rec = cellInd.Substring(0, 10);
+                                        string date = Convert.ToDateTime(cellInd).ToString("yyyy-MM-dd");
                                         LineFile[j] = date;
                                     }
                                     else
@@ -1026,8 +1026,8 @@ namespace Impodatos.Services.EventHandlers
 
                                 if (isDate)
                                 {
-                                    string rec = cellInd.Substring(0, 10);
-                                    string date = Convert.ToDateTime(rec).ToString("yyyy-MM-dd");
+                                    //string rec = cellInd.Substring(0, 10);
+                                    string date = Convert.ToDateTime(cellInd).ToString("yyyy-MM-dd");
                                     LineFile[j] = date;
                                 }
                                 else
@@ -1170,7 +1170,7 @@ namespace Impodatos.Services.EventHandlers
             }
         }
         public void EmailErrorImport() {
-            sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", ": No se logro Importar  \n *** Importante ***\nPaso 1: Cargue del Archivo \nPaso 2: Borrado de Events  \nPaso 3: Borrado de Enrollments \nPaso 4: Importación de la Data (Tracked= Registro de la persona,  Enrollment= Registro de la persona al progama y Events= Datos del registro) \nPaso 5: Guardado del Resumen de la Importación \nPaso 6: Notificación por Email de la Importación \n\nA continuación, el error en detalle: " + error + "\n El paso donde ocurrio el error: " + state, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
+            sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", ": No se logro Importar  \n *** Importante ***\nPaso 1: Cargue del Archivo \nPaso 2: Limpieza de Registros del Periodo Importado  \nPaso 3: Limpieza de Registros de Personas al Programa\nPaso 4: Importación de los Nuevos Datos\nPaso 5: Guardado del Resumen de la Importación \nPaso 6: Notificación por Email de la Importación \n\nA continuación, el error en detalle: " + error , userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
         }
         public async Task Handle(historyUpdateCommand command, CancellationToken cancellation)
         {
