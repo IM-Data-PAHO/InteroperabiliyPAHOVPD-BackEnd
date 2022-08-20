@@ -10,6 +10,9 @@ namespace Impodatos.Services.Queries.DTOs
         public List<validateDto> Response { get; set; }
         public string State { get; set; }
         public List<sumaryerrorDto> Sumary { get; set; }
+        public int TotalFile1 { get; set; }
+        public int TotalFile2 { get; set; }
+
     }
     public class sumaryerrorDto
     {
@@ -17,7 +20,7 @@ namespace Impodatos.Services.Queries.DTOs
         public int mandatory { get; set; }
         public int compulsory { get; set; }
         public int option { get; set; }
-
+        public int totalrows { get; set; }
         public int extensionfile { get; set; }
     }
     public class validateDto

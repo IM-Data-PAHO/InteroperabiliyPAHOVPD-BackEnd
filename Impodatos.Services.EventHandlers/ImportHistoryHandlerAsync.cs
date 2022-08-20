@@ -164,7 +164,7 @@ namespace Impodatos.Services.EventHandlers
                         case 5:
                             if (level != "ERROR")
                             {
-                                sendMailObj.SenEmailImport(_importSettings.Services[0].Server, _importSettings.Services[0].Subject, _importSettings.Services[0].Body, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, "El archivo: " + nameFile);
+                                sendMailObj.SenEmailImport(_importSettings.Services[0].Server, _importSettings.Services[0].Subject, _importSettings.Services[0].Body, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, "El ó los archivo(s): " + nameFile + " " + nameFileLab);
                                 state = 6;
                                 break;
                             }
@@ -255,7 +255,7 @@ namespace Impodatos.Services.EventHandlers
             {
                 error = e.Message;
                 Console.Write("\nError de Eliminación de Eventos; ", error);
-                EmailErrorImport();
+               // EmailErrorImport();
                 return "";
             }
         }
@@ -281,7 +281,7 @@ namespace Impodatos.Services.EventHandlers
                     else {
                         error = dropEnrrollments.message;
                         Console.Write("\nError de Eliminación de Enrollments" + error.ToString());
-                        EmailErrorImport();
+                     //   EmailErrorImport();
                     }
                 }
                 else
@@ -810,7 +810,7 @@ namespace Impodatos.Services.EventHandlers
                 Console.WriteLine("{0} Exception caught.", e);
                 error = e.Message;
                 Console.Write("\nError de ReadCSV : " +  error.ToString());
-                EmailErrorImport();
+               // EmailErrorImport();
             }
             return RowFile;
         }
@@ -933,7 +933,7 @@ namespace Impodatos.Services.EventHandlers
                 Console.WriteLine("{0} Exception caught.", e);
                 error = e.Message;
                 Console.Write("\nError de ReadXLSX : " + error.ToString());
-                EmailErrorImport();
+              //  EmailErrorImport();
             }
             return RowFile;
 
@@ -1058,7 +1058,7 @@ namespace Impodatos.Services.EventHandlers
             {
                 error = e.Message;
                 Console.Write("\nError de ReadXLS: " + error.ToString());
-                EmailErrorImport();
+             //   EmailErrorImport();
             }
 
             return RowFile;

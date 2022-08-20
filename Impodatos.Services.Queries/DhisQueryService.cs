@@ -68,7 +68,7 @@ namespace Impodatos.Services.Queries
             int contupload = 0;
             int contdelete = 0;
             string status = "";
-            string response = "";         
+            string response = "";        
 
             List<string> jsonResponse = new List<string>();
             Program objprogram = new Program();
@@ -375,7 +375,7 @@ namespace Impodatos.Services.Queries
                                                     value = valores[idval].ToString()
                                                 };
                                                 lv.Add(v);
-                                                sumerrorobj.date = sumerrorobj.date + 1;
+                                                sumerrorobj.date = sumerrorobj.date + 1;                                                
                                             }
                                         }
                                     }
@@ -389,20 +389,26 @@ namespace Impodatos.Services.Queries
                     }
 
                 }
+                sumerrorobj.totalrows = RowFile.Count;
                 le.Add(sumerrorobj);
+                
                 status = "200";
                 response = "Procesado correctamente";
             }
             catch (Exception e)
             {
-                status = e.Message;
+
+                status =!string.IsNullOrEmpty(error)?error:e.Message;
 
             }
             objdryrunDto.Uploads = contupload;
             objdryrunDto.Response = lv; 
             objdryrunDto.State = status;
             objdryrunDto.Sumary = le;
-           return objdryrunDto;
+            objdryrunDto.TotalFile1 = RowFile.Count;
+            objdryrunDto.TotalFile2 = RowFileLab.Count;
+
+            return objdryrunDto;
         }
         public async Task<DhisProgramDto> GetAllProgramAsync(string token )
         {
