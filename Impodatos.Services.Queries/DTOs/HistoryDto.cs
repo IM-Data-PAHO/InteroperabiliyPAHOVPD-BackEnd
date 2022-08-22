@@ -22,6 +22,9 @@ namespace Impodatos.Services.Queries.DTOs
         public int option { get; set; }
         public int totalrows { get; set; }
         public int extensionfile { get; set; }
+        public int deletedEvents { get; set; }
+
+
     }
     public class validateDto
     {

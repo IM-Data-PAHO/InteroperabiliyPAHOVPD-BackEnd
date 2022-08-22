@@ -390,6 +390,7 @@ namespace Impodatos.Services.Queries
 
                 }
                 sumerrorobj.totalrows = RowFile.Count;
+                sumerrorobj.deletedEvents =objdryrunDto.Deleted;
                 le.Add(sumerrorobj);
                 
                 status = "200";
