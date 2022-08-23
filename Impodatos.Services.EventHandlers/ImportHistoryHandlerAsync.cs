@@ -164,7 +164,8 @@ namespace Impodatos.Services.EventHandlers
                         case 5:
                             if (level != "ERROR")
                             {
-                                sendMailObj.SenEmailImport(_importSettings.Services[0].Server, _importSettings.Services[0].Subject, _importSettings.Services[0].Body, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, "El ó los archivo(s): " + nameFile + " " + nameFileLab);
+                                error = !String.IsNullOrEmpty(error) ? "\nAdvertencia: " + error:"";
+                                sendMailObj.SenEmailImport(_importSettings.Services[0].Server, _importSettings.Services[0].Subject, _importSettings.Services[0].Body + error , userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, "El ó los archivo(s): " + nameFile + " " + nameFileLab);
                                 state = 6;
                                 break;
                             }
@@ -753,26 +754,39 @@ namespace Impodatos.Services.EventHandlers
 
                 if (command.CsvFile01 != null)
                 {
-                    readerLab = new StreamReader(command.CsvFile01.OpenReadStream());
-                    headersLab = readerLab.ReadLine().Split(command.separator.ToString());
-                    headersLab = headersLab.Select(s => s.ToUpperInvariant()).ToArray();
-                    string lineLab;
-                    ArrayList listLab;
-                    //List<ArrayList> RowFile = new List<ArrayList>();
-
-                    while ((lineLab = readerLab.ReadLine()) != null)
+                    string fileExtension = Path.GetExtension(commandGeneral.CsvFile01.FileName);
+                    if (fileExtension == ".csv")
                     {
-                        contFiles = contFiles + 1;
-                        var valores = lineLab.Split(command.separator.ToString());
-                        string[] LineFile = valores.Select(s => s.ToUpperInvariant()).ToArray();
-                        listLab = new ArrayList(LineFile);
-                        RowFileLab.Add(listLab);
+                        readerLab = new StreamReader(command.CsvFile01.OpenReadStream());
+                        headersLab = readerLab.ReadLine().Split(command.separator.ToString());
+                        if (headersLab.Length <= 1)
+                        {
+                            error = "El segundo archivo no tiene el formato solicitado, separación por (,) ó (;)";
+                            Console.Write("\nError de ReadCSV" + error.ToString());
+                        }
+                        headersLab = headersLab.Select(s => s.ToUpperInvariant()).ToArray();
+                        string lineLab;
+                        ArrayList listLab;
+                        //List<ArrayList> RowFile = new List<ArrayList>();
+
+                        while ((lineLab = readerLab.ReadLine()) != null)
+                        {
+                            contFiles = contFiles + 1;
+                            var valores = lineLab.Split(command.separator.ToString());
+                            string[] LineFile = valores.Select(s => s.ToUpperInvariant()).ToArray();
+                            listLab = new ArrayList(LineFile);
+                            RowFileLab.Add(listLab);
+                        }
+                        nameFileLab = commandGeneral.CsvFile01.FileName;
+                        fileByteLabOrigin = new BinaryReader(commandGeneral.CsvFile01.OpenReadStream());
+                        int f = (int)commandGeneral.CsvFile01.Length;
+                        dataLabOrigin = fileByteLabOrigin.ReadBytes(f);
+                        readerLab.Close();
                     }
-                    nameFileLab = commandGeneral.CsvFile01.FileName;
-                    fileByteLabOrigin = new BinaryReader(commandGeneral.CsvFile01.OpenReadStream());
-                    int f = (int)commandGeneral.CsvFile01.Length;
-                    dataLabOrigin = fileByteLabOrigin.ReadBytes(f);
-                    readerLab.Close();
+                    else {
+                        error = "El segundo archivo " + Path.GetExtension(commandGeneral.CsvFile01.FileName) +  " " + commandGeneral.CsvFile01.FileName +"  no es compatible con los archivos aceptados (*.csv (separado por , ó ;), *.xls y *.xlsx)";
+                        Console.Write("\nError de ReadCSV" + error.ToString());
+                    }
                 }
 
                 string line;
@@ -783,7 +797,7 @@ namespace Impodatos.Services.EventHandlers
                 headers = reader.ReadLine().Split(command.separator.ToString());
                 headers = headers.Select(s => s.ToUpperInvariant()).ToArray();
                 if (headers.Length <= 1) {
-                    error = "El arhivo no tiene el formato solicitado, separacion por (,) ó (;)";
+                    error = "El primer archivo no tiene el formato solicitado, separación por (,) ó (;)";
                     Console.Write("\nError de ReadCSV" + error.ToString());
                 }
                 while ((line = reader.ReadLine()) != null)
@@ -1078,6 +1092,10 @@ namespace Impodatos.Services.EventHandlers
                 var _set = _importSettings;
                 uploadBlock = _set.Services[0].Block && !_set.Services[0].Individual;
                 nameFile = command.CsvFile.FileName;
+                if (command.CsvFile01 != null)
+                {
+                    nameFileLab = commandGeneral.CsvFile01.FileName;
+                }    
 
                 string fileExtension = Path.GetExtension(commandGeneral.CsvFile.FileName);
                 if (fileExtension == ".csv")
@@ -1092,8 +1110,8 @@ namespace Impodatos.Services.EventHandlers
                 {
                     RowFile = ReadXLS(commandGeneral);
                 }
-                if (fileExtension != ".csv" || fileExtension != ".xlsx" || fileExtension != ".xls") {
-                    error = "El tipo de archivo" + Path.GetExtension(commandGeneral.CsvFile.FileName) +"  no es compatible con los archivos aceptados (*.csv (separado por , ó ;), *.xls y *.xlsx)" ;
+                if (fileExtension == ".csv" && fileExtension == ".xlsx" && fileExtension == ".xls") {
+                    error = "El tipo de archivo " + Path.GetExtension(commandGeneral.CsvFile.FileName) + " " + commandGeneral.CsvFile.FileName + "  no es compatible con los archivos aceptados (*.csv (separado por , ó ;), *.xls y *.xlsx)";
                 }
 
                 //unidades organizativas              
@@ -1170,7 +1188,7 @@ namespace Impodatos.Services.EventHandlers
             }
         }
         public void EmailErrorImport() {
-            sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", ": No se logro Importar  \n *** Importante ***\nPaso 1: Cargue del Archivo \nPaso 2: Limpieza de Registros del Periodo Importado  \nPaso 3: Limpieza de Registros de Personas al Programa\nPaso 4: Importación de los Nuevos Datos\nPaso 5: Guardado del Resumen de la Importación \nPaso 6: Notificación por Email de la Importación \n\nA continuación, el error en detalle: " + error , userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
+            sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", ": No se logro Importar  \n *** Importante ***\nPaso 1: Cargue del Archivo \nPaso 2: Limpieza de Registros del Periodo Importado  \nPaso 3: Limpieza de Registros de Personas al Programa\nPaso 4: Importación de los Nuevos Datos\nPaso 5: Guardado del Resumen de la Importación \nPaso 6: Notificación por Email de la Importación \n\nA continuación, el error en detalle: " + error , userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, "El ó los archivo(s): " + nameFile + " " + nameFileLab);
         }
         public async Task Handle(historyUpdateCommand command, CancellationToken cancellation)
         {
