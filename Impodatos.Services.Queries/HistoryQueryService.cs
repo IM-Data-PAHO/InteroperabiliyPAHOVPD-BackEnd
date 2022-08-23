@@ -66,6 +66,9 @@ namespace Impodatos.Services.Queries
                     List<infodhis> error = new List<infodhis>();
                     history objdto = new history();
                     objdto = result[idresult];
+                    if (objdto.id == 88)
+                    {
+                    }
                     var json = objdto.jsonset;
                     string ResponseError = "";
                     var jsonpars = json.Remove(0, 1);
@@ -73,9 +76,11 @@ namespace Impodatos.Services.Queries
                     jsonpars = jsonpars.Remove(lg, 1);
                     jsonpars = jsonpars.Replace("\\", "");
                     jsonpars = "[" + jsonpars + "]";
-                    jsonpars = jsonpars.Replace("}\",\"{", "},{");
+                    jsonpars = jsonpars.Replace("[\"", "[");
+                    jsonpars = jsonpars.Replace("\"]", "]");
                     try
                     {
+
                         var dhisResponse = JsonConvert.DeserializeObject<List<Root>>(jsonpars);
                         foreach (Root item in dhisResponse)
                             foreach (ImportSummaryDhis itemsum in item.importSummaries) //f8NbfmhXzl3
@@ -109,7 +114,7 @@ namespace Impodatos.Services.Queries
                         //infodhis inf = new infodhis();
                         //inf.info = "Error al serializar respuesta";
                         //error.Add(inf);
-                        ResponseError = "CORRECTO";
+                        ResponseError = "";
                     }
                     result[idresult].jsonset = ResponseError;//JsonConvert.SerializeObject(error); 
 
