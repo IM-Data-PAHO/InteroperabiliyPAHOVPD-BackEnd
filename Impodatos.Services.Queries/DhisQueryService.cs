@@ -98,9 +98,9 @@ namespace Impodatos.Services.Queries
             {
                 RowFile = ReadXLS(request);
             }
-            if (fileExtension != ".csv" && fileExtension != ".xlsx" && fileExtension != ".xls")
-            {
-                error = "El tipo de archivo" + Path.GetExtension(request.CsvFile.FileName) + "  no es compatible con los archivos aceptados (*.csv (separado por , ó ;), *.xls y *.xlsx)";
+            if (fileExtension == ".csv" && fileExtension == ".xlsx" && fileExtension == ".xls")            
+                {
+                error = "El tipo de archivo " + Path.GetExtension(request.CsvFile.FileName) + " " + request.CsvFile.FileName + "  no es compatible con los archivos aceptados (*.csv (separado por , ó ;), *.xls y *.xlsx)";
                 response = error;
 
                 {
@@ -534,26 +534,39 @@ namespace Impodatos.Services.Queries
 
                 if (command.CsvFile01 != null)
                 {
-                    readerLab = new StreamReader(command.CsvFile01.OpenReadStream());
-                    headersLab = readerLab.ReadLine().Split(command.separator.ToString());
-                    headersLab = headersLab.Select(s => s.ToUpperInvariant()).ToArray();
-                    string lineLab;
-                    ArrayList listLab;
-                    //List<ArrayList> RowFile = new List<ArrayList>();
-
-                    while ((lineLab = readerLab.ReadLine()) != null)
+                    string fileExtension = Path.GetExtension(command.CsvFile01.FileName);
+                    if (fileExtension == ".csv")
                     {
-                        contFiles = contFiles + 1;
-                        var valores = lineLab.Split(command.separator.ToString());
-                        string[] LineFile = valores.Select(s => s.ToUpperInvariant()).ToArray();
-                        listLab = new ArrayList(LineFile);
-                        RowFileLab.Add(listLab);
+                        readerLab = new StreamReader(command.CsvFile01.OpenReadStream());
+                        headersLab = readerLab.ReadLine().Split(command.separator.ToString());
+                        if (headersLab.Length <= 1)
+                        {
+                            error = "El segundo archivo no tiene el formato solicitado, separación por (,) ó (;)";
+                            Console.Write("\nError de ReadCSV" + error.ToString());
+                        }
+                        headersLab = headersLab.Select(s => s.ToUpperInvariant()).ToArray();
+                        string lineLab;
+                        ArrayList listLab;
+                        //List<ArrayList> RowFile = new List<ArrayList>();
+
+                        while ((lineLab = readerLab.ReadLine()) != null)
+                        {
+                            contFiles = contFiles + 1;
+                            var valores = lineLab.Split(command.separator.ToString());
+                            string[] LineFile = valores.Select(s => s.ToUpperInvariant()).ToArray();
+                            listLab = new ArrayList(LineFile);
+                            RowFileLab.Add(listLab);
+                        }
+                        nameFileLab = command.CsvFile01.FileName;
+                        fileByteLabOrigin = new BinaryReader(command.CsvFile01.OpenReadStream());
+                        int f = (int)command.CsvFile01.Length;
+                        dataLabOrigin = fileByteLabOrigin.ReadBytes(f);
+                        readerLab.Close();
                     }
-                    nameFileLab = command.CsvFile01.FileName;
-                    fileByteLabOrigin = new BinaryReader(command.CsvFile01.OpenReadStream());
-                    int f = (int)command.CsvFile01.Length;
-                    dataLabOrigin = fileByteLabOrigin.ReadBytes(f);
-                    readerLab.Close();
+                    else
+                    {
+                        error = "El segundo archivo " + Path.GetExtension(command.CsvFile01.FileName) + " " + command.CsvFile01.FileName + "  no es compatible con los archivos aceptados (*.csv (separado por , ó ;), *.xls y *.xlsx)";
+                     }
                 }
 
                 string line;
