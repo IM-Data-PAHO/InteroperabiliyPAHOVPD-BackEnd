@@ -48,11 +48,11 @@ namespace Impodatos.Services.Queries
             var userSetting = await GetUserSetting(token);
             if (userSetting.userCredentials.userRoles[0].name == "Superuser")
             {
-                result = await (from c in _context.history select c).ToListAsync();
+                result = await (from c in _context.history orderby c.fecha descending select c).ToListAsync();
             }
             else
             {
-                result = await (from c in _context.history where c.userlogin.Equals(correo) select c).ToListAsync();
+                result = await (from c in _context.history where c.userlogin.Equals(correo) orderby c.fecha descending select c).ToListAsync();
               }
 
             if (result.Count > 0)

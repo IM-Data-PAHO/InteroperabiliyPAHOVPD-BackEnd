@@ -37,6 +37,7 @@ namespace Impodatos.Services.Queries
         Task<AddEnrollmentsClearDto> SetCleanEnrollment(string oupath, string tracked, string startDate, string endDate, string token);
         Task<ResultTaskDto> GetStateTask(string task, string token);
         Task<string> GetSummaryImport(string category,string uid, string token);
+        Task<TrackedreferenceResponse> GetTrackedreferenceAsync(string token, string reference);
 
 
     }
@@ -843,6 +844,12 @@ namespace Impodatos.Services.Queries
             }
 
             return RowFile;
+        }
+
+        public async Task<TrackedreferenceResponse> GetTrackedreferenceAsync(string token, string reference)
+        {
+            var result = await RequestHttp.CallMethod("dhis", "trackedreference", token, reference);
+            return JsonConvert.DeserializeObject<TrackedreferenceResponse>(result);
         }
 
 

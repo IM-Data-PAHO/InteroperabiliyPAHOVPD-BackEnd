@@ -28,8 +28,8 @@ namespace Impodatos.Services.EventHandlers
 
     {
         private readonly ApplicationDbContext _context;
-        private readonly IDhisQueryService _dhis;
-        public LoginQueryService loginQueyService = new LoginQueryService();
+        private readonly IDhisQueryService _dhis;     
+        public LoginQueryService loginQueyService = new LoginQueryService();       
         public int state = 1;
         public string oupath;
         public string startDate;
@@ -44,6 +44,7 @@ namespace Impodatos.Services.EventHandlers
         public int contFiles = 0;
         public int blockSuccess = 0;
         public List<string> summaryImport = new List<string>();
+        public List<string> summaryImportW = new List<string>();
         public bool endWhile = false;
         public UserSettingDto userSetting;
         public string nameFile;
@@ -70,11 +71,11 @@ namespace Impodatos.Services.EventHandlers
         public OrganisationUnitsDto Organisation = new OrganisationUnitsDto();
         public string level;
         public bool completed= false;
-
+        public DhisProgramDto ExternalImportDataApp;
         public ImportHistoryHandlerAsync(ApplicationDbContext context, IDhisQueryService dhis)
         {
             _context = context;
-            _dhis = dhis;
+            _dhis = dhis;          
         }
 
         private static ImportSettings _importSettings
@@ -143,7 +144,7 @@ namespace Impodatos.Services.EventHandlers
                             TaskResult = await CleanEventsAsync(oupath, program, startDate, endDate, token);
                             break;
                         case 2:
-                            step = 2;
+                            step = 2;                          
                             await CleanEnrollmentsAsync(program, oupath, startDate, endDate, token);
                             break;
                         case 3:
@@ -326,13 +327,17 @@ namespace Impodatos.Services.EventHandlers
                     Console.Write("Ciclos: " + cic.ToString());
                     cic++;
                     int dtRashOn = Array.IndexOf(headers, "DTRASHONSET"); //error
-                    string dtRashOnval = valores[dtRashOn].ToString();
+                    string dtRashOnval = !String.IsNullOrWhiteSpace(valores[dtRashOn].ToString()) ?Convert.ToDateTime(valores[dtRashOn].ToString()).ToString("yyyy-MM-dd"): valores[dtRashOn].ToString();
+                    valores[dtRashOn] = dtRashOnval;
+
                     int dty = 0;
                     try
                     {
                         dty = Convert.ToInt32(Convert.ToDateTime(dtRashOnval).Year);
                     }
-                    catch (Exception e) { Console.WriteLine("{0} Exception caught.", e); }
+                    catch (Exception e) {
+                        error = e.Message;
+                        Console.WriteLine("{0} Exception caught.", e); }
                     if (dty == commandGeneral.startdate || dty == commandGeneral.enddate)
                     {
                         List<TrackedEntityInstances> listtrackedInstDto = new List<TrackedEntityInstances>();
@@ -361,7 +366,7 @@ namespace Impodatos.Services.EventHandlers
 
                         trackedInstDto.trackedEntityType = objprogram.Trackedentitytype;
                         int ideventdate = Array.IndexOf(headers, objprogram.Incidentdatecolumm.ToUpperInvariant());
-                        string eventdate = valores[ideventdate].ToString();
+                        string eventdate = !String.IsNullOrWhiteSpace(valores[ideventdate].ToString()) ?Convert.ToDateTime(valores[ideventdate].ToString()).ToString("yyyy-MM-dd"): valores[ideventdate].ToString();
                         //trackedInstDto.orgUnit = ouFirts.id;
                         int ou = Array.IndexOf(headers, "OU_CODE");
                         var ouLine = Organisation.OrganisationUnits.Find(x => x.code == valores[ou].ToString());                                          
@@ -371,10 +376,10 @@ namespace Impodatos.Services.EventHandlers
                         string enrollmentDatecolumm = "";
                         string incidentDatecolumm = "";
                         var id = Array.IndexOf(headers, objprogram.Enrollmentdatecolumm.ToUpperInvariant());
-                        enrollmentDatecolumm = valores[id].ToString();
+                        enrollmentDatecolumm = !String.IsNullOrWhiteSpace(valores[id].ToString()) ?Convert.ToDateTime(valores[id].ToString()).ToString("yyyy-MM-dd"): valores[id].ToString();
                         //enrollmentDatecolumm = valores[id].Split('/')[2].PadLeft(2, '0') + "-" + valores[id].Split('/')[1] + "-" + valores[id].Split('/')[0].PadLeft(2, '0');
                         var idi = Array.IndexOf(headers, objprogram.Incidentdatecolumm.ToUpperInvariant());
-                        incidentDatecolumm = valores[idi].ToString();
+                        incidentDatecolumm = !String.IsNullOrWhiteSpace(valores[idi].ToString()) ?Convert.ToDateTime(valores[idi].ToString()).ToString("yyyy-MM-dd"): valores[idi].ToString();
                         //incidentDatecolumm = valores[idi].Split('/')[2].PadLeft(2, '0') + "-" + valores[idi].Split('/')[1] + "-" + valores[idi].Split('/')[0].PadLeft(2, '0');
 
                         foreach (Queries.DTOs.Attribute at in objprogram.Attribute)
@@ -387,7 +392,11 @@ namespace Impodatos.Services.EventHandlers
                                     var idval = Array.IndexOf(headers, at.Column.ToUpperInvariant());
                                     attribut.attribute = at.Id;
                                     if (idval >= 0)
-                                    {
+                                    {                                     
+                                       if (at.valueType =="DATE" && !String.IsNullOrWhiteSpace(valores[idval].ToString())) {
+
+                                            valores[idval] = Convert.ToDateTime(valores[idval].ToString()).ToString("yyyy-MM-dd");
+                                        }
                                         if (at.Id.Equals(objprogram.caseNum) && listtrackedInstDto.Count > 0)
                                         {
                                             foreach (TrackedEntityInstances tki in listtrackedInstDto)
@@ -411,7 +420,7 @@ namespace Impodatos.Services.EventHandlers
                                 catch (Exception e) {
                                     error = e.Message;
                                     Console.Write("\nError importación: " + error);
-                                    EmailErrorImport();
+                                   // EmailErrorImport();
                                 }
                             }
                         }
@@ -461,14 +470,21 @@ namespace Impodatos.Services.EventHandlers
                                                     DataValue datavalue = new DataValue();
                                                     int idval = Array.IndexOf(headersLab, dtelab.dataElement.column.ToString().ToUpperInvariant());
                                                     if (idval >= 0)
-                                                    {
+                                                    {                                                       
+                                                        if (dtelab.dataElement.valueType == "DATE" &&   !String.IsNullOrWhiteSpace(dataValueLab[idval].ToString()))
+                                                        {
+                                                            dataValueLab[idval] = Convert.ToDateTime(dataValueLab[idval].ToString()).ToString("yyyy-MM-dd");
+                                                        }
                                                         datavalue.dataElement = dtelab.dataElement.id;
                                                         datavalue.value = dataValueLab[idval].ToString();
                                                         listDataLabValue.Add(datavalue);
                                                     }
 
                                                 }
-                                                catch (Exception e) { }
+                                                catch (Exception e) {
+                                                    error = e.Message;
+                                                    Console.Write("\nError importación: " + error);
+                                                }
                                             }
                                             if (listDataLabValue.Count > 0)
                                             {
@@ -508,7 +524,7 @@ namespace Impodatos.Services.EventHandlers
                                 catch (Exception e) {
                                     error = e.Message;
                                     Console.Write("\nError importación (Laboratorio): " +  error.ToString());
-                                    EmailErrorImport();
+                                   // EmailErrorImport();
                                 }
                             }
                             //end laboratory
@@ -524,6 +540,10 @@ namespace Impodatos.Services.EventHandlers
                                         int idval = Array.IndexOf(headers, dte.dataElement.column.ToUpperInvariant());
                                         if (idval >= 0)
                                         {
+                                           if (dte.dataElement.valueType == "DATE" &&  !String.IsNullOrWhiteSpace(valores[idval].ToString()))
+                                            {
+                                                valores[idval] = Convert.ToDateTime(valores[idval].ToString()).ToString("yyyy-MM-dd");
+                                            }
                                             datavalue.dataElement = dte.dataElement.id;
                                             datavalue.value = valores[idval].ToString();
                                             //if(datavalue.dataElement == "w2GWdKFVkVk")  Validar que el formato de esta fecha sea yyyy-mm-dd
@@ -535,7 +555,7 @@ namespace Impodatos.Services.EventHandlers
                                         contbad = contbad + 1;
                                         error = e.Message;
                                         Console.Write("\nError importación (Eventos): " + error.ToString());
-                                        EmailErrorImport();
+                                      //  EmailErrorImport();
                                     }
 
                                 }
@@ -552,7 +572,7 @@ namespace Impodatos.Services.EventHandlers
                                     catch (Exception e) {      
                                         error = e.Message;
                                         Console.Write("\nError importación (Eventos): " + error.ToString());
-                                        EmailErrorImport();
+                                      //  EmailErrorImport();
                                     }
 
                                     var storedBy = commandGeneral.UserLogin;
@@ -581,7 +601,7 @@ namespace Impodatos.Services.EventHandlers
                             catch (Exception e) {                               
                                 error = e.Message;
                                 Console.Write("\nError importación (Eventos): " + error.ToString());
-                                EmailErrorImport();
+                              //  EmailErrorImport();
                             }
                             //}
                         }
@@ -692,7 +712,7 @@ namespace Impodatos.Services.EventHandlers
                 Console.WriteLine("{0} Exception caught.", e);
                 error = e.Message;
                 Console.Write("\nError importación: " +  error.ToString());
-                EmailErrorImport();
+                //EmailErrorImport();
             }
         }
 
@@ -725,6 +745,7 @@ namespace Impodatos.Services.EventHandlers
                     }
                     Console.Write("\nResultado de Importación : " + summary.ToString());
                     summaryImport.Add(summary);
+                   // summaryImportW.Add(JsonConvert.SerializeObject(summaryImport));                   
                     blockSuccess = blockSuccess + 1;
                     Console.Write("\nFin CheckImportTrackedAsync ");
                     return true;
@@ -1085,7 +1106,7 @@ namespace Impodatos.Services.EventHandlers
                 commandGeneral = command;
                 command.reponse = response;
                 userSetting = await loginQueyService.GetUserSetting(commandGeneral.token);
-                var ExternalImportDataApp = await _dhis.GetAllProgramAsync(commandGeneral.token);
+                ExternalImportDataApp = await _dhis.GetAllProgramAsync(commandGeneral.token);
                 objprogram = ExternalImportDataApp.Programs.Where(a => a.Programid.Equals(commandGeneral.Programsid)).FirstOrDefault();                
                 Organisation = await _dhis.GetAllOrganisation(commandGeneral.token); //crear el objeto de tipo AddEventDto
                 var contentOrg = JsonConvert.SerializeObject(Organisation);
@@ -1190,6 +1211,7 @@ namespace Impodatos.Services.EventHandlers
         public void EmailErrorImport() {
             sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", ": No se logro Importar  \n *** Importante ***\nPaso 1: Cargue del Archivo \nPaso 2: Limpieza de Registros del Periodo Importado  \nPaso 3: Limpieza de Registros de Personas al Programa\nPaso 4: Importación de los Nuevos Datos\nPaso 5: Guardado del Resumen de la Importación \nPaso 6: Notificación por Email de la Importación \n\nA continuación, el error en detalle: " + error , userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, "El ó los archivo(s): " + nameFile + " " + nameFileLab);
         }
+
         public async Task Handle(historyUpdateCommand command, CancellationToken cancellation)
         {
             await Task.Run(async () =>
@@ -1200,6 +1222,65 @@ namespace Impodatos.Services.EventHandlers
 
                 await _context.SaveChangesAsync();
             });
+        }
+
+        
+
+        public async Task<string> ReadErrorSummaryAsync(List<string> result) {
+            string ResponseError = "";
+            if (result.Count > 0)
+            {          
+            
+                int idresult = 0;               
+               for(int i = 0; i< result.Count();i++) { 
+                    var json = result[i];
+                   
+                    var jsonpars = json.Remove(0, 1);
+                    int lg = json.Length - 2;
+                    jsonpars = jsonpars.Remove(lg, 1);
+                    jsonpars = jsonpars.Replace("\\", "");
+                    jsonpars = "[" + jsonpars + "]";
+                    jsonpars = jsonpars.Replace("[\"", "[");
+                    jsonpars = jsonpars.Replace("\"]", "]");
+                    try
+                    {
+
+                        var dhisResponse = JsonConvert.DeserializeObject<List<Root>>(jsonpars);
+                        foreach (Root item in dhisResponse)
+                            foreach (ImportSummaryDhis itemsum in item.importSummaries) //f8NbfmhXzl3
+                                foreach (ImportSummaryDhis itemed in itemsum.enrollments.importSummaries)
+                                    foreach (ImportSummaryDhis itemev in itemed.events.importSummaries)
+                                    {
+                                        if (itemev.conflicts.Count > 0)
+                                        {
+                                            foreach (ConflictDhis conflict in itemev.conflicts)
+                                            {
+                                                foreach (ProgramStage ps in objprogram.programStages)
+                                                    foreach (ProgramStageDataElement dtele in ps.programStageDataElements)
+                                                        if (dtele.dataElement.id == conflict.@object)
+                                                        {
+                                                            var Case_ID = await _dhis.GetTrackedreferenceAsync(token, itemsum.reference);
+                                                            ResponseError = "Case_Id " + Case_ID.attributes[0].value + " : " + dtele.dataElement.name + "," + conflict.value + ";" + ResponseError;
+                                                        }
+                                            }
+
+
+                                        }
+                                    }
+
+
+                    }
+                    catch (Exception e)
+                    {
+                        
+                        ResponseError = "";
+                    }
+                  
+
+                    idresult++;
+                }
+            }            
+            return ResponseError;
         }
     }
 }
