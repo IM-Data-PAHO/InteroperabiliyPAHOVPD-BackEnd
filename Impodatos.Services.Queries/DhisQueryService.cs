@@ -99,10 +99,18 @@ namespace Impodatos.Services.Queries
             {
                 RowFile = ReadXLS(request);
             }
-            if (fileExtension == ".csv" && fileExtension == ".xlsx" && fileExtension == ".xls")            
+
+            if (fileExtension != ".csv")
+            {
+                if (fileExtension != ".xlsx")
                 {
-                error = "El tipo de archivo " + Path.GetExtension(request.CsvFile.FileName) + " " + request.CsvFile.FileName + "  no es compatible con los archivos aceptados (*.csv (separado por , ó ;), *.xls y *.xlsx)";
-                response = error;
+                    if (fileExtension != ".xls")
+                    {
+                        error += "\nEl tipo de archivo " + Path.GetExtension(request.CsvFile.FileName) + " " + request.CsvFile.FileName + "  no es compatible con los archivos aceptados (*.csv (separado por , ó ;), *.xls y *.xlsx)";
+                        response = error;
+                    }
+                    }   
+              
 
                 {
                     var v = new validateDto

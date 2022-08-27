@@ -72,6 +72,8 @@ namespace Impodatos.Services.EventHandlers
         public string level;
         public bool completed= false;
         public DhisProgramDto ExternalImportDataApp;
+        public int nodate = 0;
+        public string summaryNodata = "";
         public ImportHistoryHandlerAsync(ApplicationDbContext context, IDhisQueryService dhis)
         {
             _context = context;
@@ -151,11 +153,8 @@ namespace Impodatos.Services.EventHandlers
                             step = 3;
                             await ImportDataAsync(RowFile);
                             if (endWhile)
-                            {
-                                //if ((contBlock == blockSuccess) || (contBlock + 1 == blockSuccess))
-                                //{
-                                state = 4;
-                                //}
+                            {                              
+                                state = 4;                           
                             }
                             break;
                         case 4:
@@ -163,13 +162,29 @@ namespace Impodatos.Services.EventHandlers
                             break;
 
                         case 5:
-                            if (level != "ERROR")
-                            {
-                                error = !String.IsNullOrEmpty(error) ? "\nAdvertencia: " + error:"";
-                                sendMailObj.SenEmailImport(_importSettings.Services[0].Server, _importSettings.Services[0].Subject, _importSettings.Services[0].Body + error , userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, "El ó los archivo(s): " + nameFile + " " + nameFileLab);
-                                state = 6;
-                                break;
+                            string errorSummary = await ReadErrorSummaryAsync(summaryImportW, token);
+                            error += !String.IsNullOrEmpty(errorSummary) ? error + "\n" + errorSummary:"" ;
+                            string body = _importSettings.Services[0].Body;
+                            string subject = _importSettings.Services[0].Subject;
+                            if (nodate >0) {
+                                subject = "Sin datos para Importación";
+                                body = "No se pudo importar porque no existe Información para el rango de periodos seleccionados, favor revisar";                                
                             }
+
+                            if ((level != "ERROR" || level!= null) && nodate == 0)
+                            {                                
+                                subject = !String.IsNullOrEmpty(error) ? "Importación Finalizada con Errores ": subject;
+                                body = !String.IsNullOrEmpty(error) ? "Ha(n) sido PROCESADO(S), con Errores, por favor consulta la importación en la aplicación" : body;
+                                error = !String.IsNullOrEmpty(error) ? "\n\n*** Errores y/o Advertencias ***: " + "\n" + error : "";                              
+                            }
+                            if (level == "ERROR" && nodate == 0)
+                            {
+                                subject = !String.IsNullOrEmpty(error) ? "Error en la Importación " : subject;
+                                body = !String.IsNullOrEmpty(error) ? "No ha(n) sido PROCESADO(S), revise el o los archivos" : body;
+                                error = !String.IsNullOrEmpty(error) ? "\n*** Errores y/o Advertencias ***: " + error : "";
+                            }
+                            sendMailObj.SenEmailImport(_importSettings.Services[0].Server, subject, body + error, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, "El ó los archivo(s): " + nameFile + " " + nameFileLab);
+                            state = 6;
                             break;                            
                     }
                     if (TaskResult != "")
@@ -182,10 +197,11 @@ namespace Impodatos.Services.EventHandlers
             }
             catch (Exception e)
             {
-                error = e.Message;
-                EmailErrorImport();
+                error += "\n"+e.Message;                
                 commandGeneral.reponse = e.Message;
                 Console.WriteLine("{0} Exception caught.", e);
+                state = 6;
+                EmailErrorImport();
 
             }
         }
@@ -207,7 +223,7 @@ namespace Impodatos.Services.EventHandlers
                     if (level == "ERROR") {
                         error = response.resultTasks[0].message;                       
                         Console.Write("\nError Eliminación de Eventos : " + error.ToString());
-                        EmailErrorImport();
+                        //EmailErrorImport();
                     }
                     switch (step)
                     {
@@ -227,7 +243,7 @@ namespace Impodatos.Services.EventHandlers
             }
             catch (Exception e)
             {
-                error = e.Message;
+                error += "\n" + e.Message;
                 return false;
             }
         }
@@ -255,7 +271,7 @@ namespace Impodatos.Services.EventHandlers
             }
             catch (Exception e)
             {
-                error = e.Message;
+                error += "\n" + e.Message;
                 Console.Write("\nError de Eliminación de Eventos; ", error);
                // EmailErrorImport();
                 return "";
@@ -294,11 +310,11 @@ namespace Impodatos.Services.EventHandlers
             }
             catch (Exception e)
             {
-                error = e.Message;
+                error += "\n"+e.Message;
                 Console.Write("\nError Eliminación de Enrollments: ", error);
-                EmailErrorImport();
+                //EmailErrorImport();
             }
-        }
+        }        
 
         public async Task ImportDataAsync(List<ArrayList> RowFile)
         {
@@ -319,6 +335,11 @@ namespace Impodatos.Services.EventHandlers
                 AddEventsDto eventDto = new AddEventsDto();
                 Console.Write("\nInicio importación de data, cantidad de registros: ", RowFile.Count);
                 int cic = 0;
+                string dtRashOnval = "";
+                string caseidvalue = "";
+                string eventdate = "";
+                
+
                 while (cic < RowFile.Count)
                 {
                     contFiles = contFiles + 1;
@@ -327,9 +348,10 @@ namespace Impodatos.Services.EventHandlers
                     Console.Write("Ciclos: " + cic.ToString());
                     cic++;
                     int dtRashOn = Array.IndexOf(headers, "DTRASHONSET"); //error
-                    string dtRashOnval = !String.IsNullOrWhiteSpace(valores[dtRashOn].ToString()) ?Convert.ToDateTime(valores[dtRashOn].ToString()).ToString("yyyy-MM-dd"): valores[dtRashOn].ToString();
-                    valores[dtRashOn] = dtRashOnval;
-
+                    if (dtRashOn>=0) { 
+                        dtRashOnval = !String.IsNullOrWhiteSpace(valores[dtRashOn].ToString()) ? Convert.ToDateTime(valores[dtRashOn].ToString()).ToString("yyyy-MM-dd") : valores[dtRashOn].ToString();
+                        valores[dtRashOn] = dtRashOnval;
+                    }
                     int dty = 0;
                     try
                     {
@@ -355,7 +377,14 @@ namespace Impodatos.Services.EventHandlers
                         TrackedEntityInstances trackedInstDto = new TrackedEntityInstances();
 
                         int caseid = Array.IndexOf(headers, "CASE_ID");
-                        string caseidvalue = valores[caseid].ToString();
+                        if (caseid >= 0)
+                        {
+                            caseidvalue = valores[caseid].ToString();
+                        }
+                        else
+                        {
+                            error += "\nNo existe información para CASE_ID";
+                        }
                         Console.Write("\nCASE ID: " + caseidvalue.ToString());
                         //Validamos si el tracked ya existe:  verificar por que se estan creando repetidos
                         var validatetraked = await _dhis.GetTracket(caseidvalue, ouFirts.id, commandGeneral.token);
@@ -365,23 +394,49 @@ namespace Impodatos.Services.EventHandlers
                             trackedInstDto.trackedEntityInstance = TrackeduidGeneratedDto.Codes[0].ToString();
 
                         trackedInstDto.trackedEntityType = objprogram.Trackedentitytype;
-                        int ideventdate = Array.IndexOf(headers, objprogram.Incidentdatecolumm.ToUpperInvariant());
-                        string eventdate = !String.IsNullOrWhiteSpace(valores[ideventdate].ToString()) ?Convert.ToDateTime(valores[ideventdate].ToString()).ToString("yyyy-MM-dd"): valores[ideventdate].ToString();
+                        int ideventdate = Array.IndexOf(headers, objprogram.Incidentdatecolumm.ToUpperInvariant());                      
+                        if (ideventdate >= 0)
+                        {
+                            eventdate = !String.IsNullOrWhiteSpace(valores[ideventdate].ToString()) ? Convert.ToDateTime(valores[ideventdate].ToString()).ToString("yyyy-MM-dd") : valores[ideventdate].ToString();
+                        }
+                        else
+                        {
+                            error += "\nNo existe información para " + objprogram.Incidentdatecolumm.ToUpperInvariant();
+                        }
                         //trackedInstDto.orgUnit = ouFirts.id;
                         int ou = Array.IndexOf(headers, "OU_CODE");
-                        var ouLine = Organisation.OrganisationUnits.Find(x => x.code == valores[ou].ToString());                                          
-                        trackedInstDto.orgUnit = ouLine.id;
-                        Console.Write("\nOU_CODE: " + ouLine.code.ToString());
+                        if (ou >= 0)
+                        {
+                            var ouLine = Organisation.OrganisationUnits.Find(x => x.code == valores[ou].ToString());
+                            trackedInstDto.orgUnit = ouLine.id;
+                            Console.Write("\nOU_CODE: " + ouLine.code.ToString());
+                        }
+                        else
+                        {
+                            error += "\nNo existe información para OU_CODE" ;
+                        }
+                        
                         List<Attribut> listAttribut = new List<Attribut>();
                         string enrollmentDatecolumm = "";
                         string incidentDatecolumm = "";
                         var id = Array.IndexOf(headers, objprogram.Enrollmentdatecolumm.ToUpperInvariant());
-                        enrollmentDatecolumm = !String.IsNullOrWhiteSpace(valores[id].ToString()) ?Convert.ToDateTime(valores[id].ToString()).ToString("yyyy-MM-dd"): valores[id].ToString();
-                        //enrollmentDatecolumm = valores[id].Split('/')[2].PadLeft(2, '0') + "-" + valores[id].Split('/')[1] + "-" + valores[id].Split('/')[0].PadLeft(2, '0');
+                        if (id >= 0)
+                        {
+                            enrollmentDatecolumm = !String.IsNullOrWhiteSpace(valores[id].ToString()) ? Convert.ToDateTime(valores[id].ToString()).ToString("yyyy-MM-dd") : valores[id].ToString();
+                        }
+                        else
+                        {
+                            error += "\nNo existe información para " + objprogram.Enrollmentdatecolumm.ToUpperInvariant();
+                        }
                         var idi = Array.IndexOf(headers, objprogram.Incidentdatecolumm.ToUpperInvariant());
-                        incidentDatecolumm = !String.IsNullOrWhiteSpace(valores[idi].ToString()) ?Convert.ToDateTime(valores[idi].ToString()).ToString("yyyy-MM-dd"): valores[idi].ToString();
-                        //incidentDatecolumm = valores[idi].Split('/')[2].PadLeft(2, '0') + "-" + valores[idi].Split('/')[1] + "-" + valores[idi].Split('/')[0].PadLeft(2, '0');
-
+                        if (idi >= 0)
+                        {
+                            incidentDatecolumm = !String.IsNullOrWhiteSpace(valores[idi].ToString()) ? Convert.ToDateTime(valores[idi].ToString()).ToString("yyyy-MM-dd") : valores[idi].ToString();
+                        }
+                        else
+                        {
+                            error += "\nNo existe información para " + objprogram.Incidentdatecolumm.ToUpperInvariant();
+                        }
                         foreach (Queries.DTOs.Attribute at in objprogram.Attribute)
                         {
                             if (at.Column != null)
@@ -418,7 +473,7 @@ namespace Impodatos.Services.EventHandlers
                                     }
                                 }
                                 catch (Exception e) {
-                                    error = e.Message;
+                                    error += "\n"+e.Message;
                                     Console.Write("\nError importación: " + error);
                                    // EmailErrorImport();
                                 }
@@ -482,7 +537,7 @@ namespace Impodatos.Services.EventHandlers
 
                                                 }
                                                 catch (Exception e) {
-                                                    error = e.Message;
+                                                    error += "\n" + e.Message;
                                                     Console.Write("\nError importación: " + error);
                                                 }
                                             }
@@ -522,7 +577,7 @@ namespace Impodatos.Services.EventHandlers
                                 }
 
                                 catch (Exception e) {
-                                    error = e.Message;
+                                    error += "\n" + e.Message;
                                     Console.Write("\nError importación (Laboratorio): " +  error.ToString());
                                    // EmailErrorImport();
                                 }
@@ -553,7 +608,7 @@ namespace Impodatos.Services.EventHandlers
                                     }
                                     catch (Exception e) {
                                         contbad = contbad + 1;
-                                        error = e.Message;
+                                        error += "\n" + e.Message;
                                         Console.Write("\nError importación (Eventos): " + error.ToString());
                                       //  EmailErrorImport();
                                     }
@@ -569,8 +624,8 @@ namespace Impodatos.Services.EventHandlers
                                         else
                                             tkins = trackedEntityInstance;
                                     }
-                                    catch (Exception e) {      
-                                        error = e.Message;
+                                    catch (Exception e) {
+                                        error += "\n" + e.Message;
                                         Console.Write("\nError importación (Eventos): " + error.ToString());
                                       //  EmailErrorImport();
                                     }
@@ -598,8 +653,8 @@ namespace Impodatos.Services.EventHandlers
                                 }
                                
                             }
-                            catch (Exception e) {                               
-                                error = e.Message;
+                            catch (Exception e) {
+                                error += "\n" + e.Message;
                                 Console.Write("\nError importación (Eventos): " + error.ToString());
                               //  EmailErrorImport();
                             }
@@ -630,10 +685,10 @@ namespace Impodatos.Services.EventHandlers
                                 var res = await CheckImportTrackedAsync(resultDto.Response.relativeNotifierEndpoint, commandGeneral.token);
                                 Console.Write("\nFin de Importacion en Bloque");
                             }
-                            catch (Exception e) {                       
-                                error = e.Message;
+                            catch (Exception e) {
+                                error += "\n" + e.Message;
                                 Console.Write("\nError importación (Guardado de Tracked): " +  error.ToString());
-                                EmailErrorImport();
+                              //  EmailErrorImport();
                             }
 
                             if (!uploadBlock)
@@ -646,9 +701,9 @@ namespace Impodatos.Services.EventHandlers
                                         enrollResultDto = await _dhis.AddEnrollment(enrollments, commandGeneral.token);
                                     }
                                     catch (Exception e) {
-                                        error = e.Message;
+                                        error += "\n" + e.Message;
                                         Console.Write("\nError importación (Guardado de Enrollments): " + error.ToString());
-                                        EmailErrorImport();
+                                      //  EmailErrorImport();
                                     }
 
                                 }
@@ -660,9 +715,9 @@ namespace Impodatos.Services.EventHandlers
 
                                     }
                                     catch (Exception e) {
-                                        error = e.Message;
+                                        error += "\n" + e.Message;
                                         Console.Write("\nError importación (Guardado de Eventos): " + error.ToString());
-                                        EmailErrorImport();
+                                       // EmailErrorImport();
                                     }
                                 }
                             }
@@ -672,11 +727,13 @@ namespace Impodatos.Services.EventHandlers
 
                     else
                     {
-                        sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Sin datos para Importación", " No se pudo importar porque no existe Información para el rango de periodos seleccionados, favor revisar ", userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
+                        nodate += 1;
+                        summaryNodata = String.IsNullOrEmpty(summaryNodata) ? "Sin data para importar" : "";
+                        if (!String.IsNullOrEmpty(summaryNodata)) {
+                            summaryImport.Add(summaryNodata);
+                        }
+                        
                     }
-
-
-
 
                 }//cierre de while
                 endWhile = true;
@@ -695,23 +752,29 @@ namespace Impodatos.Services.EventHandlers
                         }
                         catch (Exception e)
                         {
-                            error = e.Message;
+                            error += "\n" + e.Message;
                             Console.Write("\nError importación: " +  error.ToString());
-                            EmailErrorImport();
+                          //  EmailErrorImport();
                         }
                     }
                 }
 
                 else
                 {
-                    sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Sin datos para Importación", " No se pudo importar porque no existe Información para el rango de periodos seleccionados, favor revisar ", userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, nameFile);
+                    nodate += 1;
+                    summaryNodata = String.IsNullOrEmpty(summaryNodata) ? "Sin data para importar" : "";
+                    if (!String.IsNullOrEmpty(summaryNodata))
+                    {
+                        summaryImport.Add(summaryNodata);
+                    }                                       
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine("{0} Exception caught.", e);
-                error = e.Message;
+                error += "\n" + e.Message;
                 Console.Write("\nError importación: " +  error.ToString());
+                state = 5;
                 //EmailErrorImport();
             }
         }
@@ -735,17 +798,18 @@ namespace Impodatos.Services.EventHandlers
                     var summary = await _dhis.GetSummaryImport(response.resultTasks[0].category, response.resultTasks[0].uid, token);                  
                     if (level == "ERROR")
                     {
-                        error = response.resultTasks[0].message;
+                      string errorSummary = response.resultTasks[0].message;
                         if (summary=="null")
                         {
-                            summary = error;
-                        }
+                            summary = errorSummary;
+                            error += "\n" + errorSummary;
+                        }                       
                         Console.Write("\nError resultado de Importación : " + summary.ToString());
-                        EmailErrorImport();
+                       // EmailErrorImport();
                     }
                     Console.Write("\nResultado de Importación : " + summary.ToString());
                     summaryImport.Add(summary);
-                   // summaryImportW.Add(JsonConvert.SerializeObject(summaryImport));                   
+                    summaryImportW.Add(JsonConvert.SerializeObject(summaryImport));                   
                     blockSuccess = blockSuccess + 1;
                     Console.Write("\nFin CheckImportTrackedAsync ");
                     return true;
@@ -754,7 +818,7 @@ namespace Impodatos.Services.EventHandlers
             }
             catch (Exception e)
             {
-                error = e.Message;
+                error += "\n" + e.Message;
                 Console.Write("\nError de resultado de Importación : " +  error.ToString());
                 return false;
             }
@@ -782,7 +846,7 @@ namespace Impodatos.Services.EventHandlers
                         headersLab = readerLab.ReadLine().Split(command.separator.ToString());
                         if (headersLab.Length <= 1)
                         {
-                            error = "El segundo archivo no tiene el formato solicitado, separación por (,) ó (;)";
+                            error += "\nEl segundo archivo no tiene el formato solicitado, separación por (,) ó (;)";
                             Console.Write("\nError de ReadCSV" + error.ToString());
                         }
                         headersLab = headersLab.Select(s => s.ToUpperInvariant()).ToArray();
@@ -805,7 +869,7 @@ namespace Impodatos.Services.EventHandlers
                         readerLab.Close();
                     }
                     else {
-                        error = "El segundo archivo " + Path.GetExtension(commandGeneral.CsvFile01.FileName) +  " " + commandGeneral.CsvFile01.FileName +"  no es compatible con los archivos aceptados (*.csv (separado por , ó ;), *.xls y *.xlsx)";
+                        error += "\nEl segundo archivo " + Path.GetExtension(commandGeneral.CsvFile01.FileName) +  " " + commandGeneral.CsvFile01.FileName +"  no es compatible con los archivos aceptados (*.csv (separado por , ó ;), *.xls y *.xlsx)";
                         Console.Write("\nError de ReadCSV" + error.ToString());
                     }
                 }
@@ -818,7 +882,7 @@ namespace Impodatos.Services.EventHandlers
                 headers = reader.ReadLine().Split(command.separator.ToString());
                 headers = headers.Select(s => s.ToUpperInvariant()).ToArray();
                 if (headers.Length <= 1) {
-                    error = "El primer archivo no tiene el formato solicitado, separación por (,) ó (;)";
+                    error += "\nEl primer archivo no tiene el formato solicitado, separación por (,) ó (;)";
                     Console.Write("\nError de ReadCSV" + error.ToString());
                 }
                 while ((line = reader.ReadLine()) != null)
@@ -843,7 +907,7 @@ namespace Impodatos.Services.EventHandlers
             catch (Exception e)
             {
                 Console.WriteLine("{0} Exception caught.", e);
-                error = e.Message;
+                error += "\n"+ e.Message;
                 Console.Write("\nError de ReadCSV : " +  error.ToString());
                // EmailErrorImport();
             }
@@ -966,7 +1030,7 @@ namespace Impodatos.Services.EventHandlers
             catch (Exception e)
             {
                 Console.WriteLine("{0} Exception caught.", e);
-                error = e.Message;
+                error += "\n" +e.Message;
                 Console.Write("\nError de ReadXLSX : " + error.ToString());
               //  EmailErrorImport();
             }
@@ -1091,7 +1155,7 @@ namespace Impodatos.Services.EventHandlers
             }
             catch (Exception e)
             {
-                error = e.Message;
+                error += "\n" + e.Message;
                 Console.Write("\nError de ReadXLS: " + error.ToString());
              //   EmailErrorImport();
             }
@@ -1107,7 +1171,7 @@ namespace Impodatos.Services.EventHandlers
                 command.reponse = response;
                 userSetting = await loginQueyService.GetUserSetting(commandGeneral.token);
                 ExternalImportDataApp = await _dhis.GetAllProgramAsync(commandGeneral.token);
-                objprogram = ExternalImportDataApp.Programs.Where(a => a.Programid.Equals(commandGeneral.Programsid)).FirstOrDefault();                
+                objprogram = ExternalImportDataApp.Programs.Where(a => a.Programid.Equals(commandGeneral.Programsid)).FirstOrDefault();
                 Organisation = await _dhis.GetAllOrganisation(commandGeneral.token); //crear el objeto de tipo AddEventDto
                 var contentOrg = JsonConvert.SerializeObject(Organisation);
                 var _set = _importSettings;
@@ -1116,7 +1180,7 @@ namespace Impodatos.Services.EventHandlers
                 if (command.CsvFile01 != null)
                 {
                     nameFileLab = commandGeneral.CsvFile01.FileName;
-                }    
+                }
 
                 string fileExtension = Path.GetExtension(commandGeneral.CsvFile.FileName);
                 if (fileExtension == ".csv")
@@ -1131,17 +1195,24 @@ namespace Impodatos.Services.EventHandlers
                 {
                     RowFile = ReadXLS(commandGeneral);
                 }
-                if (fileExtension == ".csv" && fileExtension == ".xlsx" && fileExtension == ".xls") {
-                    error = "El tipo de archivo " + Path.GetExtension(commandGeneral.CsvFile.FileName) + " " + commandGeneral.CsvFile.FileName + "  no es compatible con los archivos aceptados (*.csv (separado por , ó ;), *.xls y *.xlsx)";
-                }
+                if (fileExtension != ".csv")
+                {
+                    if (fileExtension != ".xlsx")
+                    {
+                        if (fileExtension != ".xls") {
+                            error += "\nEl tipo de archivo " + Path.GetExtension(commandGeneral.CsvFile.FileName) + " " + commandGeneral.CsvFile.FileName + "  no es compatible con los archivos aceptados (*.csv (separado por , ó ;), *.xls y *.xlsx)";
+
+                        }
+                    }
+                }            
 
                 //unidades organizativas              
                 OrganisationUnit ounitsFirst = new OrganisationUnit();
                 int colounitsFirst = Array.IndexOf(headers, objprogram.Orgunitcolumm.ToUpperInvariant());
                 if (colounitsFirst == -1)
                 {
-                    if(String.IsNullOrEmpty(error))
-                        error = "El archivo no tiene la estructura correcta, posiblemente no tiene la Unidad Organizativa";
+                    //if(String.IsNullOrEmpty(error))
+                        error+= "\nEl archivo no tiene la estructura correcta, posiblemente no tiene la Unidad Organizativa";
                 }
                 var Firtsline = RowFile[0];
                 ounitvalueFirst = Firtsline[colounitsFirst].ToString();
@@ -1155,14 +1226,12 @@ namespace Impodatos.Services.EventHandlers
             }
             catch (Exception e)
             {
-                Console.WriteLine("{0} Exception caught.", e);
-                if (String.IsNullOrEmpty(error))
-                {
-                    error = e.Message;
-                }
+                error += "\n"+ e.Message;               
                 Console.Write("\nError Handle : " +  error.ToString());
-                command.reponse = error;
+                command.reponse = error;                
                 EmailErrorImport();
+                state = 6;
+
             }
         }
 
@@ -1203,13 +1272,14 @@ namespace Impodatos.Services.EventHandlers
             }
             catch (Exception e)
             {
-                error = e.Message;
+                error += "\n"+ e.Message;
                 Console.Write("\nError Guardado Summry DB : " +  error.ToString());
-                EmailErrorImport();
+               // EmailErrorImport();
             }
         }
         public void EmailErrorImport() {
-            sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", ": No se logro Importar  \n *** Importante ***\nPaso 1: Cargue del Archivo \nPaso 2: Limpieza de Registros del Periodo Importado  \nPaso 3: Limpieza de Registros de Personas al Programa\nPaso 4: Importación de los Nuevos Datos\nPaso 5: Guardado del Resumen de la Importación \nPaso 6: Notificación por Email de la Importación \n\nA continuación, el error en detalle: " + error , userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, "El ó los archivo(s): " + nameFile + " " + nameFileLab);
+            string body =  "No ha(n) sido PROCESADO(S), revise el o los arhivos " ;
+            sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", body + "\n\n"+ error , userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, "El ó los archivo(s): " + nameFile + " " + nameFileLab);
         }
 
         public async Task Handle(historyUpdateCommand command, CancellationToken cancellation)
@@ -1226,12 +1296,11 @@ namespace Impodatos.Services.EventHandlers
 
         
 
-        public async Task<string> ReadErrorSummaryAsync(List<string> result) {
+        public async Task<string> ReadErrorSummaryAsync(List<string> result, string token) {
             string ResponseError = "";
             if (result.Count > 0)
-            {          
-            
-                int idresult = 0;               
+            {           
+               int idresult = 0;               
                for(int i = 0; i< result.Count();i++) { 
                     var json = result[i];
                    
