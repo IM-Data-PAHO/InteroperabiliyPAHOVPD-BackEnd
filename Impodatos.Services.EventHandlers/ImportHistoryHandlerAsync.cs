@@ -74,6 +74,7 @@ namespace Impodatos.Services.EventHandlers
         public DhisProgramDto ExternalImportDataApp;
         public int nodate = 0;
         public string summaryNodata = "";
+        public List<SequentialDto> SequentialDto;
         public ImportHistoryHandlerAsync(ApplicationDbContext context, IDhisQueryService dhis)
         {
             _context = context;
@@ -338,8 +339,9 @@ namespace Impodatos.Services.EventHandlers
                 string dtRashOnval = "";
                 string caseidvalue = "";
                 string eventdate = "";
-                
 
+                int total = RowFile.Count();
+                SequentialDto = await _dhis.GetSequential(total.ToString(), commandGeneral.token);
                 while (cic < RowFile.Count)
                 {
                     contFiles = contFiles + 1;
@@ -386,14 +388,40 @@ namespace Impodatos.Services.EventHandlers
                             error += "\nNo existe información para CASE_ID";
                         }
                         Console.Write("\nCASE ID: " + caseidvalue.ToString());
-                        //Validamos si el tracked ya existe:  verificar por que se estan creando repetidos
-                        var validatetraked = await _dhis.GetTracket(caseidvalue, ouFirts.id, commandGeneral.token);
-                        if (validatetraked.trackedEntityInstances.Count > 0)
-                            trackedInstDto.trackedEntityInstance = validatetraked.trackedEntityInstances[0].trackedEntityInstance;
-                        else
-                            trackedInstDto.trackedEntityInstance = TrackeduidGeneratedDto.Codes[0].ToString();
+                        int ou = Array.IndexOf(headers, "OU_CODE");
+                        if (ou >= 0)
+                        {
+                            var ouLine = Organisation.OrganisationUnits.Find(x => x.code == valores[ou].ToString());
+                            if (ouLine != null) { 
+                            trackedInstDto.orgUnit = ouLine.id;
 
-                        trackedInstDto.trackedEntityType = objprogram.Trackedentitytype;
+                            var validatetraked = await _dhis.GetTracket(caseidvalue, ouLine.id, commandGeneral.token);
+                            if (validatetraked.trackedEntityInstances.Count > 0)
+                                trackedInstDto.trackedEntityInstance = validatetraked.trackedEntityInstances[0].trackedEntityInstance;
+                            else
+                                trackedInstDto.trackedEntityInstance = TrackeduidGeneratedDto.Codes[0].ToString();
+
+                            trackedInstDto.trackedEntityType = objprogram.Trackedentitytype;
+
+                            Console.Write("\nOU_CODE: " + ouLine.code.ToString());
+                            }
+                            else
+                            {
+                                error += "\nNo existe información para OU_CODE";
+                            }
+                        }
+                        else
+                        {
+                            error += "\nNo existe información para OU_CODE";
+                        }
+                        //Validamos si el tracked ya existe:  verificar por que se estan creando repetidos
+                        //var validatetraked = await _dhis.GetTracket(caseidvalue, ouFirts.id, commandGeneral.token);
+                        //if (validatetraked.trackedEntityInstances.Count > 0)
+                        //    trackedInstDto.trackedEntityInstance = validatetraked.trackedEntityInstances[0].trackedEntityInstance;
+                        //else
+                        //    trackedInstDto.trackedEntityInstance = TrackeduidGeneratedDto.Codes[0].ToString();
+
+                        //trackedInstDto.trackedEntityType = objprogram.Trackedentitytype;
                         int ideventdate = Array.IndexOf(headers, objprogram.Incidentdatecolumm.ToUpperInvariant());                      
                         if (ideventdate >= 0)
                         {
@@ -404,17 +432,17 @@ namespace Impodatos.Services.EventHandlers
                             error += "\nNo existe información para " + objprogram.Incidentdatecolumm.ToUpperInvariant();
                         }
                         //trackedInstDto.orgUnit = ouFirts.id;
-                        int ou = Array.IndexOf(headers, "OU_CODE");
-                        if (ou >= 0)
-                        {
-                            var ouLine = Organisation.OrganisationUnits.Find(x => x.code == valores[ou].ToString());
-                            trackedInstDto.orgUnit = ouLine.id;
-                            Console.Write("\nOU_CODE: " + ouLine.code.ToString());
-                        }
-                        else
-                        {
-                            error += "\nNo existe información para OU_CODE" ;
-                        }
+                        //int ou = Array.IndexOf(headers, "OU_CODE");
+                        //if (ou >= 0)
+                        //{
+                        //    var ouLine = Organisation.OrganisationUnits.Find(x => x.code == valores[ou].ToString());
+                        //    trackedInstDto.orgUnit = ouLine.id;
+                        //    Console.Write("\nOU_CODE: " + ouLine.code.ToString());
+                        //}
+                        //else
+                        //{
+                        //    error += "\nNo existe información para OU_CODE" ;
+                        //}
                         
                         List<Attribut> listAttribut = new List<Attribut>();
                         string enrollmentDatecolumm = "";
@@ -479,13 +507,18 @@ namespace Impodatos.Services.EventHandlers
                                 }
                             }
                         }
-                        var SequentialDto = await _dhis.GetSequential("1", commandGeneral.token);
+                        //int total = RowFile.Count();
+                        //SequentialDto = await _dhis.GetSequential(total.ToString(), commandGeneral.token);
+                        Attribut attributSq = new Attribut();
+                        attributSq.attribute = "mxKJ869xJOd";
+                        attributSq.value = SequentialDto[cic - 1].value;
+                        listAttribut.Add(attributSq);
                         trackedInstDto.attributes = listAttribut;
                         listtrackedInstDto.Add(trackedInstDto);
                         listtrackedInstDtoFull.Add(trackedInstDto);
                         trackedDto.trackedEntityInstances = listtrackedInstDto;
                         trackedDtos.trackedEntityInstances = listtrackedInstDtoFull;                        
-                        Console.Write("\nCreando Tracked: " + trackedInstDto.attributes[11].value.ToString());
+                        Console.Write("\nCreando Tracked: ");
                         Enrollment enrollmentDto = new Enrollment();
                         Enrollment enrollmentFullDto = new Enrollment();
                         enrollmentDto.trackedEntityInstance = trackedInstDto.trackedEntityInstance;
