@@ -1,0 +1,1408 @@
+case_ID;SampleType;SampleTypeName;TestType;TestTypeName;SampleID;dtSample;LabCode;dtSent;dtReceived;IDinLab;result;Result;dtResult
+562949953427126/19-069;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/05/2019;MAL;;29/05/2019;21;77;Poliovirus;
+562949953427132/19-053;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/04/2019;MAL;;11/04/2019;21;4;Non Polio Enterovirus;
+562949953427133/19-054;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/04/2019;MAL;;24/04/2019;21;0;Negative;
+562949953427135/19-079;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/06/2019;MAL;;18/06/2019;21;0;Negative;
+562949953427137/19-057;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/05/2019;MAL;;6/06/2019;21;0;Negative;
+562949953427139/19-074;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/06/2019;MAL;;6/06/2019;21;0;Negative;
+562949953427140/19-075;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/06/2019;MAL;;12/06/2019;21;0;Negative;
+562949953427142/19-078;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/06/2019;MAL;;17/06/2019;21;0;Negative;
+562949953427146/19-063;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/05/2019;MAL;;30/05/2019;21;4;Non Polio Enterovirus;
+562949953427147/19-071;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/05/2019;MAL;;4/06/2019;21;0;Negative;
+562949953427148/19-072;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/05/2019;MAL;;4/06/2019;21;0;Negative;
+562949953427151/19-080;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/05/2019;MAL;;6/06/2019;21;0;Negative;
+562949953427152/19-081;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/06/2019;MAL;;18/06/2019;21;0;Negative;
+562949953427158/19-070;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/06/2019;MAL;;30/06/2019;21;0;Negative;
+562949953427159/19-073;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/06/2019;MAL;;14/06/2019;21;0;Negative;
+562949953427166/19-096;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/06/2019;MAL;;1/07/2019;21;0;Negative;
+562949953427167/19-100;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/06/2019;MAL;;1/07/2019;21;0;Negative;
+562949953427168/19-101;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/07/2019;MAL;;3/07/2019;21;0;Negative;
+562949953427182/19-102;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/06/2019;MAL;;1/07/2019;21;0;Negative;
+562949953427183/19-103;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/06/2019;MAL;;3/07/2019;21;0;Negative;
+562949953427184/19-104;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/07/2019;MAL;;10/07/2019;21;4;Non Polio Enterovirus;
+562949953427185/19-105;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/07/2019;MAL;;11/07/2019;21;0;Negative;
+562949953427245/19-093;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/06/2019;MAL;;25/06/2019;21;0;Negative;
+562949953427247/19-097;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/06/2019;MAL;;17/06/2019;21;0;Negative;
+562949953427248/19-098;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/06/2019;MAL;;19/06/2019;21;0;Negative;
+562949953427250/19-110;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/07/2019;MAL;;10/07/2019;21;0;Negative;
+562949953427251/19-111;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/07/2019;MAL;;11/07/2019;21;0;Negative;
+562949953427252/19-112;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/06/2019;MAL;;30/06/2019;21;0;Negative;
+562949953427254/19-120;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/07/2018;MAL;;1/08/2019;21;0;Negative;
+562949953427820/19-133;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/07/2019;MAL;;17/07/2019;21;4;Non Polio Enterovirus;
+562949953427822/19-135;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/08/2019;MAL;;22/08/2019;21;0;Negative;
+562949953427823/19-136;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/09/2019;MAL;;5/09/2019;21;0;Negative;
+562949953427824/19-137;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;31/08/2019;MAL;;3/09/2019;21;0;Negative;
+562949953428122/19-106;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/07/2019;MAL;;17/07/2019;21;0;Negative;
+562949953428123/19-113;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/06/2019;MAL;;17/07/2019;21;0;Negative;
+562949953428203/19-115;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/06/2019;MAL;;22/07/2019;21;0;Negative;
+562949953428205/19-118;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/07/2019;MAL;;21/07/2019;21;0;Negative;
+562949953428207/19-125;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/07/2019;MAL;;29/07/2019;21;0;Negative;
+562949953428208/19-127;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/07/2019;MAL;;31/07/2019;21;0;Negative;
+562949953428210/19-138;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/07/2019;MAL;;1/08/2019;21;0;Negative;
+562949953428211/19-139;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/07/2019;MAL;;29/07/2019;21;0;Negative;
+562949953428212/19-142;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/07/2019;MAL;;8/08/2019;21;0;Negative;
+562949953428220/19-141;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/07/2019;MAL;;1/08/2019;21;0;Negative;
+562949953428221/19-143;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/08/2019;MAL;;7/08/2019;21;4;Non Polio Enterovirus;
+562949953428222/19-144;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/08/2019;MAL;;12/08/2019;21;0;Negative;
+562949953428223/19-160;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/09/2019;MAL;;24/09/2019;21;0;Negative;
+562949953428294/19-146;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/08/2019;MAL;;7/08/2019;21;0;Negative;
+562949953428295/19-149;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/09/2019;MAL;;12/09/2019;21;0;Negative;
+562949953428393/19-154;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/09/2019;MAL;;25/09/2019;21;0;Negative;
+562949953428394/19-155;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/09/2019;MAL;;25/09/2019;21;0;Negative;
+562949953428395/19-156;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/09/2019;MAL;;25/09/2019;21;0;Negative;
+562949953428396/19-158;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/09/2019;MAL;;25/09/2019;21;0;Negative;
+562949953428397/19-159;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/09/2019;MAL;;19/09/2019;21;4;Non Polio Enterovirus;
+562949953428574/19-162;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/09/2019;MAL;;6/10/2019;21;0;Negative;
+562949953428575/19-165;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/10/2019;MAL;;14/10/2019;21;0;Negative;
+562949953428576/19-167;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/10/2019;MAL;;21/10/2019;21;0;Negative;
+562949953428578/19-168;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/10/2019;MAL;;20/10/2019;21;0;Negative;
+562949953428579/19-170;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/10/2019;MAL;;15/10/2019;21;4;Non Polio Enterovirus;
+562949953428580/19-171;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/10/2019;MAL;;;21;0;Negative;
+562949953428581/19-172;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/10/2019;MAL;6/10/2019;6/10/2019;21;4;Non Polio Enterovirus;6/10/2019
+562949953428583/19-176;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/11/2019;MAL;;20/11/2019;21;4;Non Polio Enterovirus;
+562949953428585/19-177;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/10/2019;MAL;;15/10/2019;21;0;Negative;
+562949953428586/19-179;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/11/2019;MAL;;6/11/2019;21;0;Negative;
+562949953428587/19-182;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/11/2019;MAL;;24/11/2019;21;0;Negative;
+562949953428588/19-183;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/11/2019;MAL;;11/11/2019;21;0;Negative;
+562949953428589/19-185;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/11/2019;MAL;;3/12/2019;21;0;Negative;
+562949953428590/19-186;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/11/2019;MAL;;13/11/2019;21;0;Negative;
+562949953428591/19-189;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/11/2019;MAL;;6/11/2019;21;0;Negative;
+562949953428592/19-192;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/11/2019;MAL;;20/11/2019;21;            ;;
+562949953428596/19-196;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/12/2019;MAL;;10/12/2019;21;0;Negative;
+562949953428598/19-197;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/12/2019;MAL;;15/12/2019;21;0;Negative;
+562949953428600/19-200;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/12/2019;MAL;;10/12/2019;21;0;Negative;
+562949953428601/19-201;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/12/2019;MAL;;10/12/2019;21;0;Negative;
+562949953428603/19-205;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/12/2019;MAL;;11/12/2019;21;0;Negative;
+562949953428622/19-123;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/07/2019;MAL;;23/07/2019;21;0;Negative;
+562949953428625/19-129;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/07/2019;MAL;;31/07/2019;21;0;Negative;
+562949953428627/19-164;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/10/2019;MAL;;10/10/2019;21;0;Negative;
+562949953428639/19-184;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/11/2019;MAL;;11/11/2019;21;0;Negative;
+562949953428641/19-208;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/12/2019;MAL;;19/12/2019;21;0;Negative;
+562949953428642/19-209;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/12/2019;MAL;;7/01/2020;21;0;Negative;
+562949953428643/19-211;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/12/2019;MAL;;2/01/2020;21;0;Negative;
+562949953428650/19-194;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/11/2019;MAL;;28/11/2019;21;0;Negative;
+562949953428652/19-210;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/12/2019;MAL;;1/01/2020;21;0;Negative;
+562949953428653/19-213;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/12/2020;MAL;;7/01/2020;21;0;Negative;
+562949953428654/19-214;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/01/2020;MAL;;6/01/2020;21;0;Negative;
+562949953428655/19-215;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;31/12/2019;MAL;;12/01/2020;21;0;Negative;
+562949953428703/20-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/01/2020;MAL;;15/01/2020;21;0;Negative;
+562949953428704/20-002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/01/2020;MAL;;;21;0;Negative;
+562949953428705/20-005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/01/2020;MAL;;;21;0;Negative;
+562949953428709/20-010;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/01/2020;MAL;;6/02/2020;21;0;Negative;
+562949953428710/20-016;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/01/2020;MAL;;4/02/2020;21;0;Negative;
+562949953428711/20-018;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/01/2020;MAL;;4/02/2020;21;0;Negative;
+562949953428712/20-020;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/01/2020;MAL;;5/01/2020;21;0;Negative;
+562949953428713/20-021;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/02/2020;MAL;;13/02/2020;21;0;Negative;
+562949953428717/19-217;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/01/2020;MAL;;10/02/2020;21;0;Negative;
+562949953428719/20-007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/01/2020;MAL;;6/02/2020;21;0;Negative;
+562949953428721/20-019;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/02/2020;MAL;;6/02/2020;21;0;Negative;
+562949953428729/20-022;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/02/2020;MAL;;20/02/2020;21;4;Non Polio Enterovirus;
+562949953428733/20-008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/01/2020;MAL;;22/01/2020;21;0;Negative;
+562949953428735/20-012;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/02/2020;MAL;;5/03/2020;21;0;Negative;
+562949953428736/20-013;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/02/2020;MAL;;1/03/2020;21;0;Negative;
+562949953428738/20-029;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/02/2020;MAL;;4/03/2020;21;0;Negative;
+562949953428788/20-031;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/04/2020;MAL;;12/04/2020;21;0;Negative;
+562949953428789/20-034;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/04/2020;MAL;;6/04/2020;21;0;Negative;
+562949953428848/20-040;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/05/2020;MAL;;28/05/2020;21;0;Negative;
+562949953428852/20-042;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/06/2020;MAL;;11/06/2020;21;0;Negative;
+562949953428900/20-042;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/06/2020;MAL;;2/07/2020;21;0;Negative;
+562949953429112/20-059;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/07/2020;MAL;;15/07/2020;21;0;Negative;
+562949953429114/20-035;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/04/2020;MAL;;7/04/2020;21;0;Negative;
+562949953429211/20-056;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/07/2020;MAL;;19/07/2020;21;0;Negative;
+562949953429212/20-057;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/07/2020;MAL;;16/07/2020;21;0;Negative;
+562949953429213/20-058;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/07/2020;MAL;;16/07/2020;21;0;Negative;
+562949953429324/20-062;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/07/2020;MAL;;29/07/2020;21;0;Negative;
+562949953429376/20-069;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/08/2020;MAL;;12/08/2020;21;0;Negative;
+562949953429434/20-070;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/08/2020;MAL;;18/08/2020;21;0;Negative;
+562949953429487/20-075;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/08/2020;MAL;;26/08/2020;21;0;Negative;
+562949953429542/20-073;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/08/2020;MAL;;3/09/2020;21;0;Negative;
+562949953429573/20-077;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/09/2020;MAL;;7/09/2020;21;0;Negative;
+562949953429646/20-078;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/09/2020;MAL;;15/09/2020;21;0;Negative;
+562949953429647/20-080;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/09/2020;MAL;;16/09/2020;21;0;Negative;
+562949953429763/20-026;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/02/2020;MAL;;27/02/2020;21;0;Negative;
+562949953429764/20-032;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;31/03/2020;MAL;;12/04/2020;21;0;Negative;
+562949953429765/20-033;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/04/2020;MAL;;13/04/2020;21;0;Negative;
+562949953429766/20-038;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/05/2020;MAL;;23/05/2020;21;0;Negative;
+562949953429767/20-041;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;31/05/2020;MAL;;4/06/2020;21;0;Negative;
+562949953429768/20-047;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/03/2020;MAL;;23/05/2020;21;0;Negative;
+562949953429769/20-049;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;31/03/2020;MAL;;23/05/2020;21;0;Negative;
+562949953429770/20-052;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/06/2020;MAL;;15/06/2020;21;0;Negative;
+562949953429771/20-066;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/06/2020;MAL;;14/07/2020;21;0;Negative;
+562949953429772/20-068;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/07/2020;MAL;;15/07/2020;21;0;Negative;
+562949953429773/20-076;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/08/2020;MAL;;31/08/2020;21;0;Negative;
+562949953429774/20-082;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/10/2020;MAL;;6/10/2020;21;0;Negative;
+562949953429896/20-084;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/10/2020;MAL;;15/10/2020;21;0;Negative;
+562949953429964/20-095;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/11/2020;MAL;;19/11/2020;21;0;Negative;
+562949953429965/20-097;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/11/2020;MAL;;14/12/2020;21;0;Negative;
+562949953429966/20-099;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/11/2020;MAL;;14/12/2020;21;0;Negative;
+562949953429967/20-100;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/11/2020;MAL;;14/12/2020;21;0;Negative;
+562949953429968/20-102;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/11/2020;MAL;;14/12/2020;21;0;Negative;
+562949953429969/20-104;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/12/2020;MAL;;14/12/2020;21;0;Negative;
+562949953429970/20-105;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/12/2020;MAL;;22/12/2020;21;0;Negative;
+562949953430028/20-119;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/12/2020;MAL;;28/12/2020;21;0;Negative;
+562949953430029/20-118;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/12/2020;MAL;;18/01/2021;21;0;Negative;
+562949953430030/21-077;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/01/2021;MAL;;7/01/2021;21;0;Negative;
+562949953430031/20-116;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/12/2020;MAL;;11/01/2021;21;0;Negative;
+562949953430032/20-115;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/12/2020;MAL;;11/01/2021;21;0;Negative;
+562949953430080/20-101;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/11/2020;MAL;;14/12/2020;21;0;Negative;
+562949953430129/20-087;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/10/2020;MAL;;22/10/2020;21;0;Negative;
+562949953430145/21-007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/11/2021;MAL;;10/02/2021;21;0;Negative;
+562949953430146/21-005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/02/2021;MAL;;11/02/2021;21;0;Negative;
+562949953430646/21-004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/02/2021;MAL;;4/02/2021;21;0;Negative;
+562949953430650/21-010;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/02/2021;MAL;;25/02/2021;21;0;Negative;
+562949953430652/21-012;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/03/2021;MAL;;10/03/2021;21;0;Negative;
+562949953430653/21-013;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/03/2021;MAL;;14/03/2021;21;0;Negative;
+562949953430654/21-014;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/03/2021;MAL;;28/03/2021;21;0;Negative;
+562949953430655/21-015;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/03/2021;MAL;;21/03/2021;21;0;Negative;
+562949953430656/21-016;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/03/2021;MAL;;21/03/2021;21;0;Negative;
+562949953430659/21-019;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/04/2021;MAL;;8/04/2021;21;4;Non Polio Enterovirus;
+562949953430660/21-020;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/04/2021;MAL;6/04/2021;6/04/2021;21;4;Non Polio Enterovirus;6/04/2021
+562949953430677/21-023;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/04/2021;;11/04/2021;15/04/2021;;0;Negative;11/04/2021
+562949953430678/21-024;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/04/2021;MAL;;12/04/2021;21;0;Negative;
+562949953430679/21-028;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/01/2021;MAL;;26/01/2021;21;0;Negative;
+562949953430680/21-029;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/05/2022;MAL;;15/04/2021;21;0;Negative;
+562949953430682/21-031;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/05/2022;MAL;;;21;0;Negative;
+562949953430683/21-032;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/05/2022;MAL;;25/04/2021;21;0;Negative;
+562949953430830/21-033;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/04/2021;MAL;;;21;0;Negative;
+562949953430831/21-034;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/04/2021;MAL;;5/04/2021;21;4;Non Polio Enterovirus;
+562949953430832/21-035;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/04/2021;MAL;;21/04/2021;21;0;Negative;
+562949953430833/21-036;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/04/2021;MAL;;14/04/2021;21;0;Negative;
+562949953430835/21-038;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/06/2022;MAL;;;21;0;Negative;
+562949953430837/21-040;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/06/2022;MAL;;15/06/2021;21;0;Negative;
+562949953430838/21-041;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/06/2021;MAL;;23/06/2021;21;0;Negative;
+562949953430839/21-042;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/06/2022;MAL;;15/06/2021;21;0;Negative;
+562949953430840/21-043;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/06/2022;MAL;;;21;0;Negative;
+562949953430842/21-045;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/07/2021;MAL;;7/07/2021;21;0;Negative;
+562949953430875/21-048;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/07/2021;MAL;;13/07/2021;21;0;Negative;
+562949953430877/21-050;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/07/2021;MAL;;;21;0;Negative;
+562949953430878/21-051;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/06/2021;MAL;;23/06/2021;21;0;Negative;
+562949953430879/21-052;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/07/2022;MAL;;30/06/2021;21;0;Negative;
+562949953430880/21-054;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/07/2022;MAL;;15/07/2021;21;0;Negative;
+562949953430881/21-055;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/07/2022;MAL;;15/07/2021;21;0;Negative;
+562949953430882/21-056;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/08/2021;MAL;;16/08/2021;21;0;Negative;
+562949953430883/21-057;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/08/2021;MAL;;12/08/2021;21;0;Negative;
+562949953430884/21-058;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/07/2022;MAL;;18/08/2021;21;0;Negative;
+562949953430886/21-060;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/07/2022;MAL;;11/08/2021;21;0;Negative;
+562949953430887/21-062;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/08/2021;MAL;;10/08/2021;21;0;Negative;
+562949953430888/21-063;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/08/2021;MAL;;30/08/2021;21;0;Negative;
+562949953430889/21-064;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/07/2022;MAL;;;21;0;Negative;
+562949953430890/21-065;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/08/2021;MAL;;31/08/2021;21;0;Negative;
+562949953430891/21-066;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/07/2022;MAL;;;21;0;Negative;
+562949953430892/21-067;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/08/2021;MAL;;;21;            ;;
+562949953430893/21-068;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/09/2021;MAL;;1/09/2021;21;0;Negative;
+562949953430894/21-069;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/07/2022;MAL;;;21;0;Negative;
+562949953430895/21-070;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/09/2021;MAL;;12/09/2021;21;0;Negative;
+562949953430900/21-071;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/07/2022;MAL;;18/08/2021;21;0;Negative;
+562949953430901/21-072;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/08/2021;MAL;;18/08/2021;21;0;Negative;
+562949953430902/21-073;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/07/2021;MAL;;1/08/2021;21;0;Negative;
+562949953430903/21-074;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/07/2022;MAL;;;21;0;Negative;
+562949953430904/21-075;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/07/2022;MAL;;;21;0;Negative;
+562949953430907/21-079;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/12/2020;MAL;;28/12/2020;21;0;Negative;
+562949953430911/21-083;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/09/2021;MAL;;16/09/2021;21;0;Negative;
+562949953430912/21-084;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/07/2022;MAL;;;21;0;Negative;
+562949953430913/21-085;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/07/2022;MAL;;;21;0;Negative;
+562949953430914/21-086;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/07/2022;MAL;;;21;0;Negative;
+562949953430917/21-089;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/09/2021;MAL;;30/09/2021;21;0;Negative;
+562949953430918/21-090;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/10/2021;MAL;6/10/2021;;21;0;Negative;6/10/2021
+562949953430919/21-091;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/10/2021;MAL;;;21;0;Negative;
+562949953430920/21-092;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/07/2022;MAL;;;21;0;Negative;
+562949953430921/21-093;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/07/2022;MAL;;;21;0;Negative;
+562949953430922/21-094;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/07/2022;MAL;;;21;0;Negative;
+562949953430923/21-095;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/07/2022;MAL;;;21;0;Negative;
+562949953430924/21-096;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/10/2021;MAL;;;21;0;Negative;
+562949953430925/21-097;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/10/2021;MAL;;25/10/2021;21;0;Negative;
+562949953430926/21-098;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/07/2022;MAL;;;21;0;Negative;
+562949953430927/21-099;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/07/2022;MAL;;;21;0;Negative;
+562949953430928/21-100;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/10/2021;MAL;;20/10/2021;21;0;Negative;
+562949953430934/21-101;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/10/2021;MAL;;20/10/2021;21;0;Negative;
+562949953430935/21-102;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/10/2021;MAL;;20/10/2021;21;0;Negative;
+562949953430937/21-104;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;31/10/2021;MAL;;3/11/2021;21;0;Negative;
+562949953430938/21-105;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/11/2021;MAL;;14/11/2021;21;0;Negative;
+562949953430939/21-106;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/11/2021;MAL;;14/11/2021;21;0;Negative;
+562949953430941/21-108;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/07/2022;MAL;;;21;0;Negative;
+562949953430943/21-110;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/11/2021;MAL;;;21;0;Negative;
+562949953430945/21-112;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/07/2022;MAL;;;21;0;Negative;
+562949953430946/21-114;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/12/2021;MAL;;6/12/2021;21;0;Negative;
+562949953430947/21-115;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/12/2021;MAL;;13/12/2021;21;4;Non Polio Enterovirus;
+562949953430950/21-118;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/12/2021;MAL;;27/12/2021;21;0;Negative;
+562949953430952/21-120;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/01/2022;MAL;;5/01/2022;21;0;Negative;
+562949953430953/21-121;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/01/2022;MAL;;5/01/2022;21;0;Negative;
+562949953430954/21-122;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/07/2022;MAL;;20/05/2021;21;0;Negative;
+562949953430955/21-123;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/07/2022;MAL;;;21;0;Negative;
+562949953430956/21-124;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/07/2022;MAL;;;21;0;Negative;
+562949953430957/21-125;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/07/2022;MAL;;;21;0;Negative;
+562949953430958/21-126;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/08/2021;MAL;;18/08/2021;21;0;Negative;
+562949953430959/21-127;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/07/2022;MAL;;5/09/2021;21;0;Negative;
+562949953430961/21-129;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/09/2021;MAL;;8/09/2021;21;4;Non Polio Enterovirus;
+562949953430962/21-130;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/07/2022;MAL;;;21;0;Negative;
+562949953430963/21-131;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/07/2022;MAL;;;21;0;Negative;
+562949953431006/22-002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/01/2022;MAL;;4/01/2022;21;0;Negative;
+2533274790396068/19-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;27/02/2019;CDC;18/03/2019;18/03/2019;65;4;Non Polio Enterovirus;18/03/2019
+2533274790396068/19-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/02/2019;CDC;26/03/2019;26/03/2019;65;            ;;26/03/2019
+2533274790396068/19-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/02/2019;CDC;18/03/2019;18/03/2019;65;4;Non Polio Enterovirus;18/03/2019
+2533274790396089/19-002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/03/2019;INS-COL;29/04/2019;29/04/2019;34;            ;;29/04/2019
+2533274790396090/19-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/04/2019;CDC;13/06/2019;13/06/2019;65;4;Non Polio Enterovirus;13/06/2019
+2533274790396090/19-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;2/04/2019;;3/04/2019;3/04/2019;;            ;;3/04/2019
+2533274790396093/19-004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/04/2019;CDC;10/06/2019;13/06/2019;65;0;Negative;10/06/2019
+2533274790396105/19-005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/05/2019;CDC;10/06/2019;13/06/2019;65;4;Non Polio Enterovirus;10/06/2019
+2533274790396106/19-006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/05/2019;CDC;10/06/2019;13/06/2019;65;0;Negative;10/06/2019
+2533274790396107/19-007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/05/2019;CDC;10/06/2019;13/06/2019;65;4;Non Polio Enterovirus;10/06/2019
+2533274790396108/19-008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/06/2019;CDC;10/06/2019;13/06/2019;65;0;Negative;10/06/2019
+2533274790396121/19-009;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/06/2019;CDC;16/09/2019;19/09/2019;65;0;Negative;16/09/2019
+2533274790396129/19-010;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/08/2019;CDC;16/09/2019;19/09/2019;65;4;Non Polio Enterovirus;16/09/2019
+2533274790396134/19-011;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/09/2019;CDC;16/09/2019;19/09/2019;65;4;Non Polio Enterovirus;16/09/2019
+2533274790396134/19-011;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;12/09/2019;CDC;16/09/2019;19/09/2019;65;0;Negative;16/09/2019
+2533274790396135/19-012;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/10/2019;CDC;21/10/2019;23/10/2019;65;4;Non Polio Enterovirus;21/10/2019
+2533274790396136/19-013;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/10/2019;CDC;21/10/2019;24/10/2019;65;4;Non Polio Enterovirus;21/10/2019
+2533274790396137/19-014;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/10/2019;CDC;21/10/2019;23/10/2019;65;4;Non Polio Enterovirus;21/10/2019
+2533274790396138/19-015;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/10/2019;CDC;23/10/2019;23/11/2019;65;0;Negative;23/10/2019
+2533274790396139/19-016;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/11/2019;;6/11/2019;6/11/2019;;            ;;6/11/2019
+2533274790396178/20-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/01/2020;CDC;24/02/2020;26/02/2020;65;0;Negative;24/02/2020
+2533274790396178/20-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;27/01/2020;CDC;24/02/2020;26/02/2020;65;0;Negative;24/02/2020
+2533274790396179/20-002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;10/02/2020;CDC;24/02/2020;26/02/2020;65;0;Negative;24/02/2020
+2533274790396179/20-002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/02/2020;CDC;24/02/2020;26/02/2020;65;0;Negative;24/02/2020
+2533274790396194/20-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/03/2020;CDC;27/04/2020;29/04/2020;65;0;Negative;27/04/2020
+2533274790396194/20-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;10/03/2020;CDC;27/04/2020;29/04/2020;65;0;Negative;27/04/2020
+2533274790396195/20-004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/03/2020;CDC;27/04/2020;29/04/2020;65;0;Negative;27/04/2020
+2533274790396196/20-005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/03/2020;CDC;27/04/2020;29/04/2020;65;0;Negative;27/04/2020
+2533274790396196/20-005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;27/03/2020;CDC;27/04/2020;29/04/2020;65;0;Negative;27/04/2020
+2533274790396197/20-006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;11/04/2020;CDC;27/04/2020;29/04/2020;65;0;Negative;27/04/2020
+2533274790396197/20-006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/04/2020;CDC;27/04/2020;29/04/2020;65;0;Negative;27/04/2020
+2533274790396198/20-007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/05/2020;CDC;1/06/2020;3/06/2020;65;0;Negative;1/06/2020
+2533274790396199/20-008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/04/2020;CDC;1/06/2020;3/06/2020;65;0;Negative;1/06/2020
+2533274790396200/20-009;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;17/05/2020;CDC;1/06/2020;3/06/2020;65;0;Negative;1/06/2020
+2533274790396200/20-009;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/05/2020;CDC;1/06/2020;3/06/2020;65;0;Negative;1/06/2020
+2533274790396201/20-010;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/06/2020;CDC;7/09/2020;10/09/2020;65;0;Negative;7/09/2020
+2533274790396201/20-010;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;15/06/2020;CDC;7/09/2020;10/09/2020;65;            ;;7/09/2020
+2533274790396230/20-011;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/07/2020;CDC;7/09/2020;10/09/2020;65;4;Non Polio Enterovirus;7/09/2020
+2533274790396262/20-012;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/08/2020;CDC;7/09/2020;10/09/2020;65;0;Negative;7/09/2020
+2533274790396262/20-012;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;20/08/2020;CDC;7/09/2020;10/09/2020;65;0;Negative;7/09/2020
+2533274790396263/20-013;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/08/2020;CDC;7/09/2020;10/09/2020;65;0;Negative;7/09/2020
+2533274790396263/20-013;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;31/08/2020;CDC;7/09/2020;10/09/2020;65;0;Negative;7/09/2020
+2533274790396286/20-014;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/11/2020;CDC;;;65;            ;;
+2533274790396287/20-015;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/12/2020;CDC;;;65;            ;;
+2533274790396287/20-015;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;5/12/2020;CDC;;;65;            ;;
+2533274790396310/21-01;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/02/2021;CDC;8/02/2021;10/02/2021;65;0;Negative;8/02/2021
+2533274790396311/21-02;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/02/2021;CDC;16/02/2021;16/02/2021;65;0;Negative;16/02/2021
+2533274790396324/21-04;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/06/2021;CDC;6/06/2021;6/06/2021;65;0;Negative;6/06/2021
+2533274790396326/21-05;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/07/2021;CDC;21/07/2021;21/07/2021;65;0;Negative;21/07/2021
+2533274790396330/21-06;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/10/2021;CDC;22/10/2021;22/10/2021;65;0;Negative;22/10/2021
+2533274790396334/21-07;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/11/2021;CDC;8/11/2021;8/11/2021;65;0;Negative;8/11/2021
+2533274790396335/21-09;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/11/2021;CDC;18/11/2021;18/11/2021;65;0;Negative;18/11/2021
+2533274790396336/21-08;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/11/2021;CDC;16/11/2021;16/11/2021;65;0;Negative;16/11/2021
+2533274790396336/21-08;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;16/11/2021;CDC;17/11/2021;17/11/2021;65;0;Negative;17/11/2021
+2533274790396343/22-010;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/11/2021;CDC;19/11/2021;19/11/2021;65;0;Negative;19/11/2021
+3940649673952488/19-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/02/2019;CAR;14/03/2019;15/03/2019;63;0;Negative;14/03/2019
+3940649673952589/19-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/07/2019;CAR;23/10/2019;1/11/2019;63;0;Negative;23/10/2019
+3940649673952612/19-005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/05/2019;CAR;25/07/2019;6/08/2019;63;0;Negative;25/07/2019
+3940649673952651/19-008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;3;14/04/2020;CAR;1/07/2020;7/07/2020;63;0;Negative;1/07/2020
+3940649673952651/19-008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/06/2019;CAR;23/10/2019;1/11/2019;63;44;Poliovirus & NPEV;23/10/2019
+3940649673952651/19-008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;4;12/05/2020;CAR;1/07/2020;7/07/2020;63;4;Non Polio Enterovirus;1/07/2020
+3940649673952651/19-008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;5/03/2020;CAR;1/07/2020;7/07/2020;63;0;Negative;1/07/2020
+3940649673952651/19-008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;5;26/06/2020;CAR;30/07/2020;30/07/2020;63;4;Non Polio Enterovirus;30/07/2020
+3940649673952652/19-009;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/01/2019;CAR;14/03/2019;15/03/2019;63;0;Negative;14/03/2019
+3940649673952655/19-012;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/05/2019;CAR;15/05/2019;20/05/2019;63;0;Negative;15/05/2019
+3940649673952656/19-022;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/04/2019;CAR;15/05/2019;20/05/2019;63;0;Negative;15/05/2019
+3940649673952660/19-017;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/04/2019;CAR;15/05/2019;20/05/2019;63;0;Negative;15/05/2019
+3940649673952670/19-014;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/04/2019;CAR;15/05/2019;20/05/2019;63;0;Negative;15/05/2019
+3940649673952682/19-019;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/11/2019;CAR;6/12/2019;3/01/2020;63;0;Negative;6/12/2019
+3940649673952683/19-020;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/11/2019;CAR;6/12/2019;3/01/2020;63;0;Negative;6/12/2019
+3940649673952684/19-021;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/11/2019;CAR;6/12/2019;3/01/2020;63;0;Negative;6/12/2019
+3940649673952700/19-010;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/01/2019;CAR;14/03/2019;15/03/2019;63;0;Negative;14/03/2019
+3940649673952712/19-024;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;31/12/2019;CAR;13/01/2020;24/01/2020;63;0;Negative;13/01/2020
+3940649673952793/20-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/04/2020;CAR;1/07/2020;7/07/2020;63;0;Negative;1/07/2020
+3940649673952794/20-002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/05/2020;CAR;1/07/2020;7/07/2020;63;4;Non Polio Enterovirus;1/07/2020
+3940649673952795/20-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/06/2020;CAR;;;63;            ;;
+3940649673952795/20-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;10/06/2020;CAR;1/07/2020;7/07/2020;63;0;Negative;1/07/2020
+3940649673952815/20-004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/07/2020;CAR;7/10/2020;7/10/2020;63;0;Negative;7/10/2020
+3940649673952851/20-007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;15/10/2020;CAR;16/10/2020;16/10/2020;63;0;Negative;16/10/2020
+3940649673952851/20-007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/10/2020;CAR;;1/12/2020;63;0;Negative;
+3940649673952864/20-009;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/11/2020;CAR;;;63;            ;;
+3940649673952919/21-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/03/2021;CAR;31/03/2021;31/03/2021;63;0;Negative;31/03/2021
+3940649673952927/21-002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/04/2021;CAR;;29/08/2021;63;77;Poliovirus;
+3940649673952927/21-002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;17/09/2021;CDC;;15/10/2021;65;4;Non Polio Enterovirus;
+23925373020414952/20-006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/06/2020;CAR;25/01/2021;4/02/2021;63;0;Negative;25/01/2021
+23925373020414956/20-009;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/10/2020;CAR;25/01/2021;4/02/2021;63;0;Negative;25/01/2021
+23925373020414989/20-011;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/10/2020;CAR;1/02/2021;4/02/2021;63;0;Negative;1/02/2021
+24206847997122530/19-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/01/2019;INS-COL;11/01/2019;25/01/2019;34;0;Negative;11/01/2019
+24206847997122531/19-002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/01/2019;INS-COL;11/01/2019;27/01/2019;34;0;Negative;11/01/2019
+24206847997122532/19-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/01/2019;INS-COL;26/01/2019;27/01/2019;34;0;Negative;26/01/2019
+24206847997122533/19-004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/01/2019;INS-COL;24/01/2019;27/01/2019;34;0;Negative;24/01/2019
+24206847997122534/19-005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/02/2019;INS-COL;11/02/2019;27/03/2019;34;0;Negative;11/02/2019
+24206847997122535/19-006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/02/2019;INS-COL;13/02/2019;27/02/2019;34;0;Negative;13/02/2019
+24206847997122536/19-007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/02/2019;INS-COL;18/02/2019;27/03/2019;34;0;Negative;18/02/2019
+24206847997122537/19-008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/02/2019;INS-COL;27/03/2019;27/03/2019;34;0;Negative;27/03/2019
+24206847997122538/19-009;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/03/2019;INS-COL;21/06/2019;21/06/2019;34;0;Negative;21/06/2019
+24206847997122539/19-010;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/04/2019;INS-COL;21/06/2019;21/06/2019;34;0;Negative;21/06/2019
+24206847997122540/19-011;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/04/2019;INS-COL;21/06/2019;21/06/2019;34;0;Negative;21/06/2019
+24206847997122542/19-012;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/04/2019;;;;;            ;;
+24206847997122543/19-013;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/05/2019;INS-COL;21/06/2019;21/06/2019;34;0;Negative;21/06/2019
+24206847997122544/19-014;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/05/2019;INS-COL;21/05/2019;21/05/2019;34;0;Negative;21/05/2019
+24206847997122545/19-015;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/05/2019;INS-COL;21/06/2019;21/06/2019;34;0;Negative;21/06/2019
+24206847997122546/19-016;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/05/2019;INS-COL;21/06/2019;21/06/2019;34;0;Negative;21/06/2019
+24206847997122547/19-017;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/05/2019;INS-COL;21/06/2019;21/06/2019;34;0;Negative;21/06/2019
+24206847997122548/19-018;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/06/2019;INS-COL;;;34;            ;;
+24206847997122550/19-019;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/06/2019;;;;;            ;;
+24206847997122551/19-020;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/07/2019;INS-COL;;;34;            ;;
+24206847997122552/19-021;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/03/2019;;;;;            ;;
+24206847997122553/19-022;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/08/2019;INS-COL;;;34;            ;;
+24206847997122685/19-024;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/08/2019;INS-COL;23/10/2019;5/11/2019;34;0;Negative;23/10/2019
+24206847997122686/19-025;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/08/2019;INS-COL;23/10/2019;23/10/2019;34;0;Negative;23/10/2019
+24206847997122687/19-026;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/09/2019;INS-COL;23/10/2019;23/10/2019;34;0;Negative;23/10/2019
+24206847997122688/19-027;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/09/2019;INS-COL;4/10/2019;4/10/2019;34;0;Negative;4/10/2019
+24206847997122689/19-028;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/10/2019;INS-COL;18/10/2019;13/11/2019;34;0;Negative;18/10/2019
+24206847997122690/19-029;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/10/2019;INS-COL;;;34;            ;;
+24206847997122691/19-030;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/10/2019;INS-COL;27/10/2019;13/11/2019;34;0;Negative;27/10/2019
+24206847997122693/19-032;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/08/2019;INS-COL;6/08/2019;23/10/2019;34;0;Negative;6/08/2019
+24206847997122694/19-033;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/11/2019;;13/11/2019;10/12/2019;;0;Negative;13/11/2019
+24206847997122695/19-034;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/11/2019;INS-COL;13/11/2019;10/12/2019;34;0;Negative;13/11/2019
+24206847997122696/19-035;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/11/2019;INS-COL;22/11/2019;10/12/2019;34;0;Negative;22/11/2019
+24206847997122697/19-036;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/11/2019;INS-COL;3/12/2019;24/12/2019;34;0;Negative;3/12/2019
+24206847997122698/19-037;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/11/2019;INS-COL;13/12/2019;21/12/2019;34;0;Negative;13/12/2019
+24206847997122706/19-045;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/12/2019;INS-COL;;;34;            ;;
+24206847997122707/19-046;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/12/2019;INS-COL;;;34;0;Negative;
+24206847997122708/19-046;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/12/2019;INS-COL;;;34;            ;;
+24206847997122709/19-047;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/10/2019;INS-COL;30/10/2019;13/11/2019;34;0;Negative;30/10/2019
+24206847997122710/19-048;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/11/2019;INS-COL;13/12/2019;24/12/2019;34;0;Negative;13/12/2019
+24206847997123318/20-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/01/2020;INS-COL;8/01/2020;17/02/2020;34;0;Negative;8/01/2020
+24206847997123319/20-002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/01/2020;INS-COL;8/01/2020;17/02/2020;34;0;Negative;8/01/2020
+24206847997123320/20-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/01/2020;INS-COL;17/01/2020;15/02/2020;34;0;Negative;17/01/2020
+24206847997123321/20-004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/01/2020;;20/01/2020;15/02/2020;;            ;;20/01/2020
+24206847997123323/20-006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;31/01/2020;INS-COL;7/02/2020;11/05/2020;34;0;Negative;7/02/2020
+24206847997123324/20-007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/02/2020;INS-COL;12/02/2020;11/05/2020;34;0;Negative;12/02/2020
+24206847997123327/20-010;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/03/2020;INS-COL;3/03/2020;11/05/2020;34;0;Negative;3/03/2020
+24206847997123328/20-011;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/03/2020;INS-COL;3/03/2020;11/05/2020;34;0;Negative;3/03/2020
+24206847997123329/20-012;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/03/2020;INS-COL;13/03/2020;11/05/2020;34;0;Negative;13/03/2020
+24206847997123330/20-013;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/04/2020;INS-COL;22/04/2020;22/04/2020;34;0;Negative;22/04/2020
+24206847997123331/20-014;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/06/2020;INS-COL;5/06/2020;23/08/2020;34;0;Negative;5/06/2020
+24206847997123332/20-015;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/06/2020;INS-COL;19/06/2020;19/06/2020;34;0;Negative;19/06/2020
+24206847997123333/20-016;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/03/2020;INS-COL;11/05/2020;13/05/2020;34;0;Negative;11/05/2020
+24206847997123334/20-017;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/07/2020;INS-COL;1/07/2020;13/07/2020;34;0;Negative;1/07/2020
+24206847997123335/20-018;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/08/2020;INS-COL;25/08/2020;10/11/2020;34;            ;;25/08/2020
+24206847997123336/20-019;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/10/2020;INS-COL;22/10/2020;10/11/2020;34;0;Negative;22/10/2020
+24206847997123337/20-020;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/08/2020;INS-COL;6/08/2020;23/08/2020;34;0;Negative;6/08/2020
+24206847997123338/20-021;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/07/2020;INS-COL;30/07/2020;23/08/2020;34;0;Negative;30/07/2020
+24206847997123436/21-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/01/2021;INS-COL;9/04/2021;28/04/2021;34;0;Negative;9/04/2021
+24206847997123437/21-002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/02/2021;INS-COL;10/02/2021;9/04/2021;34;0;Negative;10/02/2021
+24206847997123439/21-004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/03/2021;INS-COL;25/03/2021;9/04/2021;34;0;Negative;25/03/2021
+24206847997123440/21-005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;31/03/2021;INS-COL;31/03/2021;9/04/2021;34;0;Negative;31/03/2021
+24206847997123441/21-006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/04/2021;INS-COL;4/05/2021;26/06/2021;34;0;Negative;4/05/2021
+24206847997123442/21-007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/05/2021;INS-COL;12/05/2021;28/06/2021;34;0;Negative;12/05/2021
+24206847997123443/21-008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/05/2021;INS-COL;27/05/2021;28/06/2021;34;0;Negative;27/05/2021
+24206847997123444/21-009;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/06/2021;INS-COL;15/06/2021;28/06/2021;34;0;Negative;15/06/2021
+24206847997123445/21-010;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/07/2021;INS-COL;8/10/2021;14/12/2021;34;0;Negative;8/10/2021
+24206847997123565/21-011;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/07/2021;INS-COL;29/07/2021;8/10/2021;34;0;Negative;29/07/2021
+24206847997123566/21-012;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/07/2021;INS-COL;28/07/2021;8/10/2021;34;0;Negative;28/07/2021
+24206847997123567/21-013;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/07/2021;INS-COL;27/07/2021;8/10/2021;34;0;Negative;27/07/2021
+24206847997123569/21-015;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/08/2021;INS-COL;6/08/2021;8/10/2021;34;0;Negative;6/08/2021
+24206847997123668/21-018;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/10/2021;INS-COL;13/10/2021;3/02/2022;34;0;Negative;13/10/2021
+24206847997123669/21-019;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/11/2021;INS-COL;4/11/2021;3/02/2022;34;0;Negative;4/11/2021
+24206847997123671/21-020;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/11/2021;INS-COL;10/11/2021;3/02/2022;34;0;Negative;10/11/2021
+24206847997123673/21-022;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/10/2021;INS-COL;31/10/2021;3/02/2022;34;0;Negative;31/10/2021
+24206847997123674/21-023;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/11/2021;INS-COL;22/12/2021;3/02/2022;34;0;Negative;22/12/2021
+24206847997123675/21-024;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/11/2021;INS-COL;23/11/2021;3/02/2022;34;0;Negative;23/11/2021
+24206847997123676/21-025;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/11/2021;INS-COL;19/11/2021;3/02/2022;34;0;Negative;19/11/2021
+24206847997123677/21-026;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/11/2021;INS-COL;30/11/2021;3/02/2022;34;0;Negative;30/11/2021
+24206847997123678/21-027;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/12/2021;INS-COL;3/12/2021;3/02/2022;34;0;Negative;3/12/2021
+24206847997123679/21-028;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/12/2021;INS-COL;23/12/2021;3/02/2022;34;0;Negative;23/12/2021
+24206847997123680/21-029;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/12/2021;INS-COL;23/12/2021;3/02/2022;34;0;Negative;23/12/2021
+24206847997123681/21-030;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/12/2021;INS-COL;23/12/2021;3/02/2022;34;0;Negative;23/12/2021
+24206847997123682/21-031;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/01/2022;INS-COL;11/01/2022;3/02/2022;34;0;Negative;11/01/2022
+24206847997123683/21-032;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/01/2022;INS-COL;;;34;            ;;
+24206847997123747/22-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/01/2022;INS-COL;19/01/2022;3/02/2022;34;0;Negative;19/01/2022
+24206847997123750/22-004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/01/2022;INS-COL;26/01/2022;3/02/2022;34;0;Negative;26/01/2022
+24769797950541967/19-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/01/2019;CDC;;;65;0;Negative;
+24769797950541987/19-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/01/2019;CDC;24/01/2019;1/04/2019;65;0;Negative;24/01/2019
+24769797950541989/19-005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/01/2019;CDC;;1/04/2019;65;0;Negative;
+24769797950541990/19-006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/01/2019;CDC;16/01/2019;1/04/2019;65;0;Negative;16/01/2019
+24769797950541991/19-007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;31/01/2019;CDC;;1/04/2019;65;0;Negative;
+24769797950542009/19-008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/02/2019;CDC;;1/04/2019;65;4;Non Polio Enterovirus;
+24769797950542010/19-009;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/03/2019;CDC;5/03/2019;29/03/2019;65;            ;;5/03/2019
+24769797950542011/19-010;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/03/2019;CDC;1/04/2019;;65;0;Negative;1/04/2019
+24769797950542012/19-011;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/05/2019;CDC;;30/05/2019;65;0;Negative;
+24769797950542087/19-012;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/03/2019;CDC;;30/05/2019;65;4;Non Polio Enterovirus;
+24769797950542088/19-013;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/03/2019;CDC;;30/05/2019;65;4;Non Polio Enterovirus;
+24769797950542089/19-014;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/03/2019;CDC;;30/05/2019;65;0;Negative;
+24769797950542090/19-015;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/03/2019;CDC;;30/05/2019;65;0;Negative;
+24769797950542092/19-017;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/04/2019;CDC;;30/05/2019;65;0;Negative;
+24769797950542093/19-018;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/04/2019;CDC;;30/05/2019;65;0;Negative;
+24769797950542165/19-019;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/04/2019;CDC;;30/05/2019;65;0;Negative;
+24769797950542166/19-020;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/04/2019;CDC;;18/07/2019;65;4;Non Polio Enterovirus;
+24769797950542167/19-021;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/05/2019;CDC;;18/07/2019;65;4;Non Polio Enterovirus;
+24769797950542168/19-022;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/04/2019;CDC;;18/07/2019;65;4;Non Polio Enterovirus;
+24769797950542217/19-024;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/05/2019;CDC;18/07/2019;;65;0;Negative;18/07/2019
+24769797950542218/19-025;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/06/2019;CDC;18/07/2019;;65;0;Negative;18/07/2019
+24769797950542219/19-026;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/06/2019;CDC;;18/07/2019;65;0;Negative;
+24769797950542220/19-027;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/06/2019;CDC;;18/07/2019;65;4;Non Polio Enterovirus;
+24769797950542221/19-028;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/06/2019;CDC;18/07/2019;;65;0;Negative;18/07/2019
+24769797950542222/19-029;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/06/2019;CDC;;18/07/2019;65;0;Negative;
+24769797950542223/19-030;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/07/2019;CDC;;;65;            ;;
+24769797950542224/19-031;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/06/2019;CDC;;18/07/2019;65;0;Negative;
+24769797950542225/19-032;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/06/2019;CDC;;18/07/2019;65;0;Negative;
+24769797950542226/19-033;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/07/2019;CDC;;18/07/2019;65;0;Negative;
+24769797950542276/19-034;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/07/2019;CDC;18/07/2019;15/08/2019;65;0;Negative;18/07/2019
+24769797950542277/19-035;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/07/2019;CDC;;15/08/2019;65;0;Negative;
+24769797950542281/19-039;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/07/2019;CDC;;3/09/2019;65;0;Negative;
+24769797950542282/19-040;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/08/2019;CDC;;15/08/2019;65;            ;;
+24769797950542340/19-041;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/08/2019;CDC;;17/09/2019;65;0;Negative;
+24769797950542341/19-042;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/08/2019;CDC;23/09/2019;;65;0;Negative;23/09/2019
+24769797950542342/19-043;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/08/2019;CDC;23/08/2019;;65;0;Negative;23/08/2019
+24769797950542343/19-044;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/08/2019;CDC;17/09/2019;19/09/2019;65;0;Negative;17/09/2019
+24769797950542346/19-046;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/09/2019;CDC;17/09/2019;19/09/2019;65;0;Negative;17/09/2019
+24769797950542356/19-023;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/05/2019;CDC;10/05/2019;18/07/2019;65;4;Non Polio Enterovirus;10/05/2019
+24769797950542373/19-047;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/09/2019;CDC;;17/10/2019;65;4;Non Polio Enterovirus;
+24769797950542374/19-048;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/09/2019;CDC;;17/10/2019;65;4;Non Polio Enterovirus;
+24769797950542375/19-049;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/09/2019;CDC;24/09/2019;17/10/2019;65;4;Non Polio Enterovirus;24/09/2019
+24769797950542376/19-050;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/09/2019;CDC;;17/10/2019;65;            ;;
+24769797950542377/19-051;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/10/2019;CDC;;;65;4;Non Polio Enterovirus;
+24769797950542390/19-054;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/08/2019;CDC;;3/12/2019;65;0;Negative;
+24769797950542391/19-055;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/10/2019;CDC;;3/12/2019;65;0;Negative;
+24769797950542392/19-056;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/10/2019;CDC;;3/12/2019;65;0;Negative;
+24769797950542393/19-057;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/11/2019;CDC;;3/12/2019;65;4;Non Polio Enterovirus;
+24769797950542394/19-058;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/10/2019;CDC;;3/12/2019;65;0;Negative;
+24769797950542395/19-059;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/10/2019;CDC;;3/12/2019;65;0;Negative;
+24769797950542396/19-060;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/11/2019;CDC;;3/12/2019;65;0;Negative;
+24769797950542397/19-061;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/11/2019;CDC;;3/12/2019;65;0;Negative;
+24769797950542398/19-062;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/11/2019;CDC;;3/12/2019;65;0;Negative;
+24769797950542405/19-063;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/11/2019;CDC;;3/12/2019;65;0;Negative;
+24769797950542406/19-064;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/11/2019;CDC;21/11/2019;3/04/2020;65;0;Negative;21/11/2019
+24769797950542407/19-065;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/11/2019;CDC;;5/04/2020;65;0;Negative;
+24769797950542408/19-066;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/11/2019;CDC;;3/04/2020;65;0;Negative;
+24769797950542409/19-067;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/11/2019;CDC;;;65;0;Negative;
+24769797950542410/19-068;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/12/2019;CDC;;3/04/2020;65;0;Negative;
+24769797950542411/19-069;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/12/2019;CDC;3/12/2019;;65;0;Negative;3/12/2019
+24769797950542412/19-070;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/11/2019;CDC;;;65;0;Negative;
+24769797950542413/19-071;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/12/2019;CDC;2/12/2019;;65;0;Negative;2/12/2019
+24769797950542414/19-072;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/12/2019;CDC;;3/04/2020;65;0;Negative;
+24769797950542415/19-073;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/12/2019;CDC;5/12/2019;;65;            ;;5/12/2019
+24769797950542416/19-072;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/12/2019;CDC;;3/04/2020;65;0;Negative;
+24769797950542417/19-074;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/12/2019;CDC;;;65;0;Negative;
+24769797950542423/20-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/01/2020;CDC;;;65;4;Non Polio Enterovirus;
+24769797950542425/20-002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/01/2020;CDC;14/01/2020;;65;4;Non Polio Enterovirus;14/01/2020
+24769797950542426/20-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/01/2020;CDC;;;65;0;Negative;
+24769797950542428/20-005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/01/2020;CDC;13/01/2020;3/04/2020;65;0;Negative;13/01/2020
+24769797950542451/20-007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/02/2020;CDC;;3/04/2020;65;0;Negative;
+24769797950542459/20-008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/03/2020;CDC;;3/04/2020;65;0;Negative;
+24769797950542460/20-009;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/03/2020;CDC;;3/04/2020;65;0;Negative;
+24769797950542461/20-010;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/02/2020;CDC;;3/04/2020;65;0;Negative;
+24769797950542487/20-015;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/05/2020;CDC;16/06/2020;18/06/2020;65;0;Negative;16/06/2020
+24769797950542489/20-016;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/08/2020;CDC;25/08/2020;27/08/2020;65;0;Negative;25/08/2020
+24769797950542490/20-017;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/07/2020;CDC;25/08/2020;27/08/2020;65;0;Negative;25/08/2020
+24769797950542491/20-018;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/07/2020;CDC;25/08/2020;27/08/2020;65;0;Negative;25/08/2020
+24769797950542492/20-019;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/08/2020;CDC;25/08/2020;27/08/2020;65;0;Negative;25/08/2020
+24769797950542499/20-011;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/03/2020;CDC;19/03/2020;4/05/2020;65;0;Negative;19/03/2020
+24769797950542501/20-013;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/04/2020;CDC;28/04/2020;4/05/2020;65;4;Non Polio Enterovirus;28/04/2020
+24769797950542502/20-014;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/04/2020;CDC;19/05/2020;21/05/2020;65;0;Negative;19/05/2020
+24769797950542503/20-022;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/09/2020;CDC;;30/10/2020;65;0;Negative;
+24769797950542504/20-023;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/10/2020;CDC;;30/10/2020;65;0;Negative;
+24769797950542505/20-020;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/09/2020;CDC;22/09/2020;25/09/2020;65;0;Negative;22/09/2020
+24769797950542506/20-021;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/09/2020;CDC;22/09/2020;25/09/2020;65;0;Negative;22/09/2020
+24769797950542507/20-024;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/10/2020;CDC;;30/10/2020;65;0;Negative;
+24769797950542508/20-025;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/10/2020;CDC;24/11/2020;27/11/2020;65;0;Negative;24/11/2020
+24769797950542509/20-026;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/10/2020;CDC;24/11/2020;27/11/2020;65;0;Negative;24/11/2020
+24769797950542510/20-027;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/10/2020;CDC;24/11/2020;27/11/2020;65;0;Negative;24/11/2020
+24769797950542511/20-028;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/10/2020;CDC;24/11/2020;27/11/2020;65;0;Negative;24/11/2020
+24769797950542512/20-029;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/11/2020;CDC;24/11/2020;27/11/2020;65;4;Non Polio Enterovirus;24/11/2020
+24769797950542513/20-030;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/11/2020;CDC;24/11/2020;27/11/2020;65;0;Negative;24/11/2020
+24769797950542515/20-032;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/11/2020;CDC;24/11/2020;27/11/2020;65;0;Negative;24/11/2020
+24769797950542516/20-033;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/11/2020;CDC;24/11/2020;27/11/2020;65;0;Negative;24/11/2020
+24769797950542531/20-034;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/11/2020;CDC;8/12/2020;8/12/2020;65;0;Negative;8/12/2020
+24769797950542532/20-035;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/11/2020;CDC;8/12/2020;8/12/2020;65;0;Negative;8/12/2020
+24769797950542536/20-037;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/12/2020;CDC;26/01/2021;28/01/2021;65;0;Negative;26/01/2021
+24769797950542537/20-036;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/12/2020;CDC;26/01/2021;28/01/2021;65;0;Negative;26/01/2021
+24769797950542538/21-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/01/2021;CDC;6/01/2021;28/01/2021;65;4;Non Polio Enterovirus;6/01/2021
+24769797950542539/21-002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/01/2021;CDC;26/01/2021;28/01/2021;65;4;Non Polio Enterovirus;26/01/2021
+24769797950542540/21-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/01/2021;CDC;26/01/2021;28/01/2021;65;4;Non Polio Enterovirus;26/01/2021
+24769797950542541/21-004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/01/2021;CDC;26/01/2021;28/01/2021;65;4;Non Polio Enterovirus;26/01/2021
+24769797950542542/21-005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/08/2021;CDC;;10/08/2021;65;5;Inadequate Specimen;
+24769797950542543/21-006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/01/2021;CDC;2/03/2021;9/03/2021;65;0;Negative;2/03/2021
+24769797950542545/21-008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/02/2021;CDC;2/03/2021;9/03/2021;65;0;Negative;2/03/2021
+24769797950542546/21-009;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/02/2021;CDC;2/03/2021;9/03/2021;65;0;Negative;2/03/2021
+24769797950542547/21-010;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/02/2021;CDC;2/03/2021;9/03/2021;65;0;Negative;2/03/2021
+24769797950542548/21-011;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/02/2021;CDC;2/03/2021;9/03/2021;65;0;Negative;2/03/2021
+24769797950542589/21-012;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/03/2021;CDC;30/03/2021;6/04/2021;65;0;Negative;30/03/2021
+24769797950542590/21-013;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/03/2021;CDC;30/03/2021;6/04/2021;65;0;Negative;30/03/2021
+24769797950542591/21-014;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/03/2021;CDC;30/03/2021;6/04/2021;65;0;Negative;30/03/2021
+24769797950542592/21-015;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/04/2021;CDC;;29/04/2021;65;0;Negative;
+24769797950542593/21-016;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/04/2021;CDC;25/05/2021;28/05/2021;65;0;Negative;25/05/2021
+24769797950542597/21-017;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/05/2021;CDC;;;65;0;Negative;
+24769797950542598/21-018;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/05/2021;CDC;25/05/2021;28/05/2021;65;0;Negative;25/05/2021
+24769797950542602/21-020;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/05/2021;CDC;15/06/2021;;65;0;Negative;15/06/2021
+24769797950542603/21-021;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/05/2021;CDC;15/06/2021;;65;0;Negative;15/06/2021
+24769797950542610/21-022;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/06/2021;CDC;15/06/2021;;65;0;Negative;15/06/2021
+24769797950542611/21-023;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/06/2021;CDC;20/07/2021;;65;0;Negative;20/07/2021
+24769797950542616/21-024;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/06/2021;CDC;20/07/2021;22/07/2021;65;0;Negative;20/07/2021
+24769797950542621/21-007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/02/2021;CDC;5/02/2021;9/03/2021;65;4;Non Polio Enterovirus;5/02/2021
+24769797950542622/21-025;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/07/2021;CDC;14/07/2021;;65;0;Negative;14/07/2021
+24769797950542623/21-026;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/07/2021;CDC;17/08/2021;19/08/2021;65;0;Negative;17/08/2021
+24769797950542624/21-027;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/07/2021;CDC;19/07/2021;;65;0;Negative;19/07/2021
+24769797950542625/21-028;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/07/2021;CDC;17/08/2021;19/08/2021;65;0;Negative;17/08/2021
+24769797950542633/21-029;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/08/2021;CDC;17/08/2021;19/08/2021;65;0;Negative;17/08/2021
+24769797950542637/21-030;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/09/2021;CDC;5/10/2021;7/10/2021;65;0;Negative;5/10/2021
+24769797950542646/21-032;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/09/2021;CDC;5/10/2021;7/10/2021;65;0;Negative;5/10/2021
+24769797950542647/21-033;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/09/2021;CDC;5/10/2021;7/10/2021;65;0;Negative;5/10/2021
+24769797950542648/21-034;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/09/2021;CDC;5/10/2021;7/10/2021;65;0;Negative;5/10/2021
+24769797950542650/21-035;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/10/2021;CDC;;;65;            ;;
+24769797950542655/21-036;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/10/2021;CDC;;;65;            ;;
+24769797950542656/21-037;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/11/2021;CDC;;;65;            ;;
+24769797950542657/21-038;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/10/2021;CDC;10/10/2021;;65;            ;;10/10/2021
+24769797950542658/21-039;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/11/2021;CDC;10/11/2021;;65;            ;;10/11/2021
+24769797950542659/21-040;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/11/2021;CDC;10/11/2021;;65;            ;;10/11/2021
+24769797950542660/21-041;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/11/2021;CDC;;;65;            ;;
+24769797950542661/21-042;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/11/2021;CDC;18/11/2021;;65;            ;;18/11/2021
+24769797950542662/21-043;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/11/2021;CDC;22/11/2021;;65;            ;;22/11/2021
+24769797950542678/21-045;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/12/2021;CDC;25/01/2022;31/01/2022;65;0;Negative;25/01/2022
+24769797950542688/22-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/01/2022;CDC;4/01/2022;;65;            ;;4/01/2022
+24769797950542691/21-031;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/09/2021;CDC;5/10/2021;7/10/2021;65;0;Negative;5/10/2021
+24769797950542693/21-044;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/11/2021;CDC;7/12/2021;9/12/2021;65;0;Negative;7/12/2021
+25332747903961746/19-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/01/2019;CDC;;30/01/2019;65;0;Negative;
+25332747903961747/19-002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/01/2019;CDC;21/01/2019;30/01/2019;65;0;Negative;21/01/2019
+25332747903961752/19-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/01/2019;CDC;11/02/2019;18/02/2019;65;0;Negative;11/02/2019
+25332747903961759/19-004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;31/01/2019;CDC;11/02/2019;18/02/2019;65;0;Negative;11/02/2019
+25332747903961770/19-005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/01/2019;CDC;;4/01/2019;65;0;Negative;
+25332747903961783/19-006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/03/2019;CDC;8/04/2019;11/04/2019;65;0;Negative;8/04/2019
+25332747903961806/19-007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/03/2019;CDC;8/04/2019;11/04/2019;65;0;Negative;8/04/2019
+25332747903961819/19-008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/03/2019;CDC;8/04/2019;11/04/2019;65;0;Negative;8/04/2019
+25332747903961820/19-009;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/03/2019;CDC;8/04/2019;11/04/2019;65;0;Negative;8/04/2019
+25332747903961827/19-010;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/03/2019;CDC;8/04/2019;11/04/2019;65;0;Negative;8/04/2019
+25332747903961841/19-011;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/04/2019;CDC;20/05/2019;24/05/2019;65;0;Negative;20/05/2019
+25332747903961853/19-012;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/05/2019;CDC;20/05/2019;24/05/2019;65;0;Negative;20/05/2019
+25332747903961877/19-013;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/05/2019;CDC;10/06/2019;4/07/2019;65;0;Negative;10/06/2019
+25332747903961878/19-014;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/05/2019;CDC;10/06/2019;4/07/2019;65;0;Negative;10/06/2019
+25332747903961885/19-015;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/05/2019;CDC;10/06/2019;4/07/2019;65;0;Negative;10/06/2019
+25332747903961886/19-016;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/05/2019;CDC;10/06/2019;4/07/2019;65;0;Negative;10/06/2019
+25332747903961887/19-017;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/05/2019;CDC;10/06/2019;4/07/2019;65;0;Negative;10/06/2019
+25332747903961918/19-018;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/05/2019;CDC;10/06/2019;4/07/2019;65;0;Negative;10/06/2019
+25332747903961919/19-019;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/05/2019;CDC;10/06/2019;4/07/2019;65;0;Negative;10/06/2019
+25332747903961945/19-022;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/06/2019;CDC;16/09/2019;23/09/2019;65;4;Non Polio Enterovirus;16/09/2019
+25332747903961946/19-021;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/06/2019;CDC;16/09/2019;23/09/2019;65;0;Negative;16/09/2019
+25332747903961947/19-023;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/07/2019;CDC;16/09/2019;23/09/2019;65;0;Negative;16/09/2019
+25332747903961948/19-024;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/07/2019;CDC;16/09/2019;23/09/2019;65;0;Negative;16/09/2019
+25332747903962004/19-025;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/07/2019;CDC;16/09/2019;23/09/2019;65;0;Negative;16/09/2019
+25332747903962005/19-026;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/07/2019;CDC;16/09/2019;23/09/2019;65;0;Negative;16/09/2019
+25332747903962041/19-027;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/08/2019;CDC;16/09/2019;23/09/2019;65;0;Negative;16/09/2019
+25332747903962042/19-028;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/08/2019;CDC;16/09/2019;23/09/2019;65;0;Negative;16/09/2019
+25332747903962043/19-029;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/08/2019;CDC;16/09/2019;23/09/2019;65;4;Non Polio Enterovirus;16/09/2019
+25332747903962044/19-030;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/08/2019;CDC;16/09/2019;23/09/2019;65;0;Negative;16/09/2019
+25332747903962045/19-031;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/08/2019;CDC;16/09/2019;23/09/2019;65;0;Negative;16/09/2019
+25332747903962078/19-033;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/08/2019;CDC;16/09/2019;23/09/2019;65;0;Negative;16/09/2019
+25332747903962079/19-034;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/08/2019;CDC;16/09/2019;23/09/2019;65;0;Negative;16/09/2019
+25332747903962080/19-035;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/08/2019;CDC;21/10/2019;1/11/2019;65;0;Negative;21/10/2019
+25332747903962082/19-037;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/09/2019;CDC;21/10/2019;1/11/2019;65;0;Negative;21/10/2019
+25332747903962083/19-038;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/09/2019;CDC;21/10/2019;1/11/2019;65;0;Negative;21/10/2019
+25332747903962091/19-039;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/09/2019;CDC;21/10/2019;1/11/2019;65;0;Negative;21/10/2019
+25332747903962126/19-041;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/10/2019;CDC;10/12/2019;3/01/2020;65;0;Negative;10/12/2019
+25332747903962127/19-036;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;31/10/2019;CDC;10/12/2019;3/01/2020;65;0;Negative;10/12/2019
+25332747903962155/19-043;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/11/2019;CDC;10/12/2019;3/01/2020;65;0;Negative;10/12/2019
+25332747903962194/19-046;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/01/2020;CDC;11/06/2020;22/06/2020;65;0;Negative;11/06/2020
+25332747903962223/20-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/01/2020;CDC;11/06/2020;22/06/2020;65;0;Negative;11/06/2020
+25332747903962227/20-002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/01/2020;CDC;11/06/2020;22/06/2020;65;4;Non Polio Enterovirus;11/06/2020
+25332747903962230/20-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/02/2020;CDC;11/06/2020;22/06/2020;65;0;Negative;11/06/2020
+25332747903962248/20-004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/02/2020;CDC;11/06/2020;22/06/2020;65;0;Negative;11/06/2020
+25332747903962252/20-005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/02/2020;CDC;11/06/2020;22/06/2020;65;0;Negative;11/06/2020
+25332747903962253/20-006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/02/2020;CDC;11/06/2020;22/06/2020;65;0;Negative;11/06/2020
+25332747903962254/20-007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/03/2020;CDC;11/06/2020;22/06/2020;65;0;Negative;11/06/2020
+25332747903962261/20-009;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/03/2020;CDC;11/06/2020;22/06/2020;65;0;Negative;11/06/2020
+25332747903962266/20-011;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/03/2020;CDC;11/06/2020;22/06/2020;65;0;Negative;11/06/2020
+25332747903962272/20-012;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/03/2020;CDC;11/06/2020;22/06/2020;65;0;Negative;11/06/2020
+25332747903962274/20-010;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/03/2020;CDC;11/06/2020;22/06/2020;65;0;Negative;11/06/2020
+25332747903962286/20-008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/04/2020;CDC;11/06/2020;22/06/2020;65;0;Negative;11/06/2020
+25332747903962287/20-013;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/04/2020;CDC;11/06/2020;22/06/2020;65;0;Negative;11/06/2020
+25332747903962288/20-014;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/04/2020;CAR;11/06/2020;22/06/2020;63;0;Negative;11/06/2020
+25332747903962289/20-015;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/04/2020;CDC;11/06/2020;22/06/2020;65;0;Negative;11/06/2020
+25332747903962293/20-017;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/05/2020;CAR;11/06/2020;22/06/2020;63;0;Negative;11/06/2020
+25332747903962295/20-019;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/05/2020;CDC;10/08/2020;20/08/2020;65;0;Negative;10/08/2020
+25332747903962297/20-020;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/05/2020;CDC;10/08/2020;20/08/2020;65;0;Negative;10/08/2020
+25332747903962299/20-018;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/05/2020;CDC;11/06/2020;22/06/2020;65;0;Negative;11/06/2020
+25332747903962300/20-021;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/06/2020;CDC;10/08/2020;20/08/2020;65;0;Negative;10/08/2020
+25332747903962301/20-022;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/06/2020;CDC;10/08/2020;20/08/2020;65;0;Negative;10/08/2020
+25332747903962303/20-023;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/06/2020;CDC;10/08/2020;20/08/2020;65;0;Negative;10/08/2020
+25332747903962304/20-024;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/06/2020;CDC;10/08/2020;20/08/2020;65;0;Negative;10/08/2020
+25332747903962305/20-025;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/06/2020;CDC;10/08/2020;20/08/2020;65;0;Negative;10/08/2020
+25332747903962306/20-026;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/06/2020;CDC;10/08/2020;20/08/2020;65;0;Negative;10/08/2020
+25332747903962307/20-027;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/06/2020;CDC;10/08/2020;20/08/2020;65;0;Negative;10/08/2020
+25332747903962309/20-028;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/06/2020;CDC;10/08/2020;20/08/2020;65;0;Negative;10/08/2020
+25332747903962314/20-030;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/07/2020;CDC;23/09/2020;1/10/2020;65;0;Negative;23/09/2020
+25332747903962316/20-031;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/07/2020;CDC;23/09/2020;1/10/2020;65;0;Negative;23/09/2020
+25332747903962319/20-032;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/08/2020;CDC;23/09/2020;1/10/2020;65;0;Negative;23/09/2020
+25332747903962322/20-033;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/08/2020;CDC;23/09/2020;1/10/2020;65;0;Negative;23/09/2020
+25332747903962323/20-034;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/08/2020;CDC;23/09/2020;1/10/2020;65;0;Negative;23/09/2020
+25332747903962324/20-035;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/08/2020;CDC;23/09/2020;1/10/2020;65;0;Negative;23/09/2020
+25332747903962325/20-036;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/08/2020;CDC;23/09/2020;1/10/2020;65;0;Negative;23/09/2020
+25332747903962331/20-038;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/08/2020;CDC;23/09/2020;1/10/2020;65;0;Negative;23/09/2020
+25332747903962335/20-040;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/09/2020;CDC;29/10/2020;1/12/2020;65;0;Negative;29/10/2020
+25332747903962338/20-041;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/09/2020;CDC;29/10/2020;1/12/2020;65;0;Negative;29/10/2020
+25332747903962345/20-042;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/10/2020;CDC;2/12/2020;21/12/2020;65;0;Negative;2/12/2020
+25332747903962350/20-043;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/10/2020;CDC;2/12/2020;21/12/2020;65;0;Negative;2/12/2020
+25332747903962351/20-044;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/10/2020;CDC;2/12/2020;21/12/2020;65;0;Negative;2/12/2020
+25332747903962362/20-045;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/11/2020;CDC;22/02/2021;10/03/2021;65;0;Negative;22/02/2021
+25332747903962367/20-046;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/12/2020;CDC;22/02/2021;10/03/2021;65;0;Negative;22/02/2021
+25332747903962368/20-047;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/12/2020;CDC;22/02/2021;10/03/2021;65;0;Negative;22/02/2021
+25332747903962387/20-049;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/01/2021;CDC;22/02/2021;10/03/2021;65;0;Negative;22/02/2021
+25332747903962388/20-050;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/01/2021;CDC;22/02/2021;10/03/2021;65;0;Negative;22/02/2021
+25332747903962390/21-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/01/2021;CDC;22/02/2021;10/03/2021;65;0;Negative;22/02/2021
+25332747903962395/21-002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/01/2021;CDC;22/02/2021;10/03/2021;65;0;Negative;22/02/2021
+25332747903962395/21-002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/01/2021;;;;;            ;;
+25332747903962396/21-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/01/2021;CDC;22/02/2021;10/03/2021;65;0;Negative;22/02/2021
+25332747903962399/21-004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/02/2021;CDC;22/03/2021;1/04/2021;65;0;Negative;22/03/2021
+25332747903962401/21-005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/02/2021;CDC;22/03/2021;1/04/2021;65;4;Non Polio Enterovirus;22/03/2021
+25332747903962405/21-006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/03/2021;CDC;26/04/2021;14/06/2021;65;0;Negative;26/04/2021
+25332747903962408/21-007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/04/2021;CDC;26/04/2021;14/06/2021;65;0;Negative;26/04/2021
+25332747903962410/21-008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/04/2021;CDC;24/05/2021;7/06/2021;65;0;Negative;24/05/2021
+25332747903962411/21-009;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/04/2021;CDC;24/05/2021;7/06/2021;65;0;Negative;24/05/2021
+25332747903962413/21-010;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/04/2021;CDC;24/05/2021;7/06/2021;65;0;Negative;24/05/2021
+25332747903962416/21-011;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/05/2021;CDC;24/05/2021;6/06/2021;65;0;Negative;24/05/2021
+25332747903962419/21-013;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/05/2021;CDC;27/07/2021;6/08/2021;65;0;Negative;27/07/2021
+25332747903962424/21-014;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/04/2021;CDC;27/07/2021;6/08/2021;65;0;Negative;27/07/2021
+25332747903962425/21-015;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/06/2021;CDC;27/07/2021;6/08/2021;65;0;Negative;27/07/2021
+25332747903962426/21-016;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/06/2021;CDC;5/07/2021;6/08/2021;65;0;Negative;5/07/2021
+25332747903962427/21-017;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/06/2021;CDC;27/07/2021;6/08/2021;65;0;Negative;27/07/2021
+25332747903962430/21-018;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/07/2021;CDC;27/07/2021;6/08/2021;65;0;Negative;27/07/2021
+25332747903962431/21-019;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/07/2021;CDC;27/07/2021;6/08/2021;65;0;Negative;27/07/2021
+25332747903962436/21-020;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/07/2021;CDC;13/09/2021;23/09/2021;65;0;Negative;13/09/2021
+25332747903962437/21-021;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/07/2021;CDC;13/09/2021;23/09/2021;65;0;Negative;13/09/2021
+25332747903962438/21-022;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/07/2021;CDC;13/09/2021;23/09/2021;65;0;Negative;13/09/2021
+25332747903962439/21-023;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/07/2021;CDC;13/09/2021;23/09/2021;65;0;Negative;13/09/2021
+25332747903962442/21-024;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/08/2021;CDC;20/10/2021;2/11/2021;65;0;Negative;20/10/2021
+25332747903962443/21-025;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/08/2021;CDC;20/10/2021;2/11/2021;65;0;Negative;20/10/2021
+25332747903962444/21-026;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/08/2021;CDC;20/10/2021;2/11/2021;65;0;Negative;20/10/2021
+25332747903962451/21-028;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/09/2021;CDC;20/10/2021;2/11/2021;65;0;Negative;20/10/2021
+25332747903962452/21-029;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/09/2021;CDC;20/10/2021;2/11/2021;65;0;Negative;20/10/2021
+25332747903962460/21-030;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/09/2021;CDC;20/10/2021;2/11/2021;65;0;Negative;20/10/2021
+25332747903962461/21-031;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/10/2021;CDC;20/10/2021;12/11/2021;65;0;Negative;20/10/2021
+25332747903962462/21-032;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/10/2021;CDC;20/10/2021;2/11/2021;65;0;Negative;20/10/2021
+25332747903962463/21-033;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/10/2021;CDC;20/10/2021;2/11/2021;65;0;Negative;20/10/2021
+25332747903962464/21-034;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/10/2021;CDC;1/12/2021;10/12/2021;65;0;Negative;1/12/2021
+25332747903962466/21-035;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/10/2021;CDC;1/12/2021;16/12/2021;65;0;Negative;1/12/2021
+25332747903962468/21-036;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/10/2021;CDC;1/12/2021;10/12/2021;65;0;Negative;1/12/2021
+25332747903962469/21-037;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/10/2021;CDC;1/12/2021;10/12/2021;65;0;Negative;1/12/2021
+25332747903962481/21-038;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/11/2021;CDC;1/12/2021;10/12/2021;65;0;Negative;1/12/2021
+25332747903962487/21-040;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/12/2021;CDC;14/03/2022;22/03/2022;65;0;Negative;14/03/2022
+25332747903962489/21-041;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/12/2021;CDC;14/03/2022;22/03/2022;65;0;Negative;14/03/2022
+25332747903962493/21-044;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/01/2022;CDC;14/03/2022;22/03/2022;65;0;Negative;14/03/2022
+25614222880674054/19-01;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/01/2019;CAR;12/02/2019;15/02/2019;63;0;Negative;12/02/2019
+25614222880674087/19-02;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/02/2019;CAR;12/03/2019;15/03/2019;63;0;Negative;12/03/2019
+25614222880674101/19-03;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/02/2019;CAR;12/03/2019;15/03/2019;63;0;Negative;12/03/2019
+25614222880674102/19-04;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/03/2019;CAR;12/03/2019;15/03/2019;63;0;Negative;12/03/2019
+25614222880674124/19-05;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/03/2019;CAR;12/03/2019;15/03/2019;63;4;Non Polio Enterovirus;12/03/2019
+25614222880674125/19-06;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/03/2019;CAR;12/03/2019;15/03/2019;63;0;Negative;12/03/2019
+25614222880674139/19-07;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/03/2019;CAR;15/05/2019;17/05/2019;63;0;Negative;15/05/2019
+25614222880674166/19-08;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/03/2019;CAR;15/05/2019;17/05/2019;63;0;Negative;15/05/2019
+25614222880674167/19-09;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/03/2019;CAR;15/05/2019;17/05/2019;63;0;Negative;15/05/2019
+25614222880674193/19-10;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/04/2019;CAR;15/05/2019;17/05/2019;63;0;Negative;15/05/2019
+25614222880674233/19-11;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/04/2019;CAR;15/05/2019;17/05/2019;63;0;Negative;15/05/2019
+25614222880674266/19-12;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/04/2019;CAR;15/05/2019;17/05/2019;63;0;Negative;15/05/2019
+25614222880674568/19-13;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/06/2019;CAR;21/08/2019;2/10/2019;63;0;Negative;21/08/2019
+25614222880674569/19-14;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/07/2019;CAR;21/08/2019;2/10/2019;63;0;Negative;21/08/2019
+25614222880674570/19-15;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/07/2019;CAR;21/08/2019;2/10/2019;63;0;Negative;21/08/2019
+25614222880674571/19-16;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/07/2019;CAR;21/08/2019;2/10/2019;63;0;Negative;21/08/2019
+25614222880674572/19-17;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/07/2019;CAR;21/08/2019;2/10/2019;63;0;Negative;21/08/2019
+25614222880674697/19-18;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/08/2019;CAR;10/12/2019;16/12/2019;63;0;Negative;10/12/2019
+25614222880674716/19-19;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/09/2019;CAR;10/12/2019;16/12/2019;63;0;Negative;10/12/2019
+25614222880674727/19-20;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/09/2019;CAR;10/12/2019;16/12/2019;63;0;Negative;10/12/2019
+25614222880674745/19-21;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/10/2019;CAR;10/12/2019;16/12/2019;63;0;Negative;10/12/2019
+25614222880674749/19-22;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/11/2019;CAR;10/12/2019;16/12/2019;63;4;Non Polio Enterovirus;10/12/2019
+25614222880674750/19-23;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/09/2019;CAR;10/12/2019;16/12/2019;63;4;Non Polio Enterovirus;10/12/2019
+25614222880674753/19-24;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/11/2019;CAR;10/12/2019;16/12/2019;63;0;Negative;10/12/2019
+25614222880674765/19-25;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/11/2019;CAR;10/12/2019;16/12/2019;63;0;Negative;10/12/2019
+25614222880674784/20-01;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/01/2020;CAR;4/02/2020;7/02/2020;63;0;Negative;4/02/2020
+25614222880674788/20-02;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/01/2020;CAR;4/02/2020;7/02/2020;63;0;Negative;4/02/2020
+25614222880674800/20-03;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/02/2020;CAR;5/03/2020;11/03/2020;63;0;Negative;5/03/2020
+25614222880674806/20-04;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/03/2020;CAR;1/04/2020;6/04/2020;63;0;Negative;1/04/2020
+25614222880674820/20-05;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/03/2020;CAR;1/04/2020;6/04/2020;63;0;Negative;1/04/2020
+25614222880674830/20-06;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/05/2020;CAR;30/06/2020;7/07/2020;63;4;Non Polio Enterovirus;30/06/2020
+25614222880674832/20-07;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/05/2020;CAR;30/06/2020;7/07/2020;63;0;Negative;30/06/2020
+25614222880674849/20-08;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/08/2020;CAR;10/11/2020;10/12/2020;63;0;Negative;10/11/2020
+25614222880674856/20-09;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/08/2020;CAR;10/11/2020;10/12/2020;63;0;Negative;10/11/2020
+25614222880674879/20-10;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/09/2020;CAR;10/11/2020;10/12/2020;63;0;Negative;10/11/2020
+25614222880674880/20-11;2;Cerebrospinal Fluid;1;Entero Virus Isolation;4;25/09/2020;CAR;10/11/2020;10/12/2020;63;0;Negative;10/11/2020
+25614222880674880/20-11;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/09/2020;CAR;10/11/2020;10/12/2020;63;0;Negative;10/11/2020
+25614222880674880/20-11;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;25/09/2020;CAR;10/11/2020;10/12/2020;63;0;Negative;10/11/2020
+25614222880674880/20-11;2;Cerebrospinal Fluid;1;Entero Virus Isolation;3;24/09/2020;CAR;10/11/2020;10/12/2020;63;0;Negative;10/11/2020
+25614222880674882/20-12;2;Cerebrospinal Fluid;1;Entero Virus Isolation;4;1/10/2020;CAR;10/11/2020;10/12/2020;63;4;Non Polio Enterovirus;10/11/2020
+25614222880674882/20-12;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;29/09/2020;CAR;10/11/2020;10/12/2020;63;0;Negative;10/11/2020
+25614222880674882/20-12;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/09/2020;CAR;10/11/2020;10/12/2020;63;0;Negative;10/11/2020
+25614222880674882/20-12;2;Cerebrospinal Fluid;1;Entero Virus Isolation;3;29/09/2020;CAR;10/11/2020;10/12/2020;63;0;Negative;10/11/2020
+25614222880674885/20-13;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/10/2020;CAR;10/11/2020;10/12/2020;63;0;Negative;10/11/2020
+25614222880674885/20-13;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;9/10/2020;CAR;10/11/2020;10/12/2020;63;0;Negative;10/11/2020
+25614222880674885/20-13;2;Cerebrospinal Fluid;1;Entero Virus Isolation;3;9/10/2020;CAR;10/11/2020;10/12/2020;63;0;Negative;10/11/2020
+25614222880674893/20-14;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/10/2020;CAR;10/11/2020;10/12/2020;63;0;Negative;10/11/2020
+25614222880674898/20-15;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/10/2020;CAR;10/11/2020;10/12/2020;63;0;Negative;10/11/2020
+25614222880674915/20-16;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/12/2020;CAR;30/12/2020;5/01/2021;63;0;Negative;30/12/2020
+25614222880674921/20-17;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/12/2020;CAR;30/12/2020;5/01/2021;63;0;Negative;30/12/2020
+25614222880674922/20-18;2;Cerebrospinal Fluid;1;Entero Virus Isolation;4;19/12/2020;CAR;30/12/2020;5/01/2021;63;0;Negative;30/12/2020
+25614222880674922/20-18;2;Cerebrospinal Fluid;1;Entero Virus Isolation;5;21/12/2020;CAR;30/12/2020;5/01/2021;63;0;Negative;30/12/2020
+25614222880674922/20-18;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/12/2020;CAR;30/12/2020;5/01/2021;63;0;Negative;30/12/2020
+25614222880674922/20-18;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;19/12/2020;CAR;30/12/2020;5/01/2021;63;0;Negative;30/12/2020
+25614222880674922/20-18;2;Cerebrospinal Fluid;1;Entero Virus Isolation;3;19/12/2020;CAR;30/12/2020;5/01/2021;63;0;Negative;30/12/2020
+25614222880674939/21-01;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/01/2021;CAR;26/03/2021;9/04/2021;63;0;Negative;26/03/2021
+25614222880674944/21-02;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/02/2021;CAR;26/03/2021;9/04/2021;63;0;Negative;26/03/2021
+25614222880674995/21-04;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/06/2021;CAR;16/06/2021;21/06/2021;63;0;Negative;16/06/2021
+25614222880675004/21-05;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/06/2021;CAR;31/08/2021;4/09/2021;63;0;Negative;31/08/2021
+25614222880675039/21-06;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/07/2021;CAR;31/08/2021;4/09/2021;63;0;Negative;31/08/2021
+25614222880675048/21-07;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;31/08/2021;CAR;27/10/2021;16/11/2021;63;4;Non Polio Enterovirus;27/10/2021
+25614222880675063/21-08;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/09/2021;CAR;27/10/2021;16/11/2021;63;0;Negative;27/10/2021
+25614222880675074/21-09;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/10/2021;CAR;27/10/2021;16/11/2021;63;0;Negative;27/10/2021
+25614222880675075/21-10;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/11/2021;CAR;17/12/2021;23/12/2021;63;0;Negative;17/12/2021
+25614222880675080/21-11;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/11/2021;CAR;17/12/2021;23/12/2021;63;4;Non Polio Enterovirus;17/12/2021
+25614222880675087/21-12;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/12/2021;CAR;2/02/2022;7/02/2022;63;0;Negative;2/02/2022
+25614222880675088/21-13;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/01/2022;CAR;2/02/2022;7/02/2022;63;0;Negative;2/02/2022
+25895697857381832/19-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/06/2019;CDC;30/07/2019;1/08/2019;65;4;Non Polio Enterovirus;30/07/2019
+25895697857381849/19-002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/09/2019;CDC;19/12/2019;19/12/2019;65;4;Non Polio Enterovirus;19/12/2019
+25895697857381855/19-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/10/2019;CDC;19/12/2019;19/12/2019;65;4;Non Polio Enterovirus;19/12/2019
+25895697857381859/19-004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/11/2019;CDC;19/12/2019;19/12/2019;65;0;Negative;19/12/2019
+25895697857381860/19-005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/12/2019;CDC;19/12/2019;19/12/2019;65;4;Non Polio Enterovirus;19/12/2019
+25895697857381861/19-006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/11/2019;CDC;19/12/2019;19/12/2019;65;0;Negative;19/12/2019
+25895697857381869/20-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/01/2020;CDC;13/07/2020;13/07/2020;65;0;Negative;13/07/2020
+25895697857381893/20-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/03/2020;CAR;13/07/2020;13/07/2020;63;0;Negative;13/07/2020
+25895697857381894/20-002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/02/2020;CAR;13/04/2020;13/07/2020;63;0;Negative;13/04/2020
+25895697857381895/20-004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/03/2020;CAR;13/07/2020;13/07/2020;63;0;Negative;13/07/2020
+25895697857381896/20-005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/03/2020;CAR;13/07/2020;13/07/2020;63;0;Negative;13/07/2020
+25895697857381897/20-006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/04/2020;CAR;13/07/2020;13/07/2020;63;0;Negative;13/07/2020
+25895697857381898/20-007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/05/2020;CAR;13/07/2020;13/07/2020;63;0;Negative;13/07/2020
+25895697857381903/20-008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/07/2020;CAR;16/11/2020;16/11/2020;63;0;Negative;16/11/2020
+25895697857381914/20-010;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/12/2020;CAR;9/04/2021;9/04/2021;63;0;Negative;9/04/2021
+25895697857381915/20-009;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/08/2020;CAR;16/11/2020;16/11/2020;63;0;Negative;16/11/2020
+25895697857381916/21-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/01/2021;CAR;;;63;            ;;
+25895697857381916/21-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/01/2021;CAR;9/04/2021;9/04/2021;63;0;Negative;9/04/2021
+25895697857381917/20-011;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/12/2020;CAR;9/04/2021;9/04/2021;63;0;Negative;9/04/2021
+25895697857381935/21-002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/04/2021;CAR;11/03/2022;11/03/2022;63;0;Negative;11/03/2022
+25895697857381936/21-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/07/2021;CAR;30/08/2021;30/08/2021;63;4;Non Polio Enterovirus;30/08/2021
+25895697857381937/21-004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/09/2021;CAR;22/11/2021;22/11/2021;63;0;Negative;22/11/2021
+25895697857381938/21-005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/08/2021;CAR;22/11/2021;22/11/2021;63;0;Negative;22/11/2021
+25895697857381944/21-006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/11/2021;CAR;;;63;            ;;
+25895697857381949/21-007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/12/2021;CAR;11/03/2022;11/03/2022;63;0;Negative;11/03/2022
+25895697857381950/21-008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/12/2021;CAR;11/03/2022;11/03/2022;63;4;Non Polio Enterovirus;11/03/2022
+25895697857381954/21-010;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/02/2022;CAR;11/03/2022;11/03/2022;63;0;Negative;11/03/2022
+27303072740943431/19-MON00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/01/2019;INH;17/01/2019;20/09/2019;69;0;Negative;17/01/2019
+28147497671065611/19-CH 0001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/01/2019;MAL;28/01/2019;1/04/2019;21;0;Negative;28/01/2019
+28147497671065612/19-CH 0020;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/03/2019;MAL;4/07/2019;5/11/2019;21;0;Negative;4/07/2019
+28147497671065613/19-CH 0006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/04/2019;MAL;1/05/2019;5/11/2019;21;0;Negative;1/05/2019
+28991922601197573/19- SC 0004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/03/2019;MAL;6/03/2019;7/03/2019;21;0;Negative;6/03/2019
+28991922601197574/19-SC 0017;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/05/2019;MAL;30/05/2019;5/11/2019;21;0;Negative;30/05/2019
+28991922601197614/19-SC 0016;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/08/2019;MAL;28/08/2019;29/08/2019;21;0;Negative;28/08/2019
+28991922601197615/19-SC 0018;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/09/2019;MAL;11/09/2019;12/09/2019;21;0;Negative;11/09/2019
+32651097298436097/19-LAR00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/01/2019;INH;20/01/2019;20/01/2019;69;0;Negative;20/01/2019
+32651097298436097/19-LAR00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/01/2019;INH;20/01/2019;;69;            ;;20/01/2019
+32651097298436099/19-CAR00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;20/06/2019;INH;26/06/2019;27/06/2019;69;0;Negative;26/06/2019
+32651097298436099/19-CAR00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/02/2019;INH;25/02/2019;5/03/2019;69;0;Negative;25/02/2019
+32651097298436101/19-ARA00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/04/2019;INH;26/04/2019;26/04/2019;69;0;Negative;26/04/2019
+32651097298436101/19-ARA00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;6/04/2019;INH;6/04/2019;26/04/2019;69;0;Negative;6/04/2019
+32651097298436102/19-MER00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/03/2019;INH;16/05/2019;9/07/2019;69;0;Negative;16/05/2019
+33214047251857412/19-LAR00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/04/2019;INH;22/04/2019;24/04/2019;69;4;Non Polio Enterovirus;22/04/2019
+33214047251857414/19-TAC00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/03/2019;INH;22/04/2019;24/04/2019;69;0;Negative;22/04/2019
+33214047251857415/19-TAC00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/04/2019;INH;20/04/2019;3/05/2019;69;0;Negative;20/04/2019
+33214047251857416/19-SUC00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/04/2019;INH;30/04/2019;19/05/2019;69;5;Inadequate Specimen;30/04/2019
+33214047251857417/19-LAR00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/04/2019;INH;2/05/2019;;69;            ;;2/05/2019
+33214047251857419/19-ARA00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/04/2019;INH;6/05/2019;7/05/2019;69;0;Negative;6/05/2019
+33214047251857420/19-LAR00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/05/2019;INH;21/05/2019;22/05/2019;69;0;Negative;21/05/2019
+33214047251857423/19-APU00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/05/2019;INH;27/05/2019;28/05/2019;69;4;Non Polio Enterovirus;27/05/2019
+33214047251857424/19-APU00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/05/2019;INH;27/05/2019;28/05/2019;69;4;Non Polio Enterovirus;27/05/2019
+33214047251857425/19-CAR00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/05/2019;INH;13/06/2019;;69;            ;;13/06/2019
+33214047251857425/19-CAR00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;20/06/2019;INH;26/06/2019;;69;            ;;26/06/2019
+33214047251857426/19-ANZ00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/06/2019;INH;6/06/2019;10/06/2019;69;0;Negative;6/06/2019
+3940649673952975/21-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/06/2021;CAR;10/06/2021;10/06/2021;63;0;Negative;10/06/2021
+3940649673953006/21-004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/05/2021;CAR;12/05/2021;12/05/2021;63;0;Negative;12/05/2021
+3940649673953007/21-005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/05/2021;CAR;21/05/2021;21/05/2021;63;0;Negative;21/05/2021
+3940649673953013/21-007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;31/08/2021;CAR;;;63;            ;;
+3940649673953054/21-022;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/11/2021;CAR;;19/01/2022;63;0;Negative;
+5066549580798304/19-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/02/2019;CDC;10/04/2019;10/04/2019;65;0;Negative;10/04/2019
+5066549580798338/19-004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/03/2019;CDC;10/04/2019;10/04/2019;65;0;Negative;10/04/2019
+5066549580798444/19-005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;18/03/2019;CDC;10/04/2019;10/04/2019;65;0;Negative;10/04/2019
+5066549580798444/19-005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/03/2019;CDC;;;65;            ;;
+5066549580798472/19-006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/03/2019;CDC;7/06/2019;7/06/2019;65;0;Negative;7/06/2019
+5066549580798685/19-007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/05/2019;CDC;7/06/2019;7/06/2019;65;0;Negative;7/06/2019
+5066549580798803/19-008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/05/2019;CDC;7/06/2019;7/06/2019;65;4;Non Polio Enterovirus;7/06/2019
+5066549580798863/19-009;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/06/2019;CDC;12/08/2019;16/08/2019;65;0;Negative;12/08/2019
+5066549580798922/19-010;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/06/2019;CDC;12/08/2019;16/08/2019;65;4;Non Polio Enterovirus;12/08/2019
+5066549580798995/19-011;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/06/2019;CDC;12/08/2019;16/08/2019;65;0;Negative;12/08/2019
+5066549580799011/19-012;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/06/2019;CDC;12/08/2019;16/08/2019;65;0;Negative;12/08/2019
+5066549580799079/19-015;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;31/07/2019;CDC;12/08/2019;16/08/2019;65;0;Negative;12/08/2019
+5066549580799092/19-016;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/08/2019;CDC;12/08/2019;16/08/2019;65;0;Negative;12/08/2019
+5066549580799243/19-017;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/09/2019;CDC;26/11/2019;27/11/2019;65;0;Negative;26/11/2019
+5066549580799460/19-020;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/10/2019;CDC;26/11/2019;27/11/2019;65;0;Negative;26/11/2019
+5066549580799543/19-022;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/11/2019;CDC;28/02/2020;2/03/2020;65;0;Negative;28/02/2020
+5066549580799556/19-023;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/11/2019;CDC;29/02/2020;2/03/2020;65;0;Negative;29/02/2020
+5066549580799568/19-024;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/11/2019;CDC;29/02/2020;2/03/2020;65;0;Negative;29/02/2020
+5066549580799731/19-026;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/12/2019;CDC;29/02/2020;2/03/2020;65;0;Negative;29/02/2020
+5066549580799976/20-002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/02/2020;CDC;21/02/2020;2/03/2020;65;0;Negative;21/02/2020
+5066549580800113/20-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/03/2020;CDC;18/08/2020;25/08/2020;65;0;Negative;18/08/2020
+5066549580800226/20-004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/05/2020;CDC;18/08/2020;25/08/2020;65;0;Negative;18/08/2020
+5066549580800242/20-005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/06/2020;CDC;18/08/2020;25/08/2020;65;0;Negative;18/08/2020
+5066549580800253/20-006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/08/2020;CDC;18/08/2020;25/08/2020;65;0;Negative;18/08/2020
+5066549580800254/20-007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/08/2020;CDC;18/08/2020;25/08/2020;65;0;Negative;18/08/2020
+5066549580800268/20-009;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/09/2020;CDC;21/12/2020;5/01/2021;65;0;Negative;21/12/2020
+5066549580800284/20-010;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/09/2020;CDC;21/12/2020;5/01/2021;65;0;Negative;21/12/2020
+5066549580800287/20-011;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/10/2020;CDC;21/12/2020;5/01/2021;65;0;Negative;21/12/2020
+5066549580800306/20-012;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/11/2020;CDC;;;65;            ;;
+5066549580800314/20-013;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/11/2020;CDC;21/12/2020;5/01/2021;65;0;Negative;21/12/2020
+5066549580800325/20-014;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/11/2020;CDC;21/12/2020;5/01/2021;65;0;Negative;21/12/2020
+5066549580800326/20-015;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/11/2020;CDC;21/12/2020;5/01/2021;65;0;Negative;21/12/2020
+5066549580800352/20-017;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/01/2021;CDC;5/04/2021;13/04/2021;65;0;Negative;5/04/2021
+5066549580800356/20-018;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/01/2021;CDC;5/04/2021;13/04/2021;65;0;Negative;5/04/2021
+5066549580800387/21-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/02/2021;CDC;5/04/2021;12/04/2021;65;0;Negative;5/04/2021
+5066549580800392/20-019;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/11/2020;CDC;5/04/2021;13/04/2021;65;0;Negative;5/04/2021
+5066549580800405/21-002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/02/2021;CDC;5/04/2021;12/04/2021;65;0;Negative;5/04/2021
+5066549580800456/21-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/03/2021;CDC;5/04/2021;12/04/2021;65;0;Negative;5/04/2021
+5066549580800572/21-004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/05/2021;CDC;28/07/2021;2/08/2021;65;0;Negative;28/07/2021
+5066549580800573/21-005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/05/2021;CDC;28/07/2021;2/08/2021;65;0;Negative;28/07/2021
+5066549580800575/21-006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/05/2021;CDC;28/07/2021;2/08/2021;65;0;Negative;28/07/2021
+5066549580800617/21-007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/06/2021;CDC;28/07/2021;2/08/2021;65;0;Negative;28/07/2021
+5066549580800672/21-008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/07/2021;CDC;30/08/2021;8/09/2021;65;0;Negative;30/08/2021
+5066549580800715/21-010;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/08/2021;CDC;24/10/2021;1/11/2021;65;0;Negative;24/10/2021
+5066549580800716/21-011;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;31/08/2021;CDC;24/10/2021;1/11/2021;65;0;Negative;24/10/2021
+5066549580800751/21-012;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/09/2021;CDC;24/10/2021;1/11/2021;65;0;Negative;24/10/2021
+5066549580800770/21-013;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/09/2021;CDC;24/10/2021;1/11/2021;65;0;Negative;24/10/2021
+5066549580800771/21-014;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/09/2021;CDC;24/10/2021;1/11/2021;65;0;Negative;24/10/2021
+5066549580800785/21-015;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/09/2021;CDC;24/10/2021;1/11/2021;65;0;Negative;24/10/2021
+5066549580800799/21-016;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/09/2021;CDC;24/10/2021;1/11/2021;65;0;Negative;24/10/2021
+5066549580800816/21-017;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/09/2021;CDC;24/10/2021;1/11/2021;65;0;Negative;24/10/2021
+5066549580800852/21-019;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/10/2021;CDC;24/10/2021;1/11/2021;65;0;Negative;24/10/2021
+5066549580800871/21-022;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;31/10/2021;CDC;12/12/2021;2/01/2022;65;0;Negative;12/12/2021
+5066549580800880/21-023;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/11/2021;CDC;12/12/2021;2/01/2022;65;0;Negative;12/12/2021
+5066549580800890/21-024;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/11/2021;CDC;12/12/2021;2/01/2022;65;0;Negative;12/12/2021
+5066549580800957/21-025;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/12/2021;CDC;12/12/2021;2/01/2022;65;0;Negative;12/12/2021
+5066549580800987/21-026;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/12/2021;CDC;6/03/2022;13/03/2022;65;0;Negative;6/03/2022
+5066549580801004/21-027;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/12/2021;CDC;6/03/2022;13/03/2022;65;0;Negative;6/03/2022
+8444249301323314/19-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/01/2019;FIO;28/01/2019;1/02/2019;24;0;Negative;28/01/2019
+8444249301323315/19-002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/01/2019;FIO;28/01/2019;1/02/2019;24;0;Negative;28/01/2019
+8444249301323326/19-004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/01/2019;FIO;31/01/2019;21/02/2019;24;0;Negative;31/01/2019
+8444249301323328/19-006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/01/2019;FIO;31/01/2019;21/02/2019;24;0;Negative;31/01/2019
+8444249301323330/19-007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/02/2019;FIO;27/03/2019;27/03/2019;24;0;Negative;27/03/2019
+8444249301323332/19-008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/02/2019;FIO;27/03/2019;28/03/2019;24;0;Negative;27/03/2019
+8444249301323344/19-009;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/02/2019;FIO;27/03/2019;27/03/2019;24;0;Negative;27/03/2019
+8444249301323404/19-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/03/2019;FIO;19/04/2019;22/04/2019;24;0;Negative;19/04/2019
+8444249301323405/19-011;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/02/2019;;;;;            ;;
+8444249301323406/19-012;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/03/2019;FIO;14/04/2019;22/04/2019;24;0;Negative;14/04/2019
+8444249301323411/19-014;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/03/2019;FIO;23/05/2019;29/05/2019;24;0;Negative;23/05/2019
+8444249301323414/19-015;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/04/2019;FIO;13/05/2019;29/05/2019;24;0;Negative;13/05/2019
+8444249301323415/19-018;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/04/2019;FIO;29/05/2019;29/05/2019;24;0;Negative;29/05/2019
+8444249301323416/19-017;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/04/2019;FIO;;;24;            ;;
+8444249301323417/19-019;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/04/2019;FIO;;;24;            ;;
+8444249301323421/19-020;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/04/2019;FIO;15/05/2019;24/05/2019;24;0;Negative;15/05/2019
+8444249301323424/19-021;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/04/2019;FIO;27/05/2019;29/05/2019;24;0;Negative;27/05/2019
+8444249301323444/19-023;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/06/2019;FIO;11/07/2019;24/07/2019;24;0;Negative;11/07/2019
+8444249301323446/19-025;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/06/2019;FIO;11/07/2019;16/07/2019;24;0;Negative;11/07/2019
+8444249301323449/19-027;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/06/2019;FIO;6/07/2019;11/07/2019;24;0;Negative;6/07/2019
+8444249301323450/19-028;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/06/2019;FIO;11/07/2019;17/07/2019;24;0;Negative;11/07/2019
+8444249301323451/19-029;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/06/2019;FIO;11/07/2019;18/07/2019;24;0;Negative;11/07/2019
+8444249301323452/19-030;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/06/2019;FIO;1/07/2019;11/07/2019;24;0;Negative;1/07/2019
+8444249301323453/19-031;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/06/2019;FIO;11/07/2019;16/07/2019;24;0;Negative;11/07/2019
+8444249301323454/19-032;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/06/2019;FIO;11/07/2019;11/07/2019;24;0;Negative;11/07/2019
+8444249301323455/19-033;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/06/2019;FIO;11/07/2019;18/07/2019;24;4;Non Polio Enterovirus;11/07/2019
+8444249301323456/19-034;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/06/2019;FIO;23/07/2019;25/07/2019;24;0;Negative;23/07/2019
+8444249301323458/19-035;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/06/2019;FIO;22/07/2019;25/07/2019;24;0;Negative;22/07/2019
+8444249301323459/19-062;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/06/2019;FIO;20/08/2019;28/08/2019;24;0;Negative;20/08/2019
+8444249301323460/19-037;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/06/2019;FIO;25/07/2019;25/07/2019;24;0;Negative;25/07/2019
+8444249301323462/19-038;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/06/2019;;;;;            ;;
+8444249301323471/19-039;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/06/2019;FIO;25/07/2019;27/07/2019;24;0;Negative;25/07/2019
+8444249301323472/19-040;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/06/2019;FIO;25/07/2019;30/07/2019;24;0;Negative;25/07/2019
+8444249301323473/19-041;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/06/2019;FIO;25/07/2019;30/07/2019;24;0;Negative;25/07/2019
+8444249301323474/19-042;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/06/2019;FIO;20/08/2019;28/08/2019;24;0;Negative;20/08/2019
+8444249301323478/19-045;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/07/2019;FIO;18/07/2019;25/07/2019;24;4;Non Polio Enterovirus;18/07/2019
+8444249301323479/19-046;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/06/2019;FIO;12/07/2019;25/07/2019;24;0;Negative;12/07/2019
+8444249301323481/19-048;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/06/2019;FIO;19/07/2019;25/07/2019;24;0;Negative;19/07/2019
+8444249301323482/19-049;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/06/2019;FIO;25/07/2019;29/07/2019;24;0;Negative;25/07/2019
+8444249301323484/19-051;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/06/2019;FIO;23/07/2019;25/07/2019;24;0;Negative;23/07/2019
+8444249301323485/19-052;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/06/2019;FIO;2/07/2019;25/07/2019;24;0;Negative;2/07/2019
+8444249301323486/19-053;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/06/2019;FIO;25/07/2019;31/07/2019;24;0;Negative;25/07/2019
+8444249301323489/19-057;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/06/2019;FIO;11/07/2019;13/07/2019;24;0;Negative;11/07/2019
+8444249301323492/19-054;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/06/2019;FIO;3/07/2019;25/07/2019;24;4;Non Polio Enterovirus;3/07/2019
+8444249301323493/19-058;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/07/2019;FIO;20/08/2019;29/08/2019;24;0;Negative;20/08/2019
+8444249301323494/19-059;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/07/2019;;;;;            ;;
+8444249301323496/19-061;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/07/2019;FIO;22/08/2019;29/08/2019;24;0;Negative;22/08/2019
+8444249301323497/19-036;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/06/2019;FIO;20/08/2019;28/08/2019;24;0;Negative;20/08/2019
+8444249301323498/19-063;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/07/2019;FIO;;;24;            ;;
+8444249301323499/19-064;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/07/2019;FIO;;;24;            ;;
+8444249301323501/19-067;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/07/2019;FIO;;;24;            ;;
+8444249301323503/19-069;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/07/2019;FIO;27/08/2019;29/08/2019;24;0;Negative;27/08/2019
+8444249301323504/19-073;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/08/2019;FIO;28/08/2019;11/09/2019;24;0;Negative;28/08/2019
+8444249301323507/19-076;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/08/2019;FIO;2/09/2019;11/09/2019;24;0;Negative;2/09/2019
+8444249301323508/19-075;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/08/2019;FIO;15/08/2019;11/09/2019;24;0;Negative;15/08/2019
+8444249301323509/19-070;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/07/2019;FIO;20/08/2019;29/08/2019;24;0;Negative;20/08/2019
+8444249301323510/19-071;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/07/2019;FIO;;;24;            ;;
+8444249301323511/19-072;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/07/2019;FIO;20/08/2019;29/08/2019;24;0;Negative;20/08/2019
+8444249301323513/19-080;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/08/2019;FIO;15/10/2019;15/10/2019;24;0;Negative;15/10/2019
+8444249301323514/19-079;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/08/2019;FIO;;;24;            ;;
+8444249301323545/19-082;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/10/2019;FIO;24/10/2019;29/10/2019;24;0;Negative;24/10/2019
+8444249301323547/19-083;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/09/2019;FIO;2/10/2019;29/10/2019;24;0;Negative;2/10/2019
+8444249301323565/19-087;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/10/2019;FIO;20/10/2019;21/10/2019;24;0;Negative;20/10/2019
+8444249301323567/19-084;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/10/2019;FIO;25/11/2019;27/11/2019;24;0;Negative;25/11/2019
+8444249301323568/19-085;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/10/2019;FIO;22/11/2019;27/11/2019;24;0;Negative;22/11/2019
+8444249301323569/19-086;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/10/2019;FIO;22/11/2019;27/11/2019;24;0;Negative;22/11/2019
+8444249301323570/19-089;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/10/2019;FIO;22/11/2019;27/11/2019;24;0;Negative;22/11/2019
+8444249301323571/19-099;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/10/2019;FIO;;;24;            ;;
+8444249301323574/19-093;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/06/2019;;;;;            ;;
+8444249301323575/19-055;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/06/2019;FIO;17/07/2019;25/07/2019;24;0;Negative;17/07/2019
+8444249301323576/19-095;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/06/2019;FIO;29/08/2019;31/08/2019;24;0;Negative;29/08/2019
+8444249301323577/19-096;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/07/2019;FIO;5/08/2019;29/08/2019;24;0;Negative;5/08/2019
+8444249301323583/19-091;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/10/2019;FIO;4/12/2019;12/12/2019;24;0;Negative;4/12/2019
+8444249301323584/19-103;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/11/2019;FIO;28/11/2019;3/12/2019;24;0;Negative;28/11/2019
+8444249301323585/19-104;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/11/2019;FIO;28/11/2019;2/12/2019;24;0;Negative;28/11/2019
+8444249301323586/19-106;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/11/2019;FIO;29/11/2019;5/12/2019;24;0;Negative;29/11/2019
+8444249301323587/19-105;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/11/2019;FIO;29/11/2019;2/12/2019;24;0;Negative;29/11/2019
+8444249301323588/19-107;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/11/2019;FIO;4/12/2019;2/01/2020;24;0;Negative;4/12/2019
+8444249301323589/19-108;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/11/2019;FIO;25/11/2019;13/12/2019;24;0;Negative;25/11/2019
+8444249301323590/19-092;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/06/2019;FIO;;;24;            ;;
+8444249301323593/19-109;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/11/2019;FIO;10/12/2019;16/12/2019;24;0;Negative;10/12/2019
+8444249301323595/19-115;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/11/2019;FIO;20/01/2020;23/01/2020;24;0;Negative;20/01/2020
+8444249301323596/19-113;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/12/2019;FIO;20/01/2020;23/01/2020;24;0;Negative;20/01/2020
+8444249301323597/19-114;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/11/2019;FIO;;;24;            ;;
+8444249301323598/19-112;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/11/2019;FIO;3/12/2019;9/12/2019;24;0;Negative;3/12/2019
+8444249301323600/19-117;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/12/2019;FIO;20/01/2020;23/01/2020;24;0;Negative;20/01/2020
+8444249301323601/19-110;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/11/2019;FIO;29/11/2019;3/12/2019;24;0;Negative;29/11/2019
+8444249301323602/19-116;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/12/2019;FIO;20/01/2020;23/01/2020;24;0;Negative;20/01/2020
+8444249301323606/19-122;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/12/2019;FIO;15/12/2019;23/01/2020;24;0;Negative;15/12/2019
+8444249301323607/19-123;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/12/2019;FIO;20/01/2020;23/01/2020;24;0;Negative;20/01/2020
+8444249301323608/19-124;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/12/2019;FIO;20/01/2020;23/01/2020;24;0;Negative;20/01/2020
+8444249301323609/19-121;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/12/2019;FIO;20/01/2020;23/01/2020;24;0;Negative;20/01/2020
+8444249301323619/20-002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/01/2020;FIO;5/01/2020;10/03/2020;24;0;Negative;5/01/2020
+8444249301323619/20-002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/01/2020;FIO;;;24;            ;;
+8444249301323620/20-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/01/2020;FIO;4/01/2020;10/03/2020;24;0;Negative;4/01/2020
+8444249301323646/20-004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/01/2020;FIO;22/01/2020;10/03/2020;24;0;Negative;22/01/2020
+8444249301323647/19-024;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/07/2019;FIO;31/07/2019;28/08/2019;24;0;Negative;31/07/2019
+8444249301323649/20-005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/02/2020;FIO;;;24;            ;;
+8444249301323650/20-006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/01/2020;FIO;30/01/2020;10/03/2020;24;0;Negative;30/01/2020
+8444249301323651/20-007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/01/2020;FIO;26/01/2020;10/03/2020;24;0;Negative;26/01/2020
+8444249301323652/20-008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/01/2020;FIO;22/01/2020;10/03/2020;24;0;Negative;22/01/2020
+8444249301323654/20-010;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/02/2020;FIO;11/02/2020;10/03/2020;24;0;Negative;11/02/2020
+8444249301323655/20-011;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/01/2020;FIO;;;24;            ;;
+8444249301323656/20-012;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/02/2020;FIO;3/02/2020;10/03/2020;24;0;Negative;3/02/2020
+8444249301323658/20-013;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/02/2020;FIO;15/02/2020;23/03/2020;24;0;Negative;15/02/2020
+8444249301323659/20-014;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/02/2020;FIO;21/02/2020;10/03/2020;24;0;Negative;21/02/2020
+8444249301323660/20-015;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/02/2020;FIO;21/02/2020;10/03/2020;24;0;Negative;21/02/2020
+8444249301323661/20-016;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/02/2020;FIO;21/02/2020;10/03/2020;24;0;Negative;21/02/2020
+8444249301323662/20-017;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/02/2020;FIO;21/02/2020;10/03/2020;24;0;Negative;21/02/2020
+8444249301323667/20-021;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/02/2020;FIO;11/11/2020;11/11/2020;24;0;Negative;11/11/2020
+8444249301323668/20-022;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/02/2020;FIO;11/11/2020;16/11/2020;24;0;Negative;11/11/2020
+8444249301323668/20-022;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/02/2020;FIO;;;24;            ;;
+8444249301323670/20-024;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/02/2020;FIO;11/11/2020;11/11/2020;24;0;Negative;11/11/2020
+8444249301323674/20-027;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/02/2020;FIO;11/11/2020;11/11/2020;24;0;Negative;11/11/2020
+8444249301323677/20-030;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/03/2020;FIO;11/11/2020;11/11/2020;24;0;Negative;11/11/2020
+8444249301323678/20-031;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/03/2020;FIO;11/11/2020;11/11/2020;24;            ;;11/11/2020
+8444249301323679/20-032;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/06/2020;FIO;11/11/2020;11/11/2020;24;0;Negative;11/11/2020
+8444249301323680/20-033;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/05/2020;FIO;11/11/2020;11/11/2020;24;0;Negative;11/11/2020
+8444249301323681/20-034;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/06/2020;FIO;;;24;            ;;
+8444249301323682/20-020;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/03/2020;FIO;11/11/2020;11/11/2020;24;0;Negative;11/11/2020
+8444249301323683/20-023;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/06/2020;FIO;;;24;            ;;
+8444249301323684/20-029;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;31/08/2020;;;;;            ;;
+8444249301323686/20-036;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;31/08/2020;FIO;11/11/2020;11/11/2020;24;0;Negative;11/11/2020
+8444249301323687/20-037;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/09/2020;FIO;;;24;            ;;
+8444249301323688/20-025;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/03/2020;FIO;11/11/2020;11/11/2020;24;0;Negative;11/11/2020
+8444249301323689/20-038;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/09/2020;FIO;11/11/2020;11/11/2020;24;0;Negative;11/11/2020
+8444249301323690/20-039;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/10/2020;FIO;11/11/2020;11/11/2020;24;0;Negative;11/11/2020
+8444249301323697/20-043;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/11/2020;FIO;6/01/2021;9/01/2021;24;0;Negative;6/01/2021
+8444249301323699/20-045;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/01/2021;;;;;            ;;
+8444249301323701/21-002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/02/2021;FIO;;;24;            ;;
+8444249301323702/21-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/03/2021;FIO;;;24;            ;;
+8444249301323703/21-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/04/2021;FIO;10/09/2021;13/09/2021;24;0;Negative;10/09/2021
+8444249301323704/21-004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/05/2021;FIO;8/10/2021;11/10/2021;24;0;Negative;8/10/2021
+8444249301323705/21-005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/05/2021;;;;;            ;;
+8444249301323709/21-008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/06/2021;FIO;8/10/2021;11/10/2021;24;0;Negative;8/10/2021
+8444249301323710/21-009;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/06/2021;FIO;8/10/2021;11/10/2021;24;0;Negative;8/10/2021
+8444249301323714/21-011;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/07/2021;;;;;            ;;
+8444249301323717/21-014;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/07/2021;FIO;30/12/2021;3/01/2022;24;0;Negative;30/12/2021
+8444249301323718/21-015;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/07/2021;;;;;            ;;
+8444249301323728/21-025;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/09/2021;FIO;30/12/2021;3/01/2022;24;0;Negative;30/12/2021
+8444249301323729/21-026;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/10/2021;FIO;30/12/2021;3/01/2022;24;0;Negative;30/12/2021
+8444249301323730/21-027;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/09/2021;FIO;30/12/2021;3/01/2022;24;0;Negative;30/12/2021
+8444249301323731/21-021;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/12/2021;FIO;18/02/2022;21/02/2022;24;0;Negative;18/02/2022
+8444249301323732/21-018;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/12/2021;FIO;18/02/2022;21/02/2022;24;0;Negative;18/02/2022
+8444249301323734/21-030;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/12/2021;FIO;18/02/2022;21/02/2022;24;0;Negative;18/02/2022
+8444249301323736/21-032;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/12/2021;FIO;18/02/2022;21/02/2022;24;0;Negative;18/02/2022
+8444249301323737/21-033;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/12/2021;FIO;18/02/2022;21/02/2022;24;0;Negative;18/02/2022
+8444249301323739/21-034;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/01/2022;;9/03/2022;10/03/2022;;0;Negative;9/03/2022
+21955048183443103/19-CB 0002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/02/2019;MAL;8/02/2019;31/03/2019;21;0;Negative;8/02/2019
+21955048183443103/19-CB 0002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/02/2019;MAL;;31/03/2019;21;0;Negative;
+21955048183443104/19-LP 0003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/02/2019;MAL;31/03/2019;1/04/2019;21;0;Negative;31/03/2019
+21955048183443145/19-OR 0007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/06/2019;MAL;13/06/2019;5/11/2019;21;0;Negative;13/06/2019
+21955048183443158/19-LP 0008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/06/2019;MAL;14/06/2019;15/06/2019;21;0;Negative;14/06/2019
+21955048183443159/19-CB 0009;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/06/2019;;;;;            ;;
+21955048183443159/19-CB 0009;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/06/2019;MAL;13/06/2019;5/11/2019;21;0;Negative;13/06/2019
+21955048183443166/19-CB 0010;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/06/2019;MAL;17/06/2019;5/11/2019;21;0;Negative;17/06/2019
+21955048183443168/19-CB 0011;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/06/2019;MAL;27/06/2019;5/11/2019;21;0;Negative;27/06/2019
+21955048183443172/19-LP 0012;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/07/2019;MAL;24/07/2019;24/07/2019;21;0;Negative;24/07/2019
+21955048183443173/19-LP 0013;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/07/2019;MAL;31/07/2019;31/07/2019;21;0;Negative;31/07/2019
+21955048183443174/19-CB 0014;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/07/2019;MAL;26/07/2019;29/07/2019;21;0;Negative;26/07/2019
+21955048183443177/19-LP 0015;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/08/2019;MAL;9/08/2019;9/12/2019;21;0;Negative;9/08/2019
+21955048183443203/19-LP 0019;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/10/2019;MAL;24/10/2019;24/10/2019;21;0;Negative;24/10/2019
+21955048183443217/19-CB 0021;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/07/2019;MAL;24/07/2019;25/07/2019;21;0;Negative;24/07/2019
+21955048183443223/19-CB 0023;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/11/2019;CDC;26/10/2020;30/10/2020;65;0;Negative;26/10/2020
+21955048183443223/19-CB 0023;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/11/2019;MAL;20/11/2019;21/11/2019;21;            ;;20/11/2019
+21955048183443224/19-PD 0022;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/11/2019;CDC;26/10/2020;30/10/2020;65;0;Negative;26/10/2020
+21955048183443259/19-SC 00024;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/12/2019;CDC;26/10/2020;30/10/2020;65;0;Negative;26/10/2020
+21955048183443268/20-SC 0002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/02/2020;CDC;26/10/2020;30/10/2020;65;0;Negative;26/10/2020
+21955048183443269/20-SC 0004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/02/2020;CDC;26/10/2020;30/10/2020;65;0;Negative;26/10/2020
+21955048183443269/20-SC 0004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/02/2020;CDC;11/02/2020;12/02/2020;65;            ;;11/02/2020
+33214047251857452/19-FAL00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/06/2019;INH;30/06/2019;12/07/2019;69;77;Poliovirus;30/06/2019
+33214047251857453/19-MIR00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/07/2019;INH;15/07/2019;15/07/2019;69;0;Negative;15/07/2019
+33214047251857453/19-MIR00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;15/07/2019;INH;15/07/2019;16/07/2019;69;0;Negative;15/07/2019
+33214047251857457/19-MON00005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/09/2019;INH;17/09/2019;20/09/2019;69;0;Negative;17/09/2019
+33214047251857458/19-ZUL00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/06/2019;INH;;;69;            ;;
+33214047251857459/19-MIR00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/06/2019;INH;2/07/2019;21/10/2019;69;0;Negative;2/07/2019
+33214047251857460/19-MIR00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/07/2019;INH;18/07/2019;21/07/2019;69;0;Negative;18/07/2019
+33214047251857462/19-GUA00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/09/2019;INH;6/09/2019;6/09/2019;69;0;Negative;6/09/2019
+33214047251857464/19-COJ00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/09/2019;INH;3/09/2019;16/09/2019;69;0;Negative;3/09/2019
+33214047251857466/19-MON00006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/09/2019;INH;30/09/2019;3/10/2019;69;0;Negative;30/09/2019
+33214047251857467/19-BAR00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/09/2019;INH;10/09/2019;11/09/2019;69;4;Non Polio Enterovirus;10/09/2019
+33214047251857468/19-AMA00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/09/2019;INH;23/10/2019;24/10/2019;69;0;Negative;23/10/2019
+33214047251857469/19-LAR00008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/07/2019;INH;18/07/2019;19/07/2019;69;0;Negative;18/07/2019
+33214047251857471/19-LAR00009;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/08/2019;INH;28/08/2019;29/08/2019;69;0;Negative;28/08/2019
+33214047251857472/19-LAR00010;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/08/2019;INH;28/08/2019;5/09/2019;69;0;Negative;28/08/2019
+33214047251857473/19-TAC00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/07/2019;INH;20/08/2019;23/08/2019;69;0;Negative;20/08/2019
+33214047251857474/19-ANZ00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/09/2019;INH;10/09/2019;12/09/2019;69;0;Negative;10/09/2019
+33214047251857475/19-CAR00005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/08/2019;INH;12/09/2019;24/09/2019;69;0;Negative;12/09/2019
+33214047251857476/19-MIR00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;8/10/2019;INH;8/10/2019;8/10/2019;69;0;Negative;8/10/2019
+33214047251857476/19-MIR00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/10/2019;INH;1/10/2019;3/10/2019;69;0;Negative;1/10/2019
+33214047251857480/19-YAR00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/09/2019;INH;30/09/2019;21/10/2019;69;0;Negative;30/09/2019
+33214047251857481/19-ZUL00005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/09/2019;INH;18/09/2019;24/09/2019;69;0;Negative;18/09/2019
+33214047251857483/19-NUE00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/10/2019;INH;7/10/2019;17/10/2019;69;4;Non Polio Enterovirus;7/10/2019
+33214047251857485/19-MER00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/09/2019;INH;15/09/2019;2/10/2019;69;0;Negative;15/09/2019
+33214047251857486/19-LAR00011;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/07/2019;INH;18/07/2019;5/08/2019;69;0;Negative;18/07/2019
+33214047251857487/19-APU00005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/07/2019;INH;30/07/2019;12/08/2019;69;0;Negative;30/07/2019
+33214047251857488/19-CAR00006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/10/2019;INH;15/10/2019;21/10/2019;69;0;Negative;15/10/2019
+33214047251857489/19-DEL00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/10/2019;INH;13/10/2019;22/10/2019;69;0;Negative;13/10/2019
+33214047251857490/19-BAR00005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/09/2019;INH;1/10/2019;4/10/2019;69;0;Negative;1/10/2019
+33214047251857492/19-TAC00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/10/2019;INH;3/11/2019;5/11/2019;69;0;Negative;3/11/2019
+33214047251857492/19-TAC00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;14/11/2019;INH;19/11/2019;20/11/2019;69;0;Negative;19/11/2019
+33214047251857493/19-APU00006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/09/2019;INH;1/10/2019;3/10/2019;69;0;Negative;1/10/2019
+33214047251857494/19-GUA00005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/10/2019;INH;22/10/2019;26/10/2019;69;0;Negative;22/10/2019
+33214047251857496/19-MON00007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/11/2019;INH;24/11/2019;25/11/2019;69;0;Negative;24/11/2019
+33214047251857497/19-CAR00007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/11/2019;INH;15/11/2019;21/11/2019;69;4;Non Polio Enterovirus;15/11/2019
+33214047251857498/19-LAR00012;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/10/2019;INH;17/10/2019;21/10/2019;69;0;Negative;17/10/2019
+33214047251857500/19-POR00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/11/2019;INH;25/11/2019;4/12/2019;69;0;Negative;25/11/2019
+33214047251857501/19-APU00007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/10/2019;INH;25/10/2019;5/11/2019;69;4;Non Polio Enterovirus;25/10/2019
+33214047251857502/19-YAR00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/12/2019;INH;4/01/2020;9/01/2020;69;0;Negative;4/01/2020
+33214047251857503/19-ZUL00007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/10/2019;INH;8/10/2019;22/10/2019;69;0;Negative;8/10/2019
+33214047251857505/19-ZUL00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/08/2019;INH;28/08/2019;4/09/2019;69;0;Negative;28/08/2019
+33214047251857507/19-BOL00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/12/2019;INH;9/01/2020;9/01/2020;69;0;Negative;9/01/2020
+33214047251857508/19-MIR00005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/10/2019;INH;14/10/2019;15/10/2019;69;0;Negative;14/10/2019
+33214047251857508/19-MIR00005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/10/2019;;;;;            ;;
+33214047251857509/19-ARA00005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/11/2019;INH;27/11/2019;3/12/2019;69;0;Negative;27/11/2019
+33214047251857510/19-ARA00006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/11/2019;INH;22/11/2019;24/11/2019;69;0;Negative;22/11/2019
+33214047251857511/19-MON00008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/12/2019;INH;2/12/2019;8/12/2019;69;4;Non Polio Enterovirus;2/12/2019
+33214047251857512/19-YAR00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/12/2019;INH;14/12/2019;15/12/2019;69;0;Negative;14/12/2019
+33214047251857513/19-ARA00007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/11/2019;INH;29/11/2019;8/12/2019;69;4;Non Polio Enterovirus;29/11/2019
+33214047251857514/19-YAR00005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/11/2019;INH;17/11/2019;17/11/2019;69;0;Negative;17/11/2019
+33214047251857514/19-YAR00005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;22/11/2019;INH;27/11/2019;5/12/2019;69;4;Non Polio Enterovirus;27/11/2019
+33214047251857516/20-ARA00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/01/2020;INH;19/01/2020;20/01/2020;69;0;Negative;19/01/2020
+33214047251857519/20-YAR00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/01/2020;INH;23/01/2020;30/01/2020;69;4;Non Polio Enterovirus;23/01/2020
+33214047251857520/20-FAL00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/02/2020;INH;13/02/2020;16/02/2020;69;0;Negative;13/02/2020
+33214047251857521/20-ANZ00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/03/2020;INH;10/03/2020;13/03/2020;69;0;Negative;10/03/2020
+33214047251857527/20-SUC00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/04/2020;INH;9/04/2020;10/04/2020;69;0;Negative;9/04/2020
+33214047251857528/20-ZUL00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/03/2020;INH;29/03/2020;9/04/2020;69;4;Non Polio Enterovirus;29/03/2020
+33214047251857529/20-ZUL00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/02/2020;INH;24/02/2020;27/02/2020;69;0;Negative;24/02/2020
+33214047251857531/20-GUA00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/04/2020;INH;27/04/2020;29/04/2020;69;0;Negative;27/04/2020
+33214047251857532/20-LAR00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/01/2020;INH;27/01/2020;30/01/2020;69;4;Non Polio Enterovirus;27/01/2020
+33214047251857533/20-LAR00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/02/2020;INH;25/02/2020;27/02/2020;69;0;Negative;25/02/2020
+33214047251857534/20-BAR00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/02/2020;INH;21/02/2020;13/03/2020;69;0;Negative;21/02/2020
+33214047251857536/20-ARA00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/05/2020;INH;20/05/2020;29/05/2020;69;0;Negative;20/05/2020
+33214047251857537/20-CAR00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;30/04/2020;INH;30/04/2020;4/05/2020;69;0;Negative;30/04/2020
+33214047251857537/20-CAR00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/04/2020;INH;28/04/2020;29/04/2020;69;0;Negative;28/04/2020
+33214047251857538/20-CAR00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/05/2020;INH;30/05/2020;4/06/2020;69;0;Negative;30/05/2020
+33214047251857539/20-MIR00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/04/2020;INH;29/04/2020;29/04/2020;69;0;Negative;29/04/2020
+33214047251857539/20-MIR00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;7/05/2020;INH;7/05/2020;7/05/2020;69;0;Negative;7/05/2020
+33214047251857540/20-TRU00006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/01/2020;INH;;15/01/2020;69;0;Negative;
+33214047251857541/20-ZUL00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/04/2020;INH;28/04/2020;30/04/2020;69;0;Negative;28/04/2020
+33214047251857542/20-SUC00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/04/2020;INH;22/04/2020;24/04/2020;69;0;Negative;22/04/2020
+33214047251857543/20-SUC00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/04/2020;INH;20/04/2020;22/04/2020;69;0;Negative;20/04/2020
+33214047251857544/20-GUA00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/05/2020;INH;7/05/2020;7/05/2020;69;0;Negative;7/05/2020
+33214047251857546/20-ANZ00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/06/2020;;29/06/2020;;;            ;;29/06/2020
+33214047251857547/20-DEL00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/05/2020;;;;;            ;;
+33214047251857548/20-DEL00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/03/2020;INH;2/03/2020;9/03/2020;69;0;Negative;2/03/2020
+33214047251857549/20-DEL00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/04/2020;INH;24/04/2020;28/04/2020;69;0;Negative;24/04/2020
+33214047251857551/20-GUA00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/06/2020;INH;23/06/2020;9/07/2020;69;0;Negative;23/06/2020
+33214047251857552/20-MER00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/07/2020;INH;8/07/2020;;69;            ;;8/07/2020
+33214047251857553/20-MIR00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/06/2020;INH;16/06/2020;23/06/2020;69;0;Negative;16/06/2020
+33214047251857555/20-TRU00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/06/2020;INH;9/07/2020;9/07/2020;69;0;Negative;9/07/2020
+33214047251857557/20-YAR00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/06/2020;INH;1/07/2020;3/07/2020;69;0;Negative;1/07/2020
+33214047251857558/20-LAR00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/07/2020;INH;14/07/2020;14/07/2020;69;0;Negative;14/07/2020
+33214047251857561/20-LAR00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/08/2020;INH;18/08/2020;;69;            ;;18/08/2020
+33214047251857562/20-MER00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/08/2020;INH;;28/08/2020;69;0;Negative;
+33214047251857565/20-MER00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/07/2020;INH;3/08/2020;6/08/2020;69;0;Negative;3/08/2020
+33214047251857566/20-YAR00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/08/2020;INH;12/08/2020;12/09/2020;69;0;Negative;12/08/2020
+33214047251857567/20-CAR00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;31/08/2020;INH;1/09/2020;3/09/2020;69;0;Negative;1/09/2020
+33214047251857568/20-MON00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/08/2020;INH;15/08/2020;3/09/2020;69;0;Negative;15/08/2020
+33214047251857571/20-SUC00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/08/2020;INH;25/08/2020;17/09/2020;69;0;Negative;25/08/2020
+33214047251857573/20-SUC00005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/09/2020;INH;11/09/2020;22/09/2020;69;0;Negative;11/09/2020
+33214047251857573/20-SUC00005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;13/09/2020;INH;13/09/2020;25/09/2020;69;0;Negative;13/09/2020
+33214047251857577/20-MIR00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/09/2020;INH;;27/09/2020;69;0;Negative;
+33214047251857578/20-MIR00005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/08/2020;INH;19/08/2020;28/08/2020;69;0;Negative;19/08/2020
+33214047251857579/20-MIR00006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/09/2020;INH;1/10/2020;1/10/2020;69;0;Negative;1/10/2020
+33214047251857580/20-CAR00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/11/2020;INH;4/11/2020;5/11/2020;69;0;Negative;4/11/2020
+33214047251857581/20-CAR00005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/10/2020;INH;1/11/2020;12/11/2020;69;0;Negative;1/11/2020
+33214047251857581/20-CAR00005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;10/11/2020;INH;11/11/2020;12/11/2020;69;0;Negative;11/11/2020
+33214047251857582/20-SUC00006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/11/2020;INH;6/11/2020;10/11/2020;69;0;Negative;6/11/2020
+33214047251857584/20-ZUL00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/09/2020;INH;25/09/2020;27/09/2020;69;0;Negative;25/09/2020
+33214047251857586/20-ARA00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/09/2020;INH;;;69;            ;;
+33214047251857587/20-ARA00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/11/2020;INH;27/11/2020;1/12/2020;69;0;Negative;27/11/2020
+33214047251857588/20-POR00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/11/2020;INH;4/12/2020;8/12/2020;69;0;Negative;4/12/2020
+33214047251857589/20-CAR00006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/12/2020;INH;8/12/2020;9/12/2020;69;0;Negative;8/12/2020
+33214047251857590/20-NUE00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/10/2020;INH;29/10/2020;1/11/2020;69;0;Negative;29/10/2020
+33214047251857595/20-MIR00007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/10/2020;INH;22/10/2020;22/10/2020;69;0;Negative;22/10/2020
+33214047251857598/20-POR00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/12/2020;INH;18/12/2020;20/12/2020;69;4;Non Polio Enterovirus;18/12/2020
+33214047251857599/20-POR00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/12/2020;INH;17/12/2020;19/12/2020;69;0;Negative;17/12/2020
+33214047251857601/20-MER00006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/12/2020;INH;3/12/2020;;69;            ;;3/12/2020
+33214047251857602/20-SUC00007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/11/2020;INH;24/11/2020;1/12/2020;69;0;Negative;24/11/2020
+33214047251857608/20-ZUL00006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/10/2020;INH;;;69;            ;;
+33214047251857610/20-ZUL00007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/11/2020;INH;2/12/2020;;69;            ;;2/12/2020
+33214047251857612/20-TRU00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/06/2020;INH;15/09/2020;16/09/2020;69;            ;;15/09/2020
+33214047251857616/20-TRU00005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/12/2020;INH;30/12/2020;30/12/2020;69;0;Negative;30/12/2020
+33214047251857618/21-MIR00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/01/2021;INH;11/01/2021;13/01/2021;69;0;Negative;11/01/2021
+33214047251857622/21-BAR00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/02/2021;INH;28/02/2021;3/03/2021;69;0;Negative;28/02/2021
+33214047251857624/21-ANZ00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/06/2021;INH;4/06/2021;7/06/2021;69;0;Negative;4/06/2021
+33214047251857627/21-CAR00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/03/2021;INH;12/04/2021;12/04/2021;69;0;Negative;12/04/2021
+33214047251857628/21-GUA00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/06/2021;INH;3/06/2021;5/06/2021;69;0;Negative;3/06/2021
+33214047251857629/21-LA000001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/03/2021;INH;25/03/2021;29/03/2021;69;0;Negative;25/03/2021
+33214047251857630/21-BAR00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/03/2021;INH;29/03/2021;30/03/2021;69;0;Negative;29/03/2021
+33214047251857631/21-ANZ00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/04/2021;INH;23/04/2021;25/04/2021;69;0;Negative;23/04/2021
+33214047251857632/21-COJ00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/03/2021;INH;17/03/2021;17/03/2021;69;0;Negative;17/03/2021
+33214047251857633/21-GUA00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/04/2021;INH;20/04/2021;22/04/2021;69;0;Negative;20/04/2021
+33214047251857634/21-GUA00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/03/2021;INH;3/03/2021;7/03/2021;69;0;Negative;3/03/2021
+33214047251857635/21-MIR00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/02/2021;INH;18/02/2021;;69;            ;;18/02/2021
+33214047251857636/21-MIR00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/02/2021;;18/02/2021;;;            ;;18/02/2021
+33214047251857638/21-MON00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/05/2021;INH;10/05/2021;11/05/2021;69;0;Negative;10/05/2021
+33214047251857639/21-TRU00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/05/2021;INH;24/05/2021;25/05/2021;69;0;Negative;24/05/2021
+33214047251857640/21-ARA00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/06/2021;INH;2/06/2021;7/06/2021;69;0;Negative;2/06/2021
+33214047251857644/21-ZUL00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/02/2021;INH;;7/03/2021;69;0;Negative;
+33214047251857644/21-ZUL00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/02/2021;;;;;            ;;
+33214047251857645/21-ZUL00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/04/2021;INH;;22/04/2021;69;0;Negative;
+33214047251857646/21-ZUL00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/07/2021;INH;;7/03/2021;69;0;Negative;
+33214047251857647/21-ZUL00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/04/2021;INH;30/04/2021;;69;            ;;30/04/2021
+33214047251857647/21-ZUL00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/04/2021;INH;30/04/2021;3/05/2021;69;0;Negative;30/04/2021
+33214047251857648/21-ARA00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/06/2021;INH;24/06/2021;25/06/2021;69;0;Negative;24/06/2021
+33214047251857650/21-ARA00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/06/2021;INH;;22/06/2021;69;0;Negative;
+33214047251857651/21-ARA00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/06/2021;INH;25/06/2021;8/07/2021;69;0;Negative;25/06/2021
+33214047251857652/21-FAL00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/01/2021;INH;21/01/2021;22/01/2021;69;0;Negative;21/01/2021
+33214047251857654/21-YAR00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/06/2021;INH;29/06/2021;30/06/2021;69;0;Negative;29/06/2021
+33214047251857655/21-TAC00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/06/2021;INH;;20/06/2021;69;4;Non Polio Enterovirus;
+33214047251857656/21-TCA00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/06/2021;INH;;21/07/2021;69;0;Negative;
+33214047251857657/21-MIR00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/05/2021;INH;30/05/2021;7/06/2021;69;0;Negative;30/05/2021
+33214047251857658/21-MIR00005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/10/2021;INH;;21/07/2021;69;0;Negative;
+33214047251857659/21-ARA00005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/07/2021;INH;15/07/2021;20/07/2021;69;0;Negative;15/07/2021
+33214047251857660/21-LAR00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/07/2021;INH;17/07/2021;2/08/2021;69;0;Negative;17/07/2021
+33214047251857662/21-MER00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/01/2021;INH;22/01/2021;22/01/2021;69;0;Negative;22/01/2021
+33214047251857664/21-MER00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/07/2021;INH;22/07/2021;29/07/2021;69;4;Non Polio Enterovirus;22/07/2021
+33214047251857665/21-LAR00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/07/2021;INH;25/07/2021;2/08/2021;69;0;Negative;25/07/2021
+33214047251857666/21-POR00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/05/2021;INH;12/05/2021;15/05/2021;69;4;Non Polio Enterovirus;12/05/2021
+33214047251857667/21-POR00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/03/2021;INH;13/03/2021;16/03/2021;69;0;Negative;13/03/2021
+33214047251857668/21-BOL00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/04/2021;INH;2/05/2021;3/05/2021;69;0;Negative;2/05/2021
+33214047251857669/21-AMA00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/08/2021;INH;17/08/2021;18/08/2021;69;0;Negative;17/08/2021
+33214047251857670/21-AMA00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/09/2021;INH;7/09/2021;9/09/2021;69;0;Negative;7/09/2021
+33214047251857671/21-AMA00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/09/2021;INH;7/09/2021;9/09/2021;69;0;Negative;7/09/2021
+33214047251857672/21-BAR00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/08/2021;INH;27/08/2021;3/09/2021;69;0;Negative;27/08/2021
+33214047251857673/21-BAR00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/08/2021;INH;27/08/2021;31/08/2021;69;4;Non Polio Enterovirus;27/08/2021
+33214047251857675/21-LAR00005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/06/2021;INH;2/08/2021;2/08/2021;69;0;Negative;2/08/2021
+33214047251857676/21-MIR00006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/06/2021;INH;19/06/2021;19/06/2021;69;4;Non Polio Enterovirus;19/06/2021
+33214047251857677/21-MIR00007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/08/2021;INH;5/08/2021;5/08/2021;69;0;Negative;5/08/2021
+33214047251857678/21-MIR00008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/08/2021;INH;3/08/2021;3/08/2021;69;0;Negative;3/08/2021
+33214047251857679/21-MON00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/08/2021;INH;23/08/2021;15/09/2021;69;0;Negative;23/08/2021
+33214047251857681/21-TAC00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/07/2021;INH;;21/07/2021;69;0;Negative;
+33214047251857682/21-TRU00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/08/2021;INH;;2/09/2021;69;0;Negative;
+33214047251857686/21-ARA00006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/08/2021;INH;15/08/2021;18/08/2021;69;0;Negative;15/08/2021
+33214047251857688/21-APU00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/01/2021;INH;24/01/2021;27/01/2021;69;0;Negative;24/01/2021
+33214047251857689/21-APU00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/01/2021;INH;21/01/2021;27/01/2021;69;0;Negative;21/01/2021
+33214047251857691/21-SU000001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/10/2021;INH;13/10/2021;;69;0;Negative;13/10/2021
+33214047251857693/21-APU00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/10/2021;INH;6/10/2021;18/10/2021;69;0;Negative;6/10/2021
+33214047251857694/21-ARA00007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/08/2021;INH;19/08/2021;23/08/2021;69;0;Negative;19/08/2021
+33214047251857695/21-CAR00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/09/2021;INH;30/09/2021;25/10/2021;69;0;Negative;30/09/2021
+33214047251857696/21-DEL00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/06/2021;INH;10/06/2021;;69;0;Negative;10/06/2021
+33214047251857698/21-GUA00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/08/2021;INH;21/08/2021;24/08/2021;69;0;Negative;21/08/2021
+33214047251857699/21-MIR00009;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/05/2021;INH;18/05/2021;19/05/2021;69;0;Negative;18/05/2021
+33214047251857700/21-NUE00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/10/2021;INH;28/10/2021;29/10/2021;69;0;Negative;28/10/2021
+33214047251857701/21-POR00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/10/2021;INH;1/11/2021;14/12/2021;69;0;Negative;1/11/2021
+33214047251857702/21-POR00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/04/2021;INH;13/04/2021;28/04/2021;69;0;Negative;13/04/2021
+33214047251857703/21-YAR00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/09/2021;INH;;20/09/2021;69;0;Negative;
+33214047251857705/21-ANZ00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/09/2021;INH;8/09/2021;20/09/2021;69;0;Negative;8/09/2021
+33214047251857706/21-ANZ00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/10/2021;INH;20/10/2021;29/10/2021;69;0;Negative;20/10/2021
+33214047251857707/21-ANZ00005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/07/2021;INH;22/07/2021;23/07/2021;69;0;Negative;22/07/2021
+33214047251857708/21-BAR00005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/08/2021;INH;27/08/2021;30/08/2021;69;0;Negative;27/08/2021
+33214047251857709/21-BAR00006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/11/2021;INH;29/11/2021;13/12/2021;69;0;Negative;29/11/2021
+33214047251857710/21-MON00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/07/2021;INH;10/07/2021;11/07/2021;69;0;Negative;10/07/2021
+33214047251857712/21-MON00006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;31/07/2021;INH;5/08/2021;17/08/2021;69;0;Negative;5/08/2021
+33214047251857714/21-POR00006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/11/2021;INH;17/11/2021;;69;            ;;17/11/2021
+33214047251857716/21-POR00007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/09/2021;INH;13/09/2021;14/09/2021;69;0;Negative;13/09/2021
+33214047251857717/21-TRU00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/11/2021;INH;;28/11/2021;69;0;Negative;
+33214047251857718/21-CAR00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/10/2021;INH;25/10/2021;15/12/2021;69;4;Non Polio Enterovirus;25/10/2021
+33214047251857719/21-CAR00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/10/2021;INH;26/10/2021;17/11/2021;69;0;Negative;26/10/2021
+33214047251857721/21-YAR00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/01/2022;INH;6/01/2022;;69;            ;;6/01/2022
+33214047251857722/21-COJ00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/10/2021;INH;20/10/2021;26/10/2021;69;0;Negative;20/10/2021
+33214047251857723/21-MER00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/11/2021;INH;5/11/2021;11/11/2021;69;0;Negative;5/11/2021
+33214047251857724/21-MER00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/11/2021;INH;5/11/2021;11/11/2021;69;0;Negative;5/11/2021
+33214047251857725/21-MER00005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/11/2021;INH;9/11/2021;11/11/2021;69;0;Negative;9/11/2021
+33214047251857726/21-MER00006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/11/2021;INH;17/11/2021;18/11/2021;69;0;Negative;17/11/2021
+33214047251857727/21-MER00007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/11/2021;INH;;;69;            ;;
+33214047251857728/21-MIR00010;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/09/2021;INH;10/09/2021;13/09/2021;69;0;Negative;10/09/2021
+33214047251857729/21-MIR00011;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/11/2021;INH;5/11/2021;14/11/2021;69;0;Negative;5/11/2021
+33214047251857729/21-MIR00011;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/11/2021;INH;5/11/2021;;69;            ;;5/11/2021
+33214047251857730/21-MIR00012;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/11/2021;INH;14/11/2021;14/11/2021;69;0;Negative;14/11/2021
+33214047251857731/21-SUC00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/11/2021;INH;;19/11/2021;69;77;Poliovirus;
+21955048183443271/20-LP 0001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/01/2020;CDC;26/10/2020;30/10/2020;65;0;Negative;26/10/2020
+21955048183443272/20-CB 0003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/02/2020;CDC;26/10/2020;30/10/2020;65;0;Negative;26/10/2020
+21955048183443273/20-CB 0005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/03/2020;CDC;26/10/2020;30/10/2020;65;0;Negative;26/10/2020
+21955048183443304/20-LP 0006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/02/2020;CDC;26/10/2020;30/10/2020;65;0;Negative;26/10/2020
+21955048183443304/20-LP 0006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/02/2020;CDC;9/02/2020;9/02/2020;65;            ;;9/02/2020
+21955048183443311/20-OR 0007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/03/2020;CDC;26/10/2020;30/10/2020;65;0;Negative;26/10/2020
+21955048183443333/20-SC 0008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/02/2020;CDC;26/10/2020;30/10/2020;65;0;Negative;26/10/2020
+21955048183443346/20-LP 0010;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/10/2020;CDC;15/10/2020;30/10/2020;65;0;Negative;15/10/2020
+21955048183443349/20-CH 0011;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;31/10/2020;CDC;1/06/2021;1/06/2021;65;0;Negative;1/06/2021
+21955048183443349/20-CH 0011;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;31/10/2020;CDC;;;65;            ;;
+21955048183443350/20-LP 0012;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;31/10/2020;CDC;1/06/2021;8/06/2021;65;0;Negative;1/06/2021
+21955048183443359/20-SC 0013;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/11/2020;CDC;;;65;            ;;
+21955048183443359/20-SC 0013;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/11/2020;CDC;1/06/2021;8/06/2021;65;0;Negative;1/06/2021
+21955048183443426/21-LP;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/01/2021;CDC;24/05/2021;8/06/2021;65;0;Negative;24/05/2021
+21955048183443428/20-CH;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/12/2020;;;;;            ;;
+21955048183443428/20-CH;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/12/2020;CDC;1/06/2021;8/06/2021;65;0;Negative;1/06/2021
+21955048183443429/21-CH;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/12/2020;CDC;;;65;            ;;
+21955048183443429/21-CH;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/12/2020;CDC;1/06/2021;8/06/2021;65;0;Negative;1/06/2021
+21955048183443432/20-BN 009;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/09/2020;CDC;26/10/2020;30/10/2020;65;0;Negative;26/10/2020
+21955048183443435/20-BN 00;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/12/2020;CDC;1/06/2021;8/06/2021;65;4;Non Polio Enterovirus;1/06/2021
+21955048183443436/21- LP;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/01/2021;CDC;24/05/2021;8/06/2021;65;0;Negative;24/05/2021
+21955048183443437/21-CB;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/01/2021;CDC;24/05/2021;8/06/2021;65;0;Negative;24/05/2021
+21955048183443438/21- BN;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/03/2021;CDC;24/05/2021;8/06/2021;65;4;Non Polio Enterovirus;24/05/2021
+21955048183443449/21-CB;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/02/2021;CDC;24/05/2021;8/06/2021;65;4;Non Polio Enterovirus;24/05/2021
+21955048183443450/21-LP;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/03/2021;CDC;24/05/2021;8/06/2021;65;0;Negative;24/05/2021
+21955048183443452/21-SC;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/02/2021;CDC;24/05/2021;8/06/2021;65;4;Non Polio Enterovirus;24/05/2021
+21955048183443456/21- LP;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/04/2021;CDC;24/05/2021;8/06/2021;65;4;Non Polio Enterovirus;24/05/2021
+21955048183443457/21-CH;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/04/2021;CDC;31/03/2022;22/04/2022;65;0;Negative;31/03/2022
+21955048183443463/21- OR;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/04/2021;CDC;24/05/2021;8/06/2021;65;0;Negative;24/05/2021
+21955048183443484/21-CB;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/07/2021;;;;;            ;;
+21955048183443493/21- SC;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/04/2021;CDC;24/05/2021;8/06/2021;65;4;Non Polio Enterovirus;24/05/2021
+21955048183443494/21-SC;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/08/2021;CDC;31/03/2022;22/04/2022;65;0;Negative;31/03/2022
+21955048183443508/21- PT;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/09/2021;CDC;31/03/2022;22/04/2022;65;0;Negative;31/03/2022
+21955048183443516/21- CH;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/10/2021;CDC;31/03/2022;22/04/2022;65;0;Negative;31/03/2022
+21955048183443556/21- PT;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/10/2021;CDC;31/03/2022;22/04/2022;65;0;Negative;31/03/2022
+21955048183443559/21- CB;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/11/2021;CDC;31/03/2022;22/04/2022;65;0;Negative;31/03/2022
+21955048183443563/21- CH;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/12/2021;CDC;31/03/2022;22/04/2022;65;0;Negative;31/03/2022
+21955048183443569/21- CB;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/12/2021;;;;;            ;;
+22799473113565976/19-011;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/03/2019;ISP;19/03/2019;20/03/2019;26;0;Negative;19/03/2019
+22799473113566038/19-014;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/05/2019;ISP;22/05/2019;23/05/2019;26;0;Negative;22/05/2019
+22799473113566080/19-017;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/05/2019;ISP;22/05/2019;23/05/2019;26;0;Negative;22/05/2019
+22799473113566167/19-019;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/07/2019;ISP;25/07/2019;26/07/2019;26;0;Negative;25/07/2019
+22799473113566169/19-020;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/07/2019;ISP;29/07/2019;30/07/2019;26;0;Negative;29/07/2019
+22799473113566208/19-028;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/08/2019;ISP;7/08/2019;9/08/2019;26;0;Negative;7/08/2019
+22799473113566212/19-031;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/08/2019;ISP;23/08/2019;23/08/2019;26;0;Negative;23/08/2019
+22799473113566213/19-032;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/08/2019;ISP;23/08/2019;26/08/2019;26;0;Negative;23/08/2019
+22799473113566245/19-037;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/09/2019;ISP;13/09/2019;13/09/2019;26;0;Negative;13/09/2019
+22799473113566265/19-039;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/09/2019;ISP;5/09/2019;6/09/2019;26;0;Negative;5/09/2019
+22799473113566329/19-046;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/11/2019;ISP;5/11/2019;6/11/2019;26;0;Negative;5/11/2019
+22799473113566380/19-053;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/11/2019;ISP;21/11/2019;22/11/2019;26;0;Negative;21/11/2019
+22799473113566381/19-054;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/11/2019;ISP;15/11/2019;15/11/2019;26;0;Negative;15/11/2019
+22799473113566401/19-058;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/12/2019;ISP;11/12/2019;12/12/2019;26;0;Negative;11/12/2019
+22799473113566435/20-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/01/2020;ISP;8/01/2020;8/01/2020;26;0;Negative;8/01/2020
+22799473113566468/20-009;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/04/2020;ISP;;27/04/2020;26;0;Negative;
+22799473113566478/20-017;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/07/2020;ISP;;3/07/2020;26;0;Negative;
+22799473113566481/20-020;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/07/2020;ISP;;31/07/2020;26;0;Negative;
+22799473113566484/20-023;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/09/2020;ISP;;22/09/2020;26;0;Negative;
+22799473113566488/20-027;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;8/09/2020;ISP;;13/09/2020;26;0;Negative;
+22799473113566493/20-032;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/10/2020;ISP;;20/10/2020;26;0;Negative;
+22799473113566501/20-033;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/11/2020;ISP;;2/11/2020;26;0;Negative;
+22799473113566509/20-036;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/12/2020;ISP;;16/12/2020;26;0;Negative;
+22799473113566514/20-039;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/12/2020;ISP;;22/12/2020;26;0;Negative;
+22799473113566516/20-040;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/01/2021;ISP;;5/01/2021;26;0;Negative;
+22799473113566520/21-002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/01/2021;ISP;;18/01/2021;26;0;Negative;
+22799473113566536/21-008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/04/2021;ISP;;30/04/2021;26;0;Negative;
+22799473113566559/20-045;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/08/2021;ISP;;4/06/2020;26;0;Negative;
+22799473113566614/21-024;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/11/2021;ISP;;24/11/2021;26;0;Negative;
+22799473113566617/21-025;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/11/2021;ISP;;1/12/2021;26;0;Negative;
+22799473113566621/21-027;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;13/12/2021;ISP;;13/12/2021;26;0;Negative;
+23925373020414664/19-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/01/2019;CAR;;5/03/2019;63;0;Negative;
+23925373020414712/19-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/04/2019;CAR;;10/06/2019;63;0;Negative;
+23925373020414713/19-004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/04/2019;CAR;;10/06/2019;63;0;Negative;
+23925373020414724/19-006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/04/2019;CAR;;10/06/2019;63;0;Negative;
+23925373020414725/19-007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/05/2019;CAR;;10/06/2019;63;0;Negative;
+23925373020414726/19-008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/05/2019;CAR;;10/06/2019;63;0;Negative;
+23925373020414737/19-009;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/05/2019;CAR;;;63;            ;;
+23925373020414853/19-010;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/06/2019;CAR;20/08/2019;2/09/2019;63;0;Negative;20/08/2019
+23925373020414855/19-012;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/07/2019;CAR;20/08/2019;2/09/2019;63;4;Non Polio Enterovirus;20/08/2019
+23925373020414856/19-013;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/09/2019;CAR;;6/12/2019;63;0;Negative;
+23925373020414857/19-014;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/09/2019;CAR;;6/12/2019;63;0;Negative;
+23925373020414872/19-015;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/09/2019;CAR;;6/12/2019;63;0;Negative;
+23925373020414873/19-016;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/10/2019;CAR;;6/12/2019;63;0;Negative;
+23925373020414874/19-017;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/11/2019;CAR;;6/12/2019;63;0;Negative;
+23925373020414881/19-018;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/11/2019;CAR;;6/12/2019;63;0;Negative;
+23925373020414893/19-019;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/11/2019;CAR;;27/02/2020;63;0;Negative;
+23925373020414894/19-020;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/12/2019;CAR;;27/02/2020;63;0;Negative;
+23925373020414896/19-021;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/12/2019;CAR;;27/02/2020;63;0;Negative;
+23925373020414897/19-022;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/12/2019;CAR;;27/02/2020;63;0;Negative;
+23925373020414898/19-023;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;18/12/2019;CAR;;27/02/2020;63;0;Negative;
+23925373020414902/19-025;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/01/2020;CAR;;27/02/2020;63;0;Negative;
+23925373020414917/20-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;17/04/2020;CAR;2/06/2020;;63;            ;;2/06/2020
+23925373020414921/20-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;27/05/2020;CAR;10/06/2020;17/06/2020;63;77;Poliovirus;10/06/2020
+23925373020414921/20-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;3;2/10/2020;CAR;;20/10/2020;63;0;Negative;
+23925373020414921/20-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;2;27/05/2020;CAR;;10/06/2020;63;77;Poliovirus;
+562949953426834/19-001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;9/01/2019;MAL;;15/01/2019;21;0;Negative;
+562949953426835/19-002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/01/2019;MAL;;16/01/2019;21;0;Negative;
+562949953426836/19-003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/01/2019;MAL;;21/01/2019;21;0;Negative;
+562949953426837/19-004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/01/2019;MAL;;24/01/2019;21;0;Negative;
+562949953426875/19-006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/01/2019;MAL;;5/02/2019;21;4;Non Polio Enterovirus;
+562949953427015/19-021;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/02/2019;MAL;;11/03/2019;21;0;Negative;
+562949953427017/19-029;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/03/2019;MAL;;12/03/2019;21;0;Negative;
+562949953427027/19-010;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/01/2019;MAL;;23/01/2019;21;0;Negative;
+562949953427029/19-017;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/02/2019;MAL;;13/02/2019;21;0;Negative;
+562949953427030/19-009;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/01/2019;MAL;;21/01/2019;21;0;Negative;
+562949953427051/19-005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/01/2019;MAL;;31/01/2019;21;0;Negative;
+562949953427053/19-022;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/02/2019;MAL;;27/02/2019;21;0;Negative;
+562949953427054/19-025;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/02/2019;MAL;;20/02/2019;21;0;Negative;
+562949953427059/19-027;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/04/2019;MAL;;10/04/2019;21;0;Negative;
+562949953427060/19-034;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/02/2019;MAL;;26/02/2019;21;0;Negative;
+562949953427061/19-036;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;7/03/2019;MAL;;13/03/2019;21;0;Negative;
+562949953427065/19-038;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/03/2019;MAL;;17/03/2019;21;0;Negative;
+562949953427066/19-039;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;22/03/2019;MAL;;31/03/2019;21;0;Negative;
+562949953427067/19-040;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;24/03/2019;MAL;;;21;0;Negative;
+562949953427068/19-041;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/02/2019;MAL;;31/03/2019;21;0;Negative;
+562949953427071/19-045;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/04/2019;MAL;;10/04/2019;21;0;Negative;
+562949953427073/19-015;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/02/2019;MAL;;12/02/2019;21;0;Negative;
+562949953427074/19-016;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;5/02/2019;MAL;;12/02/2019;21;0;Negative;
+562949953427075/19-026;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;31/03/2019;MAL;;4/04/2019;21;0;Negative;
+562949953427092/19-023;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/04/2019;MAL;;23/04/2019;21;0;Negative;
+562949953427093/19-047;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/05/2019;MAL;;9/05/2019;21;0;Negative;
+33214047251857427/19-SUC00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;31/05/2019;INH;5/06/2019;10/06/2019;69;77;Poliovirus;5/06/2019
+33214047251857431/19-MON00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/06/2019;INH;17/06/2019;20/06/2019;69;0;Negative;17/06/2019
+33214047251857432/19-GUA00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/03/2019;INH;13/06/2019;21/06/2019;69;0;Negative;13/06/2019
+33214047251857433/19-SUC00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/06/2019;INH;8/07/2019;10/07/2019;69;4;Non Polio Enterovirus;8/07/2019
+33214047251857435/19-APU00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/06/2019;INH;21/06/2019;21/06/2019;69;0;Negative;21/06/2019
+33214047251857435/19-APU00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/06/2019;INH;21/06/2019;21/06/2019;69;0;Negative;21/06/2019
+33214047251857436/19-APU00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;20/06/2019;INH;20/06/2019;21/06/2019;69;0;Negative;20/06/2019
+33214047251857437/19-ARA00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/07/2019;INH;15/07/2019;16/07/2019;69;0;Negative;15/07/2019
+33214047251857438/19-ARA00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/06/2019;INH;8/07/2019;9/07/2019;69;0;Negative;8/07/2019
+33214047251857439/19-CAR00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/06/2019;INH;27/06/2019;27/06/2019;69;0;Negative;27/06/2019
+33214047251857440/19-FAL00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/05/2019;INH;27/05/2019;30/05/2019;69;0;Negative;27/05/2019
+33214047251857441/19-LAR00005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/07/2019;INH;11/07/2019;11/07/2019;69;0;Negative;11/07/2019
+33214047251857442/19-MER00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/06/2019;INH;15/07/2019;18/07/2019;69;0;Negative;15/07/2019
+33214047251857443/19-GUA00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/08/2019;INH;4/08/2019;26/08/2019;69;0;Negative;4/08/2019
+33214047251857444/19-MON00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/07/2019;INH;17/07/2019;19/07/2019;69;0;Negative;17/07/2019
+33214047251857446/19-BAR00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;28/06/2019;INH;9/07/2019;11/07/2019;69;0;Negative;9/07/2019
+33214047251857447/19-BAR00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;23/06/2019;INH;9/07/2019;11/07/2019;69;0;Negative;9/07/2019
+33214047251857448/19-BAR00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;25/06/2019;INH;8/07/2019;10/07/2019;69;0;Negative;8/07/2019
+33214047251857449/19-TRU00001;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/07/2019;INH;7/08/2019;8/08/2019;69;0;Negative;7/08/2019
+33214047251857450/19-LAR00006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;1/08/2019;INH;7/08/2019;8/08/2019;69;0;Negative;7/08/2019
+33214047251857451/19-LAR00007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;31/07/2019;INH;6/08/2019;7/08/2019;69;0;Negative;6/08/2019
+562949953427095/19-050;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;15/04/2019;MAL;;24/04/2019;21;77;Poliovirus;
+562949953427110/19-033;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;11/05/2019;MAL;;1819-05-19;21;0;Negative;
+562949953427111/19-059;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;29/04/2019;MAL;;8/05/2019;21;0;Negative;
+562949953427113/19-042;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;16/05/2019;MAL;;21/05/2019;21;0;Negative;
+562949953427118/19-061;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;12/05/2019;MAL;;22/05/2019;21;0;Negative;
+562949953427121/19-043;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/05/2019;MAL;;27/05/2019;21;0;Negative;
+562949953427123/19-064;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;26/05/2019;MAL;;30/05/2019;21;0;Negative;
+562949953427124/19-067;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;14/05/2019;MAL;;26/05/2019;21;0;Negative;
+33214047251857732/21-BOL00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/07/2021;INH;23/07/2021;12/08/2021;69;0;Negative;23/07/2021
+33214047251857733/21-BOL00003;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/07/2021;INH;23/07/2021;12/08/2021;69;0;Negative;23/07/2021
+33214047251857734/21-BOL00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;6/09/2021;INH;8/09/2021;13/09/2021;69;0;Negative;8/09/2021
+33214047251857735/21-BOL00005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/09/2021;INH;;11/10/2021;69;0;Negative;
+33214047251857736/21-BOL00006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/11/2021;INH;;14/11/2021;69;0;Negative;
+33214047251857737/21-BOL00007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;30/12/2021;INH;;;69;            ;;
+33214047251857738/21-BAR00007;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;4/01/2022;INH;;;69;            ;;
+33214047251857739/21-FAL00002;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;10/02/2021;;;;;            ;;
+33214047251857740/21-POR00008;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;2/08/2021;INH;13/08/2021;16/08/2021;69;4;Non Polio Enterovirus;13/08/2021
+33214047251857741/21-YAR00004;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/12/2021;INH;22/12/2021;2/01/2022;69;0;Negative;22/12/2021
+33214047251857743/21-ANZ00006;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;19/07/2021;INH;21/07/2021;23/07/2021;69;0;Negative;21/07/2021
+33214047251857744/21-POR00009;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;3/12/2021;INH;8/12/2021;13/12/2021;69;0;Negative;8/12/2021
+33214047251857755/21-ZUL00005;2;Cerebrospinal Fluid;1;Entero Virus Isolation;1;21/12/2021;INH;6/01/2022;;69;            ;;6/01/2022
+562949953427126/19-069;2;Cerebrospinal Fluid;2;Intratipical differentiation;1;27/05/2019;MAL;;29/05/2019;21;1,3         ;;
+33214047251857452/19-FAL00002;2;Cerebrospinal Fluid;2;Intratipical differentiation;1;28/06/2019;INH;30/06/2019;16/08/2019;69;1,3         ;;30/06/2019
+562949953427095/19-050;2;Cerebrospinal Fluid;2;Intratipical differentiation;1;15/04/2019;MAL;;24/04/2019;21;1,3         ;;
+23925373020414921/20-003;2;Cerebrospinal Fluid;2;Intratipical differentiation;1;27/05/2020;CAR;10/06/2020;17/06/2020;63;3;P3 Sabin;10/06/2020
+33214047251857731/21-SUC00003;2;Cerebrospinal Fluid;2;Intratipical differentiation;1;16/11/2021;INH;;19/11/2021;69;1;P1 Sabin;
+33214047251857427/19-SUC00002;2;Cerebrospinal Fluid;2;Intratipical differentiation;1;31/05/2019;INH;5/06/2019;21/06/2019;69;1;P1 Sabin;5/06/2019
+3940649673952927/21-002;2;Cerebrospinal Fluid;2;Intratipical differentiation;1;16/04/2021;CAR;;29/08/2021;63;1,3         ;;
