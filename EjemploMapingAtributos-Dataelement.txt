@@ -1,0 +1,55 @@
+Ejemplo maping para Atributos
+  "attribute": [
+        {
+          "column": "Address",
+          "id": "KVmhApZNh5I",
+          "name": "Address",
+		  "valueType":"TEXT",
+		  "mandatory":"false",
+		  optionSet: {
+				options: [
+				{
+				code: "1",
+				name: "Public"
+				},
+				{
+				code: "2",
+				name: "Private"
+				},
+				{
+				code: "88",
+				name: "Other"
+				},
+				{
+				code: "99",
+				name: "Unknown"
+				}
+				]
+				}
+		    ]
+			
+Ejemplo maping para Dataelement
+{
+compulsory: false,
+"dataElement": {
+                "column": "FinalClass",
+                "id": "kLcqAIy8Erz",
+                "name": "FinalClass",
+				valueType: "TEXT",
+				optionSet: {
+				options: [
+				{
+				code: "1",
+				name: "Yes"
+				},
+				{
+				code: "2",
+				name: "No"
+				},
+				{
+				code: "99",
+				name: "Unknown"
+				}
+				]
+              }
+			  }

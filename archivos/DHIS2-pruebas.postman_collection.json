@@ -1,0 +1,691 @@
+{
+	"info": {
+		"_postman_id": "daf2dc09-ac69-4b60-8ab9-6a34cd2a37fe",
+		"name": "DHIS2-pruebas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ConsultarTracked",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "T1cs@9oo4",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "lcobo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://191.237.253.158/api/trackedEntityAttributes",
+					"protocol": "http",
+					"host": [
+						"191",
+						"237",
+						"253",
+						"158"
+					],
+					"path": [
+						"api",
+						"trackedEntityAttributes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verificarCreacióndetracker",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "T1cs@9oo4",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "lcobo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://191.237.253.158/api/trackedEntityInstances/kEDqagUHopw",
+					"protocol": "http",
+					"host": [
+						"191",
+						"237",
+						"253",
+						"158"
+					],
+					"path": [
+						"api",
+						"trackedEntityInstances",
+						"kEDqagUHopw"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "d18a1af7f-4f8d-1bed-a2eb-abc1161e311",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "lcobo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "lcobo",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "T1cs@9oo4",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://191.237.253.158/uaa/oauth/token",
+					"protocol": "http",
+					"host": [
+						"191",
+						"237",
+						"253",
+						"158"
+					],
+					"path": [
+						"uaa",
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1Creartracker",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "NLxNvcU7g0a69pBwqLyAls6y6ME",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"trackedEntityInstances\": [{\r\n            \"trackedEntityInstance\": \"pKSRU3X0XRB\",\r\n            \"trackedEntityType\": \"Hb3HvqaWl2u\",\r\n            \"orgUnit\": \"cqsh8SRVWNO\",\r\n            \"attributes\": [{\r\n                    \"attribute\": \"WelU0kd868C\",\r\n                    \"value\": \"8\"\r\n                }, {\r\n                    \"attribute\": \"uiI2pR0ia32\",\r\n                    \"value\": \"0\"\r\n                }, {\r\n                    \"attribute\": \"kR6TpjXjMP7\",\r\n                    \"value\": \"19-169\"\r\n                }, {\r\n                    \"attribute\": \"ACeWiOj15cU\",\r\n                    \"value\": \"2018-08-18\"\r\n                }, {\r\n                    \"attribute\": \"P9D9Kno5h5M\",\r\n                    \"value\": \"2019-04-26\"\r\n                }, {\r\n                    \"attribute\": \"x48FoeDRMV8\",\r\n                    \"value\": \"18\"\r\n                }, {\r\n                    \"attribute\": \"BJOIp2AWzaD\",\r\n                    \"value\": \"17\"\r\n                }, {\r\n                    \"attribute\": \"ozzQiwrDfYC\",\r\n                    \"value\": \"2019\"\r\n                }, {\r\n                    \"attribute\": \"MPZ1QsldiKH\",\r\n                    \"value\": \"2019\"\r\n                }, {\r\n                    \"attribute\": \"I1bgG0PWXQw\",\r\n                    \"value\": \"true\"\r\n                }, {\r\n                    \"attribute\": \"mxKJ869xJOd\",\r\n                    \"value\": \"562949953427470/19-169\"\r\n                }, {\r\n                    \"attribute\": \"VaG0ZzCCHsR\",\r\n                    \"value\": \"ENZO \"\r\n                }, {\r\n                    \"attribute\": \"gE9Z5IijE5J\",\r\n                    \"value\": \"SAFFAR \"\r\n                }, {\r\n                    \"attribute\": \"sLfTm5aHAAy\",\r\n                    \"value\": \"YAMIL\"\r\n                }, {\r\n                    \"attribute\": \"zk2BaGzXyC4\",\r\n                    \"value\": \"1\"\r\n                }\r\n            ]\r\n        }, {\r\n            \"trackedEntityInstance\": \"Tv6GjylflBe\",\r\n            \"trackedEntityType\": \"Hb3HvqaWl2u\",\r\n            \"orgUnit\": \"cqsh8SRVWNO\",\r\n            \"attributes\": [\r\n\t\t\t     {\r\n                    \"attribute\": \"WelU0kd868C\",\r\n                    \"value\": \"6\"\r\n                }, {\r\n                    \"attribute\": \"uiI2pR0ia32\",\r\n                    \"value\": \"1\"\r\n                }, {\r\n                    \"attribute\": \"kR6TpjXjMP7\",\r\n                    \"value\": \"19-3506\"\r\n                }, {\r\n                    \"attribute\": \"ACeWiOj15cU\",\r\n                    \"value\": \"2018-03-20\"\r\n                }, {\r\n                    \"attribute\": \"P9D9Kno5h5M\",\r\n                    \"value\": \"2019-09-09\"\r\n                }, {\r\n                    \"attribute\": \"x48FoeDRMV8\",\r\n                    \"value\": \"37\"\r\n                }, {\r\n                    \"attribute\": \"BJOIp2AWzaD\",\r\n                    \"value\": \"37\"\r\n                }, {\r\n                    \"attribute\": \"ozzQiwrDfYC\",\r\n                    \"value\": \"2019\"\r\n                }, {\r\n                    \"attribute\": \"MPZ1QsldiKH\",\r\n                    \"value\": \"2019\"\r\n                }, {\r\n                    \"attribute\": \"I1bgG0PWXQw\",\r\n                    \"value\": \"true\"\r\n                }, {\r\n                    \"attribute\": \"mxKJ869xJOd\",\r\n                    \"value\": \"562949953430289/19-3506\"\r\n                }, {\r\n                    \"attribute\": \"VaG0ZzCCHsR\",\r\n                    \"value\": \"JEREMIA\"\r\n                }, {\r\n                    \"attribute\": \"gE9Z5IijE5J\",\r\n                    \"value\": \"PANDIELLA \"\r\n                }, {\r\n                    \"attribute\": \"sLfTm5aHAAy\",\r\n                    \"value\": \"EDUARDO\"\r\n                }, {\r\n                    \"attribute\": \"zk2BaGzXyC4\",\r\n                    \"value\": \"1\"\r\n                }\r\n            ]\r\n        }\r\n}\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://191.237.253.158/api/trackedEntityInstances",
+					"protocol": "http",
+					"host": [
+						"191",
+						"237",
+						"253",
+						"158"
+					],
+					"path": [
+						"api",
+						"trackedEntityInstances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "organisationUnits",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "QZ4hZY2OW2EIGvfuO6dmHsPKLvw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://191.237.253.158/api/organisationUnits?fields=id,name,code&paging=false",
+					"protocol": "http",
+					"host": [
+						"191",
+						"237",
+						"253",
+						"158"
+					],
+					"path": [
+						"api",
+						"organisationUnits"
+					],
+					"query": [
+						{
+							"key": "fields",
+							"value": "id,name,code"
+						},
+						{
+							"key": "paging",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2enrollments",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "T1cs@9oo4",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "lcobo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"enrollments\": [{\r\n            \"trackedEntityInstance\": \"ha1eHvYI441\",\r\n            \"program\": \"Hh5bklmdAw7\",\r\n            \"status\": \"ACTIVE\",\r\n            \"orgUnit\": \"cqsh8SRVWNO\",\r\n            \"enrollmentDate\": \"2019-04-30\",\r\n            \"incidentDate\": \"2019-04-30\"\r\n        }, {\r\n            \"trackedEntityInstance\": \"NLBObtjSQjI\",\r\n            \"program\": \"Hh5bklmdAw7\",\r\n            \"status\": \"ACTIVE\",\r\n            \"orgUnit\": \"cqsh8SRVWNO\",\r\n            \"enrollmentDate\": \"2019-09-11\",\r\n            \"incidentDate\": \"2019-09-11\"\r\n        }, {\r\n            \"trackedEntityInstance\": \"fJGYgGyeihC\",\r\n            \"program\": \"Hh5bklmdAw7\",\r\n            \"status\": \"ACTIVE\",\r\n            \"orgUnit\": \"cqsh8SRVWNO\",\r\n            \"enrollmentDate\": \"2019-10-31\",\r\n            \"incidentDate\": \"2019-10-31\"\r\n        }, {\r\n            \"trackedEntityInstance\": \"go038AmQSpy\",\r\n            \"program\": \"Hh5bklmdAw7\",\r\n            \"status\": \"ACTIVE\",\r\n            \"orgUnit\": \"cqsh8SRVWNO\",\r\n            \"enrollmentDate\": \"2019-11-01\",\r\n            \"incidentDate\": \"2019-11-01\"\r\n        }, {\r\n            \"trackedEntityInstance\": \"HcuRUF3nlhG\",\r\n            \"program\": \"Hh5bklmdAw7\",\r\n            \"status\": \"ACTIVE\",\r\n            \"orgUnit\": \"cqsh8SRVWNO\",\r\n            \"enrollmentDate\": \"2019-12-26\",\r\n            \"incidentDate\": \"2019-12-26\"\r\n        }, {\r\n            \"trackedEntityInstance\": \"QKgIPrUD9kD\",\r\n            \"program\": \"Hh5bklmdAw7\",\r\n            \"status\": \"ACTIVE\",\r\n            \"orgUnit\": \"cqsh8SRVWNO\",\r\n            \"enrollmentDate\": \"2019-04-23\",\r\n            \"incidentDate\": \"2019-04-23\"\r\n        }, {\r\n            \"trackedEntityInstance\": \"PqXObhXbhUN\",\r\n            \"program\": \"Hh5bklmdAw7\",\r\n            \"status\": \"ACTIVE\",\r\n            \"orgUnit\": \"cqsh8SRVWNO\",\r\n            \"enrollmentDate\": \"2019-05-22\",\r\n            \"incidentDate\": \"2019-05-22\"\r\n        }, {\r\n            \"trackedEntityInstance\": \"QVSvGV8LykT\",\r\n            \"program\": \"Hh5bklmdAw7\",\r\n            \"status\": \"ACTIVE\",\r\n            \"orgUnit\": \"cqsh8SRVWNO\",\r\n            \"enrollmentDate\": \"2020-01-23\",\r\n            \"incidentDate\": \"2020-01-23\"\r\n        }, {\r\n            \"trackedEntityInstance\": \"Uz7D6SwepZE\",\r\n            \"program\": \"Hh5bklmdAw7\",\r\n            \"status\": \"ACTIVE\",\r\n            \"orgUnit\": \"cqsh8SRVWNO\",\r\n            \"enrollmentDate\": \"2019-05-22\",\r\n            \"incidentDate\": \"2019-05-22\"\r\n        }, {\r\n            \"trackedEntityInstance\": \"GGSQWk04Nsk\",\r\n            \"program\": \"Hh5bklmdAw7\",\r\n            \"status\": \"ACTIVE\",\r\n            \"orgUnit\": \"cqsh8SRVWNO\",\r\n            \"enrollmentDate\": \"2019-11-12\",\r\n            \"incidentDate\": \"2019-11-12\"\r\n        }\r\n    ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://191.237.253.158/api/enrollments",
+					"protocol": "http",
+					"host": [
+						"191",
+						"237",
+						"253",
+						"158"
+					],
+					"path": [
+						"api",
+						"enrollments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3events",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "client_authentication",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "accessTokenUrl",
+							"value": "60f161625-509d-d623-3b9d-8cd4e47ea9f",
+							"type": "string"
+						},
+						{
+							"key": "authUrl",
+							"value": "https://play.dhis2.org/2.37.2/",
+							"type": "string"
+						},
+						{
+							"key": "useBrowser",
+							"value": false,
+							"type": "boolean"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "https://tics.co",
+							"type": "string"
+						},
+						{
+							"key": "tokenName",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "authorization_code",
+							"type": "string"
+						},
+						{
+							"key": "clientId",
+							"value": "1980",
+							"type": "string"
+						},
+						{
+							"key": "clientSecret",
+							"value": "60f161625-509d-d623-3b9d-8cd4e47ea9f",
+							"type": "string"
+						},
+						{
+							"key": "tokenType",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "challengeAlgorithm",
+							"value": "S256",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "queryParams",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"events\": [\r\n        {\r\n            \"trackedEntityInstance\": \"QVSvGV8LykT\",\r\n            \"program\": \"Hh5bklmdAw7\",\r\n            \"orgUnit\": \"cqsh8SRVWNO\",\r\n            \"programStage\": \"sNQqHHN5gi3\",\r\n            \"eventDate\": \"2022-04-03\",\r\n            \"status\": \"COMPLETED\",\r\n            \"storedBy\": \"admin\",\r\n            \"coordinate\": {\r\n                \"latitude\": \"59.8\",\r\n                \"longitude\": \"10.9\"\r\n            },\r\n            \"dataValues\": [\r\n                {\r\n                    \"dataElement\": \"qrur9Dvnyt5\",\r\n                    \"value\": \"22\"\r\n                },\r\n                {\r\n                    \"dataElement\": \"oZg33kd9taw\",\r\n                    \"value\": \"Male\"\r\n                }\r\n            ]\r\n        },\r\n        {\r\n            \"trackedEntityInstance\": \"QVSvGV8LykT\",\r\n            \"program\": \"Hh5bklmdAw7\",\r\n            \"programStage\": \"sNQqHHN5gi3\",\r\n            \"orgUnit\": \"cqsh8SRVWNO\",\r\n            \"eventDate\": \"2022-04-03\",\r\n            \"status\": \"COMPLETED\",\r\n            \"storedBy\": \"admin\",\r\n            \"coordinate\": {\r\n                \"latitude\": \"59.8\",\r\n                \"longitude\": \"10.9\"\r\n            },\r\n            \"dataValues\": [\r\n                {\r\n                    \"dataElement\": \"qrur9Dvnyt5\",\r\n                    \"value\": \"26\"\r\n                },\r\n                {\r\n                    \"dataElement\": \"oZg33kd9taw\",\r\n                    \"value\": \"Female\"\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://191.237.253.158/api/33/events",
+					"protocol": "http",
+					"host": [
+						"191",
+						"237",
+						"253",
+						"158"
+					],
+					"path": [
+						"api",
+						"33",
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Traketbyouid",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "HYKnN0oBP1CBMwer7TK6-UzbJXo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://191.237.253.158/api/trackedEntityInstances/uM8BsDDZMV6",
+					"protocol": "http",
+					"host": [
+						"191",
+						"237",
+						"253",
+						"158"
+					],
+					"path": [
+						"api",
+						"trackedEntityInstances",
+						"uM8BsDDZMV6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ConsultarTracker",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "SaNnDWfogUoezN1s1iXwjcp0F1s",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://191.237.253.158/api/trackedEntityInstances?filter=kR6TpjXjMP7:EQ:22-helderprueba&ou=cqsh8SRVWNO",
+					"protocol": "http",
+					"host": [
+						"191",
+						"237",
+						"253",
+						"158"
+					],
+					"path": [
+						"api",
+						"trackedEntityInstances"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "kR6TpjXjMP7:EQ:22-helderprueba"
+						},
+						{
+							"key": "ou",
+							"value": "cqsh8SRVWNO"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SEQUENTIAL TRACKER",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "SaNnDWfogUoezN1s1iXwjcp0F1s",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://191.237.253.158/api/trackedEntityAttributes/mxKJ869xJOd/generateAndReserve?numberToReserve=1000",
+					"protocol": "http",
+					"host": [
+						"191",
+						"237",
+						"253",
+						"158"
+					],
+					"path": [
+						"api",
+						"trackedEntityAttributes",
+						"mxKJ869xJOd",
+						"generateAndReserve"
+					],
+					"query": [
+						{
+							"key": "numberToReserve",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar Enrollment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "Zjic6-lH2X31kg0JWVI8BUQZ-Ss",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://191.237.253.158/api/enrollments?ou=cqsh8SRVWNO&trackedEntityInstance=uK32FhMW2m7",
+					"protocol": "http",
+					"host": [
+						"191",
+						"237",
+						"253",
+						"158"
+					],
+					"path": [
+						"api",
+						"enrollments"
+					],
+					"query": [
+						{
+							"key": "ou",
+							"value": "cqsh8SRVWNO"
+						},
+						{
+							"key": "trackedEntityInstance",
+							"value": "uK32FhMW2m7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "organisationUnitsXid",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "uT8PcRvgA4w99LzgSPaDKjXlOUI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://191.237.253.158/api/organisationUnits.json?filter=id:eq:G1m9fXttEFw&paging=false",
+					"protocol": "http",
+					"host": [
+						"191",
+						"237",
+						"253",
+						"158"
+					],
+					"path": [
+						"api",
+						"organisationUnits.json"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "id:eq:G1m9fXttEFw"
+						},
+						{
+							"key": "paging",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "eventsXorganizacion -Consultar Eventos para borrar",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "uT8PcRvgA4w99LzgSPaDKjXlOUI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://191.237.253.158/api/events?orgUnit=G1m9fXttEFw&ouMode=DESCENDANTS&startDate=2019-01-01&endDate=2021-12-31&paging=false",
+					"protocol": "http",
+					"host": [
+						"191",
+						"237",
+						"253",
+						"158"
+					],
+					"path": [
+						"api",
+						"events"
+					],
+					"query": [
+						{
+							"key": "orgUnit",
+							"value": "G1m9fXttEFw"
+						},
+						{
+							"key": "ouMode",
+							"value": "DESCENDANTS"
+						},
+						{
+							"key": "startDate",
+							"value": "2019-01-01"
+						},
+						{
+							"key": "endDate",
+							"value": "2021-12-31"
+						},
+						{
+							"key": "paging",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar Eventos ORganizacion padre",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "uT8PcRvgA4w99LzgSPaDKjXlOUI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://191.237.253.158/api/events?orgUnit=G1m9fXttEFw&ouMode=DESCENDANTS&startDate=2019-01-01&endDate=2021-12-31&paging=false",
+					"protocol": "http",
+					"host": [
+						"191",
+						"237",
+						"253",
+						"158"
+					],
+					"path": [
+						"api",
+						"events"
+					],
+					"query": [
+						{
+							"key": "orgUnit",
+							"value": "G1m9fXttEFw"
+						},
+						{
+							"key": "ouMode",
+							"value": "DESCENDANTS"
+						},
+						{
+							"key": "startDate",
+							"value": "2019-01-01"
+						},
+						{
+							"key": "endDate",
+							"value": "2021-12-31"
+						},
+						{
+							"key": "paging",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
