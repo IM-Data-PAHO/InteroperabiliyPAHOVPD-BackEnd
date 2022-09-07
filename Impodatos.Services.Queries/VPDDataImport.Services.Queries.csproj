@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Impodatos.Persistence.Database\Impodatos.Persistence.Database.csproj" />
-    <ProjectReference Include="..\Impodatos.Services.Common\Impodatos.Services.Common.csproj" />
+    <ProjectReference Include="..\Impodatos.Persistence.Database\VPDDataImport.Persistence.Database.csproj" />
+    <ProjectReference Include="..\Impodatos.Services.Common\VPDDataImport.Services.Common.csproj" />
   </ItemGroup>
 
 </Project>

@@ -25,7 +25,7 @@ namespace Impodatos.Services.Queries
         Task<OrganisationUnitsDto> GetAllOrganisation(string token);
         Task<OrganisationUnit> GetOrganisationUnit(string token, string uid);
         Task<UidGeneratedDto> GetUidGenerated(string quantity, string token);
-        Task<AddTrackedDto> GetTracket(string caseid, string ou, string token);
+        Task<AddTrackedDto> GetTracked(string caseid, string ou, string token);
         Task<AddEnrollmentsClearDto> GetEnrollment(string program, string oupath,  string token);
         Task<AddTracketResultDto> AddTracked(AddTrackedDto request, string token);
         Task<AddEnrollmentResultDto> AddEnrollment(AddEnrollmentDto request, string token);
@@ -489,7 +489,7 @@ namespace Impodatos.Services.Queries
             var result = await RequestHttp.CallGetMethod("dhis", "sequential", quantity, "",token);
             return JsonConvert.DeserializeObject<List<SequentialDto>>(result);
         }
-        public async Task<AddTrackedDto> GetTracket(string caseid, string ou, string token)
+        public async Task<AddTrackedDto> GetTracked(string caseid, string ou, string token)
         {
             var result = await RequestHttp.CallGetMethod("dhis", "validatetrak", caseid, ou, token);
             return JsonConvert.DeserializeObject<AddTrackedDto>(result);

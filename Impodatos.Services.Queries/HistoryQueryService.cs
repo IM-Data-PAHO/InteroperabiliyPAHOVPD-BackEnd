@@ -78,15 +78,30 @@ namespace Impodatos.Services.Queries
                     jsonpars = "[" + jsonpars + "]";
                     jsonpars = jsonpars.Replace("[\"", "[");
                     jsonpars = jsonpars.Replace("\"]", "]");
+                    jsonpars = jsonpars.Replace("}\",\"{", "},{"); 
                     try
                     {
 
                         var dhisResponse = JsonConvert.DeserializeObject<List<Root>>(jsonpars);
                         foreach (Root item in dhisResponse)
                             foreach (ImportSummaryDhis itemsum in item.importSummaries) //f8NbfmhXzl3
+                            {
+                                if (itemsum.conflicts.Count > 0)
+                                {
+                                    var st = itemsum.conflicts[0];
+                                    foreach (ConflictDhis conflict in itemsum.conflicts)
+                                    {                                    
+                                        var Case_ID = await GetTrackedreferenceAsync(token, itemsum.reference);                                                  
+                                        ResponseError = "\nCase_Id " + Case_ID.attributes[0].value + " : "  + conflict.value + ";" + ResponseError;
+                                               
+                                    }
+                                }
+                            
                                 foreach (ImportSummaryDhis itemed in itemsum.enrollments.importSummaries)
                                     foreach (ImportSummaryDhis itemev in itemed.events.importSummaries)
                                     {
+                                        
+                                        
                                         if (itemev.conflicts.Count > 0)
                                         {
                                             foreach (ConflictDhis conflict in itemev.conflicts)
@@ -99,14 +114,14 @@ namespace Impodatos.Services.Queries
                                                             //infodhis inf = new infodhis();
                                                             //inf.info = "Case_Id " + Case_ID.attributes[0].value + " : " + dtele.dataElement.name + "," + conflict.value;
                                                             //error.Add(inf);
-                                                            ResponseError = "Case_Id " + Case_ID.attributes[0].value + " : " + dtele.dataElement.name + "," + conflict.value + ";" + ResponseError;
+                                                            ResponseError = "\nCase_Id " + Case_ID.attributes[0].value + " : " + dtele.dataElement.name + "," + conflict.value + ";" + ResponseError;
                                                         }
                                             }
 
 
                                         }
                                     }
-
+                            }
 
                     }
                     catch (Exception e)

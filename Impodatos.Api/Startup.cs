@@ -39,7 +39,7 @@ namespace Impodatos.Api
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Impodatos.Api", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "VPD.DataImport.Microservice", Version = "v1" });
             });
             services.AddDbContext<ApplicationDbContext>(options =>
             {
@@ -52,7 +52,7 @@ namespace Impodatos.Api
                     builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                 });
             });
-            services.AddMediatR(Assembly.Load("Impodatos.Services.EventHandlers"));                                           
+            services.AddMediatR(Assembly.Load("VPDDataImport.Services.EventHandlers"));                                           
             services.AddTransient<IhistoryQueryService, historyQueryService>();
             services.AddTransient<IValidator<historyCreateCommand>, historyCreateValidator>();
             services.AddTransient<IDhisQueryService, DhisQueryService>();
@@ -70,7 +70,7 @@ namespace Impodatos.Api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Impodatos.Api v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "VPD.DataImport.Microservice v1"));
             }
 
             app.UseRouting();

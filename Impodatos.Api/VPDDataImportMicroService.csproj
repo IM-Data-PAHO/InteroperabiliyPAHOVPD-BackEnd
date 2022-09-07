@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\DataImportController.cs" />
+    <Compile Remove="Controllers\HistoryController.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,9 +27,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Impodatos.Persistence.Database\Impodatos.Persistence.Database.csproj" />
-    <ProjectReference Include="..\Impodatos.Services.EventHandlers\Impodatos.Services.EventHandlers.csproj" />
-    <ProjectReference Include="..\Impodatos.Services.Queries\Impodatos.Services.Queries.csproj" />
+    <ProjectReference Include="..\Impodatos.Persistence.Database\VPDDataImport.Persistence.Database.csproj" />
+    <ProjectReference Include="..\Impodatos.Services.EventHandlers\VPDDataImport.Services.EventHandlers.csproj" />
+    <ProjectReference Include="..\Impodatos.Services.Queries\VPDDataImport.Services.Queries.csproj" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

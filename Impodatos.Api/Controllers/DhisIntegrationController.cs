@@ -43,10 +43,10 @@ namespace Impodatos.Api.Controllers
             return await _dhisQueryService.GetUidGenerated(quantity, token);
         }
         [HttpGet]
-        [Route("getTracket/{caseid}/{ou}/{token}")]
+        [Route("getTracked/{caseid}/{ou}/{token}")]
         public async Task<AddTrackedDto> GetTracket(string caseid,string ou,string token)
         {
-            return await _dhisQueryService.GetTracket(caseid,ou,token);
+            return await _dhisQueryService.GetTracked(caseid,ou,token);
         }
         [HttpGet]
         [Route("getEnrollment/{caseid}/{ou}/{token}")]
@@ -79,8 +79,8 @@ namespace Impodatos.Api.Controllers
             //return await _dhisQueryService.StartDryRunAsync(request);
         }
         [HttpPost]
-        [Route("addTracket/{token}")]
-        public async Task<AddTracketResultDto> AddTracket(AddTrackedDto request, string token)
+        [Route("addTracked/{token}")]
+        public async Task<AddTracketResultDto> AddTracked(AddTrackedDto request, string token)
         {
             return await _dhisQueryService.AddTracked(request, token);
         }

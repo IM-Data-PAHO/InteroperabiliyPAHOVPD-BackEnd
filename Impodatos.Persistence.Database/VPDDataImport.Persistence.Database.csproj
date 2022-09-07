@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Impodatos.Domain\Impodatos.Domain.csproj" />
+    <ProjectReference Include="..\Impodatos.Domain\VPDDataImport.Domain.csproj" />
   </ItemGroup>
 
 </Project>

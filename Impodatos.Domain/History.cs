@@ -82,7 +82,8 @@ namespace Impodatos.Domain
         public int deleted { get; set; }
         public int ignored { get; set; }
         public List<ImportSummaryDhis> importSummaries { get; set; }
-        public int total { get; set; }
+        public int total { get; set; }     
+        
     }
 
 

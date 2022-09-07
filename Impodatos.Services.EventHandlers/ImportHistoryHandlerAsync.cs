@@ -395,7 +395,7 @@ namespace Impodatos.Services.EventHandlers
                             if (ouLine != null) { 
                             trackedInstDto.orgUnit = ouLine.id;
 
-                            var validatetraked = await _dhis.GetTracket(caseidvalue, ouLine.id, commandGeneral.token);
+                            var validatetraked = await _dhis.GetTracked(caseidvalue, ouLine.id, commandGeneral.token);
                             if (validatetraked.trackedEntityInstances.Count > 0)
                                 trackedInstDto.trackedEntityInstance = validatetraked.trackedEntityInstances[0].trackedEntityInstance;
                             else
@@ -1344,12 +1344,24 @@ namespace Impodatos.Services.EventHandlers
                     jsonpars = "[" + jsonpars + "]";
                     jsonpars = jsonpars.Replace("[\"", "[");
                     jsonpars = jsonpars.Replace("\"]", "]");
+                    jsonpars = jsonpars.Replace("}\",\"{", "},{");
                     try
                     {
 
                         var dhisResponse = JsonConvert.DeserializeObject<List<Root>>(jsonpars);
                         foreach (Root item in dhisResponse)
                             foreach (ImportSummaryDhis itemsum in item.importSummaries) //f8NbfmhXzl3
+                            {
+                                if (itemsum.conflicts.Count > 0)
+                                {
+                                    var st = itemsum.conflicts[0];
+                                    foreach (ConflictDhis conflict in itemsum.conflicts)
+                                    {
+                                        var Case_ID = await _dhis.GetTrackedreferenceAsync(token, itemsum.reference);
+                                        ResponseError = "\nCase_Id " + Case_ID.attributes[0].value + " : " + conflict.value + ";" + ResponseError;
+
+                                    }
+                                }
                                 foreach (ImportSummaryDhis itemed in itemsum.enrollments.importSummaries)
                                     foreach (ImportSummaryDhis itemev in itemed.events.importSummaries)
                                     {
@@ -1371,10 +1383,11 @@ namespace Impodatos.Services.EventHandlers
                                     }
 
 
+                            }
                     }
                     catch (Exception e)
                     {
-                        
+
                         ResponseError = "";
                     }
                   
