@@ -19,12 +19,12 @@ namespace Impodatos.Services.Queries
         Task<IEnumerable<historyDto>> GethistoryUserAsync(string correo, string token);
         Task<DhisProgramDto> GetAllProgramAsync(string token);
         Task<TrackedreferenceResponse> GetTrackedreferenceAsync(string token, string reference);
-        //Task<AddTracketResultDto> RawImport(RawImport request);
 
         //Task<AddTracketResultDto> AddTracked(AddTrackedDto request, string token);
         //Task<IEnumerable<historyDto>> GetAllAsync01();
         //Task<IEnumerable<historyDto>> GethistoryUserAsync01(string correo);
     }
+
     public class historyQueryService : IhistoryQueryService
     {
         private readonly ApplicationDbContext _context;
@@ -41,6 +41,13 @@ namespace Impodatos.Services.Queries
 
             return _mapper.Map<IEnumerable<historyDto>>(result);
         }
+
+        /// <summary>
+        /// Métodoo que retorna el historial de las importaciones
+        /// </summary>
+        /// <param name="correo">email del usuario logeado</param>
+        /// <param name="token">Token de atenticación</param>
+        /// <returns></returns>
         public async Task<IEnumerable<historyDto>> GethistoryUserAsync(string correo, string token)
         {
 
@@ -140,55 +147,41 @@ namespace Impodatos.Services.Queries
 
             return _mapper.Map<IEnumerable<historyDto>>(result);
         }
+
+        /// <summary>
+        /// Método que retorna todos los programas mapeados
+        /// </summary>
+        /// <param name="token">Token de autenticación</param>
+        /// <returns>Retorna un dto de tipo DhisProgramDto</returns>
         public async Task<DhisProgramDto> GetAllProgramAsync(string token)
         {
             var result = await RequestHttp.CallMethod("dhis", "program", token);
             return JsonConvert.DeserializeObject<DhisProgramDto>(result);
         }
+
+        /// <summary>
+        /// Método que retorna las configuraciones de usuario (correo, idioma, rol, etc)
+        /// </summary>
+        /// <param name="token">Token de autenticación</param>
+        /// <returns>Retorna un dto de tipo UserSettingDto</returns>
         public async Task<UserSettingDto> GetUserSetting(string token)
         {
             var result = await RequestHttp.CallMethodGetUserSetting("dhis", token);
             return JsonConvert.DeserializeObject<UserSettingDto>(result);
         }
+
+        /// <summary>
+        /// Método que retorna cual es el atributo con error dentro del summary
+        /// </summary>
+        /// <param name="token">Token de autenticación</param>
+        /// <param name="reference"></param>
+        /// <returns>Retorna un dto de tipo TrackedreferenceResponse</returns>
         public async Task<TrackedreferenceResponse> GetTrackedreferenceAsync(string token, string reference)
         {
             var result = await RequestHttp.CallMethod("dhis", "trackedreference", token, reference);
             return JsonConvert.DeserializeObject<TrackedreferenceResponse>(result);
         }
 
-        //public async Task<AddTracketResultDto> RawImport(RawImport request)
-        //{
-        //    var content = JsonConvert.SerializeObject(request);
-        //    var result = await RequestHttp.CallMethod("dhis", "", content, "");
-        //    return JsonConvert.DeserializeObject<AddTracketResultDto>(result);
-        //}
-
-        //public async Task<IEnumerable<historyDto>> GetAllAsync01()
-        //{
-        //    var result = await _context.history.ToListAsync();
-
-        //    return _mapper.Map<IEnumerable<historyDto>>(result);
-        //}
-        //public async Task<IEnumerable<historyDto>> GethistoryUserAsync01(string correo)
-        //{
-        //    var result = await (from c in _context.history
-        //                        where c.userlogin == correo
-        //                        select new history
-        //                        {
-        //                            id = c.id,
-        //                            uploads = c.uploads,
-        //                            deleted = c.deleted,
-        //                            programsid = c.programsid,
-        //                            jsonset = c.jsonset,
-        //                            jsonresponse = c.jsonresponse,
-        //                            state = c.state,
-        //                            userlogin = c.userlogin,
-        //                            fecha = c.fecha,
-        //                            file = c.file
-
-        //                        }).ToListAsync();
-
-        //    return _mapper.Map<IEnumerable<historyDto>>(result);
-        //}
+      
     }
 }

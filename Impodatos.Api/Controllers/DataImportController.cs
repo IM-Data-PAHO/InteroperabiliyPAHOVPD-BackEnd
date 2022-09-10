@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace Impodatos.Api.Controllers
 {
+
+    /// <summary>
+    /// Endpoint principal del controlador, que redirecciona al ImportHistoryHandlerAsync.cs
+    /// </summary>
     [ApiController]
     [Route("apipaho/[controller]")]
     public class DataImportController : ControllerBase
@@ -22,16 +26,43 @@ namespace Impodatos.Api.Controllers
             _mediator = mediator;
             _historyValidator = historyValidator;
         }
+
+        /// <summary>
+        /// Endpoint que consulta el historial de las importaciones
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        [HttpGet("history")]
+        public async Task<IEnumerable<historyDto>> GetAll(string user, string token)
+        {
+            return await _historyQueryService1.GethistoryUserAsync(user, token);
+        }
+
+        /// <summary>
+        /// Endpoint de tipo POST, para el guardado de todo el proceso de la importación
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> Add([FromForm] historyCreateCommand command)
+        {
+            var validation = _historyValidator.Validate(command);
+            if (validation.IsValid)
+            {
+                await _mediator.Publish(command);
+                return Ok(command.reponse.ToString()); ;
+            }
+            return BadRequest(validation.Errors);
+
+        }
+
         //[HttpGet]
         //public async Task<IEnumerable<historyDto>> GetAll()
         //{
         //    return await _historyQueryService1.GetAllAsync();
         //}
-        [HttpGet("history")]
-        public async Task<IEnumerable<historyDto>> GetAll(string user,string token)
-        {
-            return await _historyQueryService1.GethistoryUserAsync(user, token);
-        }
+
         //[HttpGet]
         //public async Task<IEnumerable<historyDto>> GetAll01()
         //{
@@ -42,18 +73,7 @@ namespace Impodatos.Api.Controllers
         //{
         //    return await _historyQueryService1.GethistoryUserAsync01(user);
         //}
-        [HttpPost]
-        public async Task<IActionResult> Add([FromForm]historyCreateCommand command)
-        {
-            var validation = _historyValidator.Validate(command);
-            if (validation.IsValid)
-            {
-                await _mediator.Publish(command);
-                return Ok(command.reponse.ToString()); ;
-        }
-            return BadRequest(validation.Errors);
 
-        }
         //[HttpPut]
         //public async Task<IActionResult> Update(historyUpdateCommand command)
         //{
@@ -65,7 +85,7 @@ namespace Impodatos.Api.Controllers
         //[Route("rawimport")]      
         //public async Task<AddTracketResultDto> RawImport(RawImport request)
         //{
-            
+
         //    return await _historyQueryService1.RawImport(request);          
         //}
 

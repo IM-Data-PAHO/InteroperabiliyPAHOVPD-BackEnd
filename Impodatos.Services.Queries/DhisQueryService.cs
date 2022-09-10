@@ -62,6 +62,11 @@ namespace Impodatos.Services.Queries
         public string ounitvalueFirst;
         public OrganisationUnit ouFirts = new OrganisationUnit();
 
+        /// <summary>
+        /// Método que ejecuta todo el próceso de la pre-validación
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>Retorna un dto de tipo dryrunDto</returns>
         public async Task<dryrunDto> StartDryRunAsync(HistoryCreateCommandDto request)
         {
             dryrunDto objdryrunDto = new dryrunDto();
@@ -73,12 +78,6 @@ namespace Impodatos.Services.Queries
 
             List<string> jsonResponse = new List<string>();
             Program objprogram = new Program();
-
-            //byte[] data = null;
-            //var fileByte = new BinaryReader(request.CsvFile.OpenReadStream());
-            //int i = (int)request.CsvFile.Length;
-            //data = fileByte.ReadBytes(i);
-
             List<validateDto> lv = new List<validateDto>();
             List<sumaryerrorDto> le = new List<sumaryerrorDto>();
             sumaryerrorDto sumerrorobj = new sumaryerrorDto();
@@ -109,8 +108,7 @@ namespace Impodatos.Services.Queries
                         error += "\nEl tipo de archivo " + Path.GetExtension(request.CsvFile.FileName) + " " + request.CsvFile.FileName + "  no es compatible con los archivos aceptados (*.csv (separado por , ó ;), *.xls y *.xlsx)";
                         response = error;
                     }
-                    }   
-              
+                }               
 
                 {
                     var v = new validateDto
@@ -128,13 +126,7 @@ namespace Impodatos.Services.Queries
                     sumerrorobj.extensionfile = sumerrorobj.extensionfile + 1;
                 }
             }
-
-            //var reader = new StreamReader(request.CsvFile.OpenReadStream());
-            var lstDate = new List<Int32>();
-            //var propiedades = reader.ReadLine().Split(';');
-            //propiedades = propiedades.Select(s => s.ToUpperInvariant().Trim()).ToArray();
-            //startDate = request.startdate + "-01-01";
-            //endDate = (request.enddate + 1) + "-01-01";
+            var lstDate = new List<Int32>();           
             
             try
             {
@@ -166,9 +158,7 @@ namespace Impodatos.Services.Queries
                     int snid = Array.IndexOf(headers, "SECOND LAST NAME");
                     string snvalue = valores[snid].ToString();
                     int fnid = Array.IndexOf(headers, "FIRST NAME");
-                    string fnvalue = valores[fnid].ToString();
-
-                    
+                    string fnvalue = valores[fnid].ToString();      
 
                     DateTime fecha;
                     if(!DateTime.TryParseExact(dtRashOnval, "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out fecha))
@@ -187,54 +177,46 @@ namespace Impodatos.Services.Queries
                         lv.Add(v);
                         sumerrorobj.date = sumerrorobj.date + 1;
                     }
-                    //else { 
-
-                    //int dty = 0;
-                    //try
-                    //{
-                    //    dty = Convert.ToInt32(Convert.ToDateTime(dtRashOnval).Year);
-                    //}
-                    //catch (Exception e) { Console.WriteLine("{0} Exception caught.", e); }
-                    //if (dty == request.startdate || dty == request.enddate)
-                    //{
-                    //    contupload++;
-                    //}
-                    //}
-                    if (oupath == null)
+                   
+                    //unidades organizativas              
+                    OrganisationUnit ounitsFirst = new OrganisationUnit();
+                    int colounitsFirst = Array.IndexOf(headers, objprogram.Orgunitcolumm.ToUpperInvariant());
+                    if (colounitsFirst == -1)
                     {
+                        if (String.IsNullOrEmpty(error))
+                            error = "El archivo no tiene la estructura correcta, posiblemente no tiene la Unidad Organizativa";
+                    }
+                    var Firtsline = RowFile[0];
+                    ounitvalueFirst = valores[colounitsFirst].ToString();
 
-                        //unidades organizativas              
-                        OrganisationUnit ounitsFirst = new OrganisationUnit();
-                        int colounitsFirst = Array.IndexOf(headers, objprogram.Orgunitcolumm.ToUpperInvariant());
-                        if (colounitsFirst == -1)
-                        {
-                            if (String.IsNullOrEmpty(error))
-                                error = "El archivo no tiene la estructura correcta, posiblemente no tiene la Unidad Organizativa";
-                        }
-                        var Firtsline = RowFile[0];
-                        ounitvalueFirst = Firtsline[colounitsFirst].ToString();
-
-                        ouFirts = Organisation.OrganisationUnits.Find(x => x.code == Firtsline[colounitsFirst].ToString());
+                    ouFirts = Organisation.OrganisationUnits.Find(x => x.code == valores[colounitsFirst].ToString());
+                    if (ouFirts is not null)
+                    {
                         oupath = ouFirts.path.Split("/")[2];
                         var setClean = await SetCleanEvent(oupath, objprogram.Programid, startDate, endDate, request.token);
                         objdryrunDto.Deleted = Convert.ToInt32(setClean.events.Count);
+                    if (oupath == null)
+                    {
                         oupath = "OK";
-                        //string ounitvalue = valores[colounits].ToString().ToUpper().Trim();
-                        //foreach (OrganisationUnit ou in Organisation.OrganisationUnits)
-                        //{
-                        //    if (ou.code == ounitvalue)
-                        //    {
-                        //        oupath = ou.path.Split("/")[2];
-                        //        var setClean = await SetCleanEvent(oupath, objprogram.Programid,startDate, endDate, request.token);
-                        //        objdryrunDto.Deleted = Convert.ToInt32(setClean.events.Count);
-                        //        oupath = "OK";
-
-                        //    }
-                        //    if (oupath != null)
-                        //        break;
-                        //}
-
                     }
+                    }
+                    else {
+                        var v = new validateDto
+                        {
+                            indexpreload = iderror++,
+                            id = caseidvalue,
+                            detail = flnvalue.Trim() + " " + snvalue.Trim() + " " + fnvalue.Trim(),
+                            ln = ln,
+                            cl = dtRashOn + 1,
+                            ms = "No existe (revise espacios ó que este correcto el código)",
+                            errortype = "OrganisationUnits",
+                            value = ounitvalueFirst.ToString()
+                        };
+                        lv.Add(v);
+                        sumerrorobj.date = sumerrorobj.mandatory + 1;
+
+                    }                        
+                    
                     int ideventdate = Array.IndexOf(headers, objprogram.Incidentdatecolumm.ToUpperInvariant());
                     string eventdate = valores[ideventdate].ToString(); //validar que no este null
                     List<Attribut> listAttribut = new List<Attribut>();
@@ -389,10 +371,8 @@ namespace Impodatos.Services.Queries
                                         }
                                     }
                                 }
-                                catch (Exception e) { }//contbad = contbad + 1; }
-
+                                catch (Exception e) { }
                             }
-
                         }
                         catch (Exception e) { }
                     }
@@ -420,20 +400,45 @@ namespace Impodatos.Services.Queries
 
             return objdryrunDto;
         }
+
+        /// <summary>
+        /// Método que obtiene todos los programas mapeados
+        /// </summary>
+        /// <param name="token">Token de autenticación</param>
+        /// <returns>Retorna un dto de tipo DhisProgramDto</returns>
         public async Task<DhisProgramDto> GetAllProgramAsync(string token )
         {
             var result = await RequestHttp.CallMethod("dhis", "program", token);           
              return JsonConvert.DeserializeObject<DhisProgramDto>(result);
         }
+
+        /// <summary>
+        /// Método de mantenimiento
+        /// </summary>
+        /// <param name="token">Token de autenticación</param>
         public void SetMaintenanceAsync(string token)
         {
             var result =  RequestHttp.CallMethod("dhis", "maintenance", token);
         }
+
+        /// <summary>
+        /// Método para obtener el Uid para un nuevo tracked
+        /// </summary>
+        /// <param name="quantity">cantidad</param>
+        /// <param name="token">Token de autenticación</param>
+        /// <returns>Retorna un dto de tipo UidGeneratedDto</returns>
         public async Task<UidGeneratedDto> GetUidGenerated(string quantity, string token)
         {
             var result = await RequestHttp.CallGetMethod("dhis", "uidGenerated", quantity,"" ,token);
             return JsonConvert.DeserializeObject<UidGeneratedDto>(result);
         }
+
+        /// <summary>
+        /// Método para agregar los Trackeds de manera individual ó másiva
+        /// </summary>
+        /// <param name="request">Contenido de tipo JSON</param>
+        /// <param name="token">Token de autenticación</param>
+        /// <returns>Retorna un dto de tipo AddTracketResultDto</returns>
         public async Task<AddTracketResultDto> AddTracked(AddTrackedDto request, string token)
         {
             Console.Write("\nInicio AddTracked ");
@@ -442,6 +447,13 @@ namespace Impodatos.Services.Queries
             Console.Write("\nFin AddTracked " + result.ToString());
             return JsonConvert.DeserializeObject<AddTracketResultDto>(result);
         }
+
+        /// <summary>
+        /// Método para agregar los Enrollments de manera individual ó másiva
+        /// </summary>
+        /// <param name="request">Contenido de tipo JSON</param>
+        /// <param name="token">Token de autenticación</param>
+        /// <returns>Retorna un dto de tipo AddEnrollmentResultDto</returns>
         public async Task<AddEnrollmentResultDto> AddEnrollment(AddEnrollmentDto request, string token)
         {
             var result="";
@@ -453,6 +465,14 @@ namespace Impodatos.Services.Queries
             catch (Exception e) { }
             return JsonConvert.DeserializeObject<AddEnrollmentResultDto>(result);
         }
+
+        /// <summary>
+        /// Método para eliminar los Eventos
+        /// </summary>
+        /// <param name="request">Contenido de tipo JSON</param>
+        /// <param name="token">Token de autenticación</param>
+        /// <param name="strategy"></param>
+        /// <returns>Retorna un dto de tipo ResponseDhis</returns>
         public async Task<ResponseDhis> AddEventClear(AddEventsClearDto request, string token, string strategy = "")
         {
             var content = JsonConvert.SerializeObject(request);
@@ -460,6 +480,14 @@ namespace Impodatos.Services.Queries
             var result = await RequestHttp.CallMethodSave("dhis", "events", content, token, strategy);
             return JsonConvert.DeserializeObject<ResponseDhis>(result);
         }
+
+        /// <summary>
+        /// Método para eliminar los Enrollments
+        /// </summary>
+        /// <param name="request">Contenido de tipo JSON</param>
+        /// <param name="token">Token de autenticación</param>
+        /// <param name="strategy"></param>
+        /// <returns>Retorna un dto de tipo ResponseDhis</returns>
         public async Task<ResponseDhis> AddEnrollmentClear(AddEnrollmentsClearDto request, string token, string strategy = "")
         {
             var content = JsonConvert.SerializeObject(request);
@@ -467,6 +495,13 @@ namespace Impodatos.Services.Queries
             var result = await RequestHttp.CallMethodSave("dhis", "enrollments", content, token, strategy);
             return JsonConvert.DeserializeObject<ResponseDhis>(result);
         }
+
+        /// <summary>
+        /// Método para agregar Eventos individual ó másivamente
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="token">Token de autenticación</param>
+        /// <returns>Retorna un dto de tipo AddEventResultDto</returns>
         public async Task<AddEventResultDto> AddEvent (AddEventsDto request, string token)
         {
             var content = JsonConvert.SerializeObject(request);
@@ -474,31 +509,77 @@ namespace Impodatos.Services.Queries
             var result = await RequestHttp.CallMethodSave("dhis", "events", content, token);
             return JsonConvert.DeserializeObject<AddEventResultDto>(result);
         }
+
+        /// <summary>
+        /// Métdo que obtiene todas la unidades oganizativas
+        /// </summary>
+        /// <param name="token">Token de autenticación</param>
+        /// <returns>Retorna un dto de tipo OrganisationUnitsDto</returns>
         public async Task<OrganisationUnitsDto> GetAllOrganisation(string token)
         {
             var result = await RequestHttp.CallMethod("dhis", "organisationUnits", token);
             return JsonConvert.DeserializeObject<OrganisationUnitsDto>(result);
         }
+
+        /// <summary>
+        /// Método que obtine el padre (pais) de una unidad organizativa
+        /// </summary>
+        /// <param name="token">Token de autenticación</param>
+        /// <param name="uid">unidad organisativa</param>
+        /// <returns>Retonra un dto de tipo OrganisationUnit</returns>
         public async Task<OrganisationUnit> GetOrganisationUnit(string token, string uid)
         {
             var result = await RequestHttp.CallMethodOUCountry("dhis", "organisationUnits/" + uid, token);
             return JsonConvert.DeserializeObject<OrganisationUnit>(result);
         }
+
+        /// <summary>
+        /// Método que obtine la secuencia
+        /// </summary>
+        /// <param name="quantity">cantidad</param>
+        /// <param name="token">Token de autenticación</param>
+        /// <returns>Retorna una lista de dto de tipo SequentialDto</returns>
         public async Task<List<SequentialDto>> GetSequential(string quantity, string token)
         {
             var result = await RequestHttp.CallGetMethod("dhis", "sequential", quantity, "",token);
             return JsonConvert.DeserializeObject<List<SequentialDto>>(result);
         }
+
+        /// <summary>
+        /// Método que obtiene el Tracked
+        /// </summary>
+        /// <param name="caseid">Identificación del caso</param>
+        /// <param name="ou">Unidad organizativa</param>
+        /// <param name="token">Token de autenticación</param>
+        /// <returns>Retorna un dto de tipo AddTrackedDto</returns>
         public async Task<AddTrackedDto> GetTracked(string caseid, string ou, string token)
         {
             var result = await RequestHttp.CallGetMethod("dhis", "validatetrak", caseid, ou, token);
             return JsonConvert.DeserializeObject<AddTrackedDto>(result);
         }
+
+        /// <summary>
+        /// Método que obtiene los Enrollments
+        /// </summary>
+        /// <param name="program">Programa</param>
+        /// <param name="oupath">Unidad organizativa padre</param>
+        /// <param name="token">Token de autenticación</param>
+        /// <returns>Retorna un dto de tipo AddEnrollmentsClearDto</returns>
         public async Task<AddEnrollmentsClearDto> GetEnrollment(string program, string oupath,  string token)
         {
             var result = await RequestHttp.CallMethodClearEnrollments("dhis", "validateenroll", oupath, "", "" ,program,token);
             return JsonConvert.DeserializeObject<AddEnrollmentsClearDto>(result);
         }
+
+        /// <summary>
+        /// Método que elimina los Eventos
+        /// </summary>
+        /// <param name="oupath">Unidad organizativa padre</param>
+        /// <param name="program">Programa</param>
+        /// <param name="startDate">Fecha inicial</param>
+        /// <param name="endDate">Fecha final</param>
+        /// <param name="token">Token de autenticación</param>
+        /// <returns>Retorna un dto de tipo AddEventsClearDto</returns>
         public async Task<AddEventsClearDto> SetCleanEvent(string oupath, string program, string startDate, string endDate, string token)
         {
             var result = await RequestHttp.CallMethodClear("dhis", "events", oupath,program, startDate, endDate, token);
@@ -506,6 +587,16 @@ namespace Impodatos.Services.Queries
             result = result.Replace("event_s", "events");
             return JsonConvert.DeserializeObject<AddEventsClearDto>(result);
         }
+
+        /// <summary>
+        /// Método que obtiene los Enrollments
+        /// </summary>
+        /// <param name="oupath">Unidad organizativa padre</param>
+        /// <param name="program">Programa</param>
+        /// <param name="startDate">Fecha inicial</param>
+        /// <param name="endDate">Fecha final</param>
+        /// <param name="token">Token de autenticación</param>
+        /// <returns>Retorna un dto de tipo AddEnrollmentsClearDto</returns>
         public async Task<AddEnrollmentsClearDto> SetCleanEnrollment(string oupath, string program, string startDate, string endDate, string token)
         {
             var result = await RequestHttp.CallMethodClearEnrollments("dhis", "validateenroll", oupath, program,startDate, endDate, token);
@@ -513,6 +604,13 @@ namespace Impodatos.Services.Queries
             //result = result.Replace("enrollment_s", "enrollments");
             return JsonConvert.DeserializeObject<AddEnrollmentsClearDto>(result);
         }
+
+        /// <summary>
+        /// Método que obtiene el estado de una tarea asincrona
+        /// </summary>
+        /// <param name="task">Url de la tarea</param>
+        /// <param name="token">Token de autenticación</param>
+        /// <returns>Retorna un dto de tipo ResultTaskDto</returns>
         public async Task<ResultTaskDto> GetStateTask(string task, string token)
         {
             Console.Write("\nInicio GetStateTask ");
@@ -523,17 +621,27 @@ namespace Impodatos.Services.Queries
             return j;
         }
 
+        /// <summary>
+        /// Método que obtiene el summary de la importación
+        /// </summary>
+        /// <param name="category">Cateogria</param>
+        /// <param name="uid">Unidad organizativa</param>
+        /// <param name="token">Token de autenticación</param>
+        /// <returns>Retorna un atributo de tipo string</returns>
         public async Task<string> GetSummaryImport(string category,string uid, string token)
         {
             Console.Write("\nInicio GetSummaryImport ");
             var result = await RequestHttp.CallMethodSummary("dhis", "program", uid, category, token);
-            //string resp = result.Replace("[", "{resultTasks: [").Replace("]", "]}");
-            //var x = JsonConvert.DeserializeObject<string>(result);
             Console.Write("\nFin GetSummaryImport: ", result.ToString());
             return result;
         }
 
-
+        /// <summary>
+        /// Lee archivo(s) de extensión .CSV, con su respectivo separador (coma ó punto y coma), 
+        /// para generar los objetos iterables RowFile y/o RowFileLab (casos y/o laboratorio - primer y/o segundo archivo)
+        /// </summary>
+        /// <param name="command"> Clase que contiene todos los atributos relacionados a la importación (1 y 2do arhivo, usuario, fecha inicial y final, etc)</param>
+        /// <returns>Retorna el objeto iterable del archivo obligatorio, una lista de arrays de listas</returns>
         public List<ArrayList> ReadCSV(HistoryCreateCommandDto command)
         {
             try
@@ -556,8 +664,6 @@ namespace Impodatos.Services.Queries
                         headersLab = headersLab.Select(s => s.ToUpperInvariant()).ToArray();
                         string lineLab;
                         ArrayList listLab;
-                        //List<ArrayList> RowFile = new List<ArrayList>();
-
                         while ((lineLab = readerLab.ReadLine()) != null)
                         {
                             contFiles = contFiles + 1;
@@ -580,7 +686,6 @@ namespace Impodatos.Services.Queries
 
                 string line;
                 ArrayList list;
-                //List<ArrayList> RowFile = new List<ArrayList>();
                 reader = new StreamReader(command.CsvFile.OpenReadStream());
 
                 headers = reader.ReadLine().Split(command.separator.ToString());
@@ -615,6 +720,12 @@ namespace Impodatos.Services.Queries
             return RowFile;
         }
 
+        /// <summary>
+        /// Lee archivo(s) de extensión .XLSX, con su respectivo separador (coma ó punto y coma), 
+        /// para generar los objetos iterables RowFile y/o RowFileLab (casos y/o laboratorio - primer y/o segundo archivo)
+        /// </summary>
+        /// <param name="command"> Clase que contiene todos los atributos relacionados a la importación (1 y 2do arhivo, usuario, fecha inicial y final, etc)</param>
+        /// <returns>Retorna el objeto iterable del archivo obligatorio, una lista de arrays de listas</returns>
         public List<ArrayList> ReadXLSX(HistoryCreateCommandDto command)
         {
             try
@@ -698,7 +809,6 @@ namespace Impodatos.Services.Queries
 
                             if (isDate)
                             {
-                                //string rec = cellInd.Substring(0, 10);
                                 string date = Convert.ToDateTime(cellInd).ToString("yyyy-MM-dd");
                                 LineFile[j] = date;
                             }
@@ -734,6 +844,12 @@ namespace Impodatos.Services.Queries
 
         }
 
+        /// <summary>
+        /// Lee archivo(s) de extensión .XLS, con su respectivo separador (coma ó punto y coma), 
+        /// para generar los objetos iterables RowFile y/o RowFileLab (casos y/o laboratorio - primer y/o segundo archivo)
+        /// </summary>
+        /// <param name="command"> Clase que contiene todos los atributos relacionados a la importación (1 y 2do arhivo, usuario, fecha inicial y final, etc)</param>
+        /// <returns>Retorna el objeto iterable del archivo obligatorio, una lista de arrays de listas</returns>
         public List<ArrayList> ReadXLS(HistoryCreateCommandDto command)
         {
             try
@@ -773,7 +889,6 @@ namespace Impodatos.Services.Queries
 
                                     if (isDate)
                                     {
-                                        //string rec = cellInd.Substring(0, 10);
                                         string date = Convert.ToDateTime(cellInd).ToString("yyyy-MM-dd");
                                         LineFile[j] = date;
                                     }
@@ -854,6 +969,12 @@ namespace Impodatos.Services.Queries
             return RowFile;
         }
 
+        /// <summary>
+        /// Método que obtiene los nombres de los atributos con error durante la importación
+        /// </summary>
+        /// <param name="token">Token de autenticación</param>
+        /// <param name="reference"></param>
+        /// <returns>Retorna un dto de tipo TrackedreferenceResponse</returns>
         public async Task<TrackedreferenceResponse> GetTrackedreferenceAsync(string token, string reference)
         {
             var result = await RequestHttp.CallMethod("dhis", "trackedreference", token, reference);

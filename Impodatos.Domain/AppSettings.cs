@@ -127,6 +127,13 @@ namespace Impodatos.Domain
         public string EmailFrom { get; set; }
         public string Subject { get; set; }
         public string Body { get; set; }
+        public string SubjectSomeError { get; set; }
+        public string BodySomeError { get; set; }
+        public string SubjectError { get; set; }
+        public string BodyError { get; set; }
+        public string SubjectEmpty { get; set; }
+        public string BodyEmpty { get; set; }
+        public string TitleError { get; set; }
 
         public string Pass { get; set; }
         public string Port { get; set; }

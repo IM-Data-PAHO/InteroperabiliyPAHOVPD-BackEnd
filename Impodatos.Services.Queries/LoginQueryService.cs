@@ -17,7 +17,12 @@ namespace Impodatos.Services.Queries
     }
     public class LoginQueryService : ILoginQueryService
     {
-      
+        /// <summary>
+        /// Método para obtener el login
+        /// </summary>
+        /// <param name="user">Usuario</param>
+        /// <param name="password">Contraseña</param>
+        /// <returns>Retorna un dto de tipo LoginResponseDto</returns>
         public async Task<LoginResponseDto> GetLogin(string user, string password)      
         {     
             var result = await RequestHttp.CallMethodLogin("dhis", "login" ,  user,  password);           
@@ -25,6 +30,11 @@ namespace Impodatos.Services.Queries
             return JsonConvert.DeserializeObject<LoginResponseDto>(JsonConvert.DeserializeObject<string>(result));
         }     
 
+        /// <summary>
+        /// Método que retorna las configuraciones del usuario (idioma, correo, rol, etc)
+        /// </summary>
+        /// <param name="token">Token de autenticación</param>
+        /// <returns></returns>
         public async Task<UserSettingDto> GetUserSetting(string token)
         {
             var result = await RequestHttp.CallMethodGetUserSetting("dhis",  token);            

@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Impodatos.Api.Controllers
 {
+    /// <summary>
+    /// Endpoint principal del controlador
+    /// </summary>
     [ApiController]
     [Route("apipaho/[controller]")]
     public class LoginController : ControllerBase
@@ -19,6 +22,12 @@ namespace Impodatos.Api.Controllers
             _loginQueryService = loginQueryService;
       
         }
+
+        /// <summary>
+        /// Endpoint para hacer el login
+        /// </summary>
+        /// <param name="command">Clase con todos los atributos propios de la importación</param>
+        /// <returns>Retorna un dto de tipo LoginResponseDto</returns>
         [HttpPost]
         [Route("getUser")]
         public async Task<LoginResponseDto> getUser([FromBody] LoginRequestDto command)
@@ -27,6 +36,11 @@ namespace Impodatos.Api.Controllers
 
         }
 
+        /// <summary>
+        /// Endpoint que retorna algunas de las configuraciones del usuario, como idioma, correo, rol entre otros
+        /// </summary>
+        /// <param name="token">Token de autenticación</param>
+        /// <returns>Retorna dto de tipo UserSettingDto</returns>
         [HttpGet]
         [Route("getUserSetting/{token}")]
         public async Task<UserSettingDto> getUserSetting(string token)

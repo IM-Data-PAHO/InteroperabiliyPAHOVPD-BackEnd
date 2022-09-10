@@ -10,7 +10,17 @@ namespace Impodatos.Services.EventHandlers.Commands
 {
     public class SendMail
     {
-
+        /// <summary>
+        /// Método para el envio de email, informando sobre el estado de la importacion (exitosa ó con errores)
+        /// </summary>
+        /// <param name="serverC">Servidor</param>
+        /// <param name="subjectC">Asunto del email</param>
+        /// <param name="bodyC">Cuerpo del email</param>
+        /// <param name="toC">Email destino</param>
+        /// <param name="fromC">Usuario Origen (AppSettings)</param>
+        /// <param name="passC">Contraseña</param>
+        /// <param name="portC">Puerto</param>
+        /// <param name="DocName">Nombre del ó los documento(s)</param>
         public void SenEmailImport(string serverC, string subjectC, string bodyC, string toC, string fromC, string passC, string portC, string DocName)
         {
             var fromAddress = new MailAddress(fromC, subjectC);

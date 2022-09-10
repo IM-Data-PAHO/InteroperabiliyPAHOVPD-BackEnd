@@ -14,6 +14,9 @@ namespace Impodatos.Services.Common.Security
 {
     public class RequestHttp
     {
+        /// <summary>
+        /// Retorna configuraciones que se declararon en el AppSettings, en este caso para la autenticación
+        /// </summary>
         private static Integration _integration
         {
             get
@@ -47,8 +50,10 @@ namespace Impodatos.Services.Common.Security
                     }).ToList()
                 };
             }
-        }       
-
+        }
+        /// <summary>
+        /// Retorna configuraciones que se declararon en el AppSettings, en este caso para la importación
+        /// </summary>
         private static ImportSettings _importSettings
         {
             get
@@ -72,7 +77,15 @@ namespace Impodatos.Services.Common.Security
                 };
             }
         }
-
+        /// <summary>
+        /// Método para ejecutar a los endpoints de tipo POS
+        /// </summary>
+        /// <param name="service">Servicio</param>
+        /// <param name="method">Método</param>
+        /// <param name="content">Contenido de tipo JSON</param>
+        /// <param name="token">Token de autenticación</param>
+        /// <param name="strategy">Para establecer si es de creación y actualización</param>
+        /// <returns></returns>
         public async static Task<string> CallMethodSave(string service, string method, string content, string token, string strategy ="")
         {
             try
@@ -123,7 +136,13 @@ namespace Impodatos.Services.Common.Security
                 throw ex;
             }
         }
-
+        /// <summary>
+        /// Método para ejecutar a los endpoints de tipo GET
+        /// </summary>
+        /// <param name="service">Servicio</param>
+        /// <param name="method">Método</param>
+        /// <param name="token">Token de autenticación</param>
+        /// <returns></returns>
         public async static Task<string> CallMethod(string service, string method, string token)
         {
             try
@@ -155,6 +174,15 @@ namespace Impodatos.Services.Common.Security
                 throw ex;
             }
         }
+
+        /// <summary>
+        /// Método para ejecutar endpoints de tipo GET
+        /// </summary>
+        /// <param name="service">Servicio</param>
+        /// <param name="method">Método</param>
+        /// <param name="token">Token de autenticación</param>
+        /// <param name="reference">Referencia</param>
+        /// <returns></returns>
         public async static Task<string> CallMethod(string service, string method, string token, string reference)
         {
             try
@@ -187,6 +215,14 @@ namespace Impodatos.Services.Common.Security
             }
         }
 
+        /// <summary>
+        /// Método para validar el estado una tarea asincrona
+        /// </summary>
+        /// <param name="service">Servicio</param>
+        /// <param name="program">Programa</param>
+        /// <param name="task">Url de la tarea asincrona</param>
+        /// <param name="token">Toekn de autenticación</param>
+        /// <returns></returns>
         public async static Task<string> CallMethodTask(string service, string program, string task, string token)
         {
             try
@@ -194,8 +230,6 @@ namespace Impodatos.Services.Common.Security
                 Console.Write(" Inicio CallMethodTask");
                 var _set = _integration;
                 var _service = _set.Services.Where(s => s.Name.Equals(service)).ToList().FirstOrDefault();
-                //var _method = _service.Methods.Where(m => m.Method.Equals(method)).FirstOrDefault().Value;
-                //_method = !string.IsNullOrEmpty(_method) ? string.Format($"/{_method}") : null;
                 string URL = string.Format($"{_service.URL}{task}");
                 Console.Write(" URL CallMethodTask" + URL.ToString());
                 using (var client = new HttpClient())
@@ -221,6 +255,16 @@ namespace Impodatos.Services.Common.Security
                 throw ex;
             }
         }
+
+        /// <summary>
+        /// Método para obtener el summary de la importación
+        /// </summary>
+        /// <param name="service">Servicio</param>
+        /// <param name="program">Programa</param>
+        /// <param name="uid">Unidad organizativa padre</param>
+        /// <param name="category"></param>
+        /// <param name="token">Token de autenticación</param>
+        /// <returns></returns>
         public async static Task<string> CallMethodSummary(string service, string program, string uid, string category, string token)
         {
             try
@@ -254,6 +298,16 @@ namespace Impodatos.Services.Common.Security
                 throw ex;
             }
         }
+
+        /// <summary>
+        /// Método para hacer llamados a metódos de tipo GET
+        /// </summary>
+        /// <param name="service">Servicio</param>
+        /// <param name="method">Método</param>
+        /// <param name="content">Contenido de tipo JSON</param>
+        /// <param name="ou">Unidad organizativa padre</param>
+        /// <param name="token">Token de autenticación</param>
+        /// <returns></returns>
         public async static Task<string> CallGetMethod(string service, string method, string content, string ou,string token)
         {
             try
@@ -287,6 +341,18 @@ namespace Impodatos.Services.Common.Security
                 throw ex;
             }
         }
+
+        /// <summary>
+        /// Método para la obtener los eventos según los parametros
+        /// </summary>
+        /// <param name="service">Servicio</param>
+        /// <param name="method">Método</param>
+        /// <param name="oupath">Unidad organizativa padre</param>
+        /// <param name="program">Programa</param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <param name="token">Token de autenticación</param>
+        /// <returns></returns>
         public async static Task<string> CallMethodClear(string service, string method, string oupath,string program, string startDate, string endDate, string token)
         {
             try
@@ -317,6 +383,17 @@ namespace Impodatos.Services.Common.Security
             }
         }
 
+        /// <summary>
+        /// Método para la obtener los enrollments según los parametros
+        /// </summary>
+        /// <param name="service">Servicio</param>
+        /// <param name="method">Método</param>
+        /// <param name="oupath">Unidad organizativa padre</param>
+        /// <param name="program">Programa</param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <param name="token">Token de autenticación</param>
+        /// <returns></returns>
         public async static Task<string> CallMethodClearEnrollments(string service, string method, string oupath, string program, string startDate, string endDate, string token)
         {
             try
@@ -349,6 +426,14 @@ namespace Impodatos.Services.Common.Security
             }
         }
 
+        /// <summary>
+        /// Método para hacer el login
+        /// </summary>
+        /// <param name="service">Servicio</param>
+        /// <param name="method">Método</param>
+        /// <param name="user">Usuario</param>
+        /// <param name="pass">Contraseña</param>
+        /// <returns></returns>
         public async static Task<string> CallMethodLogin(string service, string method, string user, string pass)
         {
             try
@@ -373,6 +458,12 @@ namespace Impodatos.Services.Common.Security
             }
         }
 
+        /// <summary>
+        /// Método para obtener algunas configuraciones propias del usuario (idioma, rol, correo, etc)
+        /// </summary>
+        /// <param name="service">Servicio</param>
+        /// <param name="token">Token de autenticación</param>
+        /// <returns></returns>
         public async static Task<string> CallMethodGetUserSetting(string service,  string token)
         {
             try
@@ -400,6 +491,13 @@ namespace Impodatos.Services.Common.Security
             }
         }
 
+        /// <summary>
+        /// Método para obtener el pais según la unidad organizativa
+        /// </summary>
+        /// <param name="service">Servicio</param>
+        /// <param name="method">Método</param>
+        /// <param name="token">Token de autenticación</param>
+        /// <returns></returns>
         public async static Task<string> CallMethodOUCountry(string service, string method, string token)
         {
             try

@@ -24,8 +24,8 @@ namespace Impodatos.Services.EventHandlers
 {
     public class ImportHistoryHandlerAsync : INotificationHandler<historyCreateCommand>,
          INotificationHandler<historyUpdateCommand>
-
-
+    
+     // Atributos de la clase 
     {
         private readonly ApplicationDbContext _context;
         private readonly IDhisQueryService _dhis;     
@@ -81,6 +81,10 @@ namespace Impodatos.Services.EventHandlers
             _dhis = dhis;          
         }
 
+
+        /// <summary>
+        /// Retorna configuraciones que se declararon en el AppSettings, en este caso para la importación
+        /// </summary>
         private static ImportSettings _importSettings
         {
             get
@@ -103,6 +107,13 @@ namespace Impodatos.Services.EventHandlers
                         EmailFrom = Convert.ToString(s.GetSection("emailFrom").Value),
                         Subject = Convert.ToString(s.GetSection("subject").Value),
                         Body = Convert.ToString(s.GetSection("body").Value),
+                        SubjectSomeError = Convert.ToString(s.GetSection("subjectSomeError").Value),
+                        BodySomeError = Convert.ToString(s.GetSection("bodySomeError").Value),
+                        SubjectError = Convert.ToString(s.GetSection("subjectError").Value),
+                        BodyError = Convert.ToString(s.GetSection("bodyError").Value),
+                        SubjectEmpty = Convert.ToString(s.GetSection("subjectEmpty").Value),
+                        BodyEmpty = Convert.ToString(s.GetSection("bodyEmpty").Value),
+                        TitleError = Convert.ToString(s.GetSection("titleError").Value),
                         Pass = Convert.ToString(s.GetSection("pass").Value),
                         Port = Convert.ToString(s.GetSection("port").Value)
                     }).ToList()
@@ -111,6 +122,10 @@ namespace Impodatos.Services.EventHandlers
             }
         }
 
+    
+        /// <summary>
+        /// Retorna la cadena de conexión para la base de datos, configurada en el AppSettings
+        /// </summary>
         private static ConexionInt _conexionInt
         {
             get
@@ -128,7 +143,17 @@ namespace Impodatos.Services.EventHandlers
                 };
             }
         }
-
+       
+        /// <summary>
+        ///Método que orquesta todo el proceso,esta divido por pasos (todas las etapas de la importación (5 pasos), no permite iniciar un nuevo paso hasta el anterior este terminado.
+        /// </summary>
+        /// <param name="oupath">Unidad Organizativa Padre</param>
+        /// <param name="startDate">Fecha inicial</param>
+        /// <param name="endDate">Fecha final</param>
+        /// <param name="program">Programa</param>
+        /// <param name="token">Token</param>
+        /// <param name="RowFile">Objeto iterable del arhivo obligatorio</param>
+        /// <returns>No retorna nada</returns>
         public async Task OrchestratorAsync(string oupath, string startDate, string endDate, string program, string token, List<ArrayList> RowFile)
         {
 
@@ -141,15 +166,18 @@ namespace Impodatos.Services.EventHandlers
                 do
                 {
                     switch (state)
-                    {
+                    {                        
+                         // Paso 1: Consulta y borrado de los eventos                                                 
                         case 1:
                             step = 1;
                             TaskResult = await CleanEventsAsync(oupath, program, startDate, endDate, token);
                             break;
+                        //Paso 2: Consulta y borrado de los enrollments
                         case 2:
                             step = 2;                          
                             await CleanEnrollmentsAsync(program, oupath, startDate, endDate, token);
                             break;
+                        //Paso 3: Construccón del JSON para la importación de la data
                         case 3:
                             step = 3;
                             await ImportDataAsync(RowFile);
@@ -158,31 +186,32 @@ namespace Impodatos.Services.EventHandlers
                                 state = 4;                           
                             }
                             break;
+                        //Paso 4: Guardado del summary (resultado de la importación) en la base de datos
                         case 4:
                             SaveSummaryImport(commandGeneral.UserLogin, objprogram.Programname);
                             break;
-
+                        //Paso 5: Envio de email, reportando si hubo o no errores durante la importación
                         case 5:
                             string errorSummary = await ReadErrorSummaryAsync(summaryImportW, token);
                             error += !String.IsNullOrEmpty(errorSummary) ? error + "\n" + errorSummary:"" ;
                             string body = _importSettings.Services[0].Body;
                             string subject = _importSettings.Services[0].Subject;
                             if (nodate >0) {
-                                subject = "Sin datos para Importación";
-                                body = "No se pudo importar porque no existe Información para el rango de periodos seleccionados, favor revisar";                                
+                                subject = _importSettings.Services[0].SubjectEmpty;
+                                body = _importSettings.Services[0].BodyEmpty;
                             }
 
                             if ((level != "ERROR" || level!= null) && nodate == 0)
                             {                                
-                                subject = !String.IsNullOrEmpty(error) ? "Importación Finalizada con Errores ": subject;
-                                body = !String.IsNullOrEmpty(error) ? "Ha(n) sido PROCESADO(S), con Errores, por favor consulta la importación en la aplicación" : body;
-                                error = !String.IsNullOrEmpty(error) ? "\n\n*** Errores y/o Advertencias ***: " + "\n" + error : "";                              
+                                subject = !String.IsNullOrEmpty(error) ? _importSettings.Services[0].SubjectSomeError: subject;
+                                body = !String.IsNullOrEmpty(error) ? _importSettings.Services[0].BodySomeError : body;
+                                error = !String.IsNullOrEmpty(error) ? _importSettings.Services[0].TitleError + "\n" + error : "";                              
                             }
                             if (level == "ERROR" && nodate == 0)
                             {
-                                subject = !String.IsNullOrEmpty(error) ? "Error en la Importación " : subject;
-                                body = !String.IsNullOrEmpty(error) ? "No ha(n) sido PROCESADO(S), revise el o los archivos" : body;
-                                error = !String.IsNullOrEmpty(error) ? "\n*** Errores y/o Advertencias ***: " + error : "";
+                                subject = !String.IsNullOrEmpty(error) ? _importSettings.Services[0].SubjectError : subject;
+                                body = !String.IsNullOrEmpty(error) ? _importSettings.Services[0].BodyError : body;
+                                error = !String.IsNullOrEmpty(error) ? _importSettings.Services[0].TitleError + "\n" + error : "";
                             }
                             sendMailObj.SenEmailImport(_importSettings.Services[0].Server, subject, body + error, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, "El ó los archivo(s): " + nameFile + " " + nameFileLab);
                             state = 6;
@@ -206,7 +235,15 @@ namespace Impodatos.Services.EventHandlers
 
             }
         }
-
+        /// <summary>
+        /// Permite determinar si la tarea asincrona se ejecuto para cambiar el estado y continuar con el siguiente paso del método Orquestador
+        /// </summary>
+        /// <param name="state"> Estado</param>
+        /// <param name="step">Siguiente paso</param>
+        /// <param name="task">url de la tarea asincrona</param>
+        /// <param name="token">token</param>
+        /// <param name="numImport"></param>
+        /// <returns>bool (si se termino ó no la tarea-9</returns>
         public async Task<bool> CheckImportStateAsync(int state, int step, string task, string token, int numImport = 1)
         {
             try
@@ -224,7 +261,6 @@ namespace Impodatos.Services.EventHandlers
                     if (level == "ERROR") {
                         error = response.resultTasks[0].message;                       
                         Console.Write("\nError Eliminación de Eventos : " + error.ToString());
-                        //EmailErrorImport();
                     }
                     switch (step)
                     {
@@ -248,7 +284,16 @@ namespace Impodatos.Services.EventHandlers
                 return false;
             }
         }
-
+       
+        /// <summary>
+        /// Permite determinar si existen eventos y posterior a esto eliminarlos, En caso que no retorne data cambia el state al siguiente paso
+        /// </summary>
+        /// <param name="oupath">Unidad organitizativa padre</param>
+        /// <param name="program">Programa</param>
+        /// <param name="startDate">Fecha inicial</param>
+        /// <param name="endDate">Fecha final</param>
+        /// <param name="token">Token de autenticación</param>
+        /// <returns>Retorna la url de la tarea asincrona para validar la eliminación de los eventos</returns>
         public async Task<string> CleanEventsAsync(string oupath, string program, string startDate, string endDate, string token)
         {
             try
@@ -274,11 +319,20 @@ namespace Impodatos.Services.EventHandlers
             {
                 error += "\n" + e.Message;
                 Console.Write("\nError de Eliminación de Eventos; ", error);
-               // EmailErrorImport();
                 return "";
             }
         }
 
+        //
+        /// <summary>
+        /// Permite determinar si existen enrrollments y posterior a esto eliminarlos, en caso que no retorne data cambia el state al siguiente paso
+        /// </summary>
+        /// <param name="program">Programa</param>
+        /// <param name="oupath">Unidad organizativa padre</param>
+        /// <param name="startDate">Fecha inicial</param>
+        /// <param name="endDate">Fecha final</param>
+        /// <param name="token">Token de autenticación</param>
+        /// <returns>No retorna nada</returns>
         public async Task CleanEnrollmentsAsync(string program, string oupath, string startDate, string endDate, string token)
         {
             try
@@ -300,7 +354,6 @@ namespace Impodatos.Services.EventHandlers
                     else {
                         error = dropEnrrollments.message;
                         Console.Write("\nError de Eliminación de Enrollments" + error.ToString());
-                     //   EmailErrorImport();
                     }
                 }
                 else
@@ -313,10 +366,15 @@ namespace Impodatos.Services.EventHandlers
             {
                 error += "\n"+e.Message;
                 Console.Write("\nError Eliminación de Enrollments: ", error);
-                //EmailErrorImport();
             }
-        }        
+        }
 
+      
+        /// <summary>
+        /// Importa la data, recibe el objeto iterable que corresponde al 1er arhivo de Casos (obligatorio), este proceso organiza el archivo JSON, para posterior enviar la data a guardar
+        /// </summary>
+        /// <param name="RowFile">Obejto iterable de la 1era hoja ó arhivo</param>
+        /// <returns>No retorna nada</returns>
         public async Task ImportDataAsync(List<ArrayList> RowFile)
         {
             try
@@ -342,6 +400,7 @@ namespace Impodatos.Services.EventHandlers
 
                 int total = RowFile.Count();
                 SequentialDto = await _dhis.GetSequential(total.ToString(), commandGeneral.token);
+                //Leemos cada una de las lineas del objeto iterable, el cual va iterando cada linea
                 while (cic < RowFile.Count)
                 {
                     contFiles = contFiles + 1;
@@ -349,9 +408,9 @@ namespace Impodatos.Services.EventHandlers
 
                     Console.Write("Ciclos: " + cic.ToString());
                     cic++;
-                    int dtRashOn = Array.IndexOf(headers, "DTRASHONSET"); //error
+                    int dtRashOn = Array.IndexOf(headers, "DTRASHONSET"); 
                     if (dtRashOn>=0) { 
-                        dtRashOnval = !String.IsNullOrWhiteSpace(valores[dtRashOn].ToString()) ? Convert.ToDateTime(valores[dtRashOn].ToString()).ToString("yyyy-MM-dd") : valores[dtRashOn].ToString();
+                        dtRashOnval = !String.IsNullOrWhiteSpace(valores[dtRashOn].ToString()) ? Convert.ToDateTime(valores[dtRashOn].ToString().Trim()).ToString("yyyy-MM-dd") : valores[dtRashOn].ToString().Trim();
                         valores[dtRashOn] = dtRashOnval;
                     }
                     int dty = 0;
@@ -369,13 +428,10 @@ namespace Impodatos.Services.EventHandlers
 
                         AddEnrollmentDto enrollment = new AddEnrollmentDto();
                         string trackedEntityInstance = "";
-                        //if(codes == 9998) { TrackeduidGeneratedDto = await _dhis.GetUidGenerated("10000", command.token); codes = 0; }
                         //Genero un uid 
                         var TrackeduidGeneratedDto = await _dhis.GetUidGenerated("1", commandGeneral.token);
-                        //leemos cada una de las lineas a partir de la linea dos con el metodo ReadLine, el cual va iterando cada linea
 
                         cont = cont + 1;
-                        //cargar las unidades organizativas en un array para recorrerlo localmente y friltrar para crear el tracked
                         TrackedEntityInstances trackedInstDto = new TrackedEntityInstances();
 
                         int caseid = Array.IndexOf(headers, "CASE_ID");
@@ -391,7 +447,7 @@ namespace Impodatos.Services.EventHandlers
                         int ou = Array.IndexOf(headers, "OU_CODE");
                         if (ou >= 0)
                         {
-                            var ouLine = Organisation.OrganisationUnits.Find(x => x.code == valores[ou].ToString());
+                            var ouLine = Organisation.OrganisationUnits.Find(x => x.code == valores[ou].ToString().Trim());
                             if (ouLine != null) { 
                             trackedInstDto.orgUnit = ouLine.id;
 
@@ -399,7 +455,7 @@ namespace Impodatos.Services.EventHandlers
                             if (validatetraked.trackedEntityInstances.Count > 0)
                                 trackedInstDto.trackedEntityInstance = validatetraked.trackedEntityInstances[0].trackedEntityInstance;
                             else
-                                trackedInstDto.trackedEntityInstance = TrackeduidGeneratedDto.Codes[0].ToString();
+                                trackedInstDto.trackedEntityInstance = TrackeduidGeneratedDto.Codes[0].ToString().Trim();
 
                             trackedInstDto.trackedEntityType = objprogram.Trackedentitytype;
 
@@ -407,42 +463,23 @@ namespace Impodatos.Services.EventHandlers
                             }
                             else
                             {
-                                error += "\nNo existe información para OU_CODE";
+                                error += "\nNo existe información para OU_CODE " + valores[ou].ToString() + " CASE_ID: " + caseidvalue;
                             }
                         }
                         else
                         {
-                            error += "\nNo existe información para OU_CODE";
+                            error += "\nNo existe información para OU_CODE " + valores[ou].ToString() + " CASE_ID: " + caseidvalue;
                         }
-                        //Validamos si el tracked ya existe:  verificar por que se estan creando repetidos
-                        //var validatetraked = await _dhis.GetTracket(caseidvalue, ouFirts.id, commandGeneral.token);
-                        //if (validatetraked.trackedEntityInstances.Count > 0)
-                        //    trackedInstDto.trackedEntityInstance = validatetraked.trackedEntityInstances[0].trackedEntityInstance;
-                        //else
-                        //    trackedInstDto.trackedEntityInstance = TrackeduidGeneratedDto.Codes[0].ToString();
-
-                        //trackedInstDto.trackedEntityType = objprogram.Trackedentitytype;
+                       
                         int ideventdate = Array.IndexOf(headers, objprogram.Incidentdatecolumm.ToUpperInvariant());                      
                         if (ideventdate >= 0)
                         {
-                            eventdate = !String.IsNullOrWhiteSpace(valores[ideventdate].ToString()) ? Convert.ToDateTime(valores[ideventdate].ToString()).ToString("yyyy-MM-dd") : valores[ideventdate].ToString();
+                            eventdate = !String.IsNullOrWhiteSpace(valores[ideventdate].ToString().Trim()) ? Convert.ToDateTime(valores[ideventdate].ToString().Trim()).ToString("yyyy-MM-dd") : valores[ideventdate].ToString().Trim();
                         }
                         else
                         {
                             error += "\nNo existe información para " + objprogram.Incidentdatecolumm.ToUpperInvariant();
-                        }
-                        //trackedInstDto.orgUnit = ouFirts.id;
-                        //int ou = Array.IndexOf(headers, "OU_CODE");
-                        //if (ou >= 0)
-                        //{
-                        //    var ouLine = Organisation.OrganisationUnits.Find(x => x.code == valores[ou].ToString());
-                        //    trackedInstDto.orgUnit = ouLine.id;
-                        //    Console.Write("\nOU_CODE: " + ouLine.code.ToString());
-                        //}
-                        //else
-                        //{
-                        //    error += "\nNo existe información para OU_CODE" ;
-                        //}
+                        }                       
                         
                         List<Attribut> listAttribut = new List<Attribut>();
                         string enrollmentDatecolumm = "";
@@ -450,7 +487,7 @@ namespace Impodatos.Services.EventHandlers
                         var id = Array.IndexOf(headers, objprogram.Enrollmentdatecolumm.ToUpperInvariant());
                         if (id >= 0)
                         {
-                            enrollmentDatecolumm = !String.IsNullOrWhiteSpace(valores[id].ToString()) ? Convert.ToDateTime(valores[id].ToString()).ToString("yyyy-MM-dd") : valores[id].ToString();
+                            enrollmentDatecolumm = !String.IsNullOrWhiteSpace(valores[id].ToString().Trim()) ? Convert.ToDateTime(valores[id].ToString().Trim()).ToString("yyyy-MM-dd") : valores[id].ToString().Trim();
                         }
                         else
                         {
@@ -459,7 +496,7 @@ namespace Impodatos.Services.EventHandlers
                         var idi = Array.IndexOf(headers, objprogram.Incidentdatecolumm.ToUpperInvariant());
                         if (idi >= 0)
                         {
-                            incidentDatecolumm = !String.IsNullOrWhiteSpace(valores[idi].ToString()) ? Convert.ToDateTime(valores[idi].ToString()).ToString("yyyy-MM-dd") : valores[idi].ToString();
+                            incidentDatecolumm = !String.IsNullOrWhiteSpace(valores[idi].ToString().Trim()) ? Convert.ToDateTime(valores[idi].ToString().Trim()).ToString("yyyy-MM-dd") : valores[idi].ToString().Trim();
                         }
                         else
                         {
@@ -476,9 +513,9 @@ namespace Impodatos.Services.EventHandlers
                                     attribut.attribute = at.Id;
                                     if (idval >= 0)
                                     {                                     
-                                       if (at.valueType =="DATE" && !String.IsNullOrWhiteSpace(valores[idval].ToString())) {
+                                       if (at.valueType =="DATE" && !String.IsNullOrWhiteSpace(valores[idval].ToString().Trim())) {
 
-                                            valores[idval] = Convert.ToDateTime(valores[idval].ToString()).ToString("yyyy-MM-dd");
+                                            valores[idval] = Convert.ToDateTime(valores[idval].ToString().Trim()).ToString("yyyy-MM-dd");
                                         }
                                         if (at.Id.Equals(objprogram.caseNum) && listtrackedInstDto.Count > 0)
                                         {
@@ -489,7 +526,7 @@ namespace Impodatos.Services.EventHandlers
                                         }
 
                                         if (at.Name.Equals("Date of birth") || at.Name.Equals("Date of rash onset") || at.Name.Equals("WEA - Clasificación final"))
-                                            attribut.value = valores[idval].ToString();// valores[idval].Split('/')[2].PadLeft(2, '0') + "-" + valores[idval].Split('/')[1] + "-" + valores[idval].Split('/')[0].PadLeft(2, '0');
+                                            attribut.value = valores[idval].ToString().Trim();
                                         else
                                             attribut.value = valores[idval].ToString();
                                         if (at.Name.Equals("Is date of birth known"))
@@ -503,12 +540,10 @@ namespace Impodatos.Services.EventHandlers
                                 catch (Exception e) {
                                     error += "\n"+e.Message;
                                     Console.Write("\nError importación: " + error);
-                                   // EmailErrorImport();
                                 }
                             }
                         }
-                        //int total = RowFile.Count();
-                        //SequentialDto = await _dhis.GetSequential(total.ToString(), commandGeneral.token);
+                     
                         Attribut attributSq = new Attribut();
                         attributSq.attribute = "mxKJ869xJOd";
                         attributSq.value = SequentialDto[cic - 1].value;
@@ -538,7 +573,7 @@ namespace Impodatos.Services.EventHandlers
                         List<AddEventDto> listEvent = new List<AddEventDto>();
                         foreach (ProgramStage ps in objprogram.programStages)
                         {
-                            //Start laboratory
+                            //Inicio de la construcción de la opción de Laboratorio
                             if (ps.id.Equals("sNQqHHN5gi3"))
                             {
                                 try
@@ -556,15 +591,15 @@ namespace Impodatos.Services.EventHandlers
                                                 try
                                                 {
                                                     DataValue datavalue = new DataValue();
-                                                    int idval = Array.IndexOf(headersLab, dtelab.dataElement.column.ToString().ToUpperInvariant());
+                                                    int idval = Array.IndexOf(headersLab, dtelab.dataElement.column.ToString().Trim().ToUpperInvariant());
                                                     if (idval >= 0)
                                                     {                                                       
                                                         if (dtelab.dataElement.valueType == "DATE" &&   !String.IsNullOrWhiteSpace(dataValueLab[idval].ToString()))
                                                         {
-                                                            dataValueLab[idval] = Convert.ToDateTime(dataValueLab[idval].ToString()).ToString("yyyy-MM-dd");
+                                                            dataValueLab[idval] = Convert.ToDateTime(dataValueLab[idval].ToString().Trim()).ToString("yyyy-MM-dd");
                                                         }
                                                         datavalue.dataElement = dtelab.dataElement.id;
-                                                        datavalue.value = dataValueLab[idval].ToString();
+                                                        datavalue.value = dataValueLab[idval].ToString().Trim();
                                                         listDataLabValue.Add(datavalue);
                                                     }
 
@@ -612,10 +647,9 @@ namespace Impodatos.Services.EventHandlers
                                 catch (Exception e) {
                                     error += "\n" + e.Message;
                                     Console.Write("\nError importación (Laboratorio): " +  error.ToString());
-                                   // EmailErrorImport();
                                 }
                             }
-                            //end laboratory
+                            //Fin de la construcción de la opción de Laboratorio
                             List<DataValue> listDataValue = new List<DataValue>();
                             try
                             {
@@ -628,13 +662,12 @@ namespace Impodatos.Services.EventHandlers
                                         int idval = Array.IndexOf(headers, dte.dataElement.column.ToUpperInvariant());
                                         if (idval >= 0)
                                         {
-                                           if (dte.dataElement.valueType == "DATE" &&  !String.IsNullOrWhiteSpace(valores[idval].ToString()))
+                                           if (dte.dataElement.valueType == "DATE" &&  !String.IsNullOrWhiteSpace(valores[idval].ToString().Trim()))
                                             {
-                                                valores[idval] = Convert.ToDateTime(valores[idval].ToString()).ToString("yyyy-MM-dd");
+                                                valores[idval] = Convert.ToDateTime(valores[idval].ToString().Trim()).ToString("yyyy-MM-dd");
                                             }
                                             datavalue.dataElement = dte.dataElement.id;
-                                            datavalue.value = valores[idval].ToString();
-                                            //if(datavalue.dataElement == "w2GWdKFVkVk")  Validar que el formato de esta fecha sea yyyy-mm-dd
+                                            datavalue.value = valores[idval].ToString().Trim();
                                             listDataValue.Add(datavalue);
                                             cont = cont + 1;
                                         }
@@ -643,7 +676,6 @@ namespace Impodatos.Services.EventHandlers
                                         contbad = contbad + 1;
                                         error += "\n" + e.Message;
                                         Console.Write("\nError importación (Eventos): " + error.ToString());
-                                      //  EmailErrorImport();
                                     }
 
                                 }
@@ -660,7 +692,6 @@ namespace Impodatos.Services.EventHandlers
                                     catch (Exception e) {
                                         error += "\n" + e.Message;
                                         Console.Write("\nError importación (Eventos): " + error.ToString());
-                                      //  EmailErrorImport();
                                     }
 
                                     var storedBy = commandGeneral.UserLogin;
@@ -682,20 +713,18 @@ namespace Impodatos.Services.EventHandlers
                                     };
                                     if (objEventDto.eventDate.Trim().Length > 0)
                                         listEvent.Add(objEventDto);
-
                                 }
                                
                             }
                             catch (Exception e) {
                                 error += "\n" + e.Message;
                                 Console.Write("\nError importación (Eventos): " + error.ToString());
-                              //  EmailErrorImport();
                             }
-                            //}
+                            
                         }
                         eventDto.events = listEvent;
                         Console.Write("\nCreando Events: " + listEvent.Count);
-                        // Importante para envio en bloques de 100 o como se ajuste la configuracion
+                        // Importante para envio en bloques de 100 ó como se ajuste la configuración
                         if (uploadBlock)
                         {
                             enrollmentFullDto.Eev = listEvent;
@@ -714,14 +743,13 @@ namespace Impodatos.Services.EventHandlers
                             {
                                 contBlock = contBlock + 1;
                                 var resultDto = await _dhis.AddTracked(trackedDtos, commandGeneral.token);
-                                Console.Write("\nImportacion Resultado Async:" + resultDto.Response.relativeNotifierEndpoint.ToString());
+                                Console.Write("\nImportacion Resultado Async:" + resultDto.Response.relativeNotifierEndpoint.ToString().Trim());
                                 var res = await CheckImportTrackedAsync(resultDto.Response.relativeNotifierEndpoint, commandGeneral.token);
                                 Console.Write("\nFin de Importacion en Bloque");
                             }
                             catch (Exception e) {
                                 error += "\n" + e.Message;
                                 Console.Write("\nError importación (Guardado de Tracked): " +  error.ToString());
-                              //  EmailErrorImport();
                             }
 
                             if (!uploadBlock)
@@ -736,7 +764,6 @@ namespace Impodatos.Services.EventHandlers
                                     catch (Exception e) {
                                         error += "\n" + e.Message;
                                         Console.Write("\nError importación (Guardado de Enrollments): " + error.ToString());
-                                      //  EmailErrorImport();
                                     }
 
                                 }
@@ -749,8 +776,7 @@ namespace Impodatos.Services.EventHandlers
                                     }
                                     catch (Exception e) {
                                         error += "\n" + e.Message;
-                                        Console.Write("\nError importación (Guardado de Eventos): " + error.ToString());
-                                       // EmailErrorImport();
+                                        Console.Write("\nError importación (Guardado de Eventos): " + error.ToString());                                     
                                     }
                                 }
                             }
@@ -772,14 +798,14 @@ namespace Impodatos.Services.EventHandlers
                 endWhile = true;
                 if (trackedDtos.trackedEntityInstances != null)
                 {
-                    // Temporal para los archivos restantes de los bloques
+                    // Para los archivos restantes de los bloques
                     if (trackedDtos.trackedEntityInstances.Count > 0)
                     {
                         AddTracketResultDto trakedResultDto = new AddTracketResultDto();
                         try
                         {
                             var resultDto = await _dhis.AddTracked(trackedDtos, commandGeneral.token);
-                            Console.Write("\nImportacion Resultado Async:" + resultDto.Response.relativeNotifierEndpoint.ToString());
+                            Console.Write("\nImportacion Resultado Async:" + resultDto.Response.relativeNotifierEndpoint.ToString().Trim());
                             var res = await CheckImportTrackedAsync(resultDto.Response.relativeNotifierEndpoint, commandGeneral.token);
                             Console.Write("\nFin de Importacion");
                         }
@@ -787,7 +813,6 @@ namespace Impodatos.Services.EventHandlers
                         {
                             error += "\n" + e.Message;
                             Console.Write("\nError importación: " +  error.ToString());
-                          //  EmailErrorImport();
                         }
                     }
                 }
@@ -808,10 +833,16 @@ namespace Impodatos.Services.EventHandlers
                 error += "\n" + e.Message;
                 Console.Write("\nError importación: " +  error.ToString());
                 state = 5;
-                //EmailErrorImport();
             }
         }
 
+        /// <summary>
+        /// Revisa el estado de la tarea asincrona del guardado de la data, verifica si la tarea término y si tiene  ó no errores
+        /// y genera el summary para posterior guardado en la base de datos y envio de errroes al email
+        /// </summary>
+        /// <param name="task">Url de la tarea asincrona</param>
+        /// <param name="token">Token de autenticación</param>
+        /// <returns>Retorna un bool con el resultado de la tarea (terminada ó no/ con ó sin errores)</returns>
         public async Task<bool> CheckImportTrackedAsync(string task, string token)
         {
             try
@@ -837,8 +868,7 @@ namespace Impodatos.Services.EventHandlers
                             summary = errorSummary;
                             error += "\n" + errorSummary;
                         }                       
-                        Console.Write("\nError resultado de Importación : " + summary.ToString());
-                       // EmailErrorImport();
+                        Console.Write("\nError resultado de Importación : " + summary.ToString());                  
                     }
                     Console.Write("\nResultado de Importación : " + summary.ToString());
                     summaryImport.Add(summary);
@@ -857,8 +887,13 @@ namespace Impodatos.Services.EventHandlers
             }
         }
 
-
-
+   
+        /// <summary>
+        /// Lee archivo(s) de extensión .CSV, con su respectivo separador (coma ó punto y coma), 
+        /// para generar los objetos iterables RowFile y/o RowFileLab (casos y/o laboratorio - primer y/o segundo archivo)
+        /// </summary>
+        /// <param name="command"> Clase que contiene todos los atributos relacionados a la importación (1 y 2do arhivo, usuario, fecha inicial y final, etc)</param>
+        /// <returns>Retorna el objeto iterable del archivo obligatorio, una lista de arrays de listas</returns>
         public List<ArrayList> ReadCSV(historyCreateCommand command)
         {
             try
@@ -869,7 +904,7 @@ namespace Impodatos.Services.EventHandlers
                 historyCreateCommand cmd = new historyCreateCommand();
                 startDate = command.startdate + "-01-01";
                 endDate = (command.enddate + 1) + "-01-01";
-
+                //Léctura de archivo # 2
                 if (command.CsvFile01 != null)
                 {
                     string fileExtension = Path.GetExtension(commandGeneral.CsvFile01.FileName);
@@ -885,7 +920,6 @@ namespace Impodatos.Services.EventHandlers
                         headersLab = headersLab.Select(s => s.ToUpperInvariant()).ToArray();
                         string lineLab;
                         ArrayList listLab;
-                        //List<ArrayList> RowFile = new List<ArrayList>();
 
                         while ((lineLab = readerLab.ReadLine()) != null)
                         {
@@ -906,10 +940,9 @@ namespace Impodatos.Services.EventHandlers
                         Console.Write("\nError de ReadCSV" + error.ToString());
                     }
                 }
-
+                //Léctura de archivo # 1
                 string line;
                 ArrayList list;
-                //List<ArrayList> RowFile = new List<ArrayList>();
                 reader = new StreamReader(command.CsvFile.OpenReadStream());
 
                 headers = reader.ReadLine().Split(command.separator.ToString());
@@ -942,11 +975,17 @@ namespace Impodatos.Services.EventHandlers
                 Console.WriteLine("{0} Exception caught.", e);
                 error += "\n"+ e.Message;
                 Console.Write("\nError de ReadCSV : " +  error.ToString());
-               // EmailErrorImport();
             }
             return RowFile;
         }
 
+       
+        /// <summary>
+        /// Lee archivo(s) de extensión .XLSX, con su respectivo separador (coma ó punto y coma), 
+        /// para generar los objetos iterables RowFile y/o RowFileLab (casos y/o laboratorio - primer y/o segundo archivo)
+        /// </summary>
+        /// <param name="command"> Clase que contiene todos los atributos relacionados a la importación (1 y 2do arhivo, usuario, fecha inicial y final, etc)</param>
+        /// <returns>Retorna el objeto iterable del archivo obligatorio, una lista de arrays de listas</returns>
         public List<ArrayList> ReadXLSX(historyCreateCommand command)
         {
             try
@@ -959,6 +998,7 @@ namespace Impodatos.Services.EventHandlers
                 var readerExcel = command.CsvFile.OpenReadStream();
                 var workbook = new XLWorkbook(readerExcel);
                 int countWS = workbook.Worksheets.Count;
+                //Léctura de hoja # 2
                 if (countWS == 2)
                 {
 
@@ -987,8 +1027,7 @@ namespace Impodatos.Services.EventHandlers
                                 var isDate = cellInd.Contains("12:00:00");
 
                                 if (isDate)
-                                {
-                                    //string rec = cellInd.Substring(0, 10);
+                                {                                   
                                     string date = Convert.ToDateTime(cellInd).ToString("yyyy-MM-dd");
                                     LineFileLab[j] = date;
                                 }
@@ -1007,7 +1046,7 @@ namespace Impodatos.Services.EventHandlers
                     }
                 }
 
-
+                //Léctura de hoja # 1
                 var ws = workbook.Worksheet(1);
                 var Rows = ws.Rows().ToList();
                 var Columns = ws.Columns().ToList();
@@ -1031,8 +1070,7 @@ namespace Impodatos.Services.EventHandlers
                             var isDate = cellInd.Contains("12:00:00");
 
                             if (isDate)
-                            {
-                                //string rec = cellInd.Substring(0, 10);
+                            {                        
                                 string date = Convert.ToDateTime(cellInd).ToString("yyyy-MM-dd");
                                 LineFile[j] = date;
                             }
@@ -1065,12 +1103,17 @@ namespace Impodatos.Services.EventHandlers
                 Console.WriteLine("{0} Exception caught.", e);
                 error += "\n" +e.Message;
                 Console.Write("\nError de ReadXLSX : " + error.ToString());
-              //  EmailErrorImport();
             }
             return RowFile;
 
         }
 
+        /// <summary>
+        /// Lee archivo(s) de extensión .XLS, con su respectivo separador (coma ó punto y coma), 
+        /// para generar los objetos iterables RowFile y/o RowFileLab (casos y/o laboratorio - primer y/o segundo archivo)
+        /// </summary>
+        /// <param name="command"> Clase que contiene todos los atributos relacionados a la importación (1 y 2do arhivo, usuario, fecha inicial y final, etc)</param>
+        /// <returns>Retorna el objeto iterable del archivo obligatorio, una lista de arrays de listas</returns>
         public List<ArrayList> ReadXLS(historyCreateCommand command)
         {
             try
@@ -1088,6 +1131,7 @@ namespace Impodatos.Services.EventHandlers
 
                 if (dsexcelRecords != null && dsexcelRecords.Tables.Count > 0)
                 {
+                    //Léctura de hoja # 2
                     if (CountPages == 2)
                     {
                         DataTable dtDataRecords = dsexcelRecords.Tables[1];
@@ -1112,7 +1156,6 @@ namespace Impodatos.Services.EventHandlers
 
                                     if (isDate)
                                     {
-                                        //string rec = cellInd.Substring(0, 10);
                                         string date = Convert.ToDateTime(cellInd).ToString("yyyy-MM-dd");
                                         LineFile[j] = date;
                                     }
@@ -1132,7 +1175,7 @@ namespace Impodatos.Services.EventHandlers
                         }
                     }
                 }
-
+                //Léctura de hoja # 1
                 if (dsexcelRecords != null && dsexcelRecords.Tables.Count > 0)
                 {
                     DataTable dtDataRecords = dsexcelRecords.Tables[0];
@@ -1158,7 +1201,6 @@ namespace Impodatos.Services.EventHandlers
 
                                 if (isDate)
                                 {
-                                    //string rec = cellInd.Substring(0, 10);
                                     string date = Convert.ToDateTime(cellInd).ToString("yyyy-MM-dd");
                                     LineFile[j] = date;
                                 }
@@ -1190,12 +1232,17 @@ namespace Impodatos.Services.EventHandlers
             {
                 error += "\n" + e.Message;
                 Console.Write("\nError de ReadXLS: " + error.ToString());
-             //   EmailErrorImport();
             }
 
             return RowFile;
         }
 
+        /// <summary>
+        ///  Método principal, donde se valida la extensión del archivo, se envia según la misma a los diferentes métodos para llegar a el ó los objetos iterables
+        /// </summary>
+        /// <param name="command">Clase que contiene todos los atributos relacionados a la importación (1 y 2do arhivo, usuario, fecha inicial y final, etc)</param>
+        /// <param name="cancellation"></param>
+        /// <returns>No retorna nada</returns>
         public async Task Handle(historyCreateCommand command, CancellationToken cancellation)
         {
             try
@@ -1244,18 +1291,25 @@ namespace Impodatos.Services.EventHandlers
                 int colounitsFirst = Array.IndexOf(headers, objprogram.Orgunitcolumm.ToUpperInvariant());
                 if (colounitsFirst == -1)
                 {
-                    //if(String.IsNullOrEmpty(error))
                         error+= "\nEl archivo no tiene la estructura correcta, posiblemente no tiene la Unidad Organizativa";
                 }
                 var Firtsline = RowFile[0];
                 ounitvalueFirst = Firtsline[colounitsFirst].ToString();
 
-                ouFirts = Organisation.OrganisationUnits.Find(x => x.code == Firtsline[colounitsFirst].ToString());
-                oupath = ouFirts.path.Split("/")[2];
-                var oupathFull = await _dhis.GetOrganisationUnit(commandGeneral.token, oupath); //crear el objeto de tipo AddEventDto
-                country = oupathFull.name;
+                ouFirts = Organisation.OrganisationUnits.Find(x => x.code == Firtsline[colounitsFirst].ToString());               
+
+                if (ouFirts is not null)
+                {
+                    oupath = ouFirts.path.Split("/")[2];
+                    var oupathFull = await _dhis.GetOrganisationUnit(commandGeneral.token, oupath); //crear el objeto de tipo AddEventDto
+                    country = oupathFull.name;
+                }
+                else {
+                    error += "\nNo existe la Unidad Organizativa: " + Firtsline[colounitsFirst].ToString();
+                    state = 5;
+                }
+                
                 backgroundTask.StartAsync(OrchestratorAsync(oupath, startDate, endDate, objprogram.Programid, command.token, RowFile));
-                //return "start";               
             }
             catch (Exception e)
             {
@@ -1264,10 +1318,14 @@ namespace Impodatos.Services.EventHandlers
                 command.reponse = error;                
                 EmailErrorImport();
                 state = 6;
-
             }
         }
 
+        /// <summary>
+        ///Guarda el summary (el resultado de la importación), con otros campos adicionales (programa, usuario, fecha y hora, pais etc)en la base de datos
+        /// </summary>
+        /// <param name="userLogin">Usuario con el esta logueado</param>
+        /// <param name="program">programa</param>
         public void SaveSummaryImport(string userLogin, string program)
         {
             try
@@ -1307,14 +1365,27 @@ namespace Impodatos.Services.EventHandlers
             {
                 error += "\n"+ e.Message;
                 Console.Write("\nError Guardado Summry DB : " +  error.ToString());
-               // EmailErrorImport();
             }
         }
+
+        
+        /// <summary>
+        /// Metódo para envio de email con errores, no se importo la data
+        /// </summary>
         public void EmailErrorImport() {
-            string body =  "No ha(n) sido PROCESADO(S), revise el o los arhivos " ;
-            sendMailObj.SenEmailImport(_importSettings.Services[0].Server, "Error en la Importación", body + "\n\n"+ error , userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, "El ó los archivo(s): " + nameFile + " " + nameFileLab);
+            string subject = _importSettings.Services[0].SubjectError;
+            string body = _importSettings.Services[0].BodyError;
+           // error = !String.IsNullOrEmpty(error) ? _importSettings.Services[0].TitleError + "\n" + error : "";
+
+            sendMailObj.SenEmailImport(_importSettings.Services[0].Server, subject, body +  error , userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, "El ó los archivo(s): " + nameFile + " " + nameFileLab);
         }
 
+        /// <summary>
+        /// Método propio de la clase para actualización
+        /// </summary>
+        /// <param name="command">Clase que contiene todos los atributos relacionados a la importación (1 y 2do arhivo, usuario, fecha inicial y final, etc)</param>
+        /// <param name="cancellation"></param>
+        /// <returns>No retorna nada</returns>
         public async Task Handle(historyUpdateCommand command, CancellationToken cancellation)
         {
             await Task.Run(async () =>
@@ -1328,7 +1399,13 @@ namespace Impodatos.Services.EventHandlers
         }
 
         
-
+        
+        /// <summary>
+        /// Léctura del Summary y extracción de los errores para adjuntarlos al email
+        /// </summary>
+        /// <param name="result">Lista de resultados (Summary)</param>
+        /// <param name="token">Token de autenticación</param>
+        /// <returns></returns>
         public async Task<string> ReadErrorSummaryAsync(List<string> result, string token) {
             string ResponseError = "";
             if (result.Count > 0)
@@ -1350,7 +1427,7 @@ namespace Impodatos.Services.EventHandlers
 
                         var dhisResponse = JsonConvert.DeserializeObject<List<Root>>(jsonpars);
                         foreach (Root item in dhisResponse)
-                            foreach (ImportSummaryDhis itemsum in item.importSummaries) //f8NbfmhXzl3
+                            foreach (ImportSummaryDhis itemsum in item.importSummaries) 
                             {
                                 if (itemsum.conflicts.Count > 0)
                                 {
