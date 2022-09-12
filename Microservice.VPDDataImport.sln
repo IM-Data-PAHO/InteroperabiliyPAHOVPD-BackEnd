@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31105.61
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Impodatos", "Impodatos", "{4AEAFC5B-6AEF-4BF4-892A-6FF8B0326EB9}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microservice.VPDDataImport", "Microservice.VPDDataImport", "{4AEAFC5B-6AEF-4BF4-892A-6FF8B0326EB9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01. API", "01. API", "{D62A0045-9575-467E-9242-8B2D555A9DA6}"
 EndProject
