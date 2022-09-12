@@ -13,17 +13,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03. Persistence", "03. Pers
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04. Models", "04. Models", "{81193A6E-17CB-422B-9B23-FAD2E15E1EE1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VPDDataImportMicroService", "Impodatos.Api\VPDDataImportMicroService.csproj", "{A72C3979-F320-496F-AFED-876178B2747E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VPDDataImportMicroService", "Microservice.VPDDataImport.Api\VPDDataImportMicroService.csproj", "{A72C3979-F320-496F-AFED-876178B2747E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VPDDataImport.Domain", "Impodatos.Domain\VPDDataImport.Domain.csproj", "{116385E8-BA6C-4B9D-A6F2-3D0DEFA068F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VPDDataImport.Domain", "Microservice.VPDDataImport.Domain\VPDDataImport.Domain.csproj", "{116385E8-BA6C-4B9D-A6F2-3D0DEFA068F1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VPDDataImport.Persistence.Database", "Impodatos.Persistence.Database\VPDDataImport.Persistence.Database.csproj", "{F8E9408C-209B-439D-90E2-D05B8D202B54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VPDDataImport.Persistence.Database", "Microservice.VPDDataImport.Persistence.Database\VPDDataImport.Persistence.Database.csproj", "{F8E9408C-209B-439D-90E2-D05B8D202B54}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VPDDataImport.Services.Queries", "Impodatos.Services.Queries\VPDDataImport.Services.Queries.csproj", "{CEB02999-263D-481A-A6FD-2BE51759C174}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VPDDataImport.Services.Queries", "Microservice.VPDDataImport.Services.Queries\VPDDataImport.Services.Queries.csproj", "{CEB02999-263D-481A-A6FD-2BE51759C174}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VPDDataImport.Services.EventHandlers", "Impodatos.Services.EventHandlers\VPDDataImport.Services.EventHandlers.csproj", "{DB1703FD-EDF4-49CF-97DA-6269A0960BB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VPDDataImport.Services.EventHandlers", "Microservice.VPDDataImport.Services.EventHandlers\VPDDataImport.Services.EventHandlers.csproj", "{DB1703FD-EDF4-49CF-97DA-6269A0960BB5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VPDDataImport.Services.Common", "Impodatos.Services.Common\VPDDataImport.Services.Common.csproj", "{369088CF-E8D5-49A4-ACAD-2C8533C3DB46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VPDDataImport.Services.Common", "Microservice.VPDDataImport.Services.Common\VPDDataImport.Services.Common.csproj", "{369088CF-E8D5-49A4-ACAD-2C8533C3DB46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
