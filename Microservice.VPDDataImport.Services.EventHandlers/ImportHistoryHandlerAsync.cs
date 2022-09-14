@@ -19,17 +19,18 @@ using System.Data;
 using System.Text;
 using ClosedXML.Excel;
 using ExcelDataReader;
+using System.Globalization;
 
 namespace Microservice.VPDDataImport.Services.EventHandlers
 {
     public class ImportHistoryHandlerAsync : INotificationHandler<historyCreateCommand>,
          INotificationHandler<historyUpdateCommand>
-    
-     // Atributos de la clase 
+
+    // Atributos de la clase 
     {
         private readonly ApplicationDbContext _context;
-        private readonly IDhisQueryService _dhis;     
-        public LoginQueryService loginQueyService = new LoginQueryService();       
+        private readonly IDhisQueryService _dhis;
+        public LoginQueryService loginQueyService = new LoginQueryService();
         public int state = 1;
         public string oupath;
         public string startDate;
@@ -70,7 +71,7 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
         public string response = "";
         public OrganisationUnitsDto Organisation = new OrganisationUnitsDto();
         public string level;
-        public bool completed= false;
+        public bool completed = false;
         public DhisProgramDto ExternalImportDataApp;
         public int nodate = 0;
         public string summaryNodata = "";
@@ -78,7 +79,7 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
         public ImportHistoryHandlerAsync(ApplicationDbContext context, IDhisQueryService dhis)
         {
             _context = context;
-            _dhis = dhis;          
+            _dhis = dhis;
         }
 
 
@@ -122,7 +123,7 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
             }
         }
 
-    
+
         /// <summary>
         /// Retorna la cadena de conexión para la base de datos, configurada en el AppSettings
         /// </summary>
@@ -143,7 +144,7 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                 };
             }
         }
-       
+
         /// <summary>
         ///Método que orquesta todo el proceso,esta divido por pasos (todas las etapas de la importación (5 pasos), no permite iniciar un nuevo paso hasta el anterior este terminado.
         /// </summary>
@@ -166,15 +167,15 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                 do
                 {
                     switch (state)
-                    {                        
-                         // Paso 1: Consulta y borrado de los eventos                                                 
+                    {
+                        // Paso 1: Consulta y borrado de los eventos                                                 
                         case 1:
                             step = 1;
                             TaskResult = await CleanEventsAsync(oupath, program, startDate, endDate, token);
                             break;
                         //Paso 2: Consulta y borrado de los enrollments
                         case 2:
-                            step = 2;                          
+                            step = 2;
                             await CleanEnrollmentsAsync(program, oupath, startDate, endDate, token);
                             break;
                         //Paso 3: Construccón del JSON para la importación de la data
@@ -182,8 +183,8 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                             step = 3;
                             await ImportDataAsync(RowFile);
                             if (endWhile)
-                            {                              
-                                state = 4;                           
+                            {
+                                state = 4;
                             }
                             break;
                         //Paso 4: Guardado del summary (resultado de la importación) en la base de datos
@@ -193,19 +194,20 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                         //Paso 5: Envio de email, reportando si hubo o no errores durante la importación
                         case 5:
                             string errorSummary = await ReadErrorSummaryAsync(summaryImportW, token);
-                            error += !String.IsNullOrEmpty(errorSummary) ? error + "\n" + errorSummary:"" ;
+                            error += !String.IsNullOrEmpty(errorSummary) ? error + "\n" + errorSummary : "";
                             string body = _importSettings.Services[0].Body;
                             string subject = _importSettings.Services[0].Subject;
-                            if (nodate >0) {
+                            if (nodate > 0)
+                            {
                                 subject = _importSettings.Services[0].SubjectEmpty;
                                 body = _importSettings.Services[0].BodyEmpty;
                             }
 
-                            if ((level != "ERROR" || level!= null) && nodate == 0)
-                            {                                
-                                subject = !String.IsNullOrEmpty(error) ? _importSettings.Services[0].SubjectSomeError: subject;
+                            if ((level != "ERROR" || level != null) && nodate == 0)
+                            {
+                                subject = !String.IsNullOrEmpty(error) ? _importSettings.Services[0].SubjectSomeError : subject;
                                 body = !String.IsNullOrEmpty(error) ? _importSettings.Services[0].BodySomeError : body;
-                                error = !String.IsNullOrEmpty(error) ? _importSettings.Services[0].TitleError + "\n" + error : "";                              
+                                error = !String.IsNullOrEmpty(error) ? _importSettings.Services[0].TitleError + "\n" + error : "";
                             }
                             if (level == "ERROR" && nodate == 0)
                             {
@@ -215,7 +217,7 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                             }
                             sendMailObj.SenEmailImport(_importSettings.Services[0].Server, subject, body + error, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, "El ó los archivo(s): " + nameFile + " " + nameFileLab);
                             state = 6;
-                            break;                            
+                            break;
                     }
                     if (TaskResult != "")
                     {
@@ -227,7 +229,7 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
             }
             catch (Exception e)
             {
-                error += "\n"+e.Message;                
+                error += "\n" + e.Message;
                 commandGeneral.reponse = e.Message;
                 Console.WriteLine("{0} Exception caught.", e);
                 state = 6;
@@ -258,8 +260,9 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                 }
                 else
                 {
-                    if (level == "ERROR") {
-                        error = response.resultTasks[0].message;                       
+                    if (level == "ERROR")
+                    {
+                        error = response.resultTasks[0].message;
                         Console.Write("\nError Eliminación de Eventos : " + error.ToString());
                     }
                     switch (step)
@@ -284,7 +287,7 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                 return false;
             }
         }
-       
+
         /// <summary>
         /// Permite determinar si existen eventos y posterior a esto eliminarlos, En caso que no retorne data cambia el state al siguiente paso
         /// </summary>
@@ -351,7 +354,8 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                         state = 3;
                         Console.Write("\nFin de Eliminación de Enrollments");
                     }
-                    else {
+                    else
+                    {
                         error = dropEnrrollments.message;
                         Console.Write("\nError de Eliminación de Enrollments" + error.ToString());
                     }
@@ -364,12 +368,12 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
             }
             catch (Exception e)
             {
-                error += "\n"+e.Message;
+                error += "\n" + e.Message;
                 Console.Write("\nError Eliminación de Enrollments: ", error);
             }
         }
 
-      
+
         /// <summary>
         /// Importa la data, recibe el objeto iterable que corresponde al 1er arhivo de Casos (obligatorio), este proceso organiza el archivo JSON, para posterior enviar la data a guardar
         /// </summary>
@@ -382,7 +386,7 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                 var _set = _importSettings;
                 int cont = 0;
                 int contbad = 0;
-                int SizeUpload = _set.Services[0].SizeUpload;               
+                int SizeUpload = _set.Services[0].SizeUpload;
 
                 AddTrackedDto trackedDto = new AddTrackedDto();
                 AddTrackedDto trackedDtos = new AddTrackedDto();
@@ -408,19 +412,55 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
 
                     Console.Write("Ciclos: " + cic.ToString());
                     cic++;
-                    int dtRashOn = Array.IndexOf(headers, "DTRASHONSET"); 
-                    if (dtRashOn>=0) { 
-                        dtRashOnval = !String.IsNullOrWhiteSpace(valores[dtRashOn].ToString()) ? Convert.ToDateTime(valores[dtRashOn].ToString().Trim()).ToString("yyyy-MM-dd") : valores[dtRashOn].ToString().Trim();
-                        valores[dtRashOn] = dtRashOnval;
+                    int dtRashOn = Array.IndexOf(headers, "DTRASHONSET");
+                    Console.Write("\ndtRashOn: " + dtRashOn.ToString());
+                    try
+                    {
+                        if (dtRashOn >= 0)
+                        {
+                            if (!String.IsNullOrEmpty(valores[dtRashOn].ToString()))
+                            {
+                                string[] partdate = valores[dtRashOn].ToString().Split("/");
+
+                                if (partdate.Length == 3 && partdate[2].Length == 4)
+                                {
+                                    if (Convert.ToInt32(partdate[1]) > 12 && Convert.ToInt32(partdate[0]) > 31)
+                                    {
+                                        dtRashOnval = partdate[2] + "-" + partdate[0] + "-" + partdate[1];
+                                    }
+                                    else
+                                    {
+                                        dtRashOnval = partdate[2] + "-" + partdate[1] + "-" + partdate[0];
+                                    }
+                                }
+                                else
+                                {
+                                    dtRashOnval = valores[dtRashOn].ToString().Trim();
+                                }
+                            }
+                            //dtRashOnval = !String.IsNullOrWhiteSpace(valores[dtRashOn].ToString()) ? Convert.ToDateTime(valores[dtRashOn].ToString().Trim()).ToString("yyyy-MM-dd") : valores[dtRashOn].ToString().Trim();
+                            //valores[dtRashOn] = dtRashOnval;
+                        }
+                        else
+                        {
+                            error += "\nNo existe información para dtRashOn";
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        error += "\n" + e.Message;
+
                     }
                     int dty = 0;
                     try
                     {
                         dty = Convert.ToInt32(Convert.ToDateTime(dtRashOnval).Year);
                     }
-                    catch (Exception e) {
+                    catch (Exception e)
+                    {
                         error = e.Message;
-                        Console.WriteLine("{0} Exception caught.", e); }
+                        Console.WriteLine("{0} Exception caught.", e);
+                    }
                     if (dty == commandGeneral.startdate || dty == commandGeneral.enddate)
                     {
                         List<TrackedEntityInstances> listtrackedInstDto = new List<TrackedEntityInstances>();
@@ -448,18 +488,19 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                         if (ou >= 0)
                         {
                             var ouLine = Organisation.OrganisationUnits.Find(x => x.code == valores[ou].ToString().Trim());
-                            if (ouLine != null) { 
-                            trackedInstDto.orgUnit = ouLine.id;
+                            if (ouLine != null)
+                            {
+                                trackedInstDto.orgUnit = ouLine.id;
 
-                            var validatetraked = await _dhis.GetTracked(caseidvalue, ouLine.id, commandGeneral.token);
-                            if (validatetraked.trackedEntityInstances.Count > 0)
-                                trackedInstDto.trackedEntityInstance = validatetraked.trackedEntityInstances[0].trackedEntityInstance;
-                            else
-                                trackedInstDto.trackedEntityInstance = TrackeduidGeneratedDto.Codes[0].ToString().Trim();
+                                var validatetraked = await _dhis.GetTracked(caseidvalue, ouLine.id, commandGeneral.token);
+                                if (validatetraked.trackedEntityInstances.Count > 0)
+                                    trackedInstDto.trackedEntityInstance = validatetraked.trackedEntityInstances[0].trackedEntityInstance;
+                                else
+                                    trackedInstDto.trackedEntityInstance = TrackeduidGeneratedDto.Codes[0].ToString().Trim();
 
-                            trackedInstDto.trackedEntityType = objprogram.Trackedentitytype;
+                                trackedInstDto.trackedEntityType = objprogram.Trackedentitytype;
 
-                            Console.Write("\nOU_CODE: " + ouLine.code.ToString());
+                                Console.Write("\nOU_CODE: " + ouLine.code.ToString());
                             }
                             else
                             {
@@ -470,37 +511,127 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                         {
                             error += "\nNo existe información para OU_CODE " + valores[ou].ToString() + " CASE_ID: " + caseidvalue;
                         }
-                       
-                        int ideventdate = Array.IndexOf(headers, objprogram.Incidentdatecolumm.ToUpperInvariant());                      
-                        if (ideventdate >= 0)
+
+                        int ideventdate = Array.IndexOf(headers, objprogram.Incidentdatecolumm.ToUpperInvariant());
+                        try
                         {
-                            eventdate = !String.IsNullOrWhiteSpace(valores[ideventdate].ToString().Trim()) ? Convert.ToDateTime(valores[ideventdate].ToString().Trim()).ToString("yyyy-MM-dd") : valores[ideventdate].ToString().Trim();
+                            if (ideventdate >= 0)
+                            {
+                                if (!String.IsNullOrEmpty(valores[ideventdate].ToString()))
+                                {
+                                    //{
+                                    //    string[] partdate = valores[ideventdate].ToString().Trim().Split("/");
+                                    //    valores[ideventdate] = partdate.Length == 3 ? partdate[2] + "-" + partdate[1] + "-" + partdate[0] : valores[ideventdate].ToString().Trim();
+                                    //}
+
+                                    string[] partdate = valores[ideventdate].ToString().Split("/");
+
+                                    if (partdate.Length == 3 && partdate[2].Length == 4)
+                                    {
+                                        if (Convert.ToInt32(partdate[1]) > 12 && Convert.ToInt32(partdate[0]) > 31)
+                                        {
+                                            eventdate = partdate[2] + "-" + partdate[0] + "-" + partdate[1];
+                                        }
+                                        else
+                                        {
+                                            eventdate = partdate[2] + "-" + partdate[1] + "-" + partdate[0];
+                                        }
+                                    }
+                                    else
+                                    {
+                                        eventdate = valores[ideventdate].ToString().Trim();
+                                    }
+                                    //eventdate = !String.IsNullOrWhiteSpace(valores[ideventdate].ToString().Trim()) ? Convert.ToDateTime(valores[ideventdate].ToString().Trim()).ToString("yyyy-MM-dd") : valores[ideventdate].ToString().Trim();
+
+                                }
+                            }
+                            else
+                            {
+                                error += "\nNo existe información para " + objprogram.Incidentdatecolumm.ToUpperInvariant();
+                            }
                         }
-                        else
+                        catch (Exception e)
                         {
-                            error += "\nNo existe información para " + objprogram.Incidentdatecolumm.ToUpperInvariant();
-                        }                       
-                        
+                            error += "\n" + e.Message;
+                        }
+
                         List<Attribut> listAttribut = new List<Attribut>();
                         string enrollmentDatecolumm = "";
                         string incidentDatecolumm = "";
                         var id = Array.IndexOf(headers, objprogram.Enrollmentdatecolumm.ToUpperInvariant());
-                        if (id >= 0)
+                        try
                         {
-                            enrollmentDatecolumm = !String.IsNullOrWhiteSpace(valores[id].ToString().Trim()) ? Convert.ToDateTime(valores[id].ToString().Trim()).ToString("yyyy-MM-dd") : valores[id].ToString().Trim();
+                            if (id >= 0)
+                            {
+                                if (!String.IsNullOrEmpty(valores[id].ToString()))
+                                {
+                                    string[] partdate = valores[id].ToString().Split("/");
+                                    if (partdate.Length == 3 && partdate[2].Length == 4)
+                                    {
+                                        if (Convert.ToInt32(partdate[1]) > 12 && Convert.ToInt32(partdate[0]) > 31)
+                                        {
+                                            enrollmentDatecolumm = partdate[2] + "-" + partdate[0] + "-" + partdate[1];
+                                        }
+                                        else
+                                        {
+                                            enrollmentDatecolumm = partdate[2] + "-" + partdate[1] + "-" + partdate[0];
+                                        }
+                                    }
+                                    else
+                                    {
+                                        enrollmentDatecolumm = valores[id].ToString().Trim();
+                                    }
+
+                                    //string[] partdate = valores[id].ToString().Trim().Split("/");
+                                    //valores[id] = partdate.Length == 3 && partdate[2].Length==4 ? partdate[2] + "-" + partdate[1] + "-" + partdate[0] : valores[id].ToString().Trim();
+                                }
+                                // enrollmentDatecolumm = !String.IsNullOrWhiteSpace(valores[id].ToString().Trim()) ? Convert.ToDateTime(valores[id].ToString().Trim()).ToString("yyyy-MM-dd") : valores[id].ToString().Trim();
+                            }
+                            else
+                            {
+                                error += "\nNo existe información para " + objprogram.Enrollmentdatecolumm.ToUpperInvariant();
+                            }
                         }
-                        else
+                        catch (Exception e)
                         {
-                            error += "\nNo existe información para " + objprogram.Enrollmentdatecolumm.ToUpperInvariant();
+                            error += "\n" + e.Message;
                         }
                         var idi = Array.IndexOf(headers, objprogram.Incidentdatecolumm.ToUpperInvariant());
-                        if (idi >= 0)
+                        try
                         {
-                            incidentDatecolumm = !String.IsNullOrWhiteSpace(valores[idi].ToString().Trim()) ? Convert.ToDateTime(valores[idi].ToString().Trim()).ToString("yyyy-MM-dd") : valores[idi].ToString().Trim();
+                            if (idi >= 0)
+                            {
+                                if (!String.IsNullOrEmpty(valores[idi].ToString()))
+                                {
+                                    string[] partdate = valores[idi].ToString().Split("/");
+                                    if (partdate.Length == 3 && partdate[2].Length == 4)
+                                    {
+                                        if (Convert.ToInt32(partdate[1]) > 12 && Convert.ToInt32(partdate[0]) > 31)
+                                        {
+                                            incidentDatecolumm = partdate[2] + "-" + partdate[0] + "-" + partdate[1];
+                                        }
+                                        else
+                                        {
+                                            incidentDatecolumm = partdate[2] + "-" + partdate[1] + "-" + partdate[0];
+                                        }
+                                        //string[] partdate = valores[idi].ToString().Trim().Split("/");
+                                        //valores[idi] = partdate.Length == 3 ? partdate[2] + "-" + partdate[1] + "-" + partdate[0] : valores[idi].ToString().Trim();
+                                    }
+                                    else
+                                    {
+                                        incidentDatecolumm = valores[idi].ToString().Trim();
+                                    }
+                                    // incidentDatecolumm = !String.IsNullOrWhiteSpace(valores[idi].ToString().Trim()) ? Convert.ToDateTime(valores[idi].ToString().Trim()).ToString("yyyy-MM-dd") : valores[idi].ToString().Trim();
+                                }
+                            }
+                            else
+                            {
+                                error += "\nNo existe información para " + objprogram.Incidentdatecolumm.ToUpperInvariant();
+                            }
                         }
-                        else
+                        catch (Exception e)
                         {
-                            error += "\nNo existe información para " + objprogram.Incidentdatecolumm.ToUpperInvariant();
+                            error += "\n" + e.Message;
                         }
                         foreach (Queries.DTOs.Attribute at in objprogram.Attribute)
                         {
@@ -512,10 +643,24 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                                     var idval = Array.IndexOf(headers, at.Column.ToUpperInvariant());
                                     attribut.attribute = at.Id;
                                     if (idval >= 0)
-                                    {                                     
-                                       if (at.valueType =="DATE" && !String.IsNullOrWhiteSpace(valores[idval].ToString().Trim())) {
+                                    {
+                                        if (at.valueType == "DATE" && !String.IsNullOrWhiteSpace(valores[idval].ToString().Trim()))
+                                        {
 
-                                            valores[idval] = Convert.ToDateTime(valores[idval].ToString().Trim()).ToString("yyyy-MM-dd");
+                                            // valores[idval] = Convert.ToDateTime(valores[idval].ToString().Trim()).ToString("yyyy-MM-dd");
+                                            string[] partdate = valores[idval].ToString().Split("/");
+                                            if (partdate.Length == 3 && partdate[2].Length == 4)
+                                            {
+                                                if (Convert.ToInt32(partdate[1]) > 12 && Convert.ToInt32(partdate[0]) > 31)
+                                                {
+                                                    valores[idval] = partdate[2] + "-" + partdate[0] + "-" + partdate[1];
+                                                }
+                                                else
+                                                {
+                                                    valores[idval] = partdate[2] + "-" + partdate[1] + "-" + partdate[0];
+                                                }
+                                            }
+
                                         }
                                         if (at.Id.Equals(objprogram.caseNum) && listtrackedInstDto.Count > 0)
                                         {
@@ -526,7 +671,10 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                                         }
 
                                         if (at.Name.Equals("Date of birth") || at.Name.Equals("Date of rash onset") || at.Name.Equals("WEA - Clasificación final"))
+                                        {
+                                            Console.Write("\ncumple: " + valores[idval].ToString().Trim());
                                             attribut.value = valores[idval].ToString().Trim();
+                                        }
                                         else
                                             attribut.value = valores[idval].ToString();
                                         if (at.Name.Equals("Is date of birth known"))
@@ -537,13 +685,14 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                                         }
                                     }
                                 }
-                                catch (Exception e) {
-                                    error += "\n"+e.Message;
+                                catch (Exception e)
+                                {
+                                    error += "\n" + e.Message;
                                     Console.Write("\nError importación: " + error);
                                 }
                             }
                         }
-                     
+
                         Attribut attributSq = new Attribut();
                         attributSq.attribute = "mxKJ869xJOd";
                         attributSq.value = SequentialDto[cic - 1].value;
@@ -552,14 +701,14 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                         listtrackedInstDto.Add(trackedInstDto);
                         listtrackedInstDtoFull.Add(trackedInstDto);
                         trackedDto.trackedEntityInstances = listtrackedInstDto;
-                        trackedDtos.trackedEntityInstances = listtrackedInstDtoFull;                        
+                        trackedDtos.trackedEntityInstances = listtrackedInstDtoFull;
                         Console.Write("\nCreando Tracked: ");
                         Enrollment enrollmentDto = new Enrollment();
                         Enrollment enrollmentFullDto = new Enrollment();
                         enrollmentDto.trackedEntityInstance = trackedInstDto.trackedEntityInstance;
                         enrollmentDto.program = objprogram.Programid;
                         enrollmentDto.status = "ACTIVE";
-                        enrollmentDto.orgUnit = trackedInstDto.orgUnit;                        
+                        enrollmentDto.orgUnit = trackedInstDto.orgUnit;
                         enrollmentDto.enrollmentDate = enrollmentDatecolumm;
                         enrollmentDto.incidentDate = incidentDatecolumm;
                         enrollmentFullDto = enrollmentDto;
@@ -578,7 +727,6 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                             {
                                 try
                                 {
-
                                     for (int i = 0; i < RowFileLab.Count(); i++)
                                     {
                                         List<DataValue> listDataLabValue = new List<DataValue>();
@@ -593,10 +741,23 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                                                     DataValue datavalue = new DataValue();
                                                     int idval = Array.IndexOf(headersLab, dtelab.dataElement.column.ToString().Trim().ToUpperInvariant());
                                                     if (idval >= 0)
-                                                    {                                                       
-                                                        if (dtelab.dataElement.valueType == "DATE" &&   !String.IsNullOrWhiteSpace(dataValueLab[idval].ToString()))
+                                                    {
+                                                        if (dtelab.dataElement.valueType == "DATE" && !String.IsNullOrWhiteSpace(dataValueLab[idval].ToString()))
                                                         {
-                                                            dataValueLab[idval] = Convert.ToDateTime(dataValueLab[idval].ToString().Trim()).ToString("yyyy-MM-dd");
+                                                            string[] partdate = dataValueLab[idval].ToString().Split("/");
+                                                            if (partdate.Length == 3 && partdate[2].Length == 4)
+                                                            {
+                                                                if (Convert.ToInt32(partdate[1]) > 12 && Convert.ToInt32(partdate[0]) > 31)
+                                                                {
+                                                                    dataValueLab[idval] = partdate[2] + "-" + partdate[0] + "-" + partdate[1];
+                                                                }
+                                                                else
+                                                                {
+                                                                    dataValueLab[idval] = partdate[2] + "-" + partdate[1] + "-" + partdate[0];
+                                                                }
+
+                                                            }
+                                                            // dataValueLab[idval] = Convert.ToDateTime(dataValueLab[idval].ToString().Trim()).ToString("yyyy-MM-dd");
                                                         }
                                                         datavalue.dataElement = dtelab.dataElement.id;
                                                         datavalue.value = dataValueLab[idval].ToString().Trim();
@@ -604,7 +765,8 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                                                     }
 
                                                 }
-                                                catch (Exception e) {
+                                                catch (Exception e)
+                                                {
                                                     error += "\n" + e.Message;
                                                     Console.Write("\nError importación: " + error);
                                                 }
@@ -634,7 +796,7 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                                                     dataValues = listDataLabValue
                                                 };
 
-                                                listEvent.Add(objEventDto);                                               
+                                                listEvent.Add(objEventDto);
 
                                             }
 
@@ -644,9 +806,10 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
 
                                 }
 
-                                catch (Exception e) {
+                                catch (Exception e)
+                                {
                                     error += "\n" + e.Message;
-                                    Console.Write("\nError importación (Laboratorio): " +  error.ToString());
+                                    Console.Write("\nError importación (Laboratorio): " + error.ToString());
                                 }
                             }
                             //Fin de la construcción de la opción de Laboratorio
@@ -662,9 +825,22 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                                         int idval = Array.IndexOf(headers, dte.dataElement.column.ToUpperInvariant());
                                         if (idval >= 0)
                                         {
-                                           if (dte.dataElement.valueType == "DATE" &&  !String.IsNullOrWhiteSpace(valores[idval].ToString().Trim()))
+                                            if (dte.dataElement.valueType == "DATE" && !String.IsNullOrWhiteSpace(valores[idval].ToString().Trim()))
                                             {
-                                                valores[idval] = Convert.ToDateTime(valores[idval].ToString().Trim()).ToString("yyyy-MM-dd");
+                                                string[] partdate = valores[idval].ToString().Split("/");
+                                                if (partdate.Length == 3 && partdate[2].Length == 4)
+                                                {
+                                                    if (Convert.ToInt32(partdate[1]) > 12 && Convert.ToInt32(partdate[0]) > 31)
+                                                    {
+                                                        valores[idval] = partdate[2] + "-" + partdate[0] + "-" + partdate[1];
+                                                    }
+                                                    else
+                                                    {
+                                                        valores[idval] = partdate[2] + "-" + partdate[1] + "-" + partdate[0];
+                                                    }
+
+                                                }
+                                                //valores[idval] = Convert.ToDateTime(valores[idval].ToString().Trim()).ToString("yyyy-MM-dd");
                                             }
                                             datavalue.dataElement = dte.dataElement.id;
                                             datavalue.value = valores[idval].ToString().Trim();
@@ -672,7 +848,8 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                                             cont = cont + 1;
                                         }
                                     }
-                                    catch (Exception e) {
+                                    catch (Exception e)
+                                    {
                                         contbad = contbad + 1;
                                         error += "\n" + e.Message;
                                         Console.Write("\nError importación (Eventos): " + error.ToString());
@@ -689,7 +866,8 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                                         else
                                             tkins = trackedEntityInstance;
                                     }
-                                    catch (Exception e) {
+                                    catch (Exception e)
+                                    {
                                         error += "\n" + e.Message;
                                         Console.Write("\nError importación (Eventos): " + error.ToString());
                                     }
@@ -714,13 +892,14 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                                     if (objEventDto.eventDate.Trim().Length > 0)
                                         listEvent.Add(objEventDto);
                                 }
-                               
+
                             }
-                            catch (Exception e) {
+                            catch (Exception e)
+                            {
                                 error += "\n" + e.Message;
                                 Console.Write("\nError importación (Eventos): " + error.ToString());
                             }
-                            
+
                         }
                         eventDto.events = listEvent;
                         Console.Write("\nCreando Events: " + listEvent.Count);
@@ -747,9 +926,10 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                                 var res = await CheckImportTrackedAsync(resultDto.Response.relativeNotifierEndpoint, commandGeneral.token);
                                 Console.Write("\nFin de Importacion en Bloque");
                             }
-                            catch (Exception e) {
+                            catch (Exception e)
+                            {
                                 error += "\n" + e.Message;
-                                Console.Write("\nError importación (Guardado de Tracked): " +  error.ToString());
+                                Console.Write("\nError importación (Guardado de Tracked): " + error.ToString());
                             }
 
                             if (!uploadBlock)
@@ -761,7 +941,8 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                                     {
                                         enrollResultDto = await _dhis.AddEnrollment(enrollments, commandGeneral.token);
                                     }
-                                    catch (Exception e) {
+                                    catch (Exception e)
+                                    {
                                         error += "\n" + e.Message;
                                         Console.Write("\nError importación (Guardado de Enrollments): " + error.ToString());
                                     }
@@ -774,9 +955,10 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                                         var eventsResultDto = await _dhis.AddEvent(eventDto, commandGeneral.token);
 
                                     }
-                                    catch (Exception e) {
+                                    catch (Exception e)
+                                    {
                                         error += "\n" + e.Message;
-                                        Console.Write("\nError importación (Guardado de Eventos): " + error.ToString());                                     
+                                        Console.Write("\nError importación (Guardado de Eventos): " + error.ToString());
                                     }
                                 }
                             }
@@ -788,10 +970,11 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                     {
                         nodate += 1;
                         summaryNodata = String.IsNullOrEmpty(summaryNodata) ? "Sin data para importar" : "";
-                        if (!String.IsNullOrEmpty(summaryNodata)) {
+                        if (!String.IsNullOrEmpty(summaryNodata))
+                        {
                             summaryImport.Add(summaryNodata);
                         }
-                        
+
                     }
 
                 }//cierre de while
@@ -812,7 +995,7 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                         catch (Exception e)
                         {
                             error += "\n" + e.Message;
-                            Console.Write("\nError importación: " +  error.ToString());
+                            Console.Write("\nError importación: " + error.ToString());
                         }
                     }
                 }
@@ -824,14 +1007,14 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                     if (!String.IsNullOrEmpty(summaryNodata))
                     {
                         summaryImport.Add(summaryNodata);
-                    }                                       
+                    }
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine("{0} Exception caught.", e);
                 error += "\n" + e.Message;
-                Console.Write("\nError importación: " +  error.ToString());
+                Console.Write("\nError importación: " + error.ToString());
                 state = 5;
             }
         }
@@ -849,45 +1032,45 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
             {
                 Console.Write("\nInicio CheckImportTrackedAsync ");
                 var response = await _dhis.GetStateTask(task.Replace("/api", ""), token);
-                Console.Write("\nEstado de guardado Tracked : " + response.resultTasks[0].completed.ToString() + " detalles: " + response.resultTasks[0].message.ToString() );
+                Console.Write("\nEstado de guardado Tracked : " + response.resultTasks[0].completed.ToString() + " detalles: " + response.resultTasks[0].message.ToString());
                 completed = response.resultTasks[0].completed;
                 level = response.resultTasks[0].level;
-                if (!completed )   
-                {                   
+                if (!completed)
+                {
                     await CheckImportTrackedAsync(task, token);
                     return false;
                 }
                 else
                 {
-                    var summary = await _dhis.GetSummaryImport(response.resultTasks[0].category, response.resultTasks[0].uid, token);                  
+                    var summary = await _dhis.GetSummaryImport(response.resultTasks[0].category, response.resultTasks[0].uid, token);
                     if (level == "ERROR")
                     {
-                      string errorSummary = response.resultTasks[0].message;
-                        if (summary=="null")
+                        string errorSummary = response.resultTasks[0].message;
+                        if (summary == "null")
                         {
                             summary = errorSummary;
                             error += "\n" + errorSummary;
-                        }                       
-                        Console.Write("\nError resultado de Importación : " + summary.ToString());                  
+                        }
+                        Console.Write("\nError resultado de Importación : " + summary.ToString());
                     }
                     Console.Write("\nResultado de Importación : " + summary.ToString());
                     summaryImport.Add(summary);
-                    summaryImportW.Add(JsonConvert.SerializeObject(summaryImport));                   
+                    summaryImportW.Add(JsonConvert.SerializeObject(summaryImport));
                     blockSuccess = blockSuccess + 1;
                     Console.Write("\nFin CheckImportTrackedAsync ");
                     return true;
                 }
-                
+
             }
             catch (Exception e)
             {
                 error += "\n" + e.Message;
-                Console.Write("\nError de resultado de Importación : " +  error.ToString());
+                Console.Write("\nError de resultado de Importación : " + error.ToString());
                 return false;
             }
         }
 
-   
+
         /// <summary>
         /// Lee archivo(s) de extensión .CSV, con su respectivo separador (coma ó punto y coma), 
         /// para generar los objetos iterables RowFile y/o RowFileLab (casos y/o laboratorio - primer y/o segundo archivo)
@@ -935,8 +1118,9 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                         dataLabOrigin = fileByteLabOrigin.ReadBytes(f);
                         readerLab.Close();
                     }
-                    else {
-                        error += "\nEl segundo archivo " + Path.GetExtension(commandGeneral.CsvFile01.FileName) +  " " + commandGeneral.CsvFile01.FileName +"  no es compatible con los archivos aceptados (*.csv (separado por , ó ;), *.xls y *.xlsx)";
+                    else
+                    {
+                        error += "\nEl segundo archivo " + Path.GetExtension(commandGeneral.CsvFile01.FileName) + " " + commandGeneral.CsvFile01.FileName + "  no es compatible con los archivos aceptados (*.csv (separado por , ó ;), *.xls y *.xlsx)";
                         Console.Write("\nError de ReadCSV" + error.ToString());
                     }
                 }
@@ -947,7 +1131,8 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
 
                 headers = reader.ReadLine().Split(command.separator.ToString());
                 headers = headers.Select(s => s.ToUpperInvariant()).ToArray();
-                if (headers.Length <= 1) {
+                if (headers.Length <= 1)
+                {
                     error += "\nEl primer archivo no tiene el formato solicitado, separación por (,) ó (;)";
                     Console.Write("\nError de ReadCSV" + error.ToString());
                 }
@@ -973,13 +1158,13 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
             catch (Exception e)
             {
                 Console.WriteLine("{0} Exception caught.", e);
-                error += "\n"+ e.Message;
-                Console.Write("\nError de ReadCSV : " +  error.ToString());
+                error += "\n" + e.Message;
+                Console.Write("\nError de ReadCSV : " + error.ToString());
             }
             return RowFile;
         }
 
-       
+
         /// <summary>
         /// Lee archivo(s) de extensión .XLSX, con su respectivo separador (coma ó punto y coma), 
         /// para generar los objetos iterables RowFile y/o RowFileLab (casos y/o laboratorio - primer y/o segundo archivo)
@@ -1027,7 +1212,7 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                                 var isDate = cellInd.Contains("12:00:00");
 
                                 if (isDate)
-                                {                                   
+                                {
                                     string date = Convert.ToDateTime(cellInd).ToString("yyyy-MM-dd");
                                     LineFileLab[j] = date;
                                 }
@@ -1070,7 +1255,7 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                             var isDate = cellInd.Contains("12:00:00");
 
                             if (isDate)
-                            {                        
+                            {
                                 string date = Convert.ToDateTime(cellInd).ToString("yyyy-MM-dd");
                                 LineFile[j] = date;
                             }
@@ -1101,7 +1286,7 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
             catch (Exception e)
             {
                 Console.WriteLine("{0} Exception caught.", e);
-                error += "\n" +e.Message;
+                error += "\n" + e.Message;
                 Console.Write("\nError de ReadXLSX : " + error.ToString());
             }
             return RowFile;
@@ -1279,24 +1464,25 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                 {
                     if (fileExtension != ".xlsx")
                     {
-                        if (fileExtension != ".xls") {
+                        if (fileExtension != ".xls")
+                        {
                             error += "\nEl tipo de archivo " + Path.GetExtension(commandGeneral.CsvFile.FileName) + " " + commandGeneral.CsvFile.FileName + "  no es compatible con los archivos aceptados (*.csv (separado por , ó ;), *.xls y *.xlsx)";
 
                         }
                     }
-                }            
+                }
 
                 //unidades organizativas              
                 OrganisationUnit ounitsFirst = new OrganisationUnit();
                 int colounitsFirst = Array.IndexOf(headers, objprogram.Orgunitcolumm.ToUpperInvariant());
                 if (colounitsFirst == -1)
                 {
-                        error+= "\nEl archivo no tiene la estructura correcta, posiblemente no tiene la Unidad Organizativa";
+                    error += "\nEl archivo no tiene la estructura correcta, posiblemente no tiene la Unidad Organizativa";
                 }
                 var Firtsline = RowFile[0];
                 ounitvalueFirst = Firtsline[colounitsFirst].ToString();
 
-                ouFirts = Organisation.OrganisationUnits.Find(x => x.code == Firtsline[colounitsFirst].ToString());               
+                ouFirts = Organisation.OrganisationUnits.Find(x => x.code == Firtsline[colounitsFirst].ToString());
 
                 if (ouFirts is not null)
                 {
@@ -1304,18 +1490,19 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                     var oupathFull = await _dhis.GetOrganisationUnit(commandGeneral.token, oupath); //crear el objeto de tipo AddEventDto
                     country = oupathFull.name;
                 }
-                else {
+                else
+                {
                     error += "\nNo existe la Unidad Organizativa: " + Firtsline[colounitsFirst].ToString();
                     state = 5;
                 }
-                
+
                 backgroundTask.StartAsync(OrchestratorAsync(oupath, startDate, endDate, objprogram.Programid, command.token, RowFile));
             }
             catch (Exception e)
             {
-                error += "\n"+ e.Message;               
-                Console.Write("\nError Handle : " +  error.ToString());
-                command.reponse = error;                
+                error += "\n" + e.Message;
+                Console.Write("\nError Handle : " + error.ToString());
+                command.reponse = error;
                 EmailErrorImport();
                 state = 6;
             }
@@ -1363,21 +1550,22 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
             }
             catch (Exception e)
             {
-                error += "\n"+ e.Message;
-                Console.Write("\nError Guardado Summry DB : " +  error.ToString());
+                error += "\n" + e.Message;
+                Console.Write("\nError Guardado Summry DB : " + error.ToString());
             }
         }
 
-        
+
         /// <summary>
         /// Metódo para envio de email con errores, no se importo la data
         /// </summary>
-        public void EmailErrorImport() {
+        public void EmailErrorImport()
+        {
             string subject = _importSettings.Services[0].SubjectError;
             string body = _importSettings.Services[0].BodyError;
-           // error = !String.IsNullOrEmpty(error) ? _importSettings.Services[0].TitleError + "\n" + error : "";
+            // error = !String.IsNullOrEmpty(error) ? _importSettings.Services[0].TitleError + "\n" + error : "";
 
-            sendMailObj.SenEmailImport(_importSettings.Services[0].Server, subject, body +  error , userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, "El ó los archivo(s): " + nameFile + " " + nameFileLab);
+            sendMailObj.SenEmailImport(_importSettings.Services[0].Server, subject, body + error, userSetting.email, _importSettings.Services[0].EmailFrom, _importSettings.Services[0].Pass, _importSettings.Services[0].Port, "El ó los archivo(s): " + nameFile + " " + nameFileLab);
         }
 
         /// <summary>
@@ -1398,22 +1586,24 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
             });
         }
 
-        
-        
+
+
         /// <summary>
         /// Léctura del Summary y extracción de los errores para adjuntarlos al email
         /// </summary>
         /// <param name="result">Lista de resultados (Summary)</param>
         /// <param name="token">Token de autenticación</param>
         /// <returns></returns>
-        public async Task<string> ReadErrorSummaryAsync(List<string> result, string token) {
+        public async Task<string> ReadErrorSummaryAsync(List<string> result, string token)
+        {
             string ResponseError = "";
             if (result.Count > 0)
-            {           
-               int idresult = 0;               
-               for(int i = 0; i< result.Count();i++) { 
+            {
+                int idresult = 0;
+                for (int i = 0; i < result.Count(); i++)
+                {
                     var json = result[i];
-                   
+
                     var jsonpars = json.Remove(0, 1);
                     int lg = json.Length - 2;
                     jsonpars = jsonpars.Remove(lg, 1);
@@ -1427,7 +1617,7 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
 
                         var dhisResponse = JsonConvert.DeserializeObject<List<Root>>(jsonpars);
                         foreach (Root item in dhisResponse)
-                            foreach (ImportSummaryDhis itemsum in item.importSummaries) 
+                            foreach (ImportSummaryDhis itemsum in item.importSummaries)
                             {
                                 if (itemsum.conflicts.Count > 0)
                                 {
@@ -1467,11 +1657,11 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
 
                         ResponseError = "";
                     }
-                  
+
 
                     idresult++;
                 }
-            }            
+            }
             return ResponseError;
         }
     }

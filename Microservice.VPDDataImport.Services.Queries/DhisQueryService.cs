@@ -26,17 +26,17 @@ namespace Microservice.VPDDataImport.Services.Queries
         Task<OrganisationUnit> GetOrganisationUnit(string token, string uid);
         Task<UidGeneratedDto> GetUidGenerated(string quantity, string token);
         Task<AddTrackedDto> GetTracked(string caseid, string ou, string token);
-        Task<AddEnrollmentsClearDto> GetEnrollment(string program, string oupath,  string token);
+        Task<AddEnrollmentsClearDto> GetEnrollment(string program, string oupath, string token);
         Task<AddTracketResultDto> AddTracked(AddTrackedDto request, string token);
         Task<AddEnrollmentResultDto> AddEnrollment(AddEnrollmentDto request, string token);
         Task<ResponseDhis> AddEventClear(AddEventsClearDto request, string token, string strategy = "");
         Task<ResponseDhis> AddEnrollmentClear(AddEnrollmentsClearDto request, string token, string strategy = "");
         Task<AddEventResultDto> AddEvent(AddEventsDto request, string token);
         Task<List<SequentialDto>> GetSequential(string quantity, string token);
-        Task<AddEventsClearDto> SetCleanEvent(string oupath, string program ,string startDate, string endDate, string token);
+        Task<AddEventsClearDto> SetCleanEvent(string oupath, string program, string startDate, string endDate, string token);
         Task<AddEnrollmentsClearDto> SetCleanEnrollment(string oupath, string tracked, string startDate, string endDate, string token);
         Task<ResultTaskDto> GetStateTask(string task, string token);
-        Task<string> GetSummaryImport(string category,string uid, string token);
+        Task<string> GetSummaryImport(string category, string uid, string token);
         Task<TrackedreferenceResponse> GetTrackedreferenceAsync(string token, string reference);
 
 
@@ -48,7 +48,7 @@ namespace Microservice.VPDDataImport.Services.Queries
         public string[] headers;
         public string[] headersLab;
         public StreamReader reader;
-        public StreamReader readerLab;     
+        public StreamReader readerLab;
         public string error = "";
         public string startDate;
         public string endDate;
@@ -74,7 +74,7 @@ namespace Microservice.VPDDataImport.Services.Queries
             int contupload = 0;
             int contdelete = 0;
             string status = "";
-            string response = "";        
+            string response = "";
 
             List<string> jsonResponse = new List<string>();
             Program objprogram = new Program();
@@ -108,7 +108,7 @@ namespace Microservice.VPDDataImport.Services.Queries
                         error += "\nEl tipo de archivo " + Path.GetExtension(request.CsvFile.FileName) + " " + request.CsvFile.FileName + "  no es compatible con los archivos aceptados (*.csv (separado por , ó ;), *.xls y *.xlsx)";
                         response = error;
                     }
-                }               
+                }
 
                 {
                     var v = new validateDto
@@ -126,12 +126,12 @@ namespace Microservice.VPDDataImport.Services.Queries
                     sumerrorobj.extensionfile = sumerrorobj.extensionfile + 1;
                 }
             }
-            var lstDate = new List<Int32>();           
-            
+            var lstDate = new List<Int32>();
+
             try
             {
                 var ExternalImportDataApp = await GetAllProgramAsync(request.token);
-                objprogram = ExternalImportDataApp.Programs.Where(a => a.Programid.Equals(request.Programsid)).FirstOrDefault();        
+                objprogram = ExternalImportDataApp.Programs.Where(a => a.Programid.Equals(request.Programsid)).FirstOrDefault();
 
                 int colounits = Array.IndexOf(headers, objprogram.Orgunitcolumm.ToUpperInvariant());
                 OrganisationUnitsDto Organisation = new OrganisationUnitsDto();
@@ -139,13 +139,11 @@ namespace Microservice.VPDDataImport.Services.Queries
                 var contentOrg = JsonConvert.SerializeObject(Organisation);
 
                 string line;
-                int ln = 1;              
-
-               
+                int ln = 1;
                 int cic = 0;
-                while (cic < RowFile.Count)                   
+                while (cic < RowFile.Count)
                 {
-                    var valores = RowFile[cic];                    
+                    var valores = RowFile[cic];
                     cic++;
                     ln++;
                     //var valores = line.Split(';');                    
@@ -158,26 +156,50 @@ namespace Microservice.VPDDataImport.Services.Queries
                     int snid = Array.IndexOf(headers, "SECOND LAST NAME");
                     string snvalue = valores[snid].ToString();
                     int fnid = Array.IndexOf(headers, "FIRST NAME");
-                    string fnvalue = valores[fnid].ToString();      
+                    string fnvalue = valores[fnid].ToString();
+                    int dtReportedLocal = Array.IndexOf(headers, "DTREPORTEDLOCAL");
+                    string dtReportedLocalval = "";
+                    if (dtReportedLocal > 0)
+                    {
+                        dtReportedLocalval = valores[dtReportedLocal].ToString();
+                    }
 
                     DateTime fecha;
-                    if(!DateTime.TryParseExact(dtRashOnval, "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out fecha))
+                    if (!DateTime.TryParseExact(dtRashOnval, "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out fecha))
                     {
                         var v = new validateDto
                         {
                             indexpreload = iderror++,
-                            id = caseidvalue,
-                            detail = flnvalue.Trim()+" "+snvalue.Trim() + " "+ fnvalue.Trim(),
+                            id = "Cases/ " + caseidvalue,
+                            detail = flnvalue.Trim() + " " + snvalue.Trim() + " " + fnvalue.Trim(),
                             ln = ln,
-                            cl = dtRashOn+1,
+                            cl = dtRashOn + 1,
                             ms = "DTRASHONSET",
-                            errortype ="dtformat",
+                            errortype = "dtformat",
                             value = valores[dtRashOn].ToString()
                         };
                         lv.Add(v);
                         sumerrorobj.date = sumerrorobj.date + 1;
                     }
-                   
+
+                    //  DateTime fechaReportedLocal;
+                    if (!DateTime.TryParseExact(dtReportedLocalval, "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out fecha))
+                    {
+                        var v = new validateDto
+                        {
+                            indexpreload = iderror++,
+                            id = "Cases/ " + caseidvalue,
+                            detail = flnvalue.Trim() + " " + snvalue.Trim() + " " + fnvalue.Trim(),
+                            ln = ln,
+                            cl = dtRashOn + 1,
+                            ms = "DTREPORTEDLOCAL",
+                            errortype = "dtformat",
+                            value = valores[dtReportedLocal].ToString()
+                        };
+                        lv.Add(v);
+                        sumerrorobj.date = sumerrorobj.date + 1;
+                    }
+
                     //unidades organizativas              
                     OrganisationUnit ounitsFirst = new OrganisationUnit();
                     int colounitsFirst = Array.IndexOf(headers, objprogram.Orgunitcolumm.ToUpperInvariant());
@@ -195,16 +217,17 @@ namespace Microservice.VPDDataImport.Services.Queries
                         oupath = ouFirts.path.Split("/")[2];
                         var setClean = await SetCleanEvent(oupath, objprogram.Programid, startDate, endDate, request.token);
                         objdryrunDto.Deleted = Convert.ToInt32(setClean.events.Count);
-                    if (oupath == null)
+                        if (oupath == null)
+                        {
+                            oupath = "OK";
+                        }
+                    }
+                    else
                     {
-                        oupath = "OK";
-                    }
-                    }
-                    else {
                         var v = new validateDto
                         {
                             indexpreload = iderror++,
-                            id = caseidvalue,
+                            id = "Cases/ " + caseidvalue,
                             detail = flnvalue.Trim() + " " + snvalue.Trim() + " " + fnvalue.Trim(),
                             ln = ln,
                             cl = dtRashOn + 1,
@@ -215,8 +238,8 @@ namespace Microservice.VPDDataImport.Services.Queries
                         lv.Add(v);
                         sumerrorobj.date = sumerrorobj.mandatory + 1;
 
-                    }                        
-                    
+                    }
+
                     int ideventdate = Array.IndexOf(headers, objprogram.Incidentdatecolumm.ToUpperInvariant());
                     string eventdate = valores[ideventdate].ToString(); //validar que no este null
                     List<Attribut> listAttribut = new List<Attribut>();
@@ -236,11 +259,11 @@ namespace Microservice.VPDDataImport.Services.Queries
                                     {
                                         var v = new validateDto
                                         {
-                                             indexpreload = iderror++,
-                                            id = caseidvalue,
+                                            indexpreload = iderror++,
+                                            id = "Cases/ " + caseidvalue,
                                             detail = flnvalue.Trim() + " " + snvalue.Trim() + " " + fnvalue.Trim(),
                                             ln = ln,
-                                            cl = idval+1,
+                                            cl = idval + 1,
                                             ms = at.Column.ToUpper(),
                                             errortype = "mandatory",
                                             value = valores[idval].ToString()
@@ -256,11 +279,11 @@ namespace Microservice.VPDDataImport.Services.Queries
                                         {
                                             var v = new validateDto
                                             {
-                                                 indexpreload = iderror++,
-                                                id = caseidvalue,
+                                                indexpreload = iderror++,
+                                                id = "Cases/ " + caseidvalue,
                                                 detail = flnvalue.Trim() + " " + snvalue.Trim() + " " + fnvalue.Trim(),
                                                 ln = ln,
-                                                cl = idval+1,
+                                                cl = idval + 1,
                                                 ms = at.Column.ToUpper(),
                                                 errortype = "dtformat",
                                                 value = valores[idval].ToString()
@@ -282,117 +305,233 @@ namespace Microservice.VPDDataImport.Services.Queries
                         {
                             foreach (ProgramStageDataElement dte in ps.programStageDataElements)
                             {
-
-                                try
+                                DataValue datavalue = new DataValue();
+                                int idval = Array.IndexOf(headers, dte.dataElement.column.ToUpperInvariant());
+                                if (idval >= 0)
                                 {
-                                    DataValue datavalue = new DataValue();
-                                    int idval = Array.IndexOf(headers, dte.dataElement.column.ToUpperInvariant());
-                                    if (idval >= 0)
+                                    if (dte.compulsory.ToUpper().Trim() == "TRUE" && valores[idval] == null)
                                     {
-                                        if (dte.compulsory.ToUpper().Trim() == "TRUE" && valores[idval] == null)
+                                        var v = new validateDto
+                                        {
+                                            indexpreload = iderror++,
+                                            id = "Cases/ " + caseidvalue,
+                                            detail = flnvalue.Trim() + " " + snvalue.Trim() + " " + fnvalue.Trim(),
+                                            ln = ln,
+                                            cl = idval + 1,
+                                            ms = dte.dataElement.name.ToUpper(),
+                                            errortype = "compulsory",
+                                            value = valores[idval].ToString()
+                                        };
+                                        lv.Add(v);
+                                        sumerrorobj.compulsory = sumerrorobj.compulsory + 1;
+                                    }
+
+                                    if (dte.compulsory.ToUpper().Trim() == "TRUE" && dte.dataElement.valueType.ToUpper().Trim() == "TEXT" && valores[idval].ToString().Trim().Length == 0)
+                                    {
+                                        var v = new validateDto
+                                        {
+                                            indexpreload = iderror++,
+                                            id = "Cases/ " + caseidvalue,
+                                            detail = flnvalue.Trim() + " " + snvalue.Trim() + " " + fnvalue.Trim(),
+                                            ln = ln,
+                                            cl = idval + 1,
+                                            ms = dte.dataElement.name.ToUpper(),
+                                            errortype = "compulsory",
+                                            value = valores[idval].ToString()
+                                        };
+                                        lv.Add(v);
+                                        sumerrorobj.compulsory = sumerrorobj.compulsory + 1;
+                                    }
+                                    if (dte.compulsory.ToUpper().Trim() == "TRUE" && dte.dataElement.optionSet.options.Count > 0 && valores[idval].ToString().Trim().Length > 0)
+                                    {
+                                        Boolean isok = false;
+                                        foreach (Option opt in dte.dataElement.optionSet.options)
+                                        {
+                                            if (valores[idval].ToString() == opt.code)
+                                            {
+                                                isok = true;
+                                                break;
+                                            }
+                                        }
+                                        if (isok == false)
                                         {
                                             var v = new validateDto
                                             {
                                                 indexpreload = iderror++,
-                                                id = caseidvalue,
+                                                id = "Cases/ " + caseidvalue,
                                                 detail = flnvalue.Trim() + " " + snvalue.Trim() + " " + fnvalue.Trim(),
                                                 ln = ln,
                                                 cl = idval + 1,
                                                 ms = dte.dataElement.name.ToUpper(),
-                                                errortype = "compulsory",
+                                                errortype = "option",
                                                 value = valores[idval].ToString()
+                                            };
+                                            lv.Add(v);
+                                            sumerrorobj.option = sumerrorobj.option + 1;
+                                        }
+                                    }
+                                    if (dte.compulsory == "true" && dte.dataElement.valueType.ToUpper().Trim() == "DATE")
+                                    {
+
+                                        DateTime atdate;
+                                        if (!DateTime.TryParseExact(valores[idval].ToString(), "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out atdate))
+                                        {
+                                            var v = new validateDto
+                                            {
+                                                indexpreload = iderror++,
+                                                id = "Cases/ " + caseidvalue,
+                                                detail = flnvalue.Trim() + " " + snvalue.Trim() + " " + fnvalue.Trim(),
+                                                ln = ln,
+                                                cl = idval + 1,
+                                                ms = dte.dataElement.name.ToUpper(),
+                                                errortype = "dtformat",
+                                                value = valores[idval].ToString()
+                                            };
+                                            lv.Add(v);
+                                            sumerrorobj.date = sumerrorobj.date + 1;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        catch (Exception e) { }
+
+                    }
+
+                }
+                foreach (ProgramStage ps in objprogram.programStages) // validamos los dataelement
+                {
+                    try
+                    {
+                        for (int i = 0; i < RowFileLab.Count(); i++)
+                        {
+                            List<DataValue> listDataLabValue = new List<DataValue>();
+                            var valoresLab = RowFileLab[i];
+                            int caseidlab = Array.IndexOf(headers, "CASE_ID");
+                            string caseidvaluelab = valoresLab[caseidlab].ToString();
+                            int flnidlab = Array.IndexOf(headers, "FIRST LAST NAME");
+                            string flnvaluelab = valoresLab[flnidlab].ToString();
+                            int snidlab = Array.IndexOf(headers, "SECOND LAST NAME");
+                            string snvaluelab = valoresLab[snidlab].ToString();
+                            int fnidlab = Array.IndexOf(headers, "FIRST NAME");
+                            string fnvaluelab = valoresLab[fnidlab].ToString();
+                            foreach (ProgramStageDataElement dtelab in ps.programStageDataElements)
+                            {
+                                //star laboratory                                   
+                                if (ps.id.Equals("sNQqHHN5gi3"))
+                                {
+                                    DataValue datavaluelab = new DataValue();
+                                    int idvallab = Array.IndexOf(headersLab, dtelab.dataElement.column.ToString().Trim().ToUpperInvariant());
+                                    if (idvallab >= 0)
+                                    {
+                                        if (dtelab.compulsory.ToUpper().Trim() == "TRUE" && valoresLab[idvallab] == null)
+                                        {
+                                            var v = new validateDto
+                                            {
+                                                indexpreload = iderror++,
+                                                id = "Lab/ " + caseidvaluelab,
+                                                detail = flnvaluelab.Trim() + " " + snvaluelab.Trim() + " " + fnvaluelab.Trim(),
+                                                ln = ln,
+                                                cl = idvallab + 1,
+                                                ms = dtelab.dataElement.name.ToUpper(),
+                                                errortype = "compulsory",
+                                                value = valoresLab[idvallab].ToString()
                                             };
                                             lv.Add(v);
                                             sumerrorobj.compulsory = sumerrorobj.compulsory + 1;
                                         }
 
-                                        if (dte.compulsory.ToUpper().Trim() == "TRUE" && dte.dataElement.valueType.ToUpper().Trim() == "TEXT" && valores[idval].ToString().Trim().Length == 0)
+                                        if (dtelab.compulsory.ToUpper().Trim() == "TRUE" && dtelab.dataElement.valueType.ToUpper().Trim() == "TEXT" && valoresLab[idvallab].ToString().Trim().Length == 0)
                                         {
                                             var v = new validateDto
                                             {
-                                                 indexpreload = iderror++,
-                                                id = caseidvalue,
-                                                detail = flnvalue.Trim() + " " + snvalue.Trim() + " " + fnvalue.Trim(),
+                                                indexpreload = iderror++,
+                                                id = "Lab/ " + caseidvaluelab,
+                                                detail = flnvaluelab.Trim() + " " + snvaluelab.Trim() + " " + fnvaluelab.Trim(),
                                                 ln = ln,
-                                                cl = idval+1,
-                                                ms = dte.dataElement.name.ToUpper(),
+                                                cl = idvallab + 1,
+                                                ms = dtelab.dataElement.name.ToUpper(),
                                                 errortype = "compulsory",
-                                                value = valores[idval].ToString()
+                                                value = valoresLab[idvallab].ToString()
                                             };
                                             lv.Add(v);
                                             sumerrorobj.compulsory = sumerrorobj.compulsory + 1;
                                         }
-                                        if (dte.compulsory.ToUpper().Trim() == "TRUE" && dte.dataElement.optionSet.options.Count > 0 && valores[idval].ToString().Trim().Length > 0)
+                                        if (dtelab.dataElement.optionSet.options is not null)
                                         {
-                                            Boolean isok = false;
-                                            foreach (Option opt in dte.dataElement.optionSet.options) {
-                                                if (valores[idval].ToString() == opt.code)
+                                            if (dtelab.compulsory.ToUpper().Trim() == "TRUE" && dtelab.dataElement.optionSet.options.Count > 0 && valoresLab[idvallab].ToString().Trim().Length > 0)
+                                            {
+                                                Boolean isok = false;
+                                                foreach (Option opt in dtelab.dataElement.optionSet.options)
                                                 {
-                                                    isok = true;
-                                                    break;
+                                                    if (valoresLab[idvallab].ToString() == opt.code)
+                                                    {
+                                                        isok = true;
+                                                        break;
+                                                    }
+                                                }
+                                                if (isok == false)
+                                                {
+                                                    var v = new validateDto
+                                                    {
+                                                        indexpreload = iderror++,
+                                                        id = "Lab/ " + caseidvaluelab,
+                                                        detail = flnvaluelab.Trim() + " " + snvaluelab.Trim() + " " + fnvaluelab.Trim(),
+                                                        ln = ln,
+                                                        cl = idvallab + 1,
+                                                        ms = dtelab.dataElement.name.ToUpper(),
+                                                        errortype = "option",
+                                                        value = valoresLab[idvallab].ToString()
+                                                    };
+                                                    lv.Add(v);
+                                                    sumerrorobj.option = sumerrorobj.option + 1;
                                                 }
                                             }
-                                            if (isok == false)
+                                        }
+                                        if (dtelab.compulsory == "true" && dtelab.dataElement.valueType.ToUpper().Trim() == "DATE")
+                                        {
+                                            DateTime atdate;
+                                            if (!DateTime.TryParseExact(valoresLab[idvallab].ToString(), "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out atdate))
                                             {
                                                 var v = new validateDto
                                                 {
                                                     indexpreload = iderror++,
-                                                    id = caseidvalue,
-                                                    detail = flnvalue.Trim() + " " + snvalue.Trim() + " " + fnvalue.Trim(),
+                                                    id = "Lab/ " + caseidvaluelab,
+                                                    detail = flnvaluelab.Trim() + " " + snvaluelab.Trim() + " " + fnvaluelab.Trim(),
                                                     ln = ln,
-                                                    cl = idval+1,
-                                                    ms = dte.dataElement.name.ToUpper(),
-                                                    errortype = "option",
-                                                    value = valores[idval].ToString()
-                                                };
-                                                lv.Add(v);
-                                                sumerrorobj.option = sumerrorobj.option + 1;
-                                            }                                       
-                                        }
-                                        if (dte.compulsory == "true" && dte.dataElement.valueType.ToUpper().Trim() == "DATE")
-                                        {
-
-                                            DateTime atdate;
-                                            if (!DateTime.TryParseExact(valores[idval].ToString(), "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out atdate))
-                                            {
-                                                var v = new validateDto
-                                                {
-                                                    id = caseidvalue,
-                                                    detail = flnvalue.Trim() + " " + snvalue.Trim() + " " + fnvalue.Trim(),
-                                                    ln = ln,
-                                                    cl = idval+1,
-                                                    ms = dte.dataElement.name.ToUpper(),
+                                                    cl = idvallab + 1,
+                                                    ms = dtelab.dataElement.name.ToUpper(),
                                                     errortype = "dtformat",
-                                                    value = valores[idval].ToString()
+                                                    value = valoresLab[idvallab].ToString()
                                                 };
                                                 lv.Add(v);
-                                                sumerrorobj.date = sumerrorobj.date + 1;                                                
+                                                sumerrorobj.date = sumerrorobj.date + 1;
                                             }
                                         }
                                     }
                                 }
-                                catch (Exception e) { }
                             }
                         }
-                        catch (Exception e) { }
                     }
-
+                    catch (Exception e)
+                    {
+                        status = !string.IsNullOrEmpty(error) ? error : e.Message;
+                    }
                 }
-                sumerrorobj.totalrows = RowFile.Count;
-                sumerrorobj.deletedEvents =objdryrunDto.Deleted;
+                //end laboratory
+                sumerrorobj.totalrows = RowFile.Count + RowFileLab.Count;
+                sumerrorobj.deletedEvents = objdryrunDto.Deleted;
                 le.Add(sumerrorobj);
-                
+
                 status = "200";
                 response = "Procesado correctamente";
             }
             catch (Exception e)
             {
-
-                status =!string.IsNullOrEmpty(error)?error:e.Message;
-
+                status = !string.IsNullOrEmpty(error) ? error : e.Message;
             }
             objdryrunDto.Uploads = contupload;
-            objdryrunDto.Response = lv; 
+            objdryrunDto.Response = lv;
             objdryrunDto.State = status;
             objdryrunDto.Sumary = le;
             objdryrunDto.TotalFile1 = RowFile.Count;
@@ -406,10 +545,10 @@ namespace Microservice.VPDDataImport.Services.Queries
         /// </summary>
         /// <param name="token">Token de autenticación</param>
         /// <returns>Retorna un dto de tipo DhisProgramDto</returns>
-        public async Task<DhisProgramDto> GetAllProgramAsync(string token )
+        public async Task<DhisProgramDto> GetAllProgramAsync(string token)
         {
-            var result = await RequestHttp.CallMethod("dhis", "program", token);           
-             return JsonConvert.DeserializeObject<DhisProgramDto>(result);
+            var result = await RequestHttp.CallMethod("dhis", "program", token);
+            return JsonConvert.DeserializeObject<DhisProgramDto>(result);
         }
 
         /// <summary>
@@ -418,7 +557,7 @@ namespace Microservice.VPDDataImport.Services.Queries
         /// <param name="token">Token de autenticación</param>
         public void SetMaintenanceAsync(string token)
         {
-            var result =  RequestHttp.CallMethod("dhis", "maintenance", token);
+            var result = RequestHttp.CallMethod("dhis", "maintenance", token);
         }
 
         /// <summary>
@@ -429,7 +568,7 @@ namespace Microservice.VPDDataImport.Services.Queries
         /// <returns>Retorna un dto de tipo UidGeneratedDto</returns>
         public async Task<UidGeneratedDto> GetUidGenerated(string quantity, string token)
         {
-            var result = await RequestHttp.CallGetMethod("dhis", "uidGenerated", quantity,"" ,token);
+            var result = await RequestHttp.CallGetMethod("dhis", "uidGenerated", quantity, "", token);
             return JsonConvert.DeserializeObject<UidGeneratedDto>(result);
         }
 
@@ -456,7 +595,7 @@ namespace Microservice.VPDDataImport.Services.Queries
         /// <returns>Retorna un dto de tipo AddEnrollmentResultDto</returns>
         public async Task<AddEnrollmentResultDto> AddEnrollment(AddEnrollmentDto request, string token)
         {
-            var result="";
+            var result = "";
             try
             {
                 var content = JsonConvert.SerializeObject(request);
@@ -502,10 +641,10 @@ namespace Microservice.VPDDataImport.Services.Queries
         /// <param name="request"></param>
         /// <param name="token">Token de autenticación</param>
         /// <returns>Retorna un dto de tipo AddEventResultDto</returns>
-        public async Task<AddEventResultDto> AddEvent (AddEventsDto request, string token)
+        public async Task<AddEventResultDto> AddEvent(AddEventsDto request, string token)
         {
             var content = JsonConvert.SerializeObject(request);
-            content = content.Replace("event_","event");
+            content = content.Replace("event_", "event");
             var result = await RequestHttp.CallMethodSave("dhis", "events", content, token);
             return JsonConvert.DeserializeObject<AddEventResultDto>(result);
         }
@@ -541,7 +680,7 @@ namespace Microservice.VPDDataImport.Services.Queries
         /// <returns>Retorna una lista de dto de tipo SequentialDto</returns>
         public async Task<List<SequentialDto>> GetSequential(string quantity, string token)
         {
-            var result = await RequestHttp.CallGetMethod("dhis", "sequential", quantity, "",token);
+            var result = await RequestHttp.CallGetMethod("dhis", "sequential", quantity, "", token);
             return JsonConvert.DeserializeObject<List<SequentialDto>>(result);
         }
 
@@ -565,9 +704,9 @@ namespace Microservice.VPDDataImport.Services.Queries
         /// <param name="oupath">Unidad organizativa padre</param>
         /// <param name="token">Token de autenticación</param>
         /// <returns>Retorna un dto de tipo AddEnrollmentsClearDto</returns>
-        public async Task<AddEnrollmentsClearDto> GetEnrollment(string program, string oupath,  string token)
+        public async Task<AddEnrollmentsClearDto> GetEnrollment(string program, string oupath, string token)
         {
-            var result = await RequestHttp.CallMethodClearEnrollments("dhis", "validateenroll", oupath, "", "" ,program,token);
+            var result = await RequestHttp.CallMethodClearEnrollments("dhis", "validateenroll", oupath, "", "", program, token);
             return JsonConvert.DeserializeObject<AddEnrollmentsClearDto>(result);
         }
 
@@ -582,7 +721,7 @@ namespace Microservice.VPDDataImport.Services.Queries
         /// <returns>Retorna un dto de tipo AddEventsClearDto</returns>
         public async Task<AddEventsClearDto> SetCleanEvent(string oupath, string program, string startDate, string endDate, string token)
         {
-            var result = await RequestHttp.CallMethodClear("dhis", "events", oupath,program, startDate, endDate, token);
+            var result = await RequestHttp.CallMethodClear("dhis", "events", oupath, program, startDate, endDate, token);
             result = result.Replace("event", "event_");
             result = result.Replace("event_s", "events");
             return JsonConvert.DeserializeObject<AddEventsClearDto>(result);
@@ -599,7 +738,7 @@ namespace Microservice.VPDDataImport.Services.Queries
         /// <returns>Retorna un dto de tipo AddEnrollmentsClearDto</returns>
         public async Task<AddEnrollmentsClearDto> SetCleanEnrollment(string oupath, string program, string startDate, string endDate, string token)
         {
-            var result = await RequestHttp.CallMethodClearEnrollments("dhis", "validateenroll", oupath, program,startDate, endDate, token);
+            var result = await RequestHttp.CallMethodClearEnrollments("dhis", "validateenroll", oupath, program, startDate, endDate, token);
             //result = result.Replace("enrollment", "enrollment_");
             //result = result.Replace("enrollment_s", "enrollments");
             return JsonConvert.DeserializeObject<AddEnrollmentsClearDto>(result);
@@ -628,7 +767,7 @@ namespace Microservice.VPDDataImport.Services.Queries
         /// <param name="uid">Unidad organizativa</param>
         /// <param name="token">Token de autenticación</param>
         /// <returns>Retorna un atributo de tipo string</returns>
-        public async Task<string> GetSummaryImport(string category,string uid, string token)
+        public async Task<string> GetSummaryImport(string category, string uid, string token)
         {
             Console.Write("\nInicio GetSummaryImport ");
             var result = await RequestHttp.CallMethodSummary("dhis", "program", uid, category, token);
@@ -645,7 +784,7 @@ namespace Microservice.VPDDataImport.Services.Queries
         public List<ArrayList> ReadCSV(HistoryCreateCommandDto command)
         {
             try
-            {       
+            {
                 startDate = command.startdate + "-01-01";
                 endDate = (command.enddate + 1) + "-01-01";
 
@@ -681,7 +820,7 @@ namespace Microservice.VPDDataImport.Services.Queries
                     else
                     {
                         error = "El segundo archivo " + Path.GetExtension(command.CsvFile01.FileName) + " " + command.CsvFile01.FileName + "  no es compatible con los archivos aceptados (*.csv (separado por , ó ;), *.xls y *.xlsx)";
-                     }
+                    }
                 }
 
                 string line;
@@ -729,7 +868,7 @@ namespace Microservice.VPDDataImport.Services.Queries
         public List<ArrayList> ReadXLSX(HistoryCreateCommandDto command)
         {
             try
-            {                
+            {
                 System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
                 Encoding srcEncoding = Encoding.GetEncoding(1251);
 
@@ -853,7 +992,7 @@ namespace Microservice.VPDDataImport.Services.Queries
         public List<ArrayList> ReadXLS(HistoryCreateCommandDto command)
         {
             try
-            {                
+            {
                 System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
                 Encoding srcEncoding = Encoding.GetEncoding(1251);
 
