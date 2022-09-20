@@ -76,6 +76,8 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
         public int nodate = 0;
         public string summaryNodata = "";
         public List<SequentialDto> SequentialDto;
+        public string statusSummary;
+        public string errorSummary;
         public ImportHistoryHandlerAsync(ApplicationDbContext context, IDhisQueryService dhis)
         {
             _context = context;
@@ -193,7 +195,7 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                             break;
                         //Paso 5: Envio de email, reportando si hubo o no errores durante la importación
                         case 5:
-                            string errorSummary = await ReadErrorSummaryAsync(summaryImportW, token);
+                            //string errorSummary = await ReadErrorSummaryAsync(summaryImportW, token);
                             error += !String.IsNullOrEmpty(errorSummary) ? error + "\n" + errorSummary : "";
                             string body = _importSettings.Services[0].Body;
                             string subject = _importSettings.Services[0].Subject;
@@ -1043,19 +1045,26 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                 else
                 {
                     var summary = await _dhis.GetSummaryImport(response.resultTasks[0].category, response.resultTasks[0].uid, token);
-                    if (level == "ERROR")
-                    {
-                        string errorSummary = response.resultTasks[0].message;
-                        if (summary == "null")
-                        {
-                            summary = errorSummary;
-                            error += "\n" + errorSummary;
-                        }
-                        Console.Write("\nError resultado de Importación : " + summary.ToString());
-                    }
                     Console.Write("\nResultado de Importación : " + summary.ToString());
                     summaryImport.Add(summary);
                     summaryImportW.Add(JsonConvert.SerializeObject(summaryImport));
+                   
+
+                    if (!String.IsNullOrEmpty(statusSummary))
+                    {
+                        errorSummary = await ReadErrorSummaryAsync(summaryImportW, token);
+                        if (statusSummary == "ERROR")
+                        {
+                            string errorSummary = response.resultTasks[0].message;
+                            if (summary == "null")
+                            {
+                                summary = errorSummary;
+                                error += "\n" + errorSummary;
+                            }
+                            Console.Write("\nError resultado de Importación : " + summary.ToString());
+                        }
+                    }
+                    
                     blockSuccess = blockSuccess + 1;
                     Console.Write("\nFin CheckImportTrackedAsync ");
                     return true;
@@ -1617,15 +1626,26 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
 
                         var dhisResponse = JsonConvert.DeserializeObject<List<Root>>(jsonpars);
                         foreach (Root item in dhisResponse)
+                        {
+                            statusSummary = item.status;
                             foreach (ImportSummaryDhis itemsum in item.importSummaries)
                             {
+
                                 if (itemsum.conflicts.Count > 0)
                                 {
                                     var st = itemsum.conflicts[0];
                                     foreach (ConflictDhis conflict in itemsum.conflicts)
                                     {
-                                        var Case_ID = await _dhis.GetTrackedreferenceAsync(token, itemsum.reference);
-                                        ResponseError = "\nCase_Id " + Case_ID.attributes[0].value + " : " + conflict.value + ";" + ResponseError;
+                                        try
+                                        {
+                                            var Case_ID = await _dhis.GetTrackedreferenceAsync(token, itemsum.reference);
+                                            ResponseError = "\nCase_Id " + Case_ID.attributes[0].value + " : " + conflict.value + ";" + ResponseError;
+                                        }
+                                        catch (Exception e)
+                                        {
+                                            ResponseError = conflict.value + ";" + ResponseError;
+                                        }
+                                            
 
                                     }
                                 }
@@ -1651,6 +1671,7 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
 
 
                             }
+                        }
                     }
                     catch (Exception e)
                     {

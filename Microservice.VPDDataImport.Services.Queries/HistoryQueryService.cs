@@ -98,9 +98,16 @@ namespace Microservice.VPDDataImport.Services.Queries
                                     var st = itemsum.conflicts[0];
                                     foreach (ConflictDhis conflict in itemsum.conflicts)
                                     {                                    
-                                        var Case_ID = await GetTrackedreferenceAsync(token, itemsum.reference);                                                  
-                                        ResponseError = "\nCase_Id " + Case_ID.attributes[0].value + " : "  + conflict.value + ";" + ResponseError;
-                                               
+                                      try
+                                        {
+                                            var Case_ID = await GetTrackedreferenceAsync(token, itemsum.reference);
+                                            ResponseError = "\nCase_Id " + Case_ID.attributes[0].value + " : " + conflict.value + ";" + ResponseError;
+                                        }
+                                        catch (Exception e)
+                                        {
+                                            ResponseError = conflict.value + ";" + ResponseError;
+                                        }
+
                                     }
                                 }
                             
