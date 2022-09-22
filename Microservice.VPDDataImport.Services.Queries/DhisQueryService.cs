@@ -147,57 +147,116 @@ namespace Microservice.VPDDataImport.Services.Queries
                     cic++;
                     ln++;
                     //var valores = line.Split(';');                    
-                    int dtRashOn = Array.IndexOf(headers, "DTRASHONSET"); //error
-                    string dtRashOnval = valores[dtRashOn].ToString();
-                    int caseid = Array.IndexOf(headers, "CASE_ID");
-                    string caseidvalue = valores[caseid].ToString();
-                    int flnid = Array.IndexOf(headers, "FIRST LAST NAME");
-                    string flnvalue = valores[flnid].ToString();
-                    int snid = Array.IndexOf(headers, "SECOND LAST NAME");
-                    string snvalue = valores[snid].ToString();
-                    int fnid = Array.IndexOf(headers, "FIRST NAME");
-                    string fnvalue = valores[fnid].ToString();
-                    int dtReportedLocal = Array.IndexOf(headers, "DTREPORTEDLOCAL");
-                    string dtReportedLocalval = "";
-                    if (dtReportedLocal > 0)
+                    // int dtRashOn = Array.IndexOf(headers, "DTRASHONSET"); //error
+                    var enrollmentId = Array.IndexOf(headers, objprogram.Enrollmentdatecolumm.ToUpperInvariant());
+                    string dtenrollmentval = "";
+                    if (enrollmentId >= 0)
                     {
-                        dtReportedLocalval = valores[dtReportedLocal].ToString();
+                        dtenrollmentval = valores[enrollmentId].ToString();
+                    }
+                    int caseid = Array.IndexOf(headers, "CASE_ID");
+                    string caseidvalue = "";
+                    if (caseid >= 0) {
+                        caseidvalue = valores[caseid].ToString();
+                    }
+
+                    int flnid = Array.IndexOf(headers, "FIRST LAST NAME");
+                    string flnvalue = "";
+                    if (flnid >= 0) {
+                        flnvalue = valores[flnid].ToString();
+                    }
+
+                    int snid = Array.IndexOf(headers, "SECOND LAST NAME");
+                    string snvalue = "";
+                    if (snid >= 0) {
+                        snvalue = valores[snid].ToString();
+                    }
+
+                    int fnid = Array.IndexOf(headers, "FIRST NAME");
+                    string fnvalue = "";
+                    if (fnid >= 0) {
+                        fnvalue = valores[fnid].ToString();
+                    }
+                    //incidentDatecolumm
+                    //int dtReportedLocal = Array.IndexOf(headers, "DTREPORTEDLOCAL");
+                    var incidentId = Array.IndexOf(headers, objprogram.Incidentdatecolumm.ToUpperInvariant());
+                    string dtincidentval = "";
+                    if (incidentId >= 0)
+                    {
+                        dtincidentval = valores[incidentId].ToString();
                     }
 
                     DateTime fecha;
-                    if (!DateTime.TryParseExact(dtRashOnval, "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out fecha))
-                    {
+                    if (!String.IsNullOrEmpty(dtenrollmentval)) {
+                        if (!DateTime.TryParseExact(dtenrollmentval, "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out fecha))
+                        {
+                            var v = new validateDto
+                            {
+                                indexpreload = iderror++,
+                                id = "Cases/ " + caseidvalue,
+                                detail = flnvalue.Trim() + " " + snvalue.Trim() + " " + fnvalue.Trim(),
+                                ln = ln,
+                                cl = enrollmentId + 1,
+                                ms = objprogram.Orgunitcolumm.ToUpperInvariant().ToString(),
+                                errortype = "dtformat",
+                                value = valores[enrollmentId].ToString()
+                            };
+                            lv.Add(v);
+                            sumerrorobj.date = sumerrorobj.date + 1;
+                        } }
+                    else {
                         var v = new validateDto
                         {
                             indexpreload = iderror++,
                             id = "Cases/ " + caseidvalue,
                             detail = flnvalue.Trim() + " " + snvalue.Trim() + " " + fnvalue.Trim(),
                             ln = ln,
-                            cl = dtRashOn + 1,
-                            ms = "DTRASHONSET",
-                            errortype = "dtformat",
-                            value = valores[dtRashOn].ToString()
+                            cl = enrollmentId + 1,
+                            ms = objprogram.Orgunitcolumm.ToUpperInvariant().ToString(),
+                            errortype = "No existe",
+                            value = valores[enrollmentId].ToString()
                         };
                         lv.Add(v);
                         sumerrorobj.date = sumerrorobj.date + 1;
+
+
                     }
 
                     //  DateTime fechaReportedLocal;
-                    if (!DateTime.TryParseExact(dtReportedLocalval, "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out fecha))
+                    if (!String.IsNullOrEmpty(dtincidentval))
                     {
+                        if (!DateTime.TryParseExact(dtincidentval, "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out fecha))
+                        {
+                            var v = new validateDto
+                            {
+                                indexpreload = iderror++,
+                                id = "Cases/ " + caseidvalue,
+                                detail = flnvalue.Trim() + " " + snvalue.Trim() + " " + fnvalue.Trim(),
+                                ln = ln,
+                                cl = enrollmentId + 1,
+                                ms = objprogram.Incidentdatecolumm.ToUpperInvariant().ToString(),
+                                errortype = "dtformat",
+                                value = valores[incidentId].ToString()
+                            };
+                            lv.Add(v);
+                            sumerrorobj.date = sumerrorobj.date + 1;
+                        }
+                    }
+                    else {
                         var v = new validateDto
                         {
                             indexpreload = iderror++,
                             id = "Cases/ " + caseidvalue,
                             detail = flnvalue.Trim() + " " + snvalue.Trim() + " " + fnvalue.Trim(),
                             ln = ln,
-                            cl = dtRashOn + 1,
-                            ms = "DTREPORTEDLOCAL",
-                            errortype = "dtformat",
-                            value = valores[dtReportedLocal].ToString()
+                            cl = enrollmentId + 1,
+                            ms = objprogram.Orgunitcolumm.ToUpperInvariant().ToString(),
+                            errortype = "No existe",
+                            value = valores[incidentId].ToString()
                         };
                         lv.Add(v);
                         sumerrorobj.date = sumerrorobj.date + 1;
+
                     }
 
                     //unidades organizativas              
@@ -230,7 +289,7 @@ namespace Microservice.VPDDataImport.Services.Queries
                             id = "Cases/ " + caseidvalue,
                             detail = flnvalue.Trim() + " " + snvalue.Trim() + " " + fnvalue.Trim(),
                             ln = ln,
-                            cl = dtRashOn + 1,
+                            cl = enrollmentId + 1,
                             ms = "No existe (revise espacios ó que este correcto el código)",
                             errortype = "OrganisationUnits",
                             value = ounitvalueFirst.ToString()
@@ -408,13 +467,29 @@ namespace Microservice.VPDDataImport.Services.Queries
                             List<DataValue> listDataLabValue = new List<DataValue>();
                             var valoresLab = RowFileLab[i];
                             int caseidlab = Array.IndexOf(headers, "CASE_ID");
-                            string caseidvaluelab = valoresLab[caseidlab].ToString();
+                            string caseidvaluelab = "";
+                            if (caseidlab >=0) {
+                                caseidvaluelab = valoresLab[caseidlab].ToString();
+                            }
+                            
                             int flnidlab = Array.IndexOf(headers, "FIRST LAST NAME");
-                            string flnvaluelab = valoresLab[flnidlab].ToString();
+                            string flnvaluelab = "";
+                            if (flnidlab >=0) {
+                                flnvaluelab = valoresLab[flnidlab].ToString();
+                            }
+                            
                             int snidlab = Array.IndexOf(headers, "SECOND LAST NAME");
-                            string snvaluelab = valoresLab[snidlab].ToString();
+                            string snvaluelab = "";
+                            if (snidlab >=0) {
+                                snvaluelab = valoresLab[snidlab].ToString();
+                            }
+                            
                             int fnidlab = Array.IndexOf(headers, "FIRST NAME");
-                            string fnvaluelab = valoresLab[fnidlab].ToString();
+                            string fnvaluelab = "";
+                            if (fnidlab >=0) {
+                                fnvaluelab = valoresLab[fnidlab].ToString();
+                            }
+                            
                             foreach (ProgramStageDataElement dtelab in ps.programStageDataElements)
                             {
                                 //star laboratory                                   

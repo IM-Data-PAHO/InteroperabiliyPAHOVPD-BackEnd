@@ -400,9 +400,9 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                 AddEventsDto eventDto = new AddEventsDto();
                 Console.Write("\nInicio importación de data, cantidad de registros: ", RowFile.Count);
                 int cic = 0;
-                string dtRashOnval = "";
                 string caseidvalue = "";
                 string eventdate = "";
+                string dtenrollmentval = "";
 
                 int total = RowFile.Count();
                 SequentialDto = await _dhis.GetSequential(total.ToString(), commandGeneral.token);
@@ -414,30 +414,29 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
 
                     Console.Write("Ciclos: " + cic.ToString());
                     cic++;
-                    int dtRashOn = Array.IndexOf(headers, "DTRASHONSET");
-                    Console.Write("\ndtRashOn: " + dtRashOn.ToString());
+                    var enrollmentId = Array.IndexOf(headers, objprogram.Enrollmentdatecolumm.ToUpperInvariant());
                     try
-                    {
-                        if (dtRashOn >= 0)
                         {
-                            if (!String.IsNullOrEmpty(valores[dtRashOn].ToString()))
+                        if (enrollmentId >= 0)
+                        {
+                            if (!String.IsNullOrEmpty(valores[enrollmentId].ToString()))
                             {
-                                string[] partdate = valores[dtRashOn].ToString().Split("/");
+                                string[] partdate = valores[enrollmentId].ToString().Split("/");
 
                                 if (partdate.Length == 3 && partdate[2].Length == 4)
                                 {
                                     if (Convert.ToInt32(partdate[1]) > 12 && Convert.ToInt32(partdate[0]) > 31)
                                     {
-                                        dtRashOnval = partdate[2] + "-" + partdate[0] + "-" + partdate[1];
+                                        dtenrollmentval = partdate[2] + "-" + partdate[0] + "-" + partdate[1];
                                     }
                                     else
                                     {
-                                        dtRashOnval = partdate[2] + "-" + partdate[1] + "-" + partdate[0];
+                                        dtenrollmentval = partdate[2] + "-" + partdate[1] + "-" + partdate[0];
                                     }
                                 }
                                 else
                                 {
-                                    dtRashOnval = valores[dtRashOn].ToString().Trim();
+                                    dtenrollmentval = valores[enrollmentId].ToString().Trim();
                                 }
                             }
                             //dtRashOnval = !String.IsNullOrWhiteSpace(valores[dtRashOn].ToString()) ? Convert.ToDateTime(valores[dtRashOn].ToString().Trim()).ToString("yyyy-MM-dd") : valores[dtRashOn].ToString().Trim();
@@ -456,7 +455,7 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                     int dty = 0;
                     try
                     {
-                        dty = Convert.ToInt32(Convert.ToDateTime(dtRashOnval).Year);
+                        dty = Convert.ToInt32(Convert.ToDateTime(dtenrollmentval).Year);
                     }
                     catch (Exception e)
                     {
@@ -1048,11 +1047,13 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                     Console.Write("\nResultado de Importación : " + summary.ToString());
                     summaryImport.Add(summary);
                     summaryImportW.Add(JsonConvert.SerializeObject(summaryImport));
-                   
+                    if (!String.IsNullOrEmpty(summary)) {
+                        errorSummary = await ReadErrorSummaryAsync(summaryImportW, token); 
+                    }
 
                     if (!String.IsNullOrEmpty(statusSummary))
                     {
-                        errorSummary = await ReadErrorSummaryAsync(summaryImportW, token);
+                       
                         if (statusSummary == "ERROR")
                         {
                             string errorSummary = response.resultTasks[0].message;
