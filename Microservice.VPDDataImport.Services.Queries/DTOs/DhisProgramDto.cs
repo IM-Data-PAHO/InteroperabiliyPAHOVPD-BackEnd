@@ -43,6 +43,10 @@ namespace Microservice.VPDDataImport.Services.Queries.DTOs
         public string Status { get; set; }
         public string Trackedentitytype { get; set; }
         public string caseNum { get; set; }
+        public string caseidcolumm { get; set; }
+        public string firstlastnamecolumm { get; set; }
+        public string secondlastnamecolumm { get; set; }
+        public string firstnamecolumm { get; set; }
         public List<Attribute> Attribute { get; set; }
         public List<ProgramStage> programStages { get; set; }
     }

@@ -155,25 +155,29 @@ namespace Microservice.VPDDataImport.Services.Queries
                     {
                         dtenrollmentval = valores[enrollmentId].ToString();
                     }
-                    int caseid = Array.IndexOf(headers, "CASE_ID");
+                    int caseid = Array.IndexOf(headers, objprogram.caseidcolumm.ToUpperInvariant());
+                        //Array.IndexOf(headers, "CASE_ID");
                     string caseidvalue = "";
                     if (caseid >= 0) {
                         caseidvalue = valores[caseid].ToString();
                     }
 
-                    int flnid = Array.IndexOf(headers, "FIRST LAST NAME");
+                    int flnid = Array.IndexOf(headers, objprogram.firstlastnamecolumm.ToUpperInvariant());
+                    //Array.IndexOf(headers, "FIRST LAST NAME");
                     string flnvalue = "";
                     if (flnid >= 0) {
                         flnvalue = valores[flnid].ToString();
                     }
 
-                    int snid = Array.IndexOf(headers, "SECOND LAST NAME");
+                    int snid = Array.IndexOf(headers, objprogram.secondlastnamecolumm.ToUpperInvariant());
+                    //Array.IndexOf(headers, "SECOND LAST NAME");
                     string snvalue = "";
                     if (snid >= 0) {
                         snvalue = valores[snid].ToString();
                     }
 
-                    int fnid = Array.IndexOf(headers, "FIRST NAME");
+                    int fnid = Array.IndexOf(headers, objprogram.firstnamecolumm.ToUpperInvariant());
+                    //Array.IndexOf(headers, "FIRST NAME");
                     string fnvalue = "";
                     if (fnid >= 0) {
                         fnvalue = valores[fnid].ToString();
@@ -493,8 +497,9 @@ namespace Microservice.VPDDataImport.Services.Queries
                             
                             foreach (ProgramStageDataElement dtelab in ps.programStageDataElements)
                             {
-                                //star laboratory                                   
-                                if (ps.id.Equals("sNQqHHN5gi3"))
+                                //star laboratory
+                                if (ps.name.Trim().Equals("Laboratory"))
+                                //if (ps.id.Equals("sNQqHHN5gi3"))
                                 {
                                     DataValue datavaluelab = new DataValue();
                                     int idvallab = Array.IndexOf(headersLab, dtelab.dataElement.column.ToString().Trim().ToUpperInvariant());

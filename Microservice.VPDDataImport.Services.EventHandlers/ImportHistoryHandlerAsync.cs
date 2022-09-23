@@ -476,7 +476,7 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                         cont = cont + 1;
                         TrackedEntityInstances trackedInstDto = new TrackedEntityInstances();
 
-                        int caseid = Array.IndexOf(headers, "CASE_ID");
+                        int caseid = Array.IndexOf(headers, objprogram.caseidcolumm.ToUpperInvariant());
                         if (caseid >= 0)
                         {
                             caseidvalue = valores[caseid].ToString();
@@ -486,14 +486,14 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                             error += "\nNo existe información para CASE_ID";
                         }
                         Console.Write("\nCASE ID: " + caseidvalue.ToString());
-                        int ou = Array.IndexOf(headers, "OU_CODE");
+                        int ou = Array.IndexOf(headers, objprogram.Orgunitcolumm.ToUpperInvariant());
                         if (ou >= 0)
                         {
                             var ouLine = Organisation.OrganisationUnits.Find(x => x.code == valores[ou].ToString().Trim());
                             if (ouLine != null)
                             {
                                 trackedInstDto.orgUnit = ouLine.id;
-                                var codeCaseID = objprogram.Attribute.Find(x => x.Column == "CASE_ID");
+                                var codeCaseID = objprogram.Attribute.Find(x => x.Column == objprogram.caseidcolumm.ToUpperInvariant());
                                 Organisation.OrganisationUnits.Find(x => x.code == valores[ou].ToString().Trim());
                                 var validatetraked = await _dhis.GetTracked(caseidvalue, ouLine.id, commandGeneral.token, commandGeneral.Programsid, codeCaseID.Id);
                                 if (validatetraked.trackedEntityInstances.Count > 0)
@@ -726,7 +726,7 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                         foreach (ProgramStage ps in objprogram.programStages)
                         {
                             //Inicio de la construcción de la opción de Laboratorio
-                            if (ps.id.Equals("sNQqHHN5gi3"))
+                            if (ps.name.Trim().Equals("Laboratory"))
                             {
                                 try
                                 {
