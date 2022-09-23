@@ -495,7 +495,7 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                                 trackedInstDto.orgUnit = ouLine.id;
                                 var codeCaseID = objprogram.Attribute.Find(x => x.Column == objprogram.caseidcolumm.ToUpperInvariant());
                                 Organisation.OrganisationUnits.Find(x => x.code == valores[ou].ToString().Trim());
-                                var validatetraked = await _dhis.GetTracked(caseidvalue, ouLine.id, commandGeneral.token, commandGeneral.Programsid, codeCaseID.Id);
+                                var validatetraked = await _dhis.GetTracked(caseidvalue, ouLine.id, commandGeneral.token, codeCaseID.Id);
                                 if (validatetraked.trackedEntityInstances.Count > 0)
                                     trackedInstDto.trackedEntityInstance = validatetraked.trackedEntityInstances[0].trackedEntityInstance;
                                 else

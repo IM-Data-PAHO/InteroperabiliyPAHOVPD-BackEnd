@@ -342,7 +342,7 @@ namespace Microservice.VPDDataImport.Services.Common.Security
             }
         }
 
-        public async static Task<string> CallGetValidateTracked(string service, string method, string content, string ou, string token, string program, string atribute)
+        public async static Task<string> CallGetValidateTracked(string service, string method, string content, string ou, string token,string atribute)
         {
             try
             {
