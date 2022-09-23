@@ -25,7 +25,7 @@ namespace Microservice.VPDDataImport.Services.Queries
         Task<OrganisationUnitsDto> GetAllOrganisation(string token);
         Task<OrganisationUnit> GetOrganisationUnit(string token, string uid);
         Task<UidGeneratedDto> GetUidGenerated(string quantity, string token);
-        Task<AddTrackedDto> GetTracked(string caseid, string ou, string token);
+        Task<AddTrackedDto> GetTracked(string caseid, string ou, string token, string program,string atribute);
         Task<AddEnrollmentsClearDto> GetEnrollment(string program, string oupath, string token);
         Task<AddTracketResultDto> AddTracked(AddTrackedDto request, string token);
         Task<AddEnrollmentResultDto> AddEnrollment(AddEnrollmentDto request, string token);
@@ -99,16 +99,16 @@ namespace Microservice.VPDDataImport.Services.Queries
                 RowFile = ReadXLS(request);
             }
 
-            if (fileExtension != ".csv")
+            if (fileExtension != ".csv" && fileExtension != ".xlsx" && fileExtension != ".xls")
             {
-                if (fileExtension != ".xlsx")
-                {
-                    if (fileExtension != ".xls")
-                    {
-                        error += "\nEl tipo de archivo " + Path.GetExtension(request.CsvFile.FileName) + " " + request.CsvFile.FileName + "  no es compatible con los archivos aceptados (*.csv (separado por , ó ;), *.xls y *.xlsx)";
-                        response = error;
-                    }
-                }
+                //if (fileExtension != ".xlsx")
+                //{
+                //    if (fileExtension != ".xls")
+                //    {
+                error += "\nEl tipo de archivo " + Path.GetExtension(request.CsvFile.FileName) + " " + request.CsvFile.FileName + "  no es compatible con los archivos aceptados (*.csv (separado por , ó ;), *.xls y *.xlsx)";
+                response = error;
+                //    }
+                //}
 
                 {
                     var v = new validateDto
@@ -126,6 +126,7 @@ namespace Microservice.VPDDataImport.Services.Queries
                     sumerrorobj.extensionfile = sumerrorobj.extensionfile + 1;
                 }
             }
+            
             var lstDate = new List<Int32>();
 
             try
@@ -766,9 +767,9 @@ namespace Microservice.VPDDataImport.Services.Queries
         /// <param name="ou">Unidad organizativa</param>
         /// <param name="token">Token de autenticación</param>
         /// <returns>Retorna un dto de tipo AddTrackedDto</returns>
-        public async Task<AddTrackedDto> GetTracked(string caseid, string ou, string token)
+        public async Task<AddTrackedDto> GetTracked(string caseid, string ou, string token, string program, string atribute)
         {
-            var result = await RequestHttp.CallGetMethod("dhis", "validatetrak", caseid, ou, token);
+            var result = await RequestHttp.CallGetValidateTracked("dhis", "validatetrak", caseid, ou, token, program, atribute);
             return JsonConvert.DeserializeObject<AddTrackedDto>(result);
         }
 

@@ -318,13 +318,46 @@ namespace Microservice.VPDDataImport.Services.Common.Security
                 _method = !string.IsNullOrEmpty(_method) ? string.Format($"/{_method}") : null;
                 string URL = string.Format($"{_service.URL}{_method}{content}");
                 if (method == "validatetrak")
-                    URL = string.Format($"{_service.URL}{_method}{content}&ou={ou}");
+                    URL = string.Format($"{_service.URL}{_method}:EQ:{content}&ou={ou}");
                 if (method == "validateenroll")
                     URL = string.Format($"{_service.URL}{_method}{ou}&trackedEntityInstance={content}");
 
             using (var client = new HttpClient())
                 using (var request = new HttpRequestMessage(HttpMethod.Get, URL))
                 {                    
+                    if (_service.Authentication.User != null)
+                        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                    request.Headers.Add("Accept", "application/json");
+                    using (var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false))
+                    {
+                        response.EnsureSuccessStatusCode();
+                        var result = await response.Content.ReadAsStringAsync();
+                        return result;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async static Task<string> CallGetValidateTracked(string service, string method, string content, string ou, string token, string program, string atribute)
+        {
+            try
+            {
+                var _set = _integration;
+                var _service = _set.Services.Where(s => s.Name.Equals(service)).ToList().FirstOrDefault();
+                var _method = _service.Methods.Where(m => m.Method.Equals(method)).FirstOrDefault().Value;
+                _method = !string.IsNullOrEmpty(_method) ? string.Format($"/{_method}") : null;
+                string URL = string.Format($"{_service.URL}{_method}{content}");
+               // if (method == "validatetrak")
+               // URL = string.Format($"{_service.URL}{_method}{atribute}:EQ:{content}&ou={ou}&program={program}");
+                URL = string.Format($"{_service.URL}{_method}{atribute}:EQ:{content}&ou={ou}");
+
+                using (var client = new HttpClient())
+                using (var request = new HttpRequestMessage(HttpMethod.Get, URL))
+                {
                     if (_service.Authentication.User != null)
                         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
                     request.Headers.Add("Accept", "application/json");

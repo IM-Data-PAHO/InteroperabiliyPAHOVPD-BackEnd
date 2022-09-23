@@ -70,10 +70,10 @@ namespace Microservice.VPDDataImport.Api.Controllers
         /// <param name="token">Token de autenticación</param>
         /// <returns>Retorna un dto de tipo AddTrackedDto</returns>
         [HttpGet]
-        [Route("getTracked/{caseid}/{ou}/{token}")]
-        public async Task<AddTrackedDto> GetTracket(string caseid,string ou,string token)
+        [Route("getTracked/{caseid}/{ou}/{token}/{program}/{atribute}")]
+        public async Task<AddTrackedDto> GetTracket(string caseid,string ou,string token, string program, string atribute)
         {
-            return await _dhisQueryService.GetTracked(caseid,ou,token);
+            return await _dhisQueryService.GetTracked(caseid,ou,token, program, atribute);
         }
 
         /// <summary>

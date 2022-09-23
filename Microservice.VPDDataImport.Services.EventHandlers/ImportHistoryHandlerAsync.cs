@@ -415,6 +415,7 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                     Console.Write("Ciclos: " + cic.ToString());
                     cic++;
                     var enrollmentId = Array.IndexOf(headers, objprogram.Enrollmentdatecolumm.ToUpperInvariant());
+                   
                     try
                         {
                         if (enrollmentId >= 0)
@@ -492,8 +493,9 @@ namespace Microservice.VPDDataImport.Services.EventHandlers
                             if (ouLine != null)
                             {
                                 trackedInstDto.orgUnit = ouLine.id;
-
-                                var validatetraked = await _dhis.GetTracked(caseidvalue, ouLine.id, commandGeneral.token);
+                                var codeCaseID = objprogram.Attribute.Find(x => x.Column == "CASE_ID");
+                                Organisation.OrganisationUnits.Find(x => x.code == valores[ou].ToString().Trim());
+                                var validatetraked = await _dhis.GetTracked(caseidvalue, ouLine.id, commandGeneral.token, commandGeneral.Programsid, codeCaseID.Id);
                                 if (validatetraked.trackedEntityInstances.Count > 0)
                                     trackedInstDto.trackedEntityInstance = validatetraked.trackedEntityInstances[0].trackedEntityInstance;
                                 else
